@@ -1,10 +1,10 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.activity;
 
-import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -91,4 +91,30 @@ public class MainActivity extends SlidingFragmentActivity implements
         }
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            AlertDialog isExit = new AlertDialog.Builder(this).create();
+            isExit.setIcon(R.mipmap.tip);
+            isExit.setTitle("真的要退出应用嘛?");
+            isExit.setButton("先离开一下",listener);
+            isExit.setButton2("再看看", listener);
+            isExit.show();
+        }
+        return false;
+    }
+
+    DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which) {
+                case AlertDialog.BUTTON_POSITIVE:
+                    finish();
+                    break;
+                case AlertDialog.BUTTON_NEGATIVE:
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 }

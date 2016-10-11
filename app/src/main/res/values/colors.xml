@@ -6,6 +6,7 @@
     <color name="contain_title">#3F51B5</color>
     <color name="background_progress">#282828</color>
     <color name="font_progress">#bebebe</color>
-    <color name="left_fragment">#3F31B1</color>
+    <color name="left_fragment">#f1f1f9</color>
     <color name="line">#bebebe</color>
+    <color name="left_fragment_head">#3F5199</color>
 </resources>

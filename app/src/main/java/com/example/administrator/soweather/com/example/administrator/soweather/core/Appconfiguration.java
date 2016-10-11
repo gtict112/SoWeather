@@ -1,5 +1,7 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.core;
 
+import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 
@@ -33,7 +35,7 @@ public class Appconfiguration {
         return config;
     }
 
-    public ProgressDialogFragment showProgressDialog(String message, FragmentActivity context) {
+    public ProgressDialogFragment showProgressDialog(String message, Activity context) {
         if (message != null)
             progressDialog.setMessage(message);
         progressDialog.show(context.getFragmentManager(),null);
