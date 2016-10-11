@@ -1,12 +1,11 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
@@ -16,7 +15,7 @@ import com.example.administrator.soweather.com.example.administrator.soweather.a
  */
 
 public class LeftFragment extends Fragment implements View.OnClickListener {
-    private LinearLayout mHome;
+    private RelativeLayout mHome;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,7 +31,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initView(View view) {
-        mHome = (LinearLayout) view.findViewById(R.id.home);
+        mHome = (RelativeLayout) view.findViewById(R.id.home);
         mHome.setOnClickListener(this);
     }
 
