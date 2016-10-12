@@ -9,4 +9,10 @@
     <color name="left_fragment">#f1f1f9</color>
     <color name="line">#bebebe</color>
     <color name="left_fragment_head">#3F5199</color>
+    <color name="greed">#2FC1B7</color>
+    <color name="red">#F15F7F</color>
+    <color name="white">#ffffff</color>
+    <color name="theme_disabled">#e1e1e1</color>
+    <color name="theme_blue">#3081dc</color>
+    <color name="half_transparent">#d0ffffff</color>
 </resources>
