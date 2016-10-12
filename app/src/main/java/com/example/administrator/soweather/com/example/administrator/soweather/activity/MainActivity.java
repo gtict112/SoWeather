@@ -10,11 +10,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.LeftFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.MainFragment;
+import com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout;
 import com.example.administrator.soweather.com.example.administrator.soweather.general.ProgressDialogFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.SlidingMenu;
 
@@ -28,6 +30,7 @@ public class MainActivity extends SlidingFragmentActivity implements
     private Fragment mContent;
     private TextView topTextView;
     private String title;
+    private TextView dress;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,8 @@ public class MainActivity extends SlidingFragmentActivity implements
         topButton = (ImageView) findViewById(R.id.topButton);
         topButton.setOnClickListener(this);
         topTextView = (TextView) findViewById(R.id.topTv);
+        dress = (TextView) findViewById(R.id.dresss);
+        dress.setOnClickListener(this);
     }
 
     private void initSlidingMenu(Bundle savedInstanceState) {
@@ -78,6 +83,11 @@ public class MainActivity extends SlidingFragmentActivity implements
                 .replace(R.id.content_frame, fragment).commit();
         getSlidingMenu().showContent();
         topTextView.setText(title);
+        if (title.equals("首页")) {
+            dress.setVisibility(View.VISIBLE);
+        } else {
+            dress.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -86,6 +96,9 @@ public class MainActivity extends SlidingFragmentActivity implements
             case R.id.topButton:
                 toggle();
                 break;
+            case R.id.dresss:
+                //选择地址
+                break;
             default:
                 break;
         }
@@ -93,28 +106,19 @@ public class MainActivity extends SlidingFragmentActivity implements
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            AlertDialog isExit = new AlertDialog.Builder(this).create();
-            isExit.setIcon(R.mipmap.tip);
-            isExit.setTitle("真的要退出应用嘛?");
-            isExit.setButton("先离开一下",listener);
-            isExit.setButton2("再看看", listener);
-            isExit.show();
-        }
+        DialogLogout dialog = new DialogLogout(this, new DialogLogout.OnCancleDialogListener() {
+            @Override
+            public void cancle() {
+                Toast.makeText(MainActivity.this,"您真的太赞了",Toast.LENGTH_LONG).show();
+            }
+        }, new DialogLogout.onConFirmDialogListener() {
+            @Override
+            public void confirm() {
+               finish();
+            }
+        });
+        dialog.show();
         return false;
     }
 
-    DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-        public void onClick(DialogInterface dialog, int which) {
-            switch (which) {
-                case AlertDialog.BUTTON_POSITIVE:
-                    finish();
-                    break;
-                case AlertDialog.BUTTON_NEGATIVE:
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
 }

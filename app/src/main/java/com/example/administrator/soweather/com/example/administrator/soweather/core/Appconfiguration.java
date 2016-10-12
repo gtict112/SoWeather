@@ -38,7 +38,7 @@ public class Appconfiguration {
     public ProgressDialogFragment showProgressDialog(String message, Activity context) {
         if (message != null)
             progressDialog.setMessage(message);
-        progressDialog.show(context.getFragmentManager(),null);
+        progressDialog.show(context.getFragmentManager(),message);
         return progressDialog;
     }
 

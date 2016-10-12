@@ -102,7 +102,7 @@ public class MainFragment extends Fragment implements ResponseListenter {
 
 
     private void getData() {
-        config.showProgressDialog("正在加载", getActivity());
+        config.showProgressDialog("拼命加载中...", getActivity());
         WeatherService service = new WeatherService();
         service.getWeatherData(this);
     }
