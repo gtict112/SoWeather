@@ -131,7 +131,7 @@ public class MainFragment extends Fragment implements ResponseListenter {
                 null, false);
         DisplayMetrics dm = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-        popupwindow = new PopupWindow(customView, (int) (dm.widthPixels * 0.98), mHead1.getHeight() + mHead2.getHeight() - 10);
+        popupwindow = new PopupWindow(customView, (int) (dm.widthPixels * 0.98), mHead1.getHeight() + mHead2.getHeight()+50 );
         popupwindow.setAnimationStyle(R.style.AnimationFade);
     }
 

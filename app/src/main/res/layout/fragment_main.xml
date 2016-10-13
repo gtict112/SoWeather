@@ -22,11 +22,39 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="left"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/smiling_face"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="68"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="良"/>
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/head1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="horizontal">
+
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -39,6 +67,7 @@
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:src="@mipmap/ceshi"/>
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -193,10 +222,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:clickable="true"
-                        android:enabled="true"
                         android:drawableLeft="@mipmap/life_index"
                         android:drawablePadding="3dp"
                         android:drawableRight="@mipmap/to_right"
+                        android:enabled="true"
                         android:gravity="center_vertical"
                         android:text="相关指数"/>
                 </LinearLayout>

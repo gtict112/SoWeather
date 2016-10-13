@@ -1,5 +1,6 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.activity;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -26,6 +27,7 @@ public class MainActivity extends SlidingFragmentActivity implements
     private Fragment mContent;
     private TextView topTextView;
     private TextView dress;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -93,6 +95,8 @@ public class MainActivity extends SlidingFragmentActivity implements
                 break;
             case R.id.dresss:
                 //选择地址
+                Intent intent = new Intent(this, CurrentCityActivity.class);
+                startActivityForResult(intent, 0);
                 break;
             default:
                 break;
@@ -114,5 +118,18 @@ public class MainActivity extends SlidingFragmentActivity implements
         });
         dialog.show();
         return false;
+    }
+
+    // 回调方法，从第二个页面回来的时候会执行这个方法
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        String city = data.getStringExtra("city");
+        switch (requestCode) {
+            case 0:
+                dress.setText(city);
+                break;
+            default:
+                break;
+        }
     }
 }
