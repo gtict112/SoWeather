@@ -3,15 +3,20 @@ package com.example.administrator.soweather.com.example.administrator.soweather.
 import android.os.Bundle;
 import android.service.media.MediaBrowserService;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.soweather.R;
@@ -41,6 +46,10 @@ public class MainFragment extends Fragment implements ResponseListenter {
     private RadioButton mTypeDally;
     private LinearLayout mMoreTime;
     private ListView mListview;
+    private TextView mLiftIndex;
+    private PopupWindow popupwindow;
+    private LinearLayout mHead1;
+    private LinearLayout mHead2;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +64,7 @@ public class MainFragment extends Fragment implements ResponseListenter {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, null);
+        Bundle bundle = getArguments();
         initView(view);
         getData();
         return view;
@@ -67,6 +77,9 @@ public class MainFragment extends Fragment implements ResponseListenter {
         tu = (LineGraphicView) view.findViewById(R.id.tu);
         mMoreTime = (LinearLayout) view.findViewById(R.id.more_time);
         mListview = (ListView) view.findViewById(R.id.more_dally);
+        mLiftIndex = (TextView) view.findViewById(R.id.life_index);
+        mHead1 = (LinearLayout) view.findViewById(R.id.head1);
+        mHead2 = (LinearLayout) view.findViewById(R.id.head2);
         yList = new ArrayList<Double>();
         yList.add((double) 2.103);
         yList.add(4.05);
@@ -98,6 +111,28 @@ public class MainFragment extends Fragment implements ResponseListenter {
                 }
             }
         });
+        mLiftIndex.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (popupwindow != null && popupwindow.isShowing()) {
+                    popupwindow.dismiss();
+                    return;
+                } else {
+                    //弹出指数popwod;
+                    initmPopupWindowView();
+                    popupwindow.showAtLocation(mLiftIndex, Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 170);
+                }
+            }
+        });
+    }
+
+    private void initmPopupWindowView() {
+        View customView = getActivity().getLayoutInflater().inflate(R.layout.popupwindow_lift_index,
+                null, false);
+        DisplayMetrics dm = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        popupwindow = new PopupWindow(customView, (int) (dm.widthPixels * 0.98), mHead1.getHeight() + mHead2.getHeight() - 10);
+        popupwindow.setAnimationStyle(R.style.AnimationFade);
     }
 
 

@@ -1,23 +1,19 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.soweather.R;
-import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.LeftFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.MainFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout;
-import com.example.administrator.soweather.com.example.administrator.soweather.general.ProgressDialogFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.SlidingMenu;
 
 /**
@@ -29,9 +25,7 @@ public class MainActivity extends SlidingFragmentActivity implements
     private ImageView topButton;
     private Fragment mContent;
     private TextView topTextView;
-    private String title;
     private TextView dress;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -44,6 +38,7 @@ public class MainActivity extends SlidingFragmentActivity implements
             switchConent(mContent, "首页");
         }
     }
+
 
     private void initView() {
         topButton = (ImageView) findViewById(R.id.topButton);
@@ -109,16 +104,15 @@ public class MainActivity extends SlidingFragmentActivity implements
         DialogLogout dialog = new DialogLogout(this, new DialogLogout.OnCancleDialogListener() {
             @Override
             public void cancle() {
-                Toast.makeText(MainActivity.this,"您真的太赞了",Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "您真的太赞了", Toast.LENGTH_LONG).show();
             }
         }, new DialogLogout.onConFirmDialogListener() {
             @Override
             public void confirm() {
-               finish();
+                finish();
             }
         });
         dialog.show();
         return false;
     }
-
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/main"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
@@ -21,6 +22,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/head1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
@@ -111,6 +113,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/head2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="5dp"
@@ -175,21 +178,26 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
                         android:drawableLeft="@mipmap/today"
                         android:drawablePadding="3dp"
+                        android:gravity="center_vertical"
                         android:text="今天数据"/>
+
                     <View
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"/>
+
                     <TextView
+                        android:id="@+id/life_index"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
+                        android:clickable="true"
+                        android:enabled="true"
                         android:drawableLeft="@mipmap/life_index"
                         android:drawablePadding="3dp"
                         android:drawableRight="@mipmap/to_right"
+                        android:gravity="center_vertical"
                         android:text="相关指数"/>
                 </LinearLayout>
 
@@ -254,6 +262,7 @@
                     android:id="@+id/more_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/left_fragment_head"
                     android:orientation="vertical">
 
                     <LinearLayout
