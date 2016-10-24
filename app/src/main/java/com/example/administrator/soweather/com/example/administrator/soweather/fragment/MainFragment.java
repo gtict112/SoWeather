@@ -99,7 +99,7 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         tmp_txt.setText(mTmpTxt);
         sc.setText("风力: "+mData.get(0).sc);
         dir.setText(mData.get(0).dir);
-        deg.setText(mData.get(0).deg);
+        deg.setText("角度: "+mData.get(0).deg);
     }
 
     private void initView(View view) {
