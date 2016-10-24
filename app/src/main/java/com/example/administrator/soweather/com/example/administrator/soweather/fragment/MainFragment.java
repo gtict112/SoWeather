@@ -26,6 +26,8 @@ import com.example.administrator.soweather.com.example.administrator.soweather.u
 import com.example.administrator.soweather.com.example.administrator.soweather.view.LineGraphicView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,18 +76,24 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
             @Override
             public void handleMessage(Message msg) {
                 if (msg.what == 111) {
-                    init(mData);
+                    try {
+                        init(mData);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         };
         return view;
     }
 
-    private void init(List<WeatherData> mData) {
+    private void init(List<WeatherData> mData) throws JSONException {
         config.dismissProgressDialog();
         mP25Name.setText(mData.get(0).qlty);
         mP25Num.setText("Pm25: "+mData.get(0).pm25);
         mTmp.setText(mData.get(0).tmp+"℃");
+        String mTmpTxt =  new JSONObject(mData.get(0).cond).optString("txt");
+        tmp_txt.setText(mTmpTxt);
     }
 
     private void initView(View view) {
