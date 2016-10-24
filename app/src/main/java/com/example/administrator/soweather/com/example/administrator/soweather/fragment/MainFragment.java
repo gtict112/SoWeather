@@ -1,42 +1,37 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.fragment;
 
 import android.os.Bundle;
-import android.service.media.MediaBrowserService;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
+import com.example.administrator.soweather.com.example.administrator.soweather.mode.WeatherData;
 import com.example.administrator.soweather.com.example.administrator.soweather.sertvice.WeatherService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.LineGraphicView;
 
-import java.io.IOException;
 import java.util.ArrayList;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/10/10.
  */
-public class MainFragment extends Fragment implements ResponseListenter {
+public class MainFragment extends Fragment implements ResponseListenter<List<WeatherData>> {
     private View view;
     private Appconfiguration config = Appconfiguration.getInstance();
     private LineGraphicView tu;
@@ -48,8 +43,12 @@ public class MainFragment extends Fragment implements ResponseListenter {
     private ListView mListview;
     private TextView mLiftIndex;
     private PopupWindow popupwindow;
-    private LinearLayout mHead1;
+    private RelativeLayout mHead1;
     private LinearLayout mHead2;
+    private TextView mP25Num;
+    private TextView mP25Name;
+    private List<WeatherData> mData = new ArrayList<WeatherData>();
+    private Handler mHandler;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,7 +66,21 @@ public class MainFragment extends Fragment implements ResponseListenter {
         Bundle bundle = getArguments();
         initView(view);
         getData();
+        mHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                if (msg.what == 111) {
+                    init(mData);
+                }
+            }
+        };
         return view;
+    }
+
+    private void init(List<WeatherData> mData) {
+        config.dismissProgressDialog();
+        mP25Name.setText(mData.get(0).qlty);
+        mP25Num.setText("P25:"+mData.get(0).pm25);
     }
 
     private void initView(View view) {
@@ -78,8 +91,10 @@ public class MainFragment extends Fragment implements ResponseListenter {
         mMoreTime = (LinearLayout) view.findViewById(R.id.more_time);
         mListview = (ListView) view.findViewById(R.id.more_dally);
         mLiftIndex = (TextView) view.findViewById(R.id.life_index);
-        mHead1 = (LinearLayout) view.findViewById(R.id.head1);
+        mHead1 = (RelativeLayout) view.findViewById(R.id.head1);
         mHead2 = (LinearLayout) view.findViewById(R.id.head2);
+        mP25Num = (TextView) view.findViewById(R.id.p25_num);
+        mP25Name = (TextView) view.findViewById(R.id.p25_name);
         yList = new ArrayList<Double>();
         yList.add((double) 2.103);
         yList.add(4.05);
@@ -131,7 +146,7 @@ public class MainFragment extends Fragment implements ResponseListenter {
                 null, false);
         DisplayMetrics dm = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-        popupwindow = new PopupWindow(customView, (int) (dm.widthPixels * 0.98), mHead1.getHeight() + mHead2.getHeight()+50 );
+        popupwindow = new PopupWindow(customView, (int) (dm.widthPixels * 0.98), mHead1.getHeight() + mHead2.getHeight() + 50);
         popupwindow.setAnimationStyle(R.style.AnimationFade);
     }
 
@@ -143,10 +158,10 @@ public class MainFragment extends Fragment implements ResponseListenter {
     }
 
     @Override
-    public void onReceive(Result result) throws Exception {
-        config.dismissProgressDialog();
+    public void onReceive(Result<List<WeatherData>> result) throws Exception {
         if (result.isSuccess()) {
-            result.getData();
+            mData = result.getData();
+            mHandler.sendMessage(mHandler.obtainMessage(111, mData));
         } else {
             result.getErrorMessage();
         }

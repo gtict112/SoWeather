@@ -20,8 +20,9 @@ import okhttp3.Response;
 
 public class CityService {
     private final OkHttpClient client = new OkHttpClient();
-    private final String url ="https://api.heweather.com/x3/citylist?search=allchina&key=4e6193ff86d147a2a357dafb47b0f1bc";//国内城市：allchina、 热门城市：hotworld、 全部城市：allworld
+    private final String url = "https://api.heweather.com/x3/citylist?search=allchina&key=4e6193ff86d147a2a357dafb47b0f1bc";//国内城市：allchina、 热门城市：hotworld、 全部城市：allworld
     private Result<List<CityData>> result = new Result<List<CityData>>();
+
     public CityService() {
     }
 
@@ -47,8 +48,16 @@ public class CityService {
             public void onResponse(Call call, Response response) throws IOException {
                 Result<List<CityData>> res = ResponseProcessUtil.getHotworld(response);
                 try {
-                    a.onReceive(res);
+                    if (res.isSuccess()) {
+                        //进行分级排序处理
+                        res = CityData.setSortData(res);
+                        a.onReceive(res);
+                    } else {
+                        a.onReceive(res.setErrorMessage("获取数据失败"));
+                    }
                 } catch (Exception e1) {
+                    res.setSuccess(false);
+                    res.setErrorMessage("解析数据失败");
                     e1.printStackTrace();
                 }
             }
