@@ -53,6 +53,9 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
     private TextView mP25Name;
     private TextView mTmp;
     private TextView tmp_txt;
+    private TextView sc;
+    private TextView dir;
+    private TextView deg;
     private List<WeatherData> mData = new ArrayList<WeatherData>();
     private Handler mHandler;
 
@@ -94,6 +97,9 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         mTmp.setText(mData.get(0).tmp+"℃");
         String mTmpTxt =  new JSONObject(mData.get(0).cond).optString("txt");
         tmp_txt.setText(mTmpTxt);
+        sc.setText("风力: "+mData.get(0).sc);
+        dir.setText(mData.get(0).dir);
+        deg.setText(mData.get(0).deg);
     }
 
     private void initView(View view) {
@@ -110,6 +116,9 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         mP25Name = (TextView) view.findViewById(R.id.p25_name);
         mTmp =(TextView)view.findViewById(R.id.tmp);
         tmp_txt=(TextView)view.findViewById(R.id.tmp_txt);
+        sc =(TextView)view.findViewById(R.id.sc);
+        dir =(TextView)view.findViewById(R.id.dir);
+        deg=(TextView)view.findViewById(R.id.deg);
         yList = new ArrayList<Double>();
         yList.add((double) 2.103);
         yList.add(4.05);

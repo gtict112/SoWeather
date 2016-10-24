@@ -87,6 +87,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_marginRight="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -101,21 +102,27 @@
                         android:src="@mipmap/wind"/>
 
                     <TextView
+                        android:id="@+id/sc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="风力:2级"
+                        android:text=""
+                        android:textColor="@color/a3"
                         android:textSize="14sp"/>
 
                     <TextView
+                        android:id="@+id/dir"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="微风"
+                        android:text=""
+                        android:textColor="@color/a3"
                         android:textSize="14sp"/>
 
                     <TextView
+                        android:id="@+id/deg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="无持续风向"
+                        android:text=""
+                        android:textColor="@color/a3"
                         android:textSize="14sp"/>
                 </LinearLayout>
 
