@@ -25,6 +25,8 @@ import com.example.administrator.soweather.com.example.administrator.soweather.s
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.LineGraphicView;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +49,8 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
     private LinearLayout mHead2;
     private TextView mP25Num;
     private TextView mP25Name;
+    private TextView mTmp;
+    private TextView tmp_txt;
     private List<WeatherData> mData = new ArrayList<WeatherData>();
     private Handler mHandler;
 
@@ -80,14 +84,15 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
     private void init(List<WeatherData> mData) {
         config.dismissProgressDialog();
         mP25Name.setText(mData.get(0).qlty);
-        mP25Num.setText("P25:"+mData.get(0).pm25);
+        mP25Num.setText("Pm25: "+mData.get(0).pm25);
+        mTmp.setText(mData.get(0).tmp+"℃");
     }
 
     private void initView(View view) {
         mSelectType = (RadioGroup) view.findViewById(R.id.select_more_type);
         mTypeTime = (RadioButton) view.findViewById(R.id.type_time);
         mTypeDally = (RadioButton) view.findViewById(R.id.type_dally);
-        tu = (LineGraphicView) view.findViewById(R.id.tu);
+//        tu = (LineGraphicView) view.findViewById(R.id.tu);
         mMoreTime = (LinearLayout) view.findViewById(R.id.more_time);
         mListview = (ListView) view.findViewById(R.id.more_dally);
         mLiftIndex = (TextView) view.findViewById(R.id.life_index);
@@ -95,6 +100,8 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         mHead2 = (LinearLayout) view.findViewById(R.id.head2);
         mP25Num = (TextView) view.findViewById(R.id.p25_num);
         mP25Name = (TextView) view.findViewById(R.id.p25_name);
+        mTmp =(TextView)view.findViewById(R.id.tmp);
+        tmp_txt=(TextView)view.findViewById(R.id.tmp_txt);
         yList = new ArrayList<Double>();
         yList.add((double) 2.103);
         yList.add(4.05);
@@ -113,7 +120,7 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         xRawDatas.add("05-24");
         xRawDatas.add("05-25");
         xRawDatas.add("05-26");
-        tu.setData(yList, xRawDatas, 8, 2);
+       // tu.setData(yList, xRawDatas, 8, 2);
         mSelectType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -134,8 +141,8 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
                     return;
                 } else {
                     //弹出指数popwod;
-                    initmPopupWindowView();
-                    popupwindow.showAtLocation(mLiftIndex, Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 170);
+                 //   initmPopupWindowView();
+                  //  popupwindow.showAtLocation(mLiftIndex, Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 170);
                 }
             }
         });
