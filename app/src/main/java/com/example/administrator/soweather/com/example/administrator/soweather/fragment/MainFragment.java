@@ -3,12 +3,14 @@ package com.example.administrator.soweather.com.example.administrator.soweather.
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -33,6 +35,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.id.list;
+
 /**
  * Created by Administrator on 2016/10/10.
  */
@@ -44,8 +48,6 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
     private RadioGroup mSelectType;
     private RadioButton mTypeTime;
     private RadioButton mTypeDally;
-    private LinearLayout mMoreTime;
-    private ListView mListview;
     private TextView mLiftIndex;
     private PopupWindow popupwindow;
     private RelativeLayout mHead1;
@@ -66,10 +68,13 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
     private TextView hum;
     private TextView pcpn;
     private TextView fl;
-   private ImageView weatherImg;
-
+    private ImageView weatherImg;
+    private FrameLayout mMoreWeather;
     private List<WeatherData> mData = new ArrayList<WeatherData>();
     private Handler mHandler;
+    private List<WeatherData.HourlyForecast> mHourlyForecast = new ArrayList<>();
+    private TimeFragment mTimeFragment;
+    private DailyforecastFragment mDailyforecastFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -99,7 +104,13 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
                 }
             }
         };
+        mTimeFragment = new TimeFragment();
+        showFragment(mTimeFragment);
         return view;
+    }
+
+    private void showFragment(Fragment fragment) {
+        getChildFragmentManager().beginTransaction().replace(R.id.more_weather, fragment).commit();
     }
 
     private void init(List<WeatherData> mData) throws JSONException {
@@ -119,9 +130,9 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         cwbrf.setText(mData.get(0).cwbrf);
         sportbrf.setText(mData.get(0).sportbrf);
         uvbrf.setText(mData.get(0).uvbrf);
-        hum.setText("湿度"+mData.get(0).hum+"(%)");
-        pcpn.setText("降雨量"+mData.get(0).pcpn+"(mm)");
-        fl.setText("体感温度"+mData.get(0).fl+"℃");
+        hum.setText("湿度" + mData.get(0).hum + "(%)");
+        pcpn.setText("降雨量" + mData.get(0).pcpn + "(mm)");
+        fl.setText("体感温度" + mData.get(0).fl + "℃");
     }
 
     private void initView(View view) {
@@ -129,8 +140,6 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         mTypeTime = (RadioButton) view.findViewById(R.id.type_time);
         mTypeDally = (RadioButton) view.findViewById(R.id.type_dally);
         //        tu = (LineGraphicView) view.findViewById(R.id.tu);
-        mMoreTime = (LinearLayout) view.findViewById(R.id.more_time);
-        mListview = (ListView) view.findViewById(R.id.more_dally);
         mLiftIndex = (TextView) view.findViewById(R.id.life_index);
         mHead1 = (RelativeLayout) view.findViewById(R.id.head1);
         mHead2 = (LinearLayout) view.findViewById(R.id.head2);
@@ -150,7 +159,8 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         hum = (TextView) view.findViewById(R.id.hum);
         pcpn = (TextView) view.findViewById(R.id.pcpn);
         fl = (TextView) view.findViewById(R.id.fl);
-        weatherImg =(ImageView)view.findViewById(R.id.weatherImg);
+        weatherImg = (ImageView) view.findViewById(R.id.weatherImg);
+        mMoreWeather = (FrameLayout) view.findViewById(R.id.more_weather);
         yList = new ArrayList<Double>();
         yList.add((double) 2.103);
         yList.add(4.05);
@@ -174,11 +184,14 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.type_time) {
-                    mMoreTime.setVisibility(View.VISIBLE);
-                    mListview.setVisibility(View.GONE);
+                    mTimeFragment = new TimeFragment();
+                    Bundle bundle = new Bundle();
+                   bundle.putParcelableArrayList("data", (ArrayList<? extends Parcelable>) mHourlyForecast);
+                    mTimeFragment.setArguments(bundle);
+                    showFragment(mTimeFragment);
                 } else if (checkedId == R.id.type_dally) {
-                    mMoreTime.setVisibility(View.GONE);
-                    mListview.setVisibility(View.VISIBLE);
+                    mDailyforecastFragment = new DailyforecastFragment();
+                    showFragment(mDailyforecastFragment);
                 }
             }
         });
@@ -217,6 +230,7 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
     public void onReceive(Result<List<WeatherData>> result) throws Exception {
         if (result.isSuccess()) {
             mData = result.getData();
+            mHourlyForecast = result.getData().get(0).mHourlyforecast;
             mHandler.sendMessage(mHandler.obtainMessage(111, mData));
         } else {
             result.getErrorMessage();
