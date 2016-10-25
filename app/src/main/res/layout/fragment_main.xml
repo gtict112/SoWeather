@@ -31,21 +31,21 @@
 
                 <TextView
                     android:id="@+id/p25_num"
-                    android:textSize="15sp"
-                    android:textColor="@color/contain_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text=""/>
+                    android:text=""
+                    android:textColor="@color/contain_title"
+                    android:textSize="15sp"/>
 
                 <TextView
                     android:id="@+id/p25_name"
-                    android:textColor="@color/contain_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
-                    android:textSize="15sp"
-                    android:text=""/>
+                    android:text=""
+                    android:textColor="@color/contain_title"
+                    android:textSize="15sp"/>
             </LinearLayout>
 
             <RelativeLayout
@@ -64,34 +64,34 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/imageView"
+                        android:id="@+id/weatherImg"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@mipmap/ceshi"/>
+                       />
 
                     <TextView
                         android:id="@+id/tmp"
                         android:layout_width="wrap_content"
-                        android:textColor="@color/contain_title"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:text=""/>
+                        android:text=""
+                        android:textColor="@color/contain_title"
+                        android:textSize="20sp"/>
 
                     <TextView
                         android:id="@+id/tmp_txt"
-                        android:textColor="@color/contain_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="17sp"
-                        android:text=""/>
+                        android:text=""
+                        android:textColor="@color/contain_title"
+                        android:textSize="17sp"/>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginRight="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
                     android:orientation="vertical"
                     >
 
@@ -127,6 +127,7 @@
                 </LinearLayout>
 
             </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -143,19 +144,19 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_marginBottom="5dp"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:textSize="15sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@mipmap/today"
                         android:drawablePadding="3dp"
-                        android:textColor="@color/contain_title"
                         android:gravity="center_vertical"
-                        android:text="今天数据"/>
+                        android:text="今天数据"
+                        android:textColor="@color/contain_title"
+                        android:textSize="15sp"/>
 
                     <View
                         android:layout_width="0dp"
@@ -169,216 +170,259 @@
                         android:clickable="true"
                         android:drawableLeft="@mipmap/life_index"
                         android:drawablePadding="3dp"
-                        android:textColor="@color/contain_title"
                         android:drawableRight="@mipmap/to_right"
                         android:enabled="true"
-                        android:textSize="15sp"
                         android:gravity="center_vertical"
-                        android:text="相关指数"/>
+                        android:text="相关指数"
+                        android:textColor="@color/contain_title"
+                        android:textSize="15sp"/>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp">
+                    android:layout_marginRight="8dp"
+                    android:orientation="horizontal">
+
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@mipmap/cold_index"
-                            android:text="感冒指数 :"
                             android:drawablePadding="4dp"
                             android:gravity="center"
-
+                            android:text="感冒指数 :"
                             android:textSize="14sp"/>
+
                         <TextView
+                            android:id="@+id/flubrf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:text="少发"/>
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textColor="@color/contain_title"
+                            android:textSize="14sp"/>
                     </LinearLayout>
+
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:background="@color/line"/>
+
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="right">
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
                             android:drawableLeft="@mipmap/dressing_index"
-                            android:text="穿衣指数 :"
                             android:drawablePadding="4dp"
                             android:gravity="center"
+                            android:text="穿衣指数 :"
                             android:textSize="14sp"/>
+
                         <TextView
+                            android:id="@+id/drsgbrf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:text="较适宜"/>
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textColor="@color/contain_title"
+                            android:textSize="14sp"/>
                     </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginRight="8dp">
+                    android:orientation="horizontal">
+
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@mipmap/index_tourism"
-                            android:text="旅游指数 :"
                             android:drawablePadding="4dp"
                             android:gravity="center"
+                            android:text="旅游指数 :"
                             android:textSize="14sp"/>
+
                         <TextView
+                            android:id="@+id/travbrf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:text="适宜"/>
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textColor="@color/contain_title"
+                            android:textSize="14sp"/>
                     </LinearLayout>
+
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:background="@color/line"/>
+
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="right">
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
                             android:drawableLeft="@mipmap/washing_index"
-                            android:text="洗车指数 :"
                             android:drawablePadding="4dp"
                             android:gravity="center"
+                            android:text="洗车指数 :"
                             android:textSize="14sp"/>
+
                         <TextView
+                            android:id="@+id/cwbrf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:text="较适宜"/>
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textColor="@color/contain_title"
+                            android:textSize="14sp"/>
                     </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginRight="8dp">
+                    android:orientation="horizontal">
+
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@mipmap/movement_index"
-                            android:text="运动指数 :"
                             android:drawablePadding="4dp"
                             android:gravity="center"
+                            android:text="运动指数 :"
                             android:textSize="14sp"/>
+
                         <TextView
+                            android:id="@+id/sportbrf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:text="较适宜"/>
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textColor="@color/contain_title"
+                            android:textSize="14sp"/>
                     </LinearLayout>
+
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:background="@color/line"/>
+
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="right">
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
                             android:drawableLeft="@mipmap/uv_index"
-                            android:text="紫外线指数 :"
                             android:drawablePadding="4dp"
                             android:gravity="center"
+                            android:text="紫外线指数 :"
                             android:textSize="14sp"/>
+
                         <TextView
+                            android:id="@+id/uvbrf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:text="中等"/>
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textColor="@color/contain_title"
+                            android:textSize="14sp"/>
                     </LinearLayout>
                 </LinearLayout>
                 <!--<com.example.administrator.soweather.com.example.administrator.soweather.view.LineGraphicView-->
-                    <!--android:id="@+id/tu"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="150dp"-->
-                    <!--android:layout_marginTop="5dp"-->
-                    <!--/>-->
+                <!--android:id="@+id/tu"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="150dp"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--/>-->
 
                 <LinearLayout
                     android:id="@+id/head2"
-                    android:layout_marginTop="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="5dp"
+                    android:layout_marginTop="12dp"
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/hum"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:drawablePadding="5dp"
                         android:drawableTop="@mipmap/humidity"
                         android:gravity="center"
-                        android:text="63%"/>
+                        android:text="63%"
+                        android:textSize="10sp"/>
 
                     <TextView
+                        android:id="@+id/pcpn"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:drawablePadding="5dp"
                         android:drawableTop="@mipmap/rainfall"
                         android:gravity="center"
-                        android:text="0%"/>
+                        android:text="0%"
+                        android:textSize="10sp"/>
 
                     <TextView
+                        android:id="@+id/fl"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:drawablePadding="5dp"
                         android:drawableTop="@mipmap/feeling_temperature"
                         android:gravity="center"
-                        android:text="19℃"/>
+                        android:text="19℃"
+                        android:textSize="10sp"/>
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawablePadding="5dp"
-                        android:drawableTop="@mipmap/air_pressure"
-                        android:gravity="center"
-                        android:text="1021kpa"/>
+
                 </LinearLayout>
             </LinearLayout>
 

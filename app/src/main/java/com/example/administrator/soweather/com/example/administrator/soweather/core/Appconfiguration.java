@@ -3,6 +3,8 @@ package com.example.administrator.soweather.com.example.administrator.soweather.
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.support.v4.app.FragmentActivity;
 
 import com.example.administrator.soweather.com.example.administrator.soweather.general.ProgressDialogFragment;
@@ -15,10 +17,27 @@ public class Appconfiguration {
     private ProgressDialogFragment progressDialog;
     private Context mContext;
     private static Appconfiguration config;
+    private static SharedPreferences generalPreferences;
+    private static SharedPreferences.Editor generalPreferenceEditor;
+    private Bitmap drawable;//当天天气图片
+    private String adress; //当前位置
+    private String tmp_txt;//天气描述
+    private String tem;//温度
 
     public Context getContext() {
         return mContext;
     }
+    public void setTmpTxt(String tmp_txt) {
+        this.tmp_txt = tmp_txt;
+        generalPreferenceEditor.putString("tmp_txt", tmp_txt);
+        generalPreferenceEditor.commit();
+    }
+
+    public String getTmpTxt() {
+        return tmp_txt;
+    }
+
+
 
     public Appconfiguration() {
         progressDialog = new ProgressDialogFragment();
@@ -38,7 +57,7 @@ public class Appconfiguration {
     public ProgressDialogFragment showProgressDialog(String message, Activity context) {
         if (message != null)
             progressDialog.setMessage(message);
-        progressDialog.show(context.getFragmentManager(),message);
+        progressDialog.show(context.getFragmentManager(), message);
         return progressDialog;
     }
 

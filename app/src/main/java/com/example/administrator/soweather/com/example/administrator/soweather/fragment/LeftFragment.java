@@ -8,10 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout;
 
 /**
@@ -25,7 +27,9 @@ public class LeftFragment extends Fragment implements View.OnClickListener {
     private RelativeLayout mSetting;//设置
     private RelativeLayout mHelp;//帮助与反馈
     private RelativeLayout mLogout;//退出
-
+    private TextView tmp;
+    private TextView tmp_txt;
+   private Appconfiguration config = Appconfiguration.getInstance();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +50,8 @@ public class LeftFragment extends Fragment implements View.OnClickListener {
         mSetting = (RelativeLayout) view.findViewById(R.id.setting);
         mHelp = (RelativeLayout) view.findViewById(R.id.help);
         mLogout = (RelativeLayout) view.findViewById(R.id.logout);
+        tmp =(TextView)view.findViewById(R.id.tmp);
+        tmp_txt=(TextView)view.findViewById(R.id.tmp_txt);
         mHome.setOnClickListener(this);
         mLifeindex.setOnClickListener(this);
         mLittlebear.setOnClickListener(this);
