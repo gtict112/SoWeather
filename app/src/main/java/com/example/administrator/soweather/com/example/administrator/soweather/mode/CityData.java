@@ -7,18 +7,18 @@ import java.util.List;
  */
 
 public class CityData {
-    public long id;
+    public String id;
     public String cnty;
     public String prov;
     public double lon;
     public double lat;
     public String city;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

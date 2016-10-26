@@ -1,5 +1,6 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -37,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.R.id.list;
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Administrator on 2016/10/10.
@@ -94,7 +96,8 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         View view = inflater.inflate(R.layout.fragment_main, null);
         Bundle bundle = getArguments();
         initView(view);
-        getData();
+        String cityid = null;
+        getData(cityid);
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -240,10 +243,10 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
     }
 
 
-    private void getData() {
+    private void getData(String cityid) {
         config.showProgressDialog("拼命加载中...", getActivity());
         WeatherService service = new WeatherService();
-        service.getWeatherData(this);
+        service.getWeatherData(this, cityid);
     }
 
     @Override
@@ -260,4 +263,18 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
             result.getErrorMessage();
         }
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (resultCode) {
+            case 0:
+                Bundle b = data.getExtras();
+                String str = b.getString("cityid");
+                getData(str);
+                break;
+            default:
+                break;
+        }
+    }
+
 }

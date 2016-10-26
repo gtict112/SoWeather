@@ -48,6 +48,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
     private List<WeatherData> mData = new ArrayList<WeatherData>();
     private TextView dress;
     private TextView tip;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +77,8 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
 
     private void getData() {
         WeatherService service = new WeatherService();
-        service.getWeatherData(this);
+        String city = null;
+        service.getWeatherData(this, city);
     }
 
     private void init(List<WeatherData> mData) throws JSONException {
@@ -99,7 +101,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
         tmp_txt = (TextView) view.findViewById(R.id.tmp_txt);
         tem_img = (ImageView) view.findViewById(R.id.tem_img);
         dress = (TextView) view.findViewById(R.id.dress);
-        tip=(TextView)view.findViewById(R.id.tip);
+        tip = (TextView) view.findViewById(R.id.tip);
         mHome.setOnClickListener(this);
         mLifeindex.setOnClickListener(this);
         mLittlebear.setOnClickListener(this);
