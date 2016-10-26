@@ -27,18 +27,6 @@ public class Appconfiguration {
     public Context getContext() {
         return mContext;
     }
-    public void setTmpTxt(String tmp_txt) {
-        this.tmp_txt = tmp_txt;
-        generalPreferenceEditor.putString("tmp_txt", tmp_txt);
-        generalPreferenceEditor.commit();
-    }
-
-    public String getTmpTxt() {
-        return tmp_txt;
-    }
-
-
-
     public Appconfiguration() {
         progressDialog = new ProgressDialogFragment();
     }

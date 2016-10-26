@@ -26,6 +26,7 @@ import com.example.administrator.soweather.com.example.administrator.soweather.m
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.WeatherData;
 import com.example.administrator.soweather.com.example.administrator.soweather.sertvice.WeatherService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
+import com.example.administrator.soweather.com.example.administrator.soweather.view.AutoScrollTextView;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.LineGraphicView;
 
 import org.json.JSONArray;
@@ -73,8 +74,10 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
     private List<WeatherData> mData = new ArrayList<WeatherData>();
     private Handler mHandler;
     private List<WeatherData.HourlyForecast> mHourlyForecast = new ArrayList<>();
+    private List<WeatherData.DailyForecase> mDailyForecase = new ArrayList<>();
     private TimeFragment mTimeFragment;
     private DailyforecastFragment mDailyforecastFragment;
+    private AutoScrollTextView TextViewNotice;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,8 +107,6 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
                 }
             }
         };
-        mTimeFragment = new TimeFragment();
-        showFragment(mTimeFragment);
         return view;
     }
 
@@ -133,6 +134,19 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         hum.setText("湿度" + mData.get(0).hum + "(%)");
         pcpn.setText("降雨量" + mData.get(0).pcpn + "(mm)");
         fl.setText("体感温度" + mData.get(0).fl + "℃");
+        String ss = new JSONObject(mData.get(0).mDailyForecase.get(0).astro).optString("ss");
+        String sr = new JSONObject(mData.get(0).mDailyForecase.get(0).astro).optString("sr");
+        String min = new JSONObject(mData.get(0).mDailyForecase.get(0).tmp).optString("min");
+        String max = new JSONObject(mData.get(0).mDailyForecase.get(0).tmp).optString("max");
+        TextViewNotice.setText("日出时间: " + sr + "    日落时间: " + ss + "     当天最低温度: " + min + " ℃" + "     当前最高温度 " + max + " ℃");
+        TextViewNotice.init(getActivity().getWindowManager());
+
+        mHourlyForecast = mData.get(0).mHourlyforecast;
+        mTimeFragment = new TimeFragment();
+        Bundle bundle1 = new Bundle();
+        bundle1.putParcelableArrayList(TimeFragment.DATA, (ArrayList<? extends Parcelable>) mHourlyForecast);
+        mTimeFragment.setArguments(bundle1);
+        showFragment(mTimeFragment);
     }
 
     private void initView(View view) {
@@ -161,6 +175,9 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         fl = (TextView) view.findViewById(R.id.fl);
         weatherImg = (ImageView) view.findViewById(R.id.weatherImg);
         mMoreWeather = (FrameLayout) view.findViewById(R.id.more_weather);
+        TextViewNotice = (AutoScrollTextView) view.findViewById(R.id.TextViewNotice);
+        TextViewNotice.init(getActivity().getWindowManager());
+        TextViewNotice.startScroll();
         yList = new ArrayList<Double>();
         yList.add((double) 2.103);
         yList.add(4.05);
@@ -186,11 +203,14 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
                 if (checkedId == R.id.type_time) {
                     mTimeFragment = new TimeFragment();
                     Bundle bundle = new Bundle();
-                   bundle.putParcelableArrayList("data", (ArrayList<? extends Parcelable>) mHourlyForecast);
+                    bundle.putParcelableArrayList(TimeFragment.DATA, (ArrayList<? extends Parcelable>) mHourlyForecast);
                     mTimeFragment.setArguments(bundle);
                     showFragment(mTimeFragment);
                 } else if (checkedId == R.id.type_dally) {
                     mDailyforecastFragment = new DailyforecastFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelableArrayList(DailyforecastFragment.DATA, (ArrayList<? extends Parcelable>) mDailyForecase);
+                    mDailyforecastFragment.setArguments(bundle);
                     showFragment(mDailyforecastFragment);
                 }
             }
@@ -231,6 +251,10 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         if (result.isSuccess()) {
             mData = result.getData();
             mHourlyForecast = result.getData().get(0).mHourlyforecast;
+            for (int i = 0; i < mHourlyForecast.size(); i++) {
+                mHourlyForecast.get(i).tem_img = mData.get(0).drawable;
+            }
+            mDailyForecase = result.getData().get(0).mDailyForecase;
             mHandler.sendMessage(mHandler.obtainMessage(111, mData));
         } else {
             result.getErrorMessage();
