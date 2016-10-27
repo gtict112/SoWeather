@@ -26,8 +26,6 @@ public class MainActivity extends SlidingFragmentActivity implements
     private ImageView topButton;
     private Fragment mContent;
     private TextView topTextView;
-    private TextView dress;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -36,7 +34,7 @@ public class MainActivity extends SlidingFragmentActivity implements
         initView();
         initSlidingMenu(savedInstanceState);
         if (mContent == null) {
-            mContent = new MainFragment();
+            mContent =  new MainFragment();
             switchConent(mContent, "首页");
         }
     }
@@ -46,8 +44,6 @@ public class MainActivity extends SlidingFragmentActivity implements
         topButton = (ImageView) findViewById(R.id.topButton);
         topButton.setOnClickListener(this);
         topTextView = (TextView) findViewById(R.id.topTv);
-        dress = (TextView) findViewById(R.id.dresss);
-        dress.setOnClickListener(this);
     }
 
     private void initSlidingMenu(Bundle savedInstanceState) {
@@ -80,11 +76,6 @@ public class MainActivity extends SlidingFragmentActivity implements
                 .replace(R.id.content_frame, fragment).commit();
         getSlidingMenu().showContent();
         topTextView.setText(title);
-        if (title.equals("首页")) {
-            dress.setVisibility(View.VISIBLE);
-        } else {
-            dress.setVisibility(View.GONE);
-        }
     }
 
     @Override
@@ -92,11 +83,6 @@ public class MainActivity extends SlidingFragmentActivity implements
         switch (v.getId()) {
             case R.id.topButton:
                 toggle();
-                break;
-            case R.id.dresss:
-                //选择地址
-                Intent intent = new Intent(this, CurrentCityActivity.class);
-                startActivityForResult(intent, 0);
                 break;
             default:
                 break;
@@ -118,18 +104,5 @@ public class MainActivity extends SlidingFragmentActivity implements
         });
         dialog.show();
         return false;
-    }
-
-    // 回调方法，从第二个页面回来的时候会执行这个方法
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        String city = data.getStringExtra("city");
-        switch (requestCode) {
-            case 0:
-                dress.setText(city);
-                break;
-            default:
-                break;
-        }
     }
 }

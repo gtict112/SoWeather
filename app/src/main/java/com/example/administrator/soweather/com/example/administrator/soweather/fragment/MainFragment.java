@@ -22,6 +22,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.CurrentCityActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.WeatherData;
@@ -80,6 +82,8 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
     private TimeFragment mTimeFragment;
     private DailyforecastFragment mDailyforecastFragment;
     private AutoScrollTextView TextViewNotice;
+    private String cityid;
+    private TextView dresss;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,9 +98,7 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, null);
-        Bundle bundle = getArguments();
         initView(view);
-        String cityid = null;
         getData(cityid);
         mHandler = new Handler() {
             @Override
@@ -110,6 +112,7 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
                 }
             }
         };
+
         return view;
     }
 
@@ -119,6 +122,7 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
 
     private void init(List<WeatherData> mData) throws JSONException {
         config.dismissProgressDialog();
+        dresss.setText(mData.get(0).cnty + mData.get(0).city);
         weatherImg.setImageBitmap(mData.get(0).drawable);
         mP25Name.setText(mData.get(0).qlty);
         mP25Num.setText("Pm25: " + mData.get(0).pm25);
@@ -179,6 +183,14 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         weatherImg = (ImageView) view.findViewById(R.id.weatherImg);
         mMoreWeather = (FrameLayout) view.findViewById(R.id.more_weather);
         TextViewNotice = (AutoScrollTextView) view.findViewById(R.id.TextViewNotice);
+        dresss = (TextView) view.findViewById(R.id.dresss);
+        dresss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CurrentCityActivity.class);
+                startActivityForResult(intent, 0);
+            }
+        });
         TextViewNotice.init(getActivity().getWindowManager());
         TextViewNotice.startScroll();
         yList = new ArrayList<Double>();
@@ -264,17 +276,17 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         }
     }
 
+    // 回调方法，从第二个页面回来的时候会执行这个方法
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (resultCode) {
+        switch (requestCode) {
             case 0:
                 Bundle b = data.getExtras();
-                String str = b.getString("cityid");
-                getData(str);
+                cityid = b.getString("cityid");
+                getData(cityid);
                 break;
             default:
                 break;
         }
     }
-
 }

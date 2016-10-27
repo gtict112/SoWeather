@@ -83,7 +83,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
 
     private void init(List<WeatherData> mData) throws JSONException {
         tem_img.setImageBitmap(mData.get(0).drawable);
-        dress.setText(mData.get(0).cnty + mData.get(0).city);
+        dress.setText("当前位置: "+mData.get(0).cnty + mData.get(0).city);
         tmp.setText(mData.get(0).tmp + "℃");
         String mTmpTxt = new JSONObject(mData.get(0).cond).optString("txt");
         tmp_txt.setText(mTmpTxt);
@@ -120,7 +120,22 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
                 title = "首页";
                 break;
             case R.id.life_index:
-                newContent = new LifeIndexFragment();
+                LifeIndexFragment mLifeIndexFragment = new LifeIndexFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("cw_brf", mData.get(0).cwbrf);
+                bundle.putString("cw_txt", mData.get(0).cwtex);
+                bundle.putString("flu_brf", mData.get(0).flubrf);
+                bundle.putString("flu_txt", mData.get(0).flutex);
+                bundle.putString("drsg_brf", mData.get(0).drsgbrf);
+                bundle.putString("drsg_txt", mData.get(0).drsgtex);
+                bundle.putString("sport_brf", mData.get(0).sportbrf);
+                bundle.putString("sport_txt", mData.get(0).sporttex);
+                bundle.putString("trav_brf", mData.get(0).travbrf);
+                bundle.putString("trav_txt", mData.get(0).travtex);
+                bundle.putString("uv_brf", mData.get(0).uvbrf);
+                bundle.putString("uv_txt", mData.get(0).uvtex);
+                mLifeIndexFragment.setArguments(bundle);
+                newContent = mLifeIndexFragment;
                 title = "生活指数";
                 break;
             case R.id.little_bear:
