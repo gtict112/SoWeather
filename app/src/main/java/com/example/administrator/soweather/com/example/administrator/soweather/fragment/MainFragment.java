@@ -61,9 +61,9 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
     private ImageView weatherImg;
     private List<WeatherData> mData = new ArrayList<WeatherData>();
     private Handler mHandler;
-    private List<WeatherData.HourlyForecast> mHourlyForecast = new ArrayList<>();
+    private List<WeatherData.HourlyForecast> mHourlyForecast = new ArrayList<WeatherData.HourlyForecast>();
     private ImageView time;
-    private List<WeatherData.DailyForecase> mDailyForecase = new ArrayList<>();
+    private List<WeatherData.DailyForecase> mDailyForecase = new ArrayList<WeatherData.DailyForecase>();
     private ImageView day;
     private String cityid;
     private TextView dresss;
@@ -120,24 +120,6 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         String max = new JSONObject(mData.get(0).mDailyForecase.get(0).tmp).optString("max");
         up.setText(max + "℃");
         down.setText(min + "℃");
-        time.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), TimeWeatherActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(TimeWeatherActivity.DATA, (Serializable) mHourlyForecast);
-                intent.putExtra("sd", bundle);
-                startActivity(intent);
-            }
-        });
-        day.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), DayWeatherActivity.class);
-                intent.putExtra(DayWeatherActivity.DATA, (Serializable) mDailyForecase);
-                startActivity(intent);
-            }
-        });
     }
 
     private void initView(View view) {
@@ -163,6 +145,22 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), CurrentCityActivity.class);
                 startActivityForResult(intent, 0);
+            }
+        });
+        time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), TimeWeatherActivity.class);
+                intent.putExtra(TimeWeatherActivity.DATA, (Serializable) mHourlyForecast);
+                getActivity().startActivity(intent);
+            }
+        });
+        day.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), DayWeatherActivity.class);
+                intent.putExtra(DayWeatherActivity.DATA, (Serializable) mDailyForecase);
+                startActivity(intent);
             }
         });
     }
