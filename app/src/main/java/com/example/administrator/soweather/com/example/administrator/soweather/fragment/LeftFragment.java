@@ -83,7 +83,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
 
     private void init(List<WeatherData> mData) throws JSONException {
         tem_img.setImageBitmap(mData.get(0).drawable);
-        dress.setText("当前位置: "+mData.get(0).cnty + mData.get(0).city);
+        dress.setText("当前位置: " + mData.get(0).cnty + mData.get(0).city);
         tmp.setText(mData.get(0).tmp + "℃");
         String mTmpTxt = new JSONObject(mData.get(0).cond).optString("txt");
         tmp_txt.setText(mTmpTxt);
@@ -139,7 +139,8 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
                 title = "生活指数";
                 break;
             case R.id.little_bear:
-                title = "小笨熊";
+                newContent = new MoodLineFragment();
+                title = "心情线";
                 break;
             case R.id.setting:
                 title = "系统设置";

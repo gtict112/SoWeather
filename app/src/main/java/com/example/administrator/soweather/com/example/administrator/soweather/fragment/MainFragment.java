@@ -1,16 +1,16 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
-import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,67 +23,52 @@ import android.widget.TextView;
 
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.CurrentCityActivity;
-import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.DayWeatherActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.TimeWeatherActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.WeatherData;
 import com.example.administrator.soweather.com.example.administrator.soweather.sertvice.WeatherService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
-import com.example.administrator.soweather.com.example.administrator.soweather.view.AutoScrollTextView;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.LineGraphicView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.R.id.list;
-import static android.app.Activity.RESULT_OK;
+import static android.R.attr.key;
 
 /**
  * Created by Administrator on 2016/10/10.
  */
 public class MainFragment extends Fragment implements ResponseListenter<List<WeatherData>> {
-    private View view;
     private Appconfiguration config = Appconfiguration.getInstance();
-    private LineGraphicView tu;
-    private ArrayList<Double> yList;
-    private RadioGroup mSelectType;
-    private RadioButton mTypeTime;
-    private RadioButton mTypeDally;
-    private TextView mLiftIndex;
-    private PopupWindow popupwindow;
-    private RelativeLayout mHead1;
-    private LinearLayout mHead2;
     private TextView mP25Num;
     private TextView mP25Name;
     private TextView mTmp;
-    private TextView tmp_txt;
-    private TextView sc;
-    private TextView dir;
-    private TextView deg;
+
     private TextView flubrf;
+    private TextView flu_txt;
     private TextView drsgbrf;
+    private TextView drsg_txt;
     private TextView travbrf;
-    private TextView cwbrf;
+    private TextView trav_txt;
     private TextView sportbrf;
-    private TextView uvbrf;
-    private TextView hum;
-    private TextView pcpn;
-    private TextView fl;
+    private TextView sport_txt;
     private ImageView weatherImg;
-    private FrameLayout mMoreWeather;
     private List<WeatherData> mData = new ArrayList<WeatherData>();
     private Handler mHandler;
     private List<WeatherData.HourlyForecast> mHourlyForecast = new ArrayList<>();
+    private ImageView time;
     private List<WeatherData.DailyForecase> mDailyForecase = new ArrayList<>();
-    private TimeFragment mTimeFragment;
-    private DailyforecastFragment mDailyforecastFragment;
-    private AutoScrollTextView TextViewNotice;
+    private ImageView day;
     private String cityid;
     private TextView dresss;
+    private TextView up;
+    private TextView down;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -116,74 +101,63 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         return view;
     }
 
-    private void showFragment(Fragment fragment) {
-        getChildFragmentManager().beginTransaction().replace(R.id.more_weather, fragment).commit();
-    }
-
     private void init(List<WeatherData> mData) throws JSONException {
         config.dismissProgressDialog();
         dresss.setText(mData.get(0).cnty + mData.get(0).city);
         weatherImg.setImageBitmap(mData.get(0).drawable);
-        mP25Name.setText(mData.get(0).qlty);
-        mP25Num.setText("Pm25: " + mData.get(0).pm25);
+        mP25Name.setText("空气质量:  " + mData.get(0).qlty);
+        mP25Num.setText("PM25:  " + mData.get(0).pm25);
         mTmp.setText(mData.get(0).tmp + "℃");
-        String mTmpTxt = new JSONObject(mData.get(0).cond).optString("txt");
-        tmp_txt.setText(mTmpTxt);
-        sc.setText("风力: " + mData.get(0).sc);
-        dir.setText(mData.get(0).dir);
-        deg.setText("角度: " + mData.get(0).deg);
-        flubrf.setText(mData.get(0).flubrf);
-        drsgbrf.setText(mData.get(0).drsgbrf);
-        travbrf.setText(mData.get(0).travbrf);
-        cwbrf.setText(mData.get(0).cwbrf);
-        sportbrf.setText(mData.get(0).sportbrf);
-        uvbrf.setText(mData.get(0).uvbrf);
-        hum.setText("湿度" + mData.get(0).hum + "(%)");
-        pcpn.setText("降雨量" + mData.get(0).pcpn + "(mm)");
-        fl.setText("体感温度" + mData.get(0).fl + "℃");
-        String ss = new JSONObject(mData.get(0).mDailyForecase.get(0).astro).optString("ss");
-        String sr = new JSONObject(mData.get(0).mDailyForecase.get(0).astro).optString("sr");
+        flubrf.setText("感冒指数---" + mData.get(0).flubrf);
+        flu_txt.setText(mData.get(0).flutex);
+        drsgbrf.setText("穿衣指数---" + mData.get(0).drsgbrf);
+        drsg_txt.setText(mData.get(0).drsgtex);
+        travbrf.setText("旅游指数---" + mData.get(0).travbrf);
+        trav_txt.setText(mData.get(0).travtex);
+        sportbrf.setText("运动指数---" + mData.get(0).sportbrf);
+        sport_txt.setText(mData.get(0).sporttex);
         String min = new JSONObject(mData.get(0).mDailyForecase.get(0).tmp).optString("min");
         String max = new JSONObject(mData.get(0).mDailyForecase.get(0).tmp).optString("max");
-        TextViewNotice.setText("日出时间: " + sr + "    日落时间: " + ss + "     当天最低温度: " + min + " ℃" + "     当前最高温度 " + max + " ℃");
-        TextViewNotice.init(getActivity().getWindowManager());
-
-        mHourlyForecast = mData.get(0).mHourlyforecast;
-        mTimeFragment = new TimeFragment();
-        Bundle bundle1 = new Bundle();
-        bundle1.putParcelableArrayList(TimeFragment.DATA, (ArrayList<? extends Parcelable>) mHourlyForecast);
-        mTimeFragment.setArguments(bundle1);
-        showFragment(mTimeFragment);
+        up.setText(max + "℃");
+        down.setText(min + "℃");
+        time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), TimeWeatherActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(TimeWeatherActivity.DATA, (Serializable) mHourlyForecast);
+                intent.putExtra("sd", bundle);
+                startActivity(intent);
+            }
+        });
+        day.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), DayWeatherActivity.class);
+                intent.putExtra(DayWeatherActivity.DATA, (Serializable) mDailyForecase);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initView(View view) {
-        mSelectType = (RadioGroup) view.findViewById(R.id.select_more_type);
-        mTypeTime = (RadioButton) view.findViewById(R.id.type_time);
-        mTypeDally = (RadioButton) view.findViewById(R.id.type_dally);
-        //        tu = (LineGraphicView) view.findViewById(R.id.tu);
-        mLiftIndex = (TextView) view.findViewById(R.id.life_index);
-        mHead1 = (RelativeLayout) view.findViewById(R.id.head1);
-        mHead2 = (LinearLayout) view.findViewById(R.id.head2);
         mP25Num = (TextView) view.findViewById(R.id.p25_num);
         mP25Name = (TextView) view.findViewById(R.id.p25_name);
         mTmp = (TextView) view.findViewById(R.id.tmp);
-        tmp_txt = (TextView) view.findViewById(R.id.tmp_txt);
-        sc = (TextView) view.findViewById(R.id.sc);
-        dir = (TextView) view.findViewById(R.id.dir);
-        deg = (TextView) view.findViewById(R.id.deg);
         flubrf = (TextView) view.findViewById(R.id.flubrf);
         drsgbrf = (TextView) view.findViewById(R.id.drsgbrf);
         travbrf = (TextView) view.findViewById(R.id.travbrf);
-        cwbrf = (TextView) view.findViewById(R.id.cwbrf);
         sportbrf = (TextView) view.findViewById(R.id.sportbrf);
-        uvbrf = (TextView) view.findViewById(R.id.uvbrf);
-        hum = (TextView) view.findViewById(R.id.hum);
-        pcpn = (TextView) view.findViewById(R.id.pcpn);
-        fl = (TextView) view.findViewById(R.id.fl);
         weatherImg = (ImageView) view.findViewById(R.id.weatherImg);
-        mMoreWeather = (FrameLayout) view.findViewById(R.id.more_weather);
-        TextViewNotice = (AutoScrollTextView) view.findViewById(R.id.TextViewNotice);
         dresss = (TextView) view.findViewById(R.id.dresss);
+        up = (TextView) view.findViewById(R.id.up);
+        down = (TextView) view.findViewById(R.id.down);
+        flu_txt = (TextView) view.findViewById(R.id.flu_txt);
+        drsg_txt = (TextView) view.findViewById(R.id.drsg_txt);
+        trav_txt = (TextView) view.findViewById(R.id.trav_txt);
+        sport_txt = (TextView) view.findViewById(R.id.sport_txt);
+        time = (ImageView) view.findViewById(R.id.time);
+        day = (ImageView) view.findViewById(R.id.day);
         dresss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -191,69 +165,7 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
                 startActivityForResult(intent, 0);
             }
         });
-        TextViewNotice.init(getActivity().getWindowManager());
-        TextViewNotice.startScroll();
-        yList = new ArrayList<Double>();
-        yList.add((double) 2.103);
-        yList.add(4.05);
-        yList.add(6.60);
-        yList.add(3.08);
-        yList.add(4.32);
-        yList.add(2.0);
-        yList.add(5.0);
-
-        ArrayList<String> xRawDatas = new ArrayList<String>();
-        xRawDatas.add("05-19");
-        xRawDatas.add("05-20");
-        xRawDatas.add("05-21");
-        xRawDatas.add("05-22");
-        xRawDatas.add("05-23");
-        xRawDatas.add("05-24");
-        xRawDatas.add("05-25");
-        xRawDatas.add("05-26");
-        // tu.setData(yList, xRawDatas, 8, 2);
-        mSelectType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.type_time) {
-                    mTimeFragment = new TimeFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelableArrayList(TimeFragment.DATA, (ArrayList<? extends Parcelable>) mHourlyForecast);
-                    mTimeFragment.setArguments(bundle);
-                    showFragment(mTimeFragment);
-                } else if (checkedId == R.id.type_dally) {
-                    mDailyforecastFragment = new DailyforecastFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelableArrayList(DailyforecastFragment.DATA, (ArrayList<? extends Parcelable>) mDailyForecase);
-                    mDailyforecastFragment.setArguments(bundle);
-                    showFragment(mDailyforecastFragment);
-                }
-            }
-        });
-        mLiftIndex.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (popupwindow != null && popupwindow.isShowing()) {
-                    popupwindow.dismiss();
-                    return;
-                } else {
-                    //弹出指数popwod;
-                    //   initmPopupWindowView();
-                    //  popupwindow.showAtLocation(mLiftIndex, Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 170);
-                }
-            }
-        });
     }
-
-    private void initmPopupWindowView() {
-        View customView = getActivity().getLayoutInflater().inflate(R.layout.popupwindow_lift_index,
-                null, false);
-        DisplayMetrics dm = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-        popupwindow = new PopupWindow(customView, (int) (dm.widthPixels * 0.98), mHead1.getHeight() + mHead2.getHeight() + 50);
-        popupwindow.setAnimationStyle(R.style.AnimationFade);
-    }
-
 
     private void getData(String cityid) {
         config.showProgressDialog("拼命加载中...", getActivity());
@@ -276,7 +188,6 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         }
     }
 
-    // 回调方法，从第二个页面回来的时候会执行这个方法
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {

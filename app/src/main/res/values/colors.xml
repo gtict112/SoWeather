@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="contain_title">#3F51B5</color>
     <color name="background_progress">#282828</color>
+    <color name="grey">#333328</color>
     <color name="font_progress">#bebebe</color>
     <color name="left_fragment">#f1f1f9</color>
     <color name="line">#bebebe</color>
@@ -23,4 +24,6 @@
     <color name="a6">#F1967F</color>
     <color name="a7">#0002F7</color>
     <color name="gray">#D6D6D6</color>
+    <color name="main_fragment">#EEEEEE</color>
+    <color name="txt_1">#717171</color>
 </resources>
