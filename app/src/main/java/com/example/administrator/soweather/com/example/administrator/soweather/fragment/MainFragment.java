@@ -151,8 +151,10 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), TimeWeatherActivity.class);
-                intent.putExtra(TimeWeatherActivity.DATA, (Serializable) mHourlyForecast);
-                getActivity().startActivity(intent);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(TimeWeatherActivity.DATA, (Serializable) mHourlyForecast);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
         day.setOnClickListener(new View.OnClickListener() {
