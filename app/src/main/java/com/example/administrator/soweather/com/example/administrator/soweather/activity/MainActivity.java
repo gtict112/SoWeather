@@ -1,15 +1,12 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.activity;
 
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.LeftFragment;
@@ -26,6 +23,7 @@ public class MainActivity extends SlidingFragmentActivity implements
     private ImageView topButton;
     private Fragment mContent;
     private TextView topTextView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -34,7 +32,7 @@ public class MainActivity extends SlidingFragmentActivity implements
         initView();
         initSlidingMenu(savedInstanceState);
         if (mContent == null) {
-            mContent =  new MainFragment();
+            mContent = new MainFragment();
             switchConent(mContent, "首页");
         }
     }
@@ -89,20 +87,24 @@ public class MainActivity extends SlidingFragmentActivity implements
         }
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        DialogLogout dialog = new DialogLogout(this, new DialogLogout.OnCancleDialogListener() {
-            @Override
-            public void cancle() {
-                Toast.makeText(MainActivity.this, "您真的太赞了", Toast.LENGTH_LONG).show();
-            }
-        }, new DialogLogout.onConFirmDialogListener() {
-            @Override
-            public void confirm() {
-                finish();
-            }
-        });
-        dialog.show();
-        return false;
-    }
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        final com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout confirmDialog = new DialogLogout(this, "确定要退出吗?", "退出", "取消");
+//        confirmDialog.show();
+//        confirmDialog.setClicklistener(new com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout.ClickListenerInterface() {
+//            @Override
+//            public void doConfirm() {
+//                // TODO Auto-generated method stub
+//                confirmDialog.dismiss();
+//                //toUserHome(context);
+//                AppManager.getAppManager().AppExit(this);
+//            }
+//
+//            @Override
+//            public void doCancel() {
+//                // TODO Auto-generated method stub
+//                confirmDialog.dismiss();
+//            }
+//        });
+//    }
 }
