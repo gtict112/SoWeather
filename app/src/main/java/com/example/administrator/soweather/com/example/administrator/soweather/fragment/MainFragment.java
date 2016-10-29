@@ -164,9 +164,6 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), DayWeatherActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(DayWeatherActivity.DATA, (Serializable) mDailyForecase);
-                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

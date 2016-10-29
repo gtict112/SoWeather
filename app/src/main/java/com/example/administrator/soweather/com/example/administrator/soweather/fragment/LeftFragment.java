@@ -47,8 +47,6 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
     private Handler mHandler;
     private List<WeatherData> mData = new ArrayList<WeatherData>();
     private TextView dress;
-    private TextView tip;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +85,6 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
         tmp.setText(mData.get(0).tmp + "℃");
         String mTmpTxt = new JSONObject(mData.get(0).cond).optString("txt");
         tmp_txt.setText(mTmpTxt);
-        tip.setText(mData.get(0).drsgtex);
     }
 
     private void initView(View view) {
@@ -101,7 +98,6 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
         tmp_txt = (TextView) view.findViewById(R.id.tmp_txt);
         tem_img = (ImageView) view.findViewById(R.id.tem_img);
         dress = (TextView) view.findViewById(R.id.dress);
-        tip = (TextView) view.findViewById(R.id.tip);
         mHome.setOnClickListener(this);
         mLifeindex.setOnClickListener(this);
         mLittlebear.setOnClickListener(this);
