@@ -150,18 +150,23 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), TimeWeatherActivity.class);
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), TimeWeatherActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(TimeWeatherActivity.DATA, (Serializable) mHourlyForecast);
+                intent.putExtra("bitmap", mData.get(0).drawable);
                 intent.putExtras(bundle);
-                startActivity(intent);
+                getActivity().startActivity(intent);
             }
         });
         day.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), DayWeatherActivity.class);
-                intent.putExtra(DayWeatherActivity.DATA, (Serializable) mDailyForecase);
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), DayWeatherActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(DayWeatherActivity.DATA, (Serializable) mDailyForecase);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -178,9 +183,6 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         if (result.isSuccess()) {
             mData = result.getData();
             mHourlyForecast = result.getData().get(0).mHourlyforecast;
-            for (int i = 0; i < mHourlyForecast.size(); i++) {
-                mHourlyForecast.get(i).tem_img = mData.get(0).drawable;
-            }
             mDailyForecase = result.getData().get(0).mDailyForecase;
             mHandler.sendMessage(mHandler.obtainMessage(111, mData));
         } else {

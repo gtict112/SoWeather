@@ -10,17 +10,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="center">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="30dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:gravity="center"
-            android:text="一直过着一成不变的生活模式 或许,是该让自己静下来 透过窗 透过不一样的颜色 去发现 以往不曾发觉的美好"
-            android:textColor="@color/white"
-            android:textSize="20sp"/>
 
         <LinearLayout
             android:layout_width="match_parent"

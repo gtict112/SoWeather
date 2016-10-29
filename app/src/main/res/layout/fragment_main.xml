@@ -31,7 +31,7 @@
                     android:drawableLeft="@mipmap/place"
                     android:drawablePadding="3dp"
                     android:text="杭州"
-                    android:textColor="@color/white"
+                    android:textColor="@color/txt_1"
                     android:textSize="20sp"/>
             </FrameLayout>
 
