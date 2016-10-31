@@ -87,24 +87,23 @@ public class MainActivity extends SlidingFragmentActivity implements
         }
     }
 
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        final com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout confirmDialog = new DialogLogout(this, "确定要退出吗?", "退出", "取消");
-//        confirmDialog.show();
-//        confirmDialog.setClicklistener(new com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout.ClickListenerInterface() {
-//            @Override
-//            public void doConfirm() {
-//                // TODO Auto-generated method stub
-//                confirmDialog.dismiss();
-//                //toUserHome(context);
-//                AppManager.getAppManager().AppExit(this);
-//            }
-//
-//            @Override
-//            public void doCancel() {
-//                // TODO Auto-generated method stub
-//                confirmDialog.dismiss();
-//            }
-//        });
-//    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        final com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout confirmDialog = new DialogLogout(this, "确定要退出吗?", "退出", "取消");
+        confirmDialog.show();
+        confirmDialog.setClicklistener(new com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout.ClickListenerInterface() {
+            @Override
+            public void doConfirm() {
+                // TODO Auto-generated method stub
+                confirmDialog.dismiss();
+                finish();
+            }
+
+            @Override
+            public void doCancel() {
+                confirmDialog.dismiss();
+            }
+        });
+        return false;
+    }
 }

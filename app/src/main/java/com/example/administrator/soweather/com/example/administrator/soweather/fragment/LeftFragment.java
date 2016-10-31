@@ -146,18 +146,20 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
                 title = "帮助与反馈";
                 break;
             case R.id.logout:
-                DialogLogout dialog = new DialogLogout(getActivity(), new DialogLogout.OnCancleDialogListener() {
+                final com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout confirmDialog = new DialogLogout(getActivity(), "确定要退出吗?", "退出", "取消");
+                confirmDialog.show();
+                confirmDialog.setClicklistener(new com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout.ClickListenerInterface() {
                     @Override
-                    public void cancle() {
-                        Toast.makeText(getActivity(), "您真的太赞了", Toast.LENGTH_LONG).show();
-                    }
-                }, new DialogLogout.onConFirmDialogListener() {
-                    @Override
-                    public void confirm() {
+                    public void doConfirm() {
+                        confirmDialog.dismiss();
                         getActivity().finish();
                     }
+
+                    @Override
+                    public void doCancel() {
+                        confirmDialog.dismiss();
+                    }
                 });
-                dialog.show();
                 break;
             default:
                 break;
