@@ -75,6 +75,16 @@
         <activity android:name=".com.example.administrator.soweather.activity.HelpFeedbackActivity"/>
         <activity android:name=".com.example.administrator.soweather.activity.TimeWeatherActivity"/>
         <activity android:name=".com.example.administrator.soweather.activity.DayWeatherActivity"/>
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="4TFyhXKmr2O6e3RfoajXdGss6h64odNt"/>
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote">
+        </service>
+
     </application>
 
 </manifest>
