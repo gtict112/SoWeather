@@ -13,11 +13,28 @@
         <item name="android:windowEnterAnimation">@anim/inuptodown</item>
         <item name="android:windowExitAnimation">@anim/outdowntoup</item>
     </style>
-
+    <style name="fragment_system_setting_switch">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">25dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:textOn"></item>
+        <item name="android:textOff"></item>
+        <item name="android:saveEnabled">false</item>
+        <item name="android:switchMinWidth">0dp</item>
+    </style>
     <style name="Dialog" parent="android:style/Theme.Dialog">
         <item name="android:background">#00000000</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
+    </style>
+    <style name="NotificationContent">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="NotificationTitle">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>

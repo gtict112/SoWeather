@@ -38,7 +38,6 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
     private RelativeLayout mLifeindex;//生活指数
     private RelativeLayout mLittlebear;//小笨熊客服
     private RelativeLayout mSetting;//设置
-    private RelativeLayout mHelp;//帮助与反馈
     private RelativeLayout mLogout;//退出
     private TextView tmp;
     private TextView tmp_txt;
@@ -47,6 +46,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
     private Handler mHandler;
     private List<WeatherData> mData = new ArrayList<WeatherData>();
     private TextView dress;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +92,6 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
         mLifeindex = (RelativeLayout) view.findViewById(R.id.life_index);
         mLittlebear = (RelativeLayout) view.findViewById(R.id.little_bear);
         mSetting = (RelativeLayout) view.findViewById(R.id.setting);
-        mHelp = (RelativeLayout) view.findViewById(R.id.help);
         mLogout = (RelativeLayout) view.findViewById(R.id.logout);
         tmp = (TextView) view.findViewById(R.id.tmp);
         tmp_txt = (TextView) view.findViewById(R.id.tmp_txt);
@@ -102,7 +101,6 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
         mLifeindex.setOnClickListener(this);
         mLittlebear.setOnClickListener(this);
         mSetting.setOnClickListener(this);
-        mHelp.setOnClickListener(this);
         mLogout.setOnClickListener(this);
     }
 
@@ -132,18 +130,28 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
                 bundle.putString("uv_txt", mData.get(0).uvtex);
                 mLifeIndexFragment.setArguments(bundle);
                 newContent = mLifeIndexFragment;
-                title = "生活指数";
+                title = "图表天气";
                 break;
             case R.id.little_bear:
                 newContent = new MoodLineFragment();
                 title = "心情线";
                 break;
             case R.id.setting:
+                SettingFragment mSettingFragment = new SettingFragment();
+                Bundle bundle1 = new Bundle();
+                String mTmpTxt = null;
+                try {
+                    mTmpTxt = new JSONObject(mData.get(0).cond).optString("txt");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                bundle1.putString("天气描述", mTmpTxt);
+                bundle1.putString("位置", mData.get(0).cnty + mData.get(0).city);
+                bundle1.putString("温度", mData.get(0).tmp);
+                bundle1.putParcelable("天气图片",mData.get(0).drawable);
+                mSettingFragment.setArguments(bundle1);
                 title = "系统设置";
-                break;
-            case R.id.help:
-                newContent = new HelpFeedbackFragment();
-                title = "帮助与反馈";
+                newContent = mSettingFragment;
                 break;
             case R.id.logout:
                 final com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout confirmDialog = new DialogLogout(getActivity(), "确定要退出吗?", "退出", "取消");

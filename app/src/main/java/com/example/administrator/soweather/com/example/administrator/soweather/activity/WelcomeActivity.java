@@ -1,5 +1,6 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +10,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.Toast;
+
 import com.example.administrator.soweather.R;
 
 /**
@@ -18,57 +24,40 @@ import com.example.administrator.soweather.R;
  * First enter the App
  */
 
-public class WelcomeActivity extends Activity implements View.OnClickListener {
-    private ImageView mWelcomeNext;
+public class WelcomeActivity extends Activity {
+    private String url;
+    WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);// 去掉标题栏
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);// 去掉信息栏
+        //将屏幕设置为全屏
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //去掉标题栏
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_welcome);
-        initView();
-        enterMain();
+        webView = (WebView) findViewById(R.id.wv_webview);
+        url = "file:///android_asset/guide/index.html";
+        loadLocalHtml(url);
     }
 
-    private void initView() {
-        mWelcomeNext = (ImageView) findViewById(R.id.welcome_next);
-        mWelcomeNext.setOnClickListener(this);
-    }
-
-    private void enterMain() {
-        new Handler().postDelayed(new Runnable() {
+    @SuppressLint({"JavascriptInterface", "SetJavaScriptEnabled"})
+    public void loadLocalHtml(String url) {
+        WebSettings ws = webView.getSettings();
+        ws.setJavaScriptEnabled(true);//开启JavaScript支持
+        webView.setWebViewClient(new WebViewClient() {
             @Override
-            public void run() {
-                mWelcomeNext.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Animation mShowAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
-                                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-                                -1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
-                        mShowAction.setDuration(500);
-                        mWelcomeNext.setAnimation(mShowAction);
-                        mWelcomeNext.setVisibility(View.VISIBLE);
-                    }
-                });
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                //重写此方法，用于捕捉页面上的跳转链接
+                if ("http://start/".equals(url)) {
+                    //在html代码中的按钮跳转地址需要同此地址一致
+                    Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                return true;
             }
-        }, 800);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.welcome_next:
-                Intent intent = new Intent(WelcomeActivity.this,
-                        MainActivity.class);
-                startActivity(intent);
-                overridePendingTransition(android.R.anim.fade_in,
-                        android.R.anim.fade_out);
-                finish();
-                overridePendingTransition(android.R.anim.fade_in,
-                        android.R.anim.fade_out);
-                break;
-        }
+        });
+        webView.loadUrl(url);
     }
 }

@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">笨熊天气</string>
+    <string name="beijing">中国北京</string>
+    <string name="shanghai">中国上海</string>
+    <string name="guangzhou">中国广州</string>
+    <string name="shenzheng">中国深圳</string>
+    <string name="hangzhou">中国杭州</string>
+    <string name="nanjing">中国南京</string>
+    <string name="tianjing">中国天津</string>
+    <string name="wuhan">中国武汉</string>
+    <string name="changsha">中国长沙</string>
+    <string name="chongqi">中国重庆</string>
+    <string name="wenzhou">中国温州</string>
 </resources>

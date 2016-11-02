@@ -27,6 +27,7 @@ public class Appconfiguration {
     public Context getContext() {
         return mContext;
     }
+
     public Appconfiguration() {
         progressDialog = new ProgressDialogFragment();
     }
@@ -43,6 +44,7 @@ public class Appconfiguration {
     }
 
     public ProgressDialogFragment showProgressDialog(String message, Activity context) {
+        this.mContext = context;
         if (message != null)
             progressDialog.setMessage(message);
         progressDialog.show(context.getFragmentManager(), message);

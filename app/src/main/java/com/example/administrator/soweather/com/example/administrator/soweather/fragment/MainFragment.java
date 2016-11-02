@@ -1,24 +1,15 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.PopupWindow;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.administrator.soweather.R;
@@ -26,11 +17,11 @@ import com.example.administrator.soweather.com.example.administrator.soweather.a
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.DayWeatherActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.TimeWeatherActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
+import com.example.administrator.soweather.com.example.administrator.soweather.core.Constans;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.WeatherData;
 import com.example.administrator.soweather.com.example.administrator.soweather.sertvice.WeatherService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
-import com.example.administrator.soweather.com.example.administrator.soweather.view.LineGraphicView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,7 +40,6 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
     private TextView mP25Num;
     private TextView mP25Name;
     private TextView mTmp;
-
     private TextView flubrf;
     private TextView flu_txt;
     private TextView drsgbrf;
@@ -69,6 +59,7 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
     private TextView dresss;
     private TextView up;
     private TextView down;
+    private FrameLayout mCityImg;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,6 +95,15 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
     private void init(List<WeatherData> mData) throws JSONException {
         config.dismissProgressDialog();
         dresss.setText(mData.get(0).cnty + mData.get(0).city);
+        Constans.CITY citys[] = Constans.CITY.values();
+        for (Constans.CITY cu : citys) {
+            if(dresss.getText().toString().equals(cu.getName())){
+                mCityImg.setBackgroundResource(cu.getIcRes());
+            }
+        }
+
+
+
         weatherImg.setImageBitmap(mData.get(0).drawable);
         mP25Name.setText("空气质量:  " + mData.get(0).qlty);
         mP25Num.setText("PM25:  " + mData.get(0).pm25);
@@ -140,6 +140,7 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         sport_txt = (TextView) view.findViewById(R.id.sport_txt);
         time = (ImageView) view.findViewById(R.id.time);
         day = (ImageView) view.findViewById(R.id.day);
+        mCityImg = (FrameLayout) view.findViewById(R.id.city_img);
         dresss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
