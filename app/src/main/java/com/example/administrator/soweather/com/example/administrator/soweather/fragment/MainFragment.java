@@ -60,6 +60,8 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
     private TextView up;
     private TextView down;
     private FrameLayout mCityImg;
+    private TextView code_txt;
+    private FrameLayout add_mood_line;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -97,13 +99,10 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         dresss.setText(mData.get(0).cnty + mData.get(0).city);
         Constans.CITY citys[] = Constans.CITY.values();
         for (Constans.CITY cu : citys) {
-            if(dresss.getText().toString().equals(cu.getName())){
+            if (dresss.getText().toString().equals(cu.getName())) {
                 mCityImg.setBackgroundResource(cu.getIcRes());
             }
         }
-
-
-
         weatherImg.setImageBitmap(mData.get(0).drawable);
         mP25Name.setText("空气质量:  " + mData.get(0).qlty);
         mP25Num.setText("PM25:  " + mData.get(0).pm25);
@@ -120,9 +119,13 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         String max = new JSONObject(mData.get(0).mDailyForecase.get(0).tmp).optString("max");
         up.setText(max + "℃");
         down.setText(min + "℃");
+        String mTmpTxt = new JSONObject(mData.get(0).cond).optString("txt");
+        code_txt.setText(mTmpTxt);
     }
 
     private void initView(View view) {
+        add_mood_line = (FrameLayout) view.findViewById(R.id.add_mood_line);
+        code_txt = (TextView) view.findViewById(R.id.code_txt);
         mP25Num = (TextView) view.findViewById(R.id.p25_num);
         mP25Name = (TextView) view.findViewById(R.id.p25_name);
         mTmp = (TextView) view.findViewById(R.id.tmp);
@@ -166,6 +169,12 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), DayWeatherActivity.class);
                 startActivity(intent);
+            }
+        });
+        add_mood_line.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
             }
         });
     }
