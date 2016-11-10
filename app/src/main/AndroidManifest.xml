@@ -46,7 +46,7 @@
         <activity android:name=".com.example.administrator.soweather.activity.HelpFeedbackActivity"/>
         <activity android:name=".com.example.administrator.soweather.activity.TimeWeatherActivity"/>
         <activity android:name=".com.example.administrator.soweather.activity.DayWeatherActivity"/>
-
+        <activity android:name=".com.example.administrator.soweather.activity.AboutActivity"/>
         <receiver android:name=".com.example.administrator.soweather.core.ParentsAppWidgetProvider">
             <meta-data
                 android:name="android.appwidget.provider"

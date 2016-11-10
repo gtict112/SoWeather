@@ -176,7 +176,7 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         add_mood_line.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //
+                //我的助手
             }
         });
     }

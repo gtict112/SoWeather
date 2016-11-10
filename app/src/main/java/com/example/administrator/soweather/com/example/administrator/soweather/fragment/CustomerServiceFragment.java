@@ -1,0 +1,176 @@
+package com.example.administrator.soweather.com.example.administrator.soweather.fragment;
+
+import android.app.Activity;
+import android.support.v4.app.Fragment;
+import android.content.Context;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.mode.ListData;
+import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
+import com.example.administrator.soweather.com.example.administrator.soweather.sertvice.CustomerService;
+import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
+
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * Created by Administrator on 2016/11/10.
+ */
+
+public class CustomerServiceFragment extends Fragment implements View.OnClickListener, ResponseListenter<String> {
+    private List<ListData> list;
+    private ListView lv;
+    private Button send_btn;
+    private EditText sendtext;
+    private String content_str;
+    private TextAdapter adapter;
+    private String[] welcomeArray;
+    private double currenttime, oldTime = 0;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_customer_service, null);
+        initView(view);
+        return view;
+    }
+
+    private void initView(View view) {
+        list = new ArrayList<ListData>();
+        lv = (ListView) view.findViewById(R.id.lv);
+        send_btn = (Button) view.findViewById(R.id.send_btn);
+        sendtext = (EditText) view.findViewById(R.id.senText);
+        send_btn.setOnClickListener(this);
+        adapter = new TextAdapter(list, getActivity());
+        lv.setAdapter(adapter);
+        ListData listData = null;
+        listData = new ListData(getRandomWelcomeTips(), listData.receiver, getTime());
+        System.out.println("时间" + listData);
+        list.add(listData);
+
+    }
+
+    public void parseText(String str) {
+        try {
+            ListData listData = null;
+            listData = new ListData(str, listData.receiver, getTime());
+            System.out.println("时间" + listData);
+            list.add(listData);
+            adapter.notifyDataSetChanged();
+        } catch (Exception e) {
+        }
+    }
+
+    public void onClick(View v) {
+        content_str = sendtext.getText().toString();
+        sendtext.setText("");
+        String dropk = content_str.replace(" ", "");
+        String droph = dropk.replace("\n", "");
+        ListData listdata = null;
+        listdata = new ListData(content_str, listdata.send, getTime());
+        System.out.println("sfds" + listdata);
+        list.add(listdata);
+        if (list.size() > 30) {
+            for (int i = 0; i < list.size(); i++) {
+                list.remove(i);
+            }
+        }
+        adapter.notifyDataSetChanged();
+        senData(droph);
+    }
+
+    private void senData(String droph) {
+        CustomerService service = new CustomerService();
+        service.getCustomerService("http://www.tuling123.com/openapi/api?key=61a58c763ee044d289957571541d4801&info=", droph, this);
+    }
+
+    private String getRandomWelcomeTips() {
+        String welcome_tipe = null;
+        welcomeArray = getActivity().getResources().getStringArray(R.array.welcome_tips);
+        int index = (int) (Math.random() * (welcomeArray.length - 1));
+        welcome_tipe = welcomeArray[index];
+        return welcome_tipe;
+    }
+
+    private String getTime() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日  HH:mm:ss");
+        Date curdata = new Date(System.currentTimeMillis());
+        String str = format.format(curdata);
+        return str;
+    }
+
+    @Override
+    public void onReceive(Result<String> result) throws Exception {
+        if (result.isSuccess()) {
+            parseText(result.getData());
+        } else {
+            Toast.makeText(getActivity(), result.getErrorMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private class TextAdapter extends BaseAdapter {
+        private List<ListData> lists;
+        private Context mContext;
+        private RelativeLayout layout;
+
+        public TextAdapter(List<ListData> lists, Context mContext) {
+            this.lists = lists;
+            this.mContext = mContext;
+        }
+
+        @Override
+        public int getCount() {
+            return lists.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return lists.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            if (lists.get(position).getFlag() == ListData.receiver) {
+                layout = (RelativeLayout) inflater.inflate(R.layout.customer_service_leftitem, null);
+            }
+            if (lists.get(position).getFlag() == ListData.send) {
+                layout = (RelativeLayout) inflater.inflate(R.layout.customer_service_right, null);
+            }
+            TextView tv = (TextView) layout.findViewById(R.id.tv);
+            TextView time = (TextView) layout.findViewById(R.id.time);
+            time.setText(lists.get(position).getTime());
+            tv.setText(lists.get(position).getContent());
+            return layout;
+        }
+    }
+}

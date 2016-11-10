@@ -36,7 +36,8 @@ import java.util.List;
 public class LeftFragment extends Fragment implements View.OnClickListener, ResponseListenter<List<WeatherData>> {
     private RelativeLayout mHome;//首页
     private RelativeLayout mLifeindex;//生活指数
-    private RelativeLayout mLittlebear;//小笨熊客服
+    private RelativeLayout mLittlebear;//心情线
+    private RelativeLayout service_assistant;//我的助手
     private RelativeLayout mSetting;//设置
     private RelativeLayout mLogout;//退出
     private TextView tmp;
@@ -97,11 +98,13 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
         tmp_txt = (TextView) view.findViewById(R.id.tmp_txt);
         tem_img = (ImageView) view.findViewById(R.id.tem_img);
         dress = (TextView) view.findViewById(R.id.dress);
+        service_assistant = (RelativeLayout) view.findViewById(R.id.service_assistant);
         mHome.setOnClickListener(this);
         mLifeindex.setOnClickListener(this);
         mLittlebear.setOnClickListener(this);
         mSetting.setOnClickListener(this);
         mLogout.setOnClickListener(this);
+        service_assistant.setOnClickListener(this);
     }
 
     @Override
@@ -148,7 +151,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
                 bundle1.putString("天气描述", mTmpTxt);
                 bundle1.putString("位置", mData.get(0).cnty + mData.get(0).city);
                 bundle1.putString("温度", mData.get(0).tmp);
-                bundle1.putParcelable("天气图片",mData.get(0).drawable);
+                bundle1.putParcelable("天气图片", mData.get(0).drawable);
                 mSettingFragment.setArguments(bundle1);
                 title = "系统设置";
                 newContent = mSettingFragment;
@@ -168,6 +171,11 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
                         confirmDialog.dismiss();
                     }
                 });
+                break;
+            case R.id.service_assistant:
+                //我的助手
+                newContent = new CustomerServiceFragment();
+                title = "我的助手";
                 break;
             default:
                 break;
