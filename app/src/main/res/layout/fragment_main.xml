@@ -346,13 +346,12 @@
     </ScrollView>
 
 
-    <FrameLayout
+    <com.example.administrator.soweather.com.example.administrator.soweather.view.GifView
         android:id="@+id/add_mood_line"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginBottom="30dp"
         android:layout_marginRight="20dp"
-        android:background="@mipmap/add_mood_line"
         android:layout_gravity="right|bottom">
-    </FrameLayout>
+    </com.example.administrator.soweather.com.example.administrator.soweather.view.GifView>
 </FrameLayout>

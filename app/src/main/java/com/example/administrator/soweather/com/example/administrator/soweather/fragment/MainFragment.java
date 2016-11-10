@@ -22,6 +22,7 @@ import com.example.administrator.soweather.com.example.administrator.soweather.m
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.WeatherData;
 import com.example.administrator.soweather.com.example.administrator.soweather.sertvice.WeatherService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
+import com.example.administrator.soweather.com.example.administrator.soweather.view.GifView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,7 +62,7 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
     private TextView down;
     private FrameLayout mCityImg;
     private TextView code_txt;
-    private FrameLayout add_mood_line;
+    private GifView add_mood_line;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -124,7 +125,8 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
     }
 
     private void initView(View view) {
-        add_mood_line = (FrameLayout) view.findViewById(R.id.add_mood_line);
+        add_mood_line = (GifView) view.findViewById(R.id.add_mood_line);
+        add_mood_line.setMovieResource(R.mipmap.git);
         code_txt = (TextView) view.findViewById(R.id.code_txt);
         mP25Num = (TextView) view.findViewById(R.id.p25_num);
         mP25Name = (TextView) view.findViewById(R.id.p25_name);
