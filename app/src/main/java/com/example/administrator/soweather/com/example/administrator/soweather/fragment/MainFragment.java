@@ -5,20 +5,24 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ScrollingView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.CurrentCityActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.CustomerServiceActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.DayWeatherActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.TimeWeatherActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Constans;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
+import com.example.administrator.soweather.com.example.administrator.soweather.mode.WeathImg;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.WeatherData;
 import com.example.administrator.soweather.com.example.administrator.soweather.sertvice.WeatherService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
@@ -63,6 +67,7 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
     private FrameLayout mCityImg;
     private TextView code_txt;
     private GifView add_mood_line;
+    private ScrollView mScrollView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -135,8 +140,6 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         drsgbrf = (TextView) view.findViewById(R.id.drsgbrf);
         travbrf = (TextView) view.findViewById(R.id.travbrf);
         sportbrf = (TextView) view.findViewById(R.id.sportbrf);
-        weatherImg = (ImageView) view.findViewById(R.id.weatherImg);
-        dresss = (TextView) view.findViewById(R.id.dresss);
         up = (TextView) view.findViewById(R.id.up);
         down = (TextView) view.findViewById(R.id.down);
         flu_txt = (TextView) view.findViewById(R.id.flu_txt);
@@ -145,6 +148,8 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         sport_txt = (TextView) view.findViewById(R.id.sport_txt);
         time = (ImageView) view.findViewById(R.id.time);
         day = (ImageView) view.findViewById(R.id.day);
+        weatherImg = (ImageView) view.findViewById(R.id.weatherImg);
+        dresss = (TextView) view.findViewById(R.id.dresss);
         mCityImg = (FrameLayout) view.findViewById(R.id.city_img);
         dresss.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,6 +182,8 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
             @Override
             public void onClick(View v) {
                 //我的助手
+                Intent intent = new Intent(getActivity(), CustomerServiceActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -1,4 +1,4 @@
-package com.example.administrator.soweather.com.example.administrator.soweather.fragment;
+package com.example.administrator.soweather.com.example.administrator.soweather.activity;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;
@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -32,7 +33,7 @@ import java.util.List;
  * Created by Administrator on 2016/11/10.
  */
 
-public class CustomerServiceFragment extends Fragment implements View.OnClickListener, ResponseListenter<String> {
+public class CustomerServiceActivity extends Activity implements View.OnClickListener, ResponseListenter<String> {
     private List<ListData> list;
     private ListView lv;
     private Button send_btn;
@@ -41,31 +42,33 @@ public class CustomerServiceFragment extends Fragment implements View.OnClickLis
     private TextAdapter adapter;
     private String[] welcomeArray;
     private double currenttime, oldTime = 0;
+    private ImageView topButton;
+    private TextView topTv;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_customer_service);
+        initView();
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_customer_service, null);
-        initView(view);
-        return view;
-    }
-
-    private void initView(View view) {
+    private void initView() {
         list = new ArrayList<ListData>();
-        lv = (ListView) view.findViewById(R.id.lv);
-        send_btn = (Button) view.findViewById(R.id.send_btn);
-        sendtext = (EditText) view.findViewById(R.id.senText);
+        lv = (ListView) findViewById(R.id.lv);
+        send_btn = (Button) findViewById(R.id.send_btn);
+        sendtext = (EditText) findViewById(R.id.senText);
+        topButton = (ImageView) findViewById(R.id.topButton);
+        topTv = (TextView) findViewById(R.id.topTv);
+        topTv.setText("Universal Robot");
+        topButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         send_btn.setOnClickListener(this);
-        adapter = new TextAdapter(list, getActivity());
+        adapter = new TextAdapter(list, this);
         lv.setAdapter(adapter);
         ListData listData = null;
         listData = new ListData(getRandomWelcomeTips(), listData.receiver, getTime());
@@ -110,7 +113,7 @@ public class CustomerServiceFragment extends Fragment implements View.OnClickLis
 
     private String getRandomWelcomeTips() {
         String welcome_tipe = null;
-        welcomeArray = getActivity().getResources().getStringArray(R.array.welcome_tips);
+        welcomeArray = this.getResources().getStringArray(R.array.welcome_tips);
         int index = (int) (Math.random() * (welcomeArray.length - 1));
         welcome_tipe = welcomeArray[index];
         return welcome_tipe;
@@ -128,7 +131,7 @@ public class CustomerServiceFragment extends Fragment implements View.OnClickLis
         if (result.isSuccess()) {
             parseText(result.getData());
         } else {
-            Toast.makeText(getActivity(), result.getErrorMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, result.getErrorMessage(), Toast.LENGTH_LONG).show();
         }
     }
 

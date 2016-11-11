@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">笨熊天气</string>
+    <string name="app_name">SoWeather</string>
     <string name="beijing">中国北京</string>
     <string name="shanghai">中国上海</string>
     <string name="guangzhou">中国广州</string>

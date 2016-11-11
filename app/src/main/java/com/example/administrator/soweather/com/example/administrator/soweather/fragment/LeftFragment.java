@@ -1,7 +1,5 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.fragment;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,9 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.CustomerServiceActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout;
@@ -173,8 +171,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
                 });
                 break;
             case R.id.service_assistant:
-                //我的助手
-                newContent = new CustomerServiceFragment();
+                newContent = new CustomerFragment();
                 title = "我的助手";
                 break;
             default:
