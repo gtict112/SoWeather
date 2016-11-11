@@ -5,12 +5,14 @@
              android:animateLayoutChanges="true"
              android:background="@color/white"
              android:orientation="vertical">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none">
 
         <LinearLayout
+            android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -353,4 +355,12 @@
         android:layout_marginBottom="30dp"
         android:layout_marginRight="20dp">
     </com.example.administrator.soweather.com.example.administrator.soweather.view.GifView>
+
+    <com.example.administrator.soweather.com.example.administrator.soweather.view.HeartLayout
+        android:id="@+id/heart_layout"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="left|bottom"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="10dp"/>
 </FrameLayout>

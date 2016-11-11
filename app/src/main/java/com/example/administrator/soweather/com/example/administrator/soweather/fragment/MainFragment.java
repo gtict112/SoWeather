@@ -1,6 +1,7 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -27,6 +29,7 @@ import com.example.administrator.soweather.com.example.administrator.soweather.m
 import com.example.administrator.soweather.com.example.administrator.soweather.sertvice.WeatherService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.GifView;
+import com.example.administrator.soweather.com.example.administrator.soweather.view.HeartLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,6 +37,9 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static android.R.attr.key;
 
@@ -67,7 +73,10 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
     private FrameLayout mCityImg;
     private TextView code_txt;
     private GifView add_mood_line;
-    private ScrollView mScrollView;
+    private LinearLayout mMain;
+    private HeartLayout heart_layout;
+    private Random mRandom = new Random();
+    private Timer mTimer = new Timer();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -129,7 +138,24 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         code_txt.setText(mTmpTxt);
     }
 
+    private int randomColor() {
+        return Color.rgb(mRandom.nextInt(255), mRandom.nextInt(255), mRandom.nextInt(255));
+    }
+
     private void initView(View view) {
+        heart_layout = (HeartLayout) view.findViewById(R.id.heart_layout);
+        mTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                heart_layout.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        heart_layout.addHeart(randomColor());
+                    }
+                });
+            }
+        }, 500, 200);
+        mMain = (LinearLayout) view.findViewById(R.id.main);
         add_mood_line = (GifView) view.findViewById(R.id.add_mood_line);
         add_mood_line.setMovieResource(R.mipmap.git);
         code_txt = (TextView) view.findViewById(R.id.code_txt);
