@@ -72,7 +72,7 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
     private TextView down;
     private FrameLayout mCityImg;
     private TextView code_txt;
-    private GifView add_mood_line;
+ //   private GifView add_mood_line;
     private LinearLayout mMain;
     private HeartLayout heart_layout;
     private Random mRandom = new Random();
@@ -156,8 +156,8 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
             }
         }, 500, 200);
         mMain = (LinearLayout) view.findViewById(R.id.main);
-        add_mood_line = (GifView) view.findViewById(R.id.add_mood_line);
-        add_mood_line.setMovieResource(R.mipmap.git);
+      //  add_mood_line = (GifView) view.findViewById(R.id.add_mood_line);
+      //  add_mood_line.setMovieResource(R.mipmap.git);
         code_txt = (TextView) view.findViewById(R.id.code_txt);
         mP25Num = (TextView) view.findViewById(R.id.p25_num);
         mP25Name = (TextView) view.findViewById(R.id.p25_name);
@@ -204,7 +204,7 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
                 startActivity(intent);
             }
         });
-        add_mood_line.setOnClickListener(new View.OnClickListener() {
+        heart_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //我的助手

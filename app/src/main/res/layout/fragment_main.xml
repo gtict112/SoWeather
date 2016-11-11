@@ -347,20 +347,20 @@
     </ScrollView>
 
 
-    <com.example.administrator.soweather.com.example.administrator.soweather.view.GifView
-        android:id="@+id/add_mood_line"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_gravity="right|bottom"
-        android:layout_marginBottom="30dp"
-        android:layout_marginRight="20dp">
-    </com.example.administrator.soweather.com.example.administrator.soweather.view.GifView>
+    <!--<com.example.administrator.soweather.com.example.administrator.soweather.view.GifView-->
+        <!--android:id="@+id/add_mood_line"-->
+        <!--android:layout_width="80dp"-->
+        <!--android:layout_height="80dp"-->
+        <!--android:layout_gravity="right|bottom"-->
+        <!--android:layout_marginBottom="30dp"-->
+        <!--android:layout_marginRight="20dp">-->
+    <!--</com.example.administrator.soweather.com.example.administrator.soweather.view.GifView>-->
 
     <com.example.administrator.soweather.com.example.administrator.soweather.view.HeartLayout
         android:id="@+id/heart_layout"
         android:layout_width="100dp"
         android:layout_height="match_parent"
-        android:layout_gravity="left|bottom"
+        android:layout_gravity="right|bottom"
         android:layout_marginBottom="30dp"
         android:layout_marginLeft="10dp"/>
 </FrameLayout>
