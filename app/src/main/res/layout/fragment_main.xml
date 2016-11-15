@@ -23,25 +23,12 @@
                 android:layout_height="160dp"
                 android:background="@color/white">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="8dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/dresss"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableLeft="@mipmap/place"
-                        android:drawablePadding="2dp"
-                        android:text="dsds"
-                        android:textColor="@color/background_progress"
-                        android:textSize="20sp"/>
-                </LinearLayout>
-
+                <com.example.administrator.soweather.com.example.administrator.soweather.view.HeartLayout
+                    android:id="@+id/heart_layout"
+                    android:layout_width="100dp"
+                    android:layout_height="160dp"
+                    android:layout_gravity="left|bottom"
+                    android:layout_marginTop="10dp"/>
             </FrameLayout>
 
             <View
@@ -347,20 +334,12 @@
     </ScrollView>
 
 
-    <!--<com.example.administrator.soweather.com.example.administrator.soweather.view.GifView-->
-        <!--android:id="@+id/add_mood_line"-->
-        <!--android:layout_width="80dp"-->
-        <!--android:layout_height="80dp"-->
-        <!--android:layout_gravity="right|bottom"-->
-        <!--android:layout_marginBottom="30dp"-->
-        <!--android:layout_marginRight="20dp">-->
-    <!--</com.example.administrator.soweather.com.example.administrator.soweather.view.GifView>-->
-
-    <com.example.administrator.soweather.com.example.administrator.soweather.view.HeartLayout
-        android:id="@+id/heart_layout"
-        android:layout_width="100dp"
-        android:layout_height="match_parent"
+    <com.example.administrator.soweather.com.example.administrator.soweather.view.GifView
+        android:id="@+id/add_mood_line"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_gravity="right|bottom"
         android:layout_marginBottom="30dp"
-        android:layout_marginLeft="10dp"/>
+        android:layout_marginRight="20dp">
+    </com.example.administrator.soweather.com.example.administrator.soweather.view.GifView>
 </FrameLayout>

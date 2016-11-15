@@ -67,17 +67,15 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
     private List<WeatherData.DailyForecase> mDailyForecase = new ArrayList<WeatherData.DailyForecase>();
     private ImageView day;
     private String cityid;
-    private TextView dresss;
     private TextView up;
     private TextView down;
     private FrameLayout mCityImg;
     private TextView code_txt;
- //   private GifView add_mood_line;
+    private GifView add_mood_line;
     private LinearLayout mMain;
     private HeartLayout heart_layout;
     private Random mRandom = new Random();
     private Timer mTimer = new Timer();
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,13 +109,13 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
 
     private void init(List<WeatherData> mData) throws JSONException {
         config.dismissProgressDialog();
-        dresss.setText(mData.get(0).cnty + mData.get(0).city);
-        Constans.CITY citys[] = Constans.CITY.values();
-        for (Constans.CITY cu : citys) {
-            if (dresss.getText().toString().equals(cu.getName())) {
-                mCityImg.setBackgroundResource(cu.getIcRes());
-            }
-        }
+        //    dresss.setText(mData.get(0).cnty + mData.get(0).city);
+        //        Constans.CITY citys[] = Constans.CITY.values();
+        //        for (Constans.CITY cu : citys) {
+        //            if (dresss.getText().toString().equals(cu.getName())) {
+        //                mCityImg.setBackgroundResource(cu.getIcRes());
+        //            }
+        //        }
         weatherImg.setImageBitmap(mData.get(0).drawable);
         mP25Name.setText("空气质量:  " + mData.get(0).qlty);
         mP25Num.setText("PM25:  " + mData.get(0).pm25);
@@ -154,10 +152,10 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
                     }
                 });
             }
-        }, 500, 200);
+        }, 5000, 2000);
         mMain = (LinearLayout) view.findViewById(R.id.main);
-      //  add_mood_line = (GifView) view.findViewById(R.id.add_mood_line);
-      //  add_mood_line.setMovieResource(R.mipmap.git);
+        add_mood_line = (GifView) view.findViewById(R.id.add_mood_line);
+        add_mood_line.setMovieResource(R.mipmap.git);
         code_txt = (TextView) view.findViewById(R.id.code_txt);
         mP25Num = (TextView) view.findViewById(R.id.p25_num);
         mP25Name = (TextView) view.findViewById(R.id.p25_name);
@@ -175,15 +173,7 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         time = (ImageView) view.findViewById(R.id.time);
         day = (ImageView) view.findViewById(R.id.day);
         weatherImg = (ImageView) view.findViewById(R.id.weatherImg);
-        dresss = (TextView) view.findViewById(R.id.dresss);
         mCityImg = (FrameLayout) view.findViewById(R.id.city_img);
-        dresss.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), CurrentCityActivity.class);
-                startActivityForResult(intent, 0);
-            }
-        });
         time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -204,7 +194,7 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
                 startActivity(intent);
             }
         });
-        heart_layout.setOnClickListener(new View.OnClickListener() {
+        add_mood_line.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //我的助手
@@ -221,7 +211,7 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
     }
 
     @Override
-    public void onReceive(Result<List<WeatherData>> result) throws Exception {
+    public void onReceive(Result<List<WeatherData>> result)  {
         if (result.isSuccess()) {
             mData = result.getData();
             mHourlyForecast = result.getData().get(0).mHourlyforecast;
@@ -232,16 +222,4 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case 0:
-                Bundle b = data.getExtras();
-                cityid = b.getString("cityid");
-                getData(cityid);
-                break;
-            default:
-                break;
-        }
-    }
 }

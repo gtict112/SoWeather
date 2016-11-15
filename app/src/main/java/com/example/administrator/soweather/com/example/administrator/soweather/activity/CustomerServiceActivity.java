@@ -1,7 +1,6 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.activity;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,12 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.soweather.R;
-import com.example.administrator.soweather.com.example.administrator.soweather.mode.ListData;
+import com.example.administrator.soweather.com.example.administrator.soweather.mode.ChatListData;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
 import com.example.administrator.soweather.com.example.administrator.soweather.sertvice.CustomerService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
-
-import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,7 +31,7 @@ import java.util.List;
  */
 
 public class CustomerServiceActivity extends Activity implements View.OnClickListener, ResponseListenter<String> {
-    private List<ListData> list;
+    private List<ChatListData> list;
     private ListView lv;
     private Button send_btn;
     private EditText sendtext;
@@ -54,7 +51,7 @@ public class CustomerServiceActivity extends Activity implements View.OnClickLis
 
 
     private void initView() {
-        list = new ArrayList<ListData>();
+        list = new ArrayList<ChatListData>();
         lv = (ListView) findViewById(R.id.lv);
         send_btn = (Button) findViewById(R.id.send_btn);
         sendtext = (EditText) findViewById(R.id.senText);
@@ -70,8 +67,8 @@ public class CustomerServiceActivity extends Activity implements View.OnClickLis
         send_btn.setOnClickListener(this);
         adapter = new TextAdapter(list, this);
         lv.setAdapter(adapter);
-        ListData listData = null;
-        listData = new ListData(getRandomWelcomeTips(), listData.receiver, getTime());
+        ChatListData listData = null;
+        listData = new ChatListData(getRandomWelcomeTips(), listData.receiver, getTime());
         System.out.println("时间" + listData);
         list.add(listData);
 
@@ -79,8 +76,8 @@ public class CustomerServiceActivity extends Activity implements View.OnClickLis
 
     public void parseText(String str) {
         try {
-            ListData listData = null;
-            listData = new ListData(str, listData.receiver, getTime());
+            ChatListData listData = null;
+            listData = new ChatListData(str, listData.receiver, getTime());
             System.out.println("时间" + listData);
             list.add(listData);
             adapter.notifyDataSetChanged();
@@ -93,8 +90,8 @@ public class CustomerServiceActivity extends Activity implements View.OnClickLis
         sendtext.setText("");
         String dropk = content_str.replace(" ", "");
         String droph = dropk.replace("\n", "");
-        ListData listdata = null;
-        listdata = new ListData(content_str, listdata.send, getTime());
+        ChatListData listdata = null;
+        listdata = new ChatListData(content_str, listdata.send, getTime());
         System.out.println("sfds" + listdata);
         list.add(listdata);
         if (list.size() > 30) {
@@ -127,7 +124,7 @@ public class CustomerServiceActivity extends Activity implements View.OnClickLis
     }
 
     @Override
-    public void onReceive(Result<String> result) throws Exception {
+    public void onReceive(Result<String> result)  {
         if (result.isSuccess()) {
             parseText(result.getData());
         } else {
@@ -136,11 +133,11 @@ public class CustomerServiceActivity extends Activity implements View.OnClickLis
     }
 
     private class TextAdapter extends BaseAdapter {
-        private List<ListData> lists;
+        private List<ChatListData> lists;
         private Context mContext;
         private RelativeLayout layout;
 
-        public TextAdapter(List<ListData> lists, Context mContext) {
+        public TextAdapter(List<ChatListData> lists, Context mContext) {
             this.lists = lists;
             this.mContext = mContext;
         }
@@ -163,10 +160,10 @@ public class CustomerServiceActivity extends Activity implements View.OnClickLis
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = LayoutInflater.from(mContext);
-            if (lists.get(position).getFlag() == ListData.receiver) {
+            if (lists.get(position).getFlag() == ChatListData.receiver) {
                 layout = (RelativeLayout) inflater.inflate(R.layout.customer_service_leftitem, null);
             }
-            if (lists.get(position).getFlag() == ListData.send) {
+            if (lists.get(position).getFlag() == ChatListData.send) {
                 layout = (RelativeLayout) inflater.inflate(R.layout.customer_service_right, null);
             }
             TextView tv = (TextView) layout.findViewById(R.id.tv);

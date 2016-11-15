@@ -8,6 +8,7 @@ import com.example.administrator.soweather.com.example.administrator.soweather.m
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseProcessUtil;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -66,9 +67,13 @@ public class WeatherService {
                     if (res.isSuccess()) {
                         getWeatherImg(new ResponseListenter<List<WeathImg>>() {
                             @Override
-                            public void onReceive(Result<List<WeathImg>> result) throws Exception {
+                            public void onReceive(Result<List<WeathImg>> result) {
                                 if (result.isSuccess()) {
-                                    String code = new JSONObject(res.getData().get(0).cond).optString("code");
+                                    String code = null;
+                                    try {
+                                        code = new JSONObject(res.getData().get(0).cond).optString("code");
+                                    } catch (JSONException e) {
+                                    }
                                     for (int i = 0; i < result.getData().size(); i++) {
                                         if (code.equals(result.getData().get(i).code)) {
                                             String url = result.getData().get(i).icon;
@@ -87,7 +92,11 @@ public class WeatherService {
                                     List<WeatherData.DailyForecase> mDailyForecase = new ArrayList<>();
                                     mDailyForecase = res.getData().get(0).mDailyForecase;
                                     for (int k = 0; k < mDailyForecase.size(); k++) {
-                                        String code_d = new JSONObject(mDailyForecase.get(k).cond).optString("code_d");
+                                        String code_d = null;
+                                        try {
+                                            code_d = new JSONObject(mDailyForecase.get(k).cond).optString("code_d");
+                                        } catch (JSONException e) {
+                                        }
                                         for (int q = 0; q < result.getData().size(); q++) {
                                             if (code_d.equals(result.getData().get(q).code)) {
                                                 String url = result.getData().get(q).icon;

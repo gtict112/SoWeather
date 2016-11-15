@@ -193,7 +193,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
     }
 
     @Override
-    public void onReceive(Result<List<WeatherData>> result) throws Exception {
+    public void onReceive(Result<List<WeatherData>> result)  {
         if (result.isSuccess()) {
             mData = result.getData();
             mHandler.sendMessage(mHandler.obtainMessage(111, mData));

@@ -1,11 +1,22 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.sertvice;
 
-import com.example.administrator.soweather.com.example.administrator.soweather.mode.CityData;
+import android.app.Activity;
+import android.content.Context;
+
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.db.CityDB;
+import com.example.administrator.soweather.com.example.administrator.soweather.mode.City;
+import com.example.administrator.soweather.com.example.administrator.soweather.mode.County;
+import com.example.administrator.soweather.com.example.administrator.soweather.mode.Province;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
-import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseProcessUtil;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Call;
@@ -20,13 +31,15 @@ import okhttp3.Response;
 
 public class CityService {
     private final OkHttpClient client = new OkHttpClient();
-    private final String url = "https://api.heweather.com/x3/citylist?search=allchina&key=4e6193ff86d147a2a357dafb47b0f1bc";//国内城市：allchina、 热门城市：hotworld、 全部城市：allworld
-    private Result<List<CityData>> result = new Result<List<CityData>>();
+    private Result<Integer> result = new Result<Integer>();
+    private String url = "http://files.heweather.com/china-city-list.json";
 
     public CityService() {
     }
 
-    public Result<List<CityData>> getWeatherData(final ResponseListenter<List<CityData>> a) {
+    public Result<Integer> getCityData(Activity mainActivity, final ResponseListenter<Integer> a) {
+        Context context = mainActivity;
+        final CityDB cityDB = CityDB.getInstance(context);
         final Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -36,30 +49,53 @@ public class CityService {
             public void onFailure(Call call, IOException e) {
                 result.setErrorMessage(e.toString());
                 result.setSuccess(false);
-                try {
-                    a.onReceive(result);
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
+                a.onReceive(result);
             }
+
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Result<List<CityData>> res = ResponseProcessUtil.getHotworld(response);
-                try {
-                    if (res.isSuccess()) {
-                        //进行分级排序处理
-                        res = CityData.setSortData(res);
-                        a.onReceive(res);
-                    } else {
-                        a.onReceive(res.setErrorMessage("获取数据失败"));
-                    }
-                } catch (Exception e1) {
-                    res.setSuccess(false);
-                    res.setErrorMessage("解析数据失败");
-                    e1.printStackTrace();
+                Result<Integer> result = new Result<Integer>();
+                if (!response.isSuccessful()) {
+                    result.setSuccess(false);
+                    result.setErrorMessage("\"Unexpected code \" + response");
                 }
+                //加一个判断,是否code为200
+                String txt = response.body().string();
+                String list = txt.substring(txt.indexOf("["), txt.indexOf("]")) + "]";
+                JSONArray jsonArray = null;
+                try {
+                    jsonArray = new JSONArray(list);
+                    List<Province> provinceList = new ArrayList<>();//省份数据
+                    List<City> citylist = new ArrayList<>();//城市数据
+                    List<County> countyList = new ArrayList<>();//县区数据
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        Province province = new Province();
+                        City city = new City();
+                        County county = new County();
+                        province.setProvinceId(String.valueOf(i));
+                        province.setProvinceName(jsonObject.optString("provinceZh"));
+                        city.setProvinceId(String.valueOf(i));
+                        city.setCityId(jsonObject.optString("id"));
+                        city.setCityName(jsonObject.optString("cityZh"));
+                        county.setCityId(jsonObject.optString("id"));
+                        county.setCountyName(jsonObject.optString("leaderZh"));
+                        county.setCountyId(String.valueOf(i));
+                        provinceList.add(province);
+                        citylist.add(city);
+                        countyList.add(county);
+                    }
+                    cityDB.saveProvinces(provinceList);
+                    cityDB.saveCitys(citylist);
+                    cityDB.savaCounty(countyList);
+                } catch (JSONException e) {
+                    result.setSuccess(false);
+                    result.setErrorMessage(e.toString());
+                }
+                result.setSuccess(true);
+                a.onReceive(result);
             }
         });
-        return null;
+        return result;
     }
 }
