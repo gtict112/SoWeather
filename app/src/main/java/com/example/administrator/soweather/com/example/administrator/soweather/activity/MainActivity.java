@@ -17,11 +17,9 @@ import com.example.administrator.soweather.com.example.administrator.soweather.f
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.MainFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
-import com.example.administrator.soweather.com.example.administrator.soweather.sertvice.CityService;
+import com.example.administrator.soweather.com.example.administrator.soweather.service.CityAndWeatherImgService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.SlidingMenu;
-
-import java.util.List;
 
 /**
  * Created by Administrator on 2016/10/10.
@@ -45,9 +43,15 @@ public class MainActivity extends SlidingFragmentActivity implements
         initView();
         getLocationAdress();
         getCityDate();
+        getWeather();
         initSlidingMenu(savedInstanceState);
         if (mContent == null) {
-            mContent = new MainFragment();
+            MainFragment mMainFragment = new MainFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("city", city);
+            bundle.putString("cityId", cityid);
+            mMainFragment.setArguments(bundle);
+            mContent = mMainFragment;
             switchConent(mContent, "首页");
         }
     }
@@ -78,10 +82,17 @@ public class MainActivity extends SlidingFragmentActivity implements
      * 获取服务器城市列表数据
      */
     private void getCityDate() {
-        CityService service = new CityService();
+        CityAndWeatherImgService service = new CityAndWeatherImgService();
         service.getCityData(MainActivity.this, this);
     }
 
+    /**
+     * 获取天气状态图标
+     */
+    private void getWeather(){
+        CityAndWeatherImgService service = new CityAndWeatherImgService();
+        service.getWeatherImgData(MainActivity.this, this);
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -89,10 +100,16 @@ public class MainActivity extends SlidingFragmentActivity implements
     }
 
     private void initView() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            city = intent.getStringExtra("city");
+            cityid = intent.getStringExtra("cityid");
+        }
         topButton = (ImageView) findViewById(R.id.topButton);
         topButton.setOnClickListener(this);
         topTextView = (TextView) findViewById(R.id.topTv);
         mDresss = (TextView) findViewById(R.id.dresss);
+        mDresss.setText(city);
     }
 
     private void initSlidingMenu(Bundle savedInstanceState) {
@@ -185,10 +202,12 @@ public class MainActivity extends SlidingFragmentActivity implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case 0:
-                Bundle b = data.getExtras();
-                cityid = b.getString("cityid");
-                city = b.getString("city");
-                mDresss.setText(city);
+                if (data != null) {
+                    Bundle b = data.getExtras();
+                    cityid = b.getString("cityid");
+                    city = b.getString("city");
+                    mDresss.setText(city);
+                }
                 break;
             default:
                 break;

@@ -66,5 +66,7 @@
         <activity android:name=".com.example.administrator.soweather.activity.DayWeatherActivity"/>
         <activity android:name=".com.example.administrator.soweather.activity.AboutActivity"/>
         <activity android:name=".com.example.administrator.soweather.activity.CustomerServiceActivity"/>
+        <activity android:name=".com.example.administrator.soweather.activity.CurrenCityTwoActivity"/>
+        <activity android:name=".com.example.administrator.soweather.activity.CurrenCityThreeActiivty"/>
     </application>
 </manifest>

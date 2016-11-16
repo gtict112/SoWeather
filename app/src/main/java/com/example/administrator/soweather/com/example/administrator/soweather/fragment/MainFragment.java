@@ -6,27 +6,22 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ScrollingView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.administrator.soweather.R;
-import com.example.administrator.soweather.com.example.administrator.soweather.activity.CurrentCityActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.CustomerServiceActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.DayWeatherActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.TimeWeatherActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
-import com.example.administrator.soweather.com.example.administrator.soweather.core.Constans;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
-import com.example.administrator.soweather.com.example.administrator.soweather.mode.WeathImg;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.WeatherData;
-import com.example.administrator.soweather.com.example.administrator.soweather.sertvice.WeatherService;
+import com.example.administrator.soweather.com.example.administrator.soweather.service.WeatherService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.GifView;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.HeartLayout;
@@ -40,8 +35,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import static android.R.attr.key;
 
 /**
  * Created by Administrator on 2016/10/10.
@@ -76,6 +69,7 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
     private HeartLayout heart_layout;
     private Random mRandom = new Random();
     private Timer mTimer = new Timer();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +84,9 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, null);
         initView(view);
+        if (getArguments() != null) {
+            cityid = getArguments().getString("cityId");
+        }
         getData(cityid);
         mHandler = new Handler() {
             @Override
@@ -211,7 +208,7 @@ public class MainFragment extends Fragment implements ResponseListenter<List<Wea
     }
 
     @Override
-    public void onReceive(Result<List<WeatherData>> result)  {
+    public void onReceive(Result<List<WeatherData>> result) {
         if (result.isSuccess()) {
             mData = result.getData();
             mHourlyForecast = result.getData().get(0).mHourlyforecast;

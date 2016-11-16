@@ -17,12 +17,6 @@ public class Appconfiguration {
     private ProgressDialogFragment progressDialog;
     private Context mContext;
     private static Appconfiguration config;
-    private static SharedPreferences generalPreferences;
-    private static SharedPreferences.Editor generalPreferenceEditor;
-    private Bitmap drawable;//当天天气图片
-    private String adress; //当前位置
-    private String tmp_txt;//天气描述
-    private String tem;//温度
 
     public Context getContext() {
         return mContext;

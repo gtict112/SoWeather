@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.ChatListData;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
-import com.example.administrator.soweather.com.example.administrator.soweather.sertvice.CustomerService;
+import com.example.administrator.soweather.com.example.administrator.soweather.service.CustomerService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
 
 import java.text.SimpleDateFormat;
