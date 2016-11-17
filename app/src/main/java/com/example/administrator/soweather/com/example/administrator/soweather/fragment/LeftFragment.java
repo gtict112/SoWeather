@@ -15,8 +15,8 @@ import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout;
+import com.example.administrator.soweather.com.example.administrator.soweather.mode.NowWeather;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
-import com.example.administrator.soweather.com.example.administrator.soweather.mode.WeatherData;
 import com.example.administrator.soweather.com.example.administrator.soweather.service.WeatherService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
 
@@ -30,7 +30,7 @@ import java.util.List;
  * Created by Administrator on 2016/10/10.
  */
 
-public class LeftFragment extends Fragment implements View.OnClickListener, ResponseListenter<List<WeatherData>> {
+public class LeftFragment extends Fragment implements View.OnClickListener, ResponseListenter<NowWeather> {
     private RelativeLayout mHome;//首页
     private RelativeLayout mLifeindex;//生活指数
     private RelativeLayout mLittlebear;//心情线
@@ -42,7 +42,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
     private ImageView tem_img;
     private Appconfiguration config = Appconfiguration.getInstance();
     private Handler mHandler;
-    private List<WeatherData> mData = new ArrayList<WeatherData>();
+    private NowWeather mData = new NowWeather();
     private TextView dress;
 
     @Override
@@ -74,15 +74,15 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
     private void getData() {
         WeatherService service = new WeatherService();
         String city = null;
-        service.getWeatherData(this, city);
+        service.getNowWeatherData(this, city);
     }
 
-    private void init(List<WeatherData> mData) throws JSONException {
-        tem_img.setImageBitmap(mData.get(0).drawable);
-        dress.setText(mData.get(0).cnty + mData.get(0).city);
-        tmp.setText(mData.get(0).tmp + "℃");
-        String mTmpTxt = new JSONObject(mData.get(0).cond).optString("txt");
-        tmp_txt.setText(mTmpTxt);
+    private void init(NowWeather mData) throws JSONException {
+//        tem_img.setImageBitmap(mData.get(0).drawable);
+//        dress.setText(mData.get(0).cnty + mData.get(0).city);
+//        tmp.setText(mData.get(0).tmp + "℃");
+//        String mTmpTxt = new JSONObject(mData.get(0).cond).optString("txt");
+//        tmp_txt.setText(mTmpTxt);
     }
 
     private void initView(View view) {
@@ -116,18 +116,6 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
             case R.id.life_index:
                 LifeIndexFragment mLifeIndexFragment = new LifeIndexFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("cw_brf", mData.get(0).cwbrf);
-                bundle.putString("cw_txt", mData.get(0).cwtex);
-                bundle.putString("flu_brf", mData.get(0).flubrf);
-                bundle.putString("flu_txt", mData.get(0).flutex);
-                bundle.putString("drsg_brf", mData.get(0).drsgbrf);
-                bundle.putString("drsg_txt", mData.get(0).drsgtex);
-                bundle.putString("sport_brf", mData.get(0).sportbrf);
-                bundle.putString("sport_txt", mData.get(0).sporttex);
-                bundle.putString("trav_brf", mData.get(0).travbrf);
-                bundle.putString("trav_txt", mData.get(0).travtex);
-                bundle.putString("uv_brf", mData.get(0).uvbrf);
-                bundle.putString("uv_txt", mData.get(0).uvtex);
                 mLifeIndexFragment.setArguments(bundle);
                 newContent = mLifeIndexFragment;
                 title = "图表天气";
@@ -140,15 +128,15 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
                 SettingFragment mSettingFragment = new SettingFragment();
                 Bundle bundle1 = new Bundle();
                 String mTmpTxt = null;
-                try {
-                    mTmpTxt = new JSONObject(mData.get(0).cond).optString("txt");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                bundle1.putString("天气描述", mTmpTxt);
-                bundle1.putString("位置", mData.get(0).cnty + mData.get(0).city);
-                bundle1.putString("温度", mData.get(0).tmp);
-                bundle1.putParcelable("天气图片", mData.get(0).drawable);
+//                try {
+//                    mTmpTxt = new JSONObject(mData.get(0).cond).optString("txt");
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                bundle1.putString("天气描述", mTmpTxt);
+//                bundle1.putString("位置", mData.get(0).cnty + mData.get(0).city);
+//                bundle1.putString("温度", mData.get(0).tmp);
+//                bundle1.putParcelable("天气图片", mData.get(0).drawable);
                 mSettingFragment.setArguments(bundle1);
                 title = "系统设置";
                 newContent = mSettingFragment;
@@ -192,7 +180,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
     }
 
     @Override
-    public void onReceive(Result<List<WeatherData>> result)  {
+    public void onReceive(Result<NowWeather> result) {
         if (result.isSuccess()) {
             mData = result.getData();
             mHandler.sendMessage(mHandler.obtainMessage(111, mData));

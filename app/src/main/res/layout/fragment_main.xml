@@ -12,7 +12,6 @@
         android:scrollbars="none">
 
         <LinearLayout
-            android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -23,12 +22,14 @@
                 android:layout_height="160dp"
                 android:background="@color/white">
 
-                <com.example.administrator.soweather.com.example.administrator.soweather.view.HeartLayout
-                    android:id="@+id/heart_layout"
-                    android:layout_width="100dp"
-                    android:layout_height="160dp"
-                    android:layout_gravity="left|bottom"
-                    android:layout_marginTop="10dp"/>
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="5dp"
+                    android:text="sds"/>
             </FrameLayout>
 
             <View
@@ -39,13 +40,38 @@
             <LinearLayout
                 android:id="@+id/head1"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="170dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/table_shape"
                 android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/dir"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="东北风"/>
+
+                    <TextView
+                        android:id="@+id/dir_sc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:text="4级"/>
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -77,14 +103,14 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/up"
+                            android:id="@+id/tmp_max"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@mipmap/up"
                             android:text="18℃"/>
 
                         <TextView
-                            android:id="@+id/down"
+                            android:id="@+id/tmp_min"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
@@ -108,22 +134,22 @@
                         android:textSize="20sp"/>
 
                     <TextView
-                        android:id="@+id/p25_num"
+                        android:id="@+id/hum"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:layout_weight="1"
                         android:gravity="right"
-                        android:text="PM25:  60"
+                        android:text="相对湿度:  60"
                         android:textSize="15sp"/>
 
                     <TextView
-                        android:id="@+id/p25_name"
+                        android:id="@+id/vis"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
-                        android:text="空气质量:  良"
+                        android:text="能见度:  良"
                         android:textSize="15sp"/>
                 </LinearLayout>
             </LinearLayout>

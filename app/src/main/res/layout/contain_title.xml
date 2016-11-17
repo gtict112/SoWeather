@@ -36,6 +36,6 @@
         android:drawableLeft="@mipmap/place"
         android:padding="8dp"
         android:textColor="@color/background_progress"
-        android:textSize="19sp"
+        android:textSize="15sp"
         android:visibility="gone"/>
 </RelativeLayout>

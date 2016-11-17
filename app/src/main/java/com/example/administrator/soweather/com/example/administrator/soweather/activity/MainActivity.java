@@ -31,8 +31,8 @@ public class MainActivity extends SlidingFragmentActivity implements
     private Fragment mContent;
     private TextView topTextView;
     private TextView mDresss;
-    private String city;
-    private String cityid;
+    private String city = null;
+    private String cityid = null;
     private LocationClient mLocationClient;//定位SDK的核心类
 
     @Override
@@ -74,6 +74,7 @@ public class MainActivity extends SlidingFragmentActivity implements
         if (mDresss.getText().toString().equals("")) {
             mLocationClient.start();
         } else {
+            city = mDresss.getText().toString();
             mLocationClient.stop();
         }
     }
@@ -89,10 +90,11 @@ public class MainActivity extends SlidingFragmentActivity implements
     /**
      * 获取天气状态图标
      */
-    private void getWeather(){
+    private void getWeather() {
         CityAndWeatherImgService service = new CityAndWeatherImgService();
         service.getWeatherImgData(MainActivity.this, this);
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -109,6 +111,7 @@ public class MainActivity extends SlidingFragmentActivity implements
         topButton.setOnClickListener(this);
         topTextView = (TextView) findViewById(R.id.topTv);
         mDresss = (TextView) findViewById(R.id.dresss);
+        mDresss.setText("正在定位");
         mDresss.setText(city);
     }
 

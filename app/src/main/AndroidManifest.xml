@@ -62,7 +62,7 @@
         <activity android:name=".com.example.administrator.soweather.activity.MainActivity"/>
         <activity android:name=".com.example.administrator.soweather.activity.CurrentCityActivity"/>
         <activity android:name=".com.example.administrator.soweather.activity.HelpFeedbackActivity"/>
-        <activity android:name=".com.example.administrator.soweather.activity.TimeWeatherActivity"/>
+        <activity android:name=".com.example.administrator.soweather.activity.HourWeatherActivity"/>
         <activity android:name=".com.example.administrator.soweather.activity.DayWeatherActivity"/>
         <activity android:name=".com.example.administrator.soweather.activity.AboutActivity"/>
         <activity android:name=".com.example.administrator.soweather.activity.CustomerServiceActivity"/>
