@@ -118,7 +118,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onReceive(Result<Suggestion> result) {
                 if (result.isSuccess()) {
-                    mSuggestion = result.getData();
+             //       mSuggestion = result.getData();
                     mHandler.sendMessage(mHandler.obtainMessage(1, mSuggestion));
                 }
             }
@@ -136,7 +136,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onReceive(Result<NowWeather> result) {
                 if (result.isSuccess()) {
-                    mNowWeather = result.getData();
+              //      mNowWeather = result.getData();
                     mHandler.sendMessage(mHandler.obtainMessage(2, mNowWeather));
                 }
             }
