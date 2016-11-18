@@ -14,9 +14,11 @@ import android.widget.TextView;
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
+import com.example.administrator.soweather.com.example.administrator.soweather.db.SoWeatherDB;
 import com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.NowWeather;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
+import com.example.administrator.soweather.com.example.administrator.soweather.mode.WeathImg;
 import com.example.administrator.soweather.com.example.administrator.soweather.service.WeatherService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
 
@@ -40,10 +42,11 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
     private TextView tmp;
     private TextView tmp_txt;
     private ImageView tem_img;
-    private Appconfiguration config = Appconfiguration.getInstance();
     private Handler mHandler;
     private NowWeather mData = new NowWeather();
     private TextView dress;
+    private SoWeatherDB cityDB;
+    private List<WeathImg> weathimgs = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,19 +58,9 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_mean, null);
         initView(view);
+        cityDB = SoWeatherDB.getInstance(getActivity());
         getData();
-        mHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                if (msg.what == 111) {
-                    try {
-                        init(mData);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        };
+        getHandlerMessage();
         return view;
     }
 
@@ -77,12 +70,34 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
         service.getNowWeatherData(this, city);
     }
 
-    private void init(NowWeather mData) throws JSONException {
-//        tem_img.setImageBitmap(mData.get(0).drawable);
-//        dress.setText(mData.get(0).cnty + mData.get(0).city);
-//        tmp.setText(mData.get(0).tmp + "℃");
-//        String mTmpTxt = new JSONObject(mData.get(0).cond).optString("txt");
-//        tmp_txt.setText(mTmpTxt);
+    private void getHandlerMessage() {
+        mHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                if (msg.what == 1) {
+                    try {
+                        setView(mData);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+    }
+
+    private void setView(NowWeather mData) throws JSONException {
+        weathimgs = cityDB.getAllWeatherImg();
+        dress.setText(mData.cnty + mData.city);
+        tmp.setText(mData.tmp + "℃");
+        String mTmpTxt = new JSONObject(mData.cond).optString("txt");
+        String code = new JSONObject(mData.cond).optString("code");
+        for (int i = 0; i < weathimgs.size(); i++) {
+            if (code.equals(weathimgs.get(i).getCode())) {
+                tem_img.setImageBitmap(weathimgs.get(i).getIcon());
+            }
+        }
+
+        tmp_txt.setText(mTmpTxt);
     }
 
     private void initView(View view) {
@@ -114,10 +129,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
                 title = "首页";
                 break;
             case R.id.life_index:
-                LifeIndexFragment mLifeIndexFragment = new LifeIndexFragment();
-                Bundle bundle = new Bundle();
-                mLifeIndexFragment.setArguments(bundle);
-                newContent = mLifeIndexFragment;
+                newContent = new LifeIndexFragment();
                 title = "图表天气";
                 break;
             case R.id.little_bear:
@@ -125,21 +137,8 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
                 title = "心情线";
                 break;
             case R.id.setting:
-                SettingFragment mSettingFragment = new SettingFragment();
-                Bundle bundle1 = new Bundle();
-                String mTmpTxt = null;
-//                try {
-//                    mTmpTxt = new JSONObject(mData.get(0).cond).optString("txt");
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//                bundle1.putString("天气描述", mTmpTxt);
-//                bundle1.putString("位置", mData.get(0).cnty + mData.get(0).city);
-//                bundle1.putString("温度", mData.get(0).tmp);
-//                bundle1.putParcelable("天气图片", mData.get(0).drawable);
-                mSettingFragment.setArguments(bundle1);
+                newContent = new SettingFragment();
                 title = "系统设置";
-                newContent = mSettingFragment;
                 break;
             case R.id.logout:
                 final com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout confirmDialog = new DialogLogout(getActivity(), "确定要退出吗?", "退出", "取消");
@@ -183,7 +182,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
     public void onReceive(Result<NowWeather> result) {
         if (result.isSuccess()) {
             mData = result.getData();
-            mHandler.sendMessage(mHandler.obtainMessage(111, mData));
+            mHandler.sendMessage(mHandler.obtainMessage(1, mData));
         } else {
             result.getErrorMessage();
         }

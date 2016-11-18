@@ -151,7 +151,7 @@ public class MainActivity extends SlidingFragmentActivity implements
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(MainActivity.this, CurrentCityActivity.class);
-                    startActivityForResult(intent, 0);
+                    startActivity(intent);
                 }
             });
         } else {
@@ -191,29 +191,5 @@ public class MainActivity extends SlidingFragmentActivity implements
 
     @Override
     public void onReceive(Result<Integer> result) {
-
-    }
-
-    /**
-     * 回调方法从选择城市回来的时候会执行这个方法
-     *
-     * @param requestCode
-     * @param resultCode
-     * @param data
-     */
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case 0:
-                if (data != null) {
-                    Bundle b = data.getExtras();
-                    cityid = b.getString("cityid");
-                    city = b.getString("city");
-                    mDresss.setText(city);
-                }
-                break;
-            default:
-                break;
-        }
     }
 }

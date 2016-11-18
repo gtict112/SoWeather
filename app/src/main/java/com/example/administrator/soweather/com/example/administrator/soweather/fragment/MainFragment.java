@@ -10,16 +10,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.InfoWindow;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.Marker;
+import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.TextureMapView;
+import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.model.inner.Point;
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.CustomerServiceActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.DayWeatherActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.HourWeatherActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.db.SoWeatherDB;
+import com.example.administrator.soweather.com.example.administrator.soweather.mode.City;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Dailyforecast;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Hourlyforecast;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.NowWeather;
+import com.example.administrator.soweather.com.example.administrator.soweather.mode.Province;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Suggestion;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.WeathImg;
@@ -27,8 +42,8 @@ import com.example.administrator.soweather.com.example.administrator.soweather.s
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.GifView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -62,13 +77,17 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private TextView sport_txt;
     private String cityid;
     private String city;
-    private SoWeatherDB cityDB;
     private Handler mHandler;
     private List<Hourlyforecast> mHourlyforecast = new ArrayList<>();
     private List<Dailyforecast> mDailyforecast = new ArrayList<>();
     private NowWeather mNowWeather = new NowWeather();
     private Suggestion mSuggestion = new Suggestion();
     private List<WeathImg> weathimgs = new ArrayList<>();
+    private TextureMapView map;
+    private BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.place);
+    private SoWeatherDB cityDB;
+    private List<Province> provinces = new ArrayList<>();
+    private List<City> cities = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,12 +102,10 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, null);
+        cityDB = SoWeatherDB.getInstance(getActivity());
         initView(view);
         getAdress();
-        getDailyforecastData(cityid);
-        getHourlyforecastData(cityid);
-        getNowWeatherData(cityid);
-        getSuggestionData(cityid);
+        getDate();
         getHandleMessge();
         return view;
     }
@@ -102,9 +119,29 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             cityid = getArguments().getString("cityId");
             city = getArguments().getString("city");
             if (cityid == null && (city == null || city.equals("获取位置失败") || city.equals("获取位置异常"))) {
-                //根据城市名称找到城市Id
+                Toast.makeText(getActivity(), "当前定位城市失败,请手动选择", Toast.LENGTH_LONG).show();
+            } else if (cityid == null && (city != null && (!city.equals("获取位置失败")) || !city.equals("获取位置异常"))) {
+                //根据城市名找到城市Id
+                provinces = cityDB.getAllProvince();
+                for (int i = 0; i < provinces.size(); i++) {
+                    String provin = provinces.get(i).getProvinceName();
+                    cities = cityDB.getAllCity(provin);
+                    for (int j = 0; j < cities.size(); j++) {
+                        if (cities.get(j).getCityName().contains(city)) {
+                            cityid = cities.get(j).getCityId();
+                        }
+                    }
+                }
             }
         }
+    }
+
+    private void getDate() {
+        config.showProgressDialog("正在加载...", getActivity());
+        getDailyforecastData(cityid);
+        getHourlyforecastData(cityid);
+        getNowWeatherData(cityid);
+        getSuggestionData(cityid);
     }
 
     /**
@@ -118,8 +155,11 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onReceive(Result<Suggestion> result) {
                 if (result.isSuccess()) {
-             //       mSuggestion = result.getData();
+                    mSuggestion = result.getData();
                     mHandler.sendMessage(mHandler.obtainMessage(1, mSuggestion));
+                } else {
+                    config.dismissProgressDialog();
+                    Toast.makeText(getActivity(), result.getErrorMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         }, cityid);
@@ -136,8 +176,11 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onReceive(Result<NowWeather> result) {
                 if (result.isSuccess()) {
-              //      mNowWeather = result.getData();
+                    mNowWeather = result.getData();
                     mHandler.sendMessage(mHandler.obtainMessage(2, mNowWeather));
+                } else {
+                    config.dismissProgressDialog();
+                    Toast.makeText(getActivity(), result.getErrorMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         }, cityid);
@@ -155,6 +198,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             public void onReceive(Result<List<Hourlyforecast>> result) {
                 if (result.isSuccess()) {
                     mHourlyforecast = result.getData();
+                } else {
+                    config.dismissProgressDialog();
+                    Toast.makeText(getActivity(), result.getErrorMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         }, cityid);
@@ -173,6 +219,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 if (result.isSuccess()) {
                     mDailyforecast = result.getData();
                     mHandler.sendMessage(mHandler.obtainMessage(3, mDailyforecast));
+                } else {
+                    config.dismissProgressDialog();
                 }
             }
         }, cityid);
@@ -199,6 +247,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setSuggestionView(Suggestion mSuggestion) {
+        config.dismissProgressDialog();
         flubrf.setText("感冒指数---" + mSuggestion.flubrf);
         flu_txt.setText(mSuggestion.flutex);
         drsgbrf.setText("穿衣指数---" + mSuggestion.drsgbrf);
@@ -210,34 +259,73 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setNowWeatherView(NowWeather mNowWeather) {
+        config.dismissProgressDialog();
         try {
-            date.setText(new JSONArray(mNowWeather.update).optString(0));
+            date.setText(new JSONObject(mNowWeather.update).optString("loc"));
             dir.setText(mNowWeather.dir);
-            dir_sc.setText(mNowWeather.sc);
-            mTmp.setText(mNowWeather.tmp);
-            hum.setText("相对湿度:  " + mNowWeather.hum);
-            vis.setText("能见度:  " + mNowWeather.vis);
-            String code = new JSONArray(mNowWeather.cond).getString(0);
-            String txt = new JSONArray(mNowWeather.cond).getString(1);
+            dir_sc.setText(mNowWeather.sc + "级");
+            mTmp.setText(mNowWeather.tmp + "℃");
+            hum.setText("相对湿度:  " + mNowWeather.hum + "%");
+            vis.setText("能见度:  " + mNowWeather.vis + "km");
+            String code = new JSONObject(mNowWeather.cond).optString("code");
+            String txt = new JSONObject(mNowWeather.cond).optString("txt");
             code_txt.setText(txt);
-            cityDB = SoWeatherDB.getInstance(getActivity());
             weathimgs = cityDB.getAllWeatherImg();
             for (int i = 0; i < weathimgs.size(); i++) {
                 if (code.equals(weathimgs.get(i).getCode())) {
                     weatherImg.setImageBitmap(weathimgs.get(i).getIcon());
                 }
             }
+            double lat = Double.parseDouble(mNowWeather.lat);
+            double lon = Double.parseDouble(mNowWeather.lon);
+            final BaiduMap baiduMap = map.getMap();
+            LatLng latLng = null;
+            OverlayOptions overlayOptions = null;
+            Marker marker = null;
+            latLng = new LatLng(lat, lon);
+            // 图标
+            overlayOptions = new MarkerOptions().position(latLng)
+                    .icon(bitmap).zIndex(5);
+            marker = (Marker) (baiduMap.addOverlay(overlayOptions));
+            MapStatusUpdate cenptmsu = MapStatusUpdateFactory.newLatLng(new LatLng(lat, lon));
+            baiduMap.setMapStatus(cenptmsu);
+            baiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker) {
+                    InfoWindow mInfoWindow;
+                    TextView location = new TextView(getActivity().getApplicationContext());
+                    location.setBackgroundResource(R.drawable.table_shape);
+                    location.setPadding(10, 10, 5, 20);
+                    location.setTextColor(getActivity().getResources().getColor(R.color.background_progress));
+                    location.setTextSize(12);
+                    location.setText("小背熊提醒您:待真机测试,模拟器无法定位到精确位置!");
+                    final LatLng ll = marker.getPosition();
+                    android.graphics.Point p = baiduMap.getProjection().toScreenLocation(ll);
+                    p.y -= 47;
+                    LatLng llInfo = baiduMap.getProjection().fromScreenLocation(p);
+                    mInfoWindow = new InfoWindow(location, llInfo, 2);
+                    //                    mInfoWindow = new InfoWindow(location, llInfo, 2, new InfoWindow.OnInfoWindowClickListener() {
+                    //                        @Override
+                    //                        public void onInfoWindowClick() {
+                    //                            baiduMap.hideInfoWindow();
+                    //                        }
+                    //                    });
+                    baiduMap.showInfoWindow(mInfoWindow);
+                    return true;
+                }
+            });
         } catch (JSONException e) {
             e.printStackTrace();//异常
         }
-
-
     }
 
     private void setOntherView(List<Dailyforecast> mDailyforecast) {
+        config.dismissProgressDialog();
         try {
-            tmp_max.setText(new JSONArray(mDailyforecast.get(0).tmp).getString(0));
-            tmp_min.setText(new JSONArray(mDailyforecast.get(0).tmp).getString(1));
+            String max = new JSONObject(mDailyforecast.get(0).tmp).optString("max");
+            String min = new JSONObject(mDailyforecast.get(0).tmp).optString("min");
+            tmp_max.setText(max + "℃");
+            tmp_min.setText(min + "℃");
         } catch (JSONException e) {
             e.printStackTrace();//异常
         }
@@ -264,6 +352,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         trav_txt = (TextView) view.findViewById(R.id.trav_txt);
         sport_txt = (TextView) view.findViewById(R.id.sport_txt);
         add_mood_line = (GifView) view.findViewById(R.id.add_mood_line);
+        map = (TextureMapView) view.findViewById(R.id.map);
+        hum = (TextView) view.findViewById(R.id.hum);
+        vis = (TextView) view.findViewById(R.id.vis);
         add_mood_line.setMovieResource(R.mipmap.git);
         time.setOnClickListener(this);
         day.setOnClickListener(this);
@@ -284,9 +375,10 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             case R.id.day:
                 //七天-十天预报
                 Intent intent2 = new Intent();
-                intent2.setClass(getActivity(), HourWeatherActivity.class);
+                intent2.setClass(getActivity(), DayWeatherActivity.class);
                 Bundle bundle2 = new Bundle();
                 bundle2.putSerializable(DayWeatherActivity.DATA, (Serializable) mDailyforecast);
+                bundle2.putString("cityname", city);
                 intent2.putExtras(bundle2);
                 startActivity(intent2);
                 break;

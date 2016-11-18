@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.support.v4.app.FragmentActivity;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.example.administrator.soweather.com.example.administrator.soweather.general.ProgressDialogFragment;
 
 /**
