@@ -119,7 +119,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             cityid = getArguments().getString("cityId");
             city = getArguments().getString("city");
             if (cityid == null && (city == null || city.equals("获取位置失败") || city.equals("获取位置异常"))) {
-                Toast.makeText(getActivity(), "当前定位城市失败,请手动选择", Toast.LENGTH_LONG).show();
+               // Toast.makeText(getActivity(), "当前定位城市失败,请手动选择", Toast.LENGTH_LONG).show();
             } else if (cityid == null && (city != null && (!city.equals("获取位置失败")) || !city.equals("获取位置异常"))) {
                 //根据城市名找到城市Id
                 provinces = cityDB.getAllProvince();
