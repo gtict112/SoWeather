@@ -351,11 +351,11 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         drsg_txt = (TextView) view.findViewById(R.id.drsg_txt);
         trav_txt = (TextView) view.findViewById(R.id.trav_txt);
         sport_txt = (TextView) view.findViewById(R.id.sport_txt);
-        add_mood_line = (GifView) view.findViewById(R.id.add_mood_line);
+       // add_mood_line = (GifView) view.findViewById(R.id.add_mood_line);
         map = (TextureMapView) view.findViewById(R.id.map);
         hum = (TextView) view.findViewById(R.id.hum);
         vis = (TextView) view.findViewById(R.id.vis);
-        add_mood_line.setMovieResource(R.mipmap.git);
+      //  add_mood_line.setMovieResource(R.mipmap.git);
         time.setOnClickListener(this);
         day.setOnClickListener(this);
     }
@@ -382,10 +382,10 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 intent2.putExtras(bundle2);
                 startActivity(intent2);
                 break;
-            case R.id.add_mood_line:
-                Intent intent = new Intent(getActivity(), CustomerServiceActivity.class);
-                startActivity(intent);
-                break;
+          //  case R.id.add_mood_line:
+         //       Intent intent = new Intent(getActivity(), CustomerServiceActivity.class);
+          //      startActivity(intent);
+          //      break;
         }
     }
 }

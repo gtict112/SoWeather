@@ -49,7 +49,20 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="p9ZUBq1xOym3Gh9X15dfqYA9yuuY7RPy"/>
+        <receiver android:name="com.example.administrator.soweather.com.example.administrator.soweather.core.ParentsAppWidgetProvider" >
 
+            <!-- 指定桌面小控件的meta-data -->
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/appwidgetprovider" />
+            <!-- 将该BroadcastReceiver当成桌面小控件 -->
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".com.example.administrator.soweather.service.AppWidgetUpdateService" >
+        </service>
         <activity
             android:name=".com.example.administrator.soweather.activity.WelcomeActivity"
             android:hardwareAccelerated="true">
