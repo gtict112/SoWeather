@@ -81,6 +81,7 @@ public class CustomerServiceActivity extends Activity implements View.OnClickLis
             System.out.println("时间" + listData);
             list.add(listData);
             adapter.notifyDataSetChanged();
+            lv.setSelection(adapter.getCount());
         } catch (Exception e) {
         }
     }
@@ -100,6 +101,7 @@ public class CustomerServiceActivity extends Activity implements View.OnClickLis
             }
         }
         adapter.notifyDataSetChanged();
+        lv.setSelection(adapter.getCount());
         senData(droph);
     }
 
