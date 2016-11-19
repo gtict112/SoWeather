@@ -82,6 +82,7 @@ public class CustomerServiceActivity extends Activity implements View.OnClickLis
             list.add(listData);
             adapter.notifyDataSetChanged();
             lv.setSelection(adapter.getCount());
+            lv.smoothScrollToPosition(adapter.getCount() - 1);
         } catch (Exception e) {
         }
     }
