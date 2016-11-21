@@ -15,7 +15,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.example.administrator.soweather.R;
 
 /**
@@ -51,8 +50,8 @@ public class WelcomeActivity extends Activity {
                 //重写此方法，用于捕捉页面上的跳转链接
                 if ("http://start/".equals(url)) {
                     //在html代码中的按钮跳转地址需要同此地址一致
-                    Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
-                    startActivity(intent);
+                    startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+                    overridePendingTransition(R.anim.inuptodown,R.anim.outdowntoup);
                     finish();
                 }
                 return true;

@@ -5,10 +5,10 @@
     <color name="colorAccent">#FF4081</color>
     <color name="contain_title">#3F51B5</color>
     <color name="background_progress">#282828</color>
-    <color name="grey">#333328</color>
+    <color name="grey">#B0B0B0</color>
     <color name="font_progress">#bebebe</color>
     <color name="left_fragment">#f1f1f9</color>
-    <color name="line">#bebebe</color>
+    <color name="line">#bebebe</color>switch (v.getId()) {
     <color name="left_fragment_head">#3F5199</color>
     <color name="greed">#2FC1B7</color>
     <color name="red">#F15F7F</color>

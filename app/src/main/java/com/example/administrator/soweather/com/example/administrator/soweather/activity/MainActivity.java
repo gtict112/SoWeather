@@ -121,8 +121,13 @@ public class MainActivity extends SlidingFragmentActivity implements
                     savedInstanceState, "mContent");
         }
         setBehindContentView(R.layout.menu_frame_left);
+        LeftFragment mLeftFragment = new LeftFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("city", city);
+        bundle.putString("cityid", cityid);
+        mLeftFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.menu_frame, new LeftFragment()).commit();
+                .replace(R.id.menu_frame, mLeftFragment).commit();
         SlidingMenu sm = getSlidingMenu();
         sm.setMode(SlidingMenu.LEFT);
         sm.setShadowWidthRes(R.dimen.shadow_width);

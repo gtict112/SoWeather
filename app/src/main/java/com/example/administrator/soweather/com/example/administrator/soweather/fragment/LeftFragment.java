@@ -13,10 +13,11 @@ import android.widget.TextView;
 
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
-import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.db.SoWeatherDB;
 import com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout;
+import com.example.administrator.soweather.com.example.administrator.soweather.mode.City;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.NowWeather;
+import com.example.administrator.soweather.com.example.administrator.soweather.mode.Province;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.WeathImg;
 import com.example.administrator.soweather.com.example.administrator.soweather.service.WeatherService;
@@ -34,7 +35,6 @@ import java.util.List;
 
 public class LeftFragment extends Fragment implements View.OnClickListener, ResponseListenter<NowWeather> {
     private RelativeLayout mHome;//首页
-    private RelativeLayout mLifeindex;//生活指数
     private RelativeLayout mLittlebear;//心情线
     private RelativeLayout service_assistant;//我的助手
     private RelativeLayout mSetting;//设置
@@ -47,6 +47,10 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
     private TextView dress;
     private SoWeatherDB cityDB;
     private List<WeathImg> weathimgs = new ArrayList<>();
+    private List<Province> provinces = new ArrayList<>();
+    private List<City> cities = new ArrayList<>();
+    private String city = null;
+    private String cityid;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,14 +63,36 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
         View view = inflater.inflate(R.layout.layout_mean, null);
         initView(view);
         cityDB = SoWeatherDB.getInstance(getActivity());
+        getAdress();
         getData();
         getHandlerMessage();
         return view;
     }
 
+    private void getAdress() {
+        if (getArguments() != null) {
+            cityid = getArguments().getString("cityId");
+            city = getArguments().getString("city");
+            if (cityid == null && (city == null || city.equals("获取位置失败") || city.equals("获取位置异常"))) {
+                // Toast.makeText(getActivity(), "当前定位城市失败,请手动选择", Toast.LENGTH_LONG).show();
+            } else if (cityid == null && (city != null && (!city.equals("获取位置失败")) || !city.equals("获取位置异常"))) {
+                //根据城市名找到城市Id
+                provinces = cityDB.getAllProvince();
+                for (int i = 0; i < provinces.size(); i++) {
+                    String provin = provinces.get(i).getProvinceName();
+                    cities = cityDB.getAllCity(provin);
+                    for (int j = 0; j < cities.size(); j++) {
+                        if (cities.get(j).getCityName().contains(city)) {
+                            cityid = cities.get(j).getCityId();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private void getData() {
         WeatherService service = new WeatherService();
-        String city = null;
         service.getNowWeatherData(this, city);
     }
 
@@ -102,7 +128,6 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
 
     private void initView(View view) {
         mHome = (RelativeLayout) view.findViewById(R.id.home);
-        mLifeindex = (RelativeLayout) view.findViewById(R.id.life_index);
         mLittlebear = (RelativeLayout) view.findViewById(R.id.little_bear);
         mSetting = (RelativeLayout) view.findViewById(R.id.setting);
         mLogout = (RelativeLayout) view.findViewById(R.id.logout);
@@ -112,7 +137,6 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
         dress = (TextView) view.findViewById(R.id.dress);
         service_assistant = (RelativeLayout) view.findViewById(R.id.service_assistant);
         mHome.setOnClickListener(this);
-        mLifeindex.setOnClickListener(this);
         mLittlebear.setOnClickListener(this);
         mSetting.setOnClickListener(this);
         mLogout.setOnClickListener(this);
@@ -127,10 +151,6 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
             case R.id.home:
                 newContent = new MainFragment();
                 title = "首页";
-                break;
-            case R.id.life_index:
-                newContent = new LifeIndexFragment();
-                title = "图表天气";
                 break;
             case R.id.little_bear:
                 newContent = new MoodLineFragment();
