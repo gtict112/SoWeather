@@ -524,8 +524,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 String min = mTimeWeatherData.tmp;
                 viewHolder.tmp.setText(min + "℃");
                 code = new JSONObject(mTimeWeatherData.cond).optString("code");
-                viewHolder.decs.setText("降水率为" + mTimeWeatherData.pop + " 相对湿度" + mTimeWeatherData.hum + new JSONObject(mTimeWeatherData.wind).optString("dir")
-                        + new JSONObject(mTimeWeatherData.wind).optString("sc"));
+                viewHolder.decs.setText("降水率为" + mTimeWeatherData.pop);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
