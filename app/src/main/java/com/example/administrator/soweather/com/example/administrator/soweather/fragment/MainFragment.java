@@ -494,6 +494,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             ImageView txt_img;
             TextView date;
             TextView tmp;
+            TextView decs;
         }
 
         @Override
@@ -503,12 +504,13 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
 
         public TimeAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-            View view = inflater.inflate(R.layout.item_daily_forecst,
+            View view = inflater.inflate(R.layout.item_time_weather,
                     viewGroup, false);
             TimeAdapter.ViewHolder viewHolder = new TimeAdapter.ViewHolder(view);
             viewHolder.date = (TextView) view.findViewById(R.id.date);
             viewHolder.txt_img = (ImageView) view.findViewById(R.id.txt_img);
             viewHolder.tmp = (TextView) view.findViewById(R.id.tmp);
+            viewHolder.decs = (TextView) view.findViewById(R.id.desc);
             return viewHolder;
         }
 
@@ -520,8 +522,10 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             String code = null;
             try {
                 String min = mTimeWeatherData.tmp;
-                viewHolder.tmp.setText(min);
+                viewHolder.tmp.setText(min + "℃");
                 code = new JSONObject(mTimeWeatherData.cond).optString("code");
+                viewHolder.decs.setText("降水率为" + mTimeWeatherData.pop + " 相对湿度" + mTimeWeatherData.hum + new JSONObject(mTimeWeatherData.wind).optString("dir")
+                        + new JSONObject(mTimeWeatherData.wind).optString("sc"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
