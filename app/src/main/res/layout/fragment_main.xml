@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginRight="8dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/table_black_shape"
                 android:drawableLeft="@mipmap/update"
                 android:drawablePadding="8dp"
@@ -56,17 +56,31 @@
                     android:textSize="18sp"/>
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tem_min_max"
+            <LinearLayout
+                android:id="@+id/linearLayout1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:textColor="@color/white"
-                android:textSize="18sp"/>
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tem_min_max"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"/>
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/white"/>
+            </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:id="@+id/aqi"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
@@ -76,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/table_white_shape"
-                    android:text="PM2.5"
+                    android:text="PM25"
                     android:textColor="#C76114"
                     android:textSize="14sp"/>
 
@@ -86,8 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="7dp"
-                    android:text="102"
-                    android:textColor="@color/white"
+                    android:textColor="#C76114"
                     android:textSize="14sp"/>
 
                 <TextView
@@ -96,8 +109,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="7dp"
-                    android:text="空气良好"
-                    android:textColor="@color/white"
+                    android:textColor="#C76114"
                     android:textSize="14sp"/>
             </LinearLayout>
 
@@ -126,19 +138,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="生活资讯"
-                        android:textColor="@color/white"
+                        android:textColor="@color/greed"
                         android:textSize="14sp"/>
 
                     <TextView
                         android:id="@+id/date2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
+                        android:textColor="@color/greed"
                         android:textSize="14sp"/>
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -151,7 +164,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:background="@color/white"
-                    android:src="@mipmap/ceshibeijing"/>
+                    />
 
                 <TextView
                     android:id="@+id/code_txt2"
@@ -166,30 +179,75 @@
     </ScrollView>
 
     <FrameLayout
+        android:id="@+id/frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_gravity="bottom">
+        android:layout_height="165dp"
+        android:layout_gravity="bottom"
+        android:background="#70000000">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:layout_marginTop="0.8dp"
+            android:background="@color/grey"/>
+
         <ImageView
             android:id="@+id/up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
             android:layout_marginTop="2dp"
             android:src="@mipmap/up"
-            android:layout_marginBottom="5dp"
-          />
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:background="@drawable/table_black_shape"
-            android:layout_gravity="bottom"
-            android:layout_height="130dp">
-        <android.support.v7.widget.RecyclerView
+            />
+
+        <com.example.administrator.soweather.com.example.administrator.soweather.view.HorizontalRecyclerView
             android:id="@+id/day_weather"
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:layout_gravity="bottom"
-            >
-        </android.support.v7.widget.RecyclerView>
+            android:scrollbars="none">
+        </com.example.administrator.soweather.com.example.administrator.soweather.view.HorizontalRecyclerView>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/tip"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/tip"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_gravity="bottom"
+            android:background="#FF6600">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:text="小时预报"
+                android:textColor="@color/background_progress"
+                android:textSize="13sp"/>
+
+            <com.example.administrator.soweather.com.example.administrator.soweather.view.HorizontalRecyclerView
+                android:id="@+id/time_weather"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="20dp"
+                android:scrollbars="none"/>
         </FrameLayout>
     </FrameLayout>
 </FrameLayout>

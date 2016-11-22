@@ -114,10 +114,17 @@ public class LifeActivity extends Activity {
             pres = intent.getStringExtra("pres");
             vis = intent.getStringExtra("vis");
             tem_max_min = intent.getStringExtra("tem_max_min");
-            wind.setText("-" + "今日风力," + dir + sc + "级");
-            desc.setText("-" + "温度" + tem_max_min + "," + "体感温度" + fl + "℃" + "," + "相对湿度" + hum +"%"+ "," + "降水量" + pcpn + "mm"+"," + "气压" + pres + "," + "能见度" + vis+"km");
             city = intent.getStringExtra("city");
+            wind.setText("- " + "今日风力," + dir + sc + "级");
+            desc.setText("- " + "温度" + tem_max_min + "," + "体感温度" + fl + "℃" + "," + "相对湿度" + hum + "%" + "," + "降水量" + pcpn + "mm" + "," + "气压" + pres + "," + "能见度" + vis + "km");
             toptv.setText("今日" + city + "生活资讯");
+            String cond = intent.getStringExtra("cond");
+            try {
+                JSONObject astrodate = new JSONObject(cond);
+                index.setText("- " + "白天" + astrodate.optString("txt_d") + "," + "夜间" + astrodate.optString("txt_n"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
         getSuggestionData(cityid);
     }
@@ -128,11 +135,13 @@ public class LifeActivity extends Activity {
      * @param cityid
      */
     private void getSuggestionData(String cityid) {
+        config.showProgressDialog("正在加载", this);
         WeatherService mWeatherService = new WeatherService();
         mWeatherService.getSuggestionData(new ResponseListenter<Suggestion>() {
             @Override
             public void onReceive(Result<Suggestion> result) {
                 if (result.isSuccess()) {
+                    config.dismissProgressDialog();
                     mSuggestion = result.getData();
                     mHandler.sendMessage(mHandler.obtainMessage(1, mSuggestion));
                 } else {
@@ -166,5 +175,6 @@ public class LifeActivity extends Activity {
         trav_txt.setText(mSuggestion.travtex);
         sportbrf.setText("运动指数---" + mSuggestion.sportbrf);
         sport_txt.setText(mSuggestion.sporttex);
+        index.setText(index.getText().toString() + "," + "紫外线强度" + mSuggestion.uvbrf + "," + mSuggestion.cwbrf + "洗车");
     }
 }
