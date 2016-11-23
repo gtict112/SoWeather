@@ -41,7 +41,9 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="Widget_GifView">
-
+    <style name="dialog_style" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/dialog_in</item>
+        <item name="@android:windowExitAnimation">@anim/dialog_out</item>
     </style>
+    <style name="Widget_GifView"/>
 </resources>

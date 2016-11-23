@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:id="@+id/bg_img"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:orientation="vertical">
 
+    <com.example.administrator.soweather.com.example.administrator.soweather.view.GifView
+        android:id="@+id/gif"
+        android:layout_width="match_parent"
+        android:enabled="false"
+        android:layout_gravity="center"
+        android:layout_height="match_parent">
+    </com.example.administrator.soweather.com.example.administrator.soweather.view.GifView>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#70400000"
         android:scrollbars="none">
 
         <LinearLayout
@@ -208,46 +216,5 @@
             android:layout_gravity="bottom"
             android:scrollbars="none">
         </com.example.administrator.soweather.com.example.administrator.soweather.view.HorizontalRecyclerView>
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/tip"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="50dp"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:src="@mipmap/tip"/>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_gravity="bottom"
-            android:background="#70FF6600">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="2dp"
-                android:text="小时预报"
-                android:textColor="@color/background_progress"
-                android:textSize="13sp"/>
-
-            <com.example.administrator.soweather.com.example.administrator.soweather.view.HorizontalRecyclerView
-                android:id="@+id/time_weather"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:layout_marginTop="20dp"
-                android:scrollbars="none"/>
-        </FrameLayout>
     </FrameLayout>
 </FrameLayout>
