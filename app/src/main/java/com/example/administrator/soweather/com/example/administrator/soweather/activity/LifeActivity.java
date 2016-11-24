@@ -115,13 +115,13 @@ public class LifeActivity extends Activity {
             vis = intent.getStringExtra("vis");
             tem_max_min = intent.getStringExtra("tem_max_min");
             city = intent.getStringExtra("city");
-            wind.setText("- " + "今日风力," + dir + sc + "级");
-            desc.setText("- " + "温度" + tem_max_min + "," + "体感温度" + fl + "℃" + "," + "相对湿度" + hum + "%" + "," + "降水量" + pcpn + "mm" + "," + "气压" + pres + "," + "能见度" + vis + "km");
+            wind.setText("*  " + "今日风力," + dir + sc + "级");
+            desc.setText("*  " + "温度" + tem_max_min + "," + "体感温度" + fl + "℃" + "," + "相对湿度" + hum + "%" + "," + "降水量" + pcpn + "mm" + "," + "气压" + pres + "," + "能见度" + vis + "km");
             toptv.setText("今日" + city + "生活资讯");
             String cond = intent.getStringExtra("cond");
             try {
                 JSONObject astrodate = new JSONObject(cond);
-                index.setText("- " + "白天" + astrodate.optString("txt_d") + "," + "夜间" + astrodate.optString("txt_n"));
+                index.setText("*  " + "白天" + astrodate.optString("txt_d") + "," + "夜间" + astrodate.optString("txt_n"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

@@ -149,7 +149,12 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
         String title = null;
         switch (v.getId()) {
             case R.id.home:
-                newContent = new MainFragment();
+                MainFragment mMainFragment = new MainFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("city", city);
+                bundle.putString("cityId", cityid);
+                mMainFragment.setArguments(bundle);
+                newContent = mMainFragment;
                 title = "首页";
                 break;
             case R.id.little_bear:

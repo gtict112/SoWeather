@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.DisplayMetrics;
@@ -36,10 +37,14 @@ import com.example.administrator.soweather.com.example.administrator.soweather.s
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.GifView;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.HorizontalRecyclerView;
+import com.example.administrator.soweather.com.example.administrator.soweather.view.RoundedDrawable;
+import com.example.administrator.soweather.com.example.administrator.soweather.view.RoundedImageView;
+import com.example.administrator.soweather.com.example.administrator.soweather.view.WeatherChartView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,8 +89,35 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private LinearLayout linearLayout1;
     private LinearLayout linearLayout2;
     private GifView mGifView;
+    private DisplayMetrics dm = new DisplayMetrics();
+    private int width;
+    private int heigth;
+    private FrameLayout frame_layout2;//弹出曲线图 详情
+    private WeatherChartView line_char;//曲线图
+    private ImageView down;
 
-    //  private TimeAdapter mTimeAdapter;
+    private TextView day_1;
+    private TextView day_2;
+    private TextView day_3;
+    private TextView day_4;
+    private TextView day_5;
+    private TextView day_6;
+
+    private TextView wether_1;
+    private TextView wether_2;
+    private TextView wether_3;
+    private TextView wether_4;
+    private TextView wether_5;
+    private TextView wether_6;
+
+
+    private ImageView day_img_1;
+    private ImageView day_img_2;
+    private ImageView day_img_3;
+    private ImageView day_img_4;
+    private ImageView day_img_5;
+    private ImageView day_img_6;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +134,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         cityDB = SoWeatherDB.getInstance(getActivity());
         initView(view);
         getAdress();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        width = dm.widthPixels;
+        heigth = dm.heightPixels;
         getDate();
         getHandleMessge();
         return view;
@@ -196,7 +231,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 if (result.isSuccess()) {
                     config.dismissProgressDialog();
                     mHourlyforecast = result.getData();
-                    mHandler.sendMessage(mHandler.obtainMessage(4, mHourlyforecast));
                 } else {
                     config.dismissProgressDialog();
                     Toast.makeText(getActivity(), result.getErrorMessage(), Toast.LENGTH_LONG).show();
@@ -240,17 +274,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                         break;
                     case 3:
                         setOntherView(mDailyforecast);
-                    case 4:
-                        setHourWeatherView(mHourlyforecast);
-                        break;
                 }
             }
         };
-    }
-
-    private void setHourWeatherView(List<Hourlyforecast> mHourlyforecast) {
-        // mTimeAdapter = new TimeAdapter(getActivity(), mHourlyforecast);
-        // time_weather.setAdapter(mTimeAdapter);
     }
 
     private void setAqi(Aqi mAqi) {
@@ -283,10 +309,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             Constans.WeatherBgImg citys[] = Constans.WeatherBgImg.values();
             for (Constans.WeatherBgImg cu : citys) {
                 if (cu.getName().contains(txt)) {
-                    DisplayMetrics dm = new DisplayMetrics();
-                    getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
                     mGifView.setGifImage(cu.getimgId());
-                    mGifView.setShowDimension((int) (dm.widthPixels * 1),(int) (dm.widthPixels * 1));
+                    mGifView.setShowDimension(width, heigth);
+                    break;
                 }
             }
         } catch (JSONException e) {
@@ -301,6 +326,63 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             tem_min_max.setText(min + "℃" + "~" + max + "℃");
             mDailyAdapter = new GalleryAdapter(getActivity(), mDailyforecast);
             day_weather.setAdapter(mDailyAdapter);
+            int[] tempDay = new int[mDailyforecast.size()];
+
+            int[] tempNight = new int[mDailyforecast.size()];
+            for (int i = 0; i < mDailyforecast.size(); i++) {
+                tempDay[i] = Integer.parseInt(new JSONObject(mDailyforecast.get(i).tmp).optString("max"));
+                tempNight[i] = Integer.parseInt(new JSONObject(mDailyforecast.get(i).tmp).optString("min"));
+                String code_n = new JSONObject(mDailyforecast.get(i).cond).optString("code_n");//夜间
+                weathimgs = cityDB.getAllWeatherImg();
+                if (i > 0) {
+                    String code_d = new JSONObject(mDailyforecast.get(i).cond).optString("code_d");//白天
+                    for (int j = 0; j < weathimgs.size(); j++) {
+                        if (code_d.equals(weathimgs.get(j).getCode())) {
+                            if (i == 1) {
+                                day_img_1.setImageBitmap(weathimgs.get(j).getIcon());
+                            }
+                            if (i == 2) {
+                                day_img_2.setImageBitmap(weathimgs.get(j).getIcon());
+                            }
+                            if (i == 3) {
+                                day_img_3.setImageBitmap(weathimgs.get(j).getIcon());
+                            }
+                            if (i == 4) {
+                                day_img_4.setImageBitmap(weathimgs.get(j).getIcon());
+                            }
+                            if (i == 5) {
+                                day_img_5.setImageBitmap(weathimgs.get(j).getIcon());
+                            }
+                            if (i == 6) {
+                                day_img_6.setImageBitmap(weathimgs.get(j).getIcon());
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (mDailyforecast != null && mDailyforecast.size() > 0) {
+                day_1.setText(mDailyforecast.get(1).date.substring(5, mDailyforecast.get(1).date.length())+"明");
+                day_2.setText(mDailyforecast.get(2).date.substring(5, mDailyforecast.get(1).date.length()));
+                day_3.setText(mDailyforecast.get(3).date.substring(5, mDailyforecast.get(1).date.length()));
+                day_4.setText(mDailyforecast.get(4).date.substring(5, mDailyforecast.get(1).date.length()));
+                day_5.setText(mDailyforecast.get(5).date.substring(5, mDailyforecast.get(1).date.length()));
+                day_6.setText(mDailyforecast.get(6).date.substring(5, mDailyforecast.get(1).date.length()));
+
+                wether_1.setText(new JSONObject(mDailyforecast.get(1).cond).optString("txt_d"));
+                wether_2.setText(new JSONObject(mDailyforecast.get(2).cond).optString("txt_d"));
+                wether_3.setText(new JSONObject(mDailyforecast.get(3).cond).optString("txt_d"));
+                wether_4.setText(new JSONObject(mDailyforecast.get(4).cond).optString("txt_d"));
+                wether_5.setText(new JSONObject(mDailyforecast.get(5).cond).optString("txt_d"));
+                wether_6.setText(new JSONObject(mDailyforecast.get(6).cond).optString("txt_d"));
+            }
+            // 设置当天最高温度曲线
+            line_char.setTempDay(tempDay);
+            // 设置当天最低温度曲线
+            line_char.setTempNight(tempNight);
+            line_char.invalidate();
+
+
         } catch (JSONException e) {
             e.printStackTrace();//异常
         }
@@ -323,14 +405,38 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         frame_layout = (FrameLayout) view.findViewById(R.id.frame_layout);
         linearLayout1 = (LinearLayout) view.findViewById(R.id.linearLayout1);
         linearLayout2 = (LinearLayout) view.findViewById(R.id.linearLayout2);
-        day_weather =(HorizontalRecyclerView)view.findViewById(R.id.day_weather);
+        day_weather = (HorizontalRecyclerView) view.findViewById(R.id.day_weather);
         aqi = (LinearLayout) view.findViewById(R.id.aqi);
+        frame_layout2 = (FrameLayout) view.findViewById(R.id.frame_layout2);
+        line_char = (WeatherChartView) view.findViewById(R.id.line_char);
+        down = (ImageView) view.findViewById(R.id.down);
+
+        day_1 = (TextView) view.findViewById(R.id.day_1);
+        day_2 = (TextView) view.findViewById(R.id.day_2);
+        day_3 = (TextView) view.findViewById(R.id.day_3);
+        day_4 = (TextView) view.findViewById(R.id.day_4);
+        day_5 = (TextView) view.findViewById(R.id.day_5);
+        day_6 = (TextView) view.findViewById(R.id.day_6);
+        wether_1 = (TextView) view.findViewById(R.id.weather_1);
+        wether_2 = (TextView) view.findViewById(R.id.weather_2);
+        wether_3 = (TextView) view.findViewById(R.id.weather_3);
+        wether_4 = (TextView) view.findViewById(R.id.weather_4);
+        wether_5 = (TextView) view.findViewById(R.id.weather_5);
+        wether_6 = (TextView) view.findViewById(R.id.weather_6);
+
+        day_img_1 = (ImageView) view.findViewById(R.id.day_img_1);
+        day_img_2 = (ImageView) view.findViewById(R.id.day_img_2);
+        day_img_3 = (ImageView) view.findViewById(R.id.day_img_3);
+        day_img_4 = (ImageView) view.findViewById(R.id.day_img_4);
+        day_img_5 = (ImageView) view.findViewById(R.id.day_img_5);
+        day_img_6 = (ImageView) view.findViewById(R.id.day_img_6);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         day_weather.setLayoutManager(linearLayoutManager);
         life.setOnClickListener(this);
         aqi.setOnClickListener(this);
         up.setOnClickListener(this);
+        down.setOnClickListener(this);
         linearLayout1.setOnClickListener(this);
         linearLayout2.setOnClickListener(this);
     }
@@ -357,6 +463,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 }
                 intent3.putExtras(bundle);
                 getActivity().startActivity(intent3);
+                getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
                 break;
             case R.id.aqi:
                 Intent intent1 = new Intent();
@@ -377,20 +484,36 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 }
                 intent1.putExtras(bundle1);
                 getActivity().startActivity(intent1);
+                getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
                 break;
             case R.id.up:
                 //弹出趋势图布局
                 frame_layout.setVisibility(View.GONE);
+                frame_layout2.setVisibility(View.VISIBLE);
                 break;
             case R.id.linearLayout1:
                 //弹出今日小时预报
                 TimeDialogFragment f = new TimeDialogFragment();
+                Bundle bundle2 = new Bundle();
+                if (mHourlyforecast != null && mHourlyforecast.size() > 0) {
+                    bundle2.putSerializable("date", (Serializable) mHourlyforecast);
+                }
+                f.setArguments(bundle2);
                 f.show(getChildFragmentManager(), "小时预报");
                 break;
             case R.id.linearLayout2:
                 //弹出今日小时预报
                 TimeDialogFragment f1 = new TimeDialogFragment();
+                Bundle bundle3 = new Bundle();
+                if (mHourlyforecast != null && mHourlyforecast.size() > 0) {
+                    bundle3.putSerializable("date", (Serializable) mHourlyforecast);
+                }
+                f1.setArguments(bundle3);
                 f1.show(getFragmentManager(), "小时预报");
+                break;
+            case R.id.down:
+                frame_layout.setVisibility(View.VISIBLE);
+                frame_layout2.setVisibility(View.GONE);
                 break;
         }
     }
@@ -461,65 +584,4 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             }
         }
     }
-    //
-    //    public class TimeAdapter extends
-    //            HorizontalRecyclerView.Adapter<TimeAdapter.ViewHolder> {
-    //        private List<Hourlyforecast> mData = new ArrayList<Hourlyforecast>();
-    //        private LayoutInflater inflater;
-    //
-    //        public TimeAdapter(Context context, List<Hourlyforecast> datats) {
-    //            inflater = LayoutInflater.from(context);
-    //            mData = datats;
-    //        }
-    //
-    //        public class ViewHolder extends HorizontalRecyclerView.ViewHolder {
-    //            public ViewHolder(View arg0) {
-    //                super(arg0);
-    //            }
-    //
-    //            ImageView txt_img;
-    //            TextView date;
-    //            TextView tmp;
-    //            TextView decs;
-    //        }
-    //
-    //        @Override
-    //        public int getItemCount() {
-    //            return mData.size();
-    //        }
-    //
-    //
-    //        public TimeAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-    //            View view = inflater.inflate(R.layout.item_time_weather,
-    //                    viewGroup, false);
-    //            TimeAdapter.ViewHolder viewHolder = new TimeAdapter.ViewHolder(view);
-    //            viewHolder.date = (TextView) view.findViewById(R.id.date);
-    //            viewHolder.txt_img = (ImageView) view.findViewById(R.id.txt_img);
-    //            viewHolder.tmp = (TextView) view.findViewById(R.id.tmp);
-    //            viewHolder.decs = (TextView) view.findViewById(R.id.desc);
-    //            return viewHolder;
-    //        }
-    //
-    //
-    //        @Override
-    //        public void onBindViewHolder(final TimeAdapter.ViewHolder viewHolder, final int i) {
-    //            Hourlyforecast mTimeWeatherData = mData.get(i);
-    //            viewHolder.date.setText(mTimeWeatherData.date.substring(10, mTimeWeatherData.date.length()));
-    //            String code = null;
-    //            try {
-    //                String min = mTimeWeatherData.tmp;
-    //                viewHolder.tmp.setText(min + "℃");
-    //                code = new JSONObject(mTimeWeatherData.cond).optString("code");
-    //                viewHolder.decs.setText("降水率为" + mTimeWeatherData.pop);
-    //            } catch (JSONException e) {
-    //                e.printStackTrace();
-    //            }
-    //            weathimgs = cityDB.getAllWeatherImg();
-    //            for (int j = 0; j < weathimgs.size(); j++) {
-    //                if (code.equals(weathimgs.get(j).getCode())) {
-    //                    viewHolder.txt_img.setImageBitmap(weathimgs.get(j).getIcon());
-    //                }
-    //            }
-    //        }
-    //    }
 }
