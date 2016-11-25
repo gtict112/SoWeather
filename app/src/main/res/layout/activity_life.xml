@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/white"
+              android:background="@color/left_fragment"
               android:orientation="vertical">
 
     <include
@@ -22,7 +22,7 @@
         android:layout_marginLeft="5dp"
         android:padding="8dp"
         android:text="今日提醒"
-        android:textColor="@color/grey"
+        android:textColor="#BE7E7E"
         android:textSize="14sp"/>
 
     <View
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:textColor="@color/background_progress"
+            android:textColor="@color/grey"
             android:textSize="14sp"/>
 
         <TextView
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:textColor="@color/background_progress"
+            android:textColor="@color/grey"
             android:textSize="14sp"/>
 
         <TextView
@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:textColor="@color/background_progress"
+            android:textColor="@color/grey"
             android:textSize="14sp"/>
     </LinearLayout>
 
@@ -70,7 +70,7 @@
         android:layout_marginLeft="5dp"
         android:padding="8dp"
         android:text="今日建议"
-        android:textColor="@color/grey"
+        android:textColor="#BE7E7E"
         android:textSize="14sp"
         android:id="@+id/textView3"/>
 
@@ -108,7 +108,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="30dp"
             android:textSize="13sp"
-            android:textColor="@color/grey"/>
+            android:textColor="#7E7E7E"/>
     </LinearLayout>
 
     <View
@@ -144,7 +144,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="30dp"
             android:textSize="13sp"
-            android:textColor="@color/grey"/>
+            android:textColor="#7E7E7E"/>
     </LinearLayout>
 
     <View
@@ -180,7 +180,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="30dp"
             android:textSize="13sp"
-            android:textColor="@color/grey"/>
+            android:textColor="#7E7E7E"/>
     </LinearLayout>
 
     <View
@@ -216,7 +216,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="30dp"
             android:textSize="13sp"
-            android:textColor="@color/grey"/>
+            android:textColor="#7E7E7E"/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"

@@ -1,11 +1,13 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -157,6 +159,7 @@ public class MainActivity extends SlidingFragmentActivity implements
                 public void onClick(View v) {
                     Intent intent = new Intent(MainActivity.this, CurrentCityActivity.class);
                     startActivity(intent);
+                    MainActivity.this.overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
                 }
             });
         } else {

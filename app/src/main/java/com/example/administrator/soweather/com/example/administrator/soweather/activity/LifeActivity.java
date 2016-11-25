@@ -42,7 +42,7 @@ import java.util.TimerTask;
  * Created by Administrator on 2016/10/28.
  */
 
-public class LifeActivity extends Activity {
+public class LifeActivity extends Activity implements View.OnClickListener {
     private Suggestion mSuggestion = new Suggestion();
     private TextView wind;
     private TextView desc;
@@ -94,12 +94,7 @@ public class LifeActivity extends Activity {
         sport_txt = (TextView) findViewById(R.id.sportbrf_txt);
         toptv = (TextView) findViewById(R.id.topTv);
         topButton = (ImageView) findViewById(R.id.topButton);
-        topButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        topButton.setOnClickListener(this);
     }
 
     private void getData() {
@@ -176,5 +171,15 @@ public class LifeActivity extends Activity {
         sportbrf.setText("运动指数---" + mSuggestion.sportbrf);
         sport_txt.setText(mSuggestion.sporttex);
         index.setText(index.getText().toString() + "," + "紫外线强度" + mSuggestion.uvbrf + "," + mSuggestion.cwbrf + "洗车");
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.topButton:
+                finish();
+                this.overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
+                break;
+        }
     }
 }

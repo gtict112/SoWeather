@@ -11,7 +11,7 @@
     <style name="AnimationFade">
         <!-- PopupWindow左右弹出的效果 -->
         <item name="android:windowEnterAnimation">@anim/inuptodown</item>
-        <item name="android:windowExitAnimation">@anim/outdowntoup</item>
+        <item name="android:windowExitAnimation">@anim/indowntoup</item>
     </style>
 
     <style name="fragment_system_setting_switch">

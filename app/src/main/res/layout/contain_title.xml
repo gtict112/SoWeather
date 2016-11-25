@@ -3,7 +3,7 @@
                 android:id="@+id/content_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/contain_title"
+                android:background="#00000000"
                 android:orientation="horizontal"
                 android:paddingBottom="8dp"
                 android:paddingTop="8dp">
@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="center_vertical"
+        android:textColor="@color/background_progress"
         android:text="首页"
         android:textSize="17sp"
         />
@@ -33,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginRight="5dp"
+        android:textColor="@color/background_progress"
         android:drawableLeft="@mipmap/place"
         android:padding="8dp"
         android:textSize="15sp"

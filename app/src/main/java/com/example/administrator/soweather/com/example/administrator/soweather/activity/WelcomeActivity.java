@@ -4,17 +4,12 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
-import android.widget.Toast;
+
 import com.example.administrator.soweather.R;
 
 /**
@@ -51,7 +46,7 @@ public class WelcomeActivity extends Activity {
                 if ("http://start/".equals(url)) {
                     //在html代码中的按钮跳转地址需要同此地址一致
                     startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-                    overridePendingTransition(R.anim.inuptodown,R.anim.outdowntoup);
+                    overridePendingTransition(R.anim.inuptodown,R.anim.indowntoup);
                     finish();
                 }
                 return true;

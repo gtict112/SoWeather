@@ -5,16 +5,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ScrollingView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,10 +38,7 @@ import com.example.administrator.soweather.com.example.administrator.soweather.m
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.WeathImg;
 import com.example.administrator.soweather.com.example.administrator.soweather.service.WeatherService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
-import com.example.administrator.soweather.com.example.administrator.soweather.view.GifView;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.HorizontalRecyclerView;
-import com.example.administrator.soweather.com.example.administrator.soweather.view.RoundedDrawable;
-import com.example.administrator.soweather.com.example.administrator.soweather.view.RoundedImageView;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.WeatherChartView;
 
 import org.json.JSONException;
@@ -88,14 +88,11 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private FrameLayout frame_layout;
     private LinearLayout linearLayout1;
     private LinearLayout linearLayout2;
-    private GifView mGifView;
     private DisplayMetrics dm = new DisplayMetrics();
-    private int width;
-    private int heigth;
     private FrameLayout frame_layout2;//弹出曲线图 详情
     private WeatherChartView line_char;//曲线图
+    private ImageView bg;
     private ImageView down;
-
     private TextView day_1;
     private TextView day_2;
     private TextView day_3;
@@ -135,8 +132,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         initView(view);
         getAdress();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-        width = dm.widthPixels;
-        heigth = dm.heightPixels;
         getDate();
         getHandleMessge();
         return view;
@@ -308,9 +303,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             vis = mNowWeather.vis;
             Constans.WeatherBgImg citys[] = Constans.WeatherBgImg.values();
             for (Constans.WeatherBgImg cu : citys) {
-                if (cu.getName().contains(txt)) {
-                    mGifView.setGifImage(cu.getimgId());
-                    mGifView.setShowDimension(width, heigth);
+                if (txt.equals(cu.getName())) {
+                    bg.setImageResource(cu.getimgId());
                     break;
                 }
             }
@@ -362,7 +356,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             }
 
             if (mDailyforecast != null && mDailyforecast.size() > 0) {
-                day_1.setText(mDailyforecast.get(1).date.substring(5, mDailyforecast.get(1).date.length())+"明");
+                day_1.setText(mDailyforecast.get(1).date.substring(5, mDailyforecast.get(1).date.length()) + "明");
                 day_2.setText(mDailyforecast.get(2).date.substring(5, mDailyforecast.get(1).date.length()));
                 day_3.setText(mDailyforecast.get(3).date.substring(5, mDailyforecast.get(1).date.length()));
                 day_4.setText(mDailyforecast.get(4).date.substring(5, mDailyforecast.get(1).date.length()));
@@ -400,7 +394,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         date2 = (TextView) view.findViewById(R.id.date2);
         code_txt2 = (TextView) view.findViewById(R.id.code_txt2);
         life = (LinearLayout) view.findViewById(R.id.life);
-        mGifView = (GifView) view.findViewById(R.id.gif);
         up = (ImageView) view.findViewById(R.id.up);
         frame_layout = (FrameLayout) view.findViewById(R.id.frame_layout);
         linearLayout1 = (LinearLayout) view.findViewById(R.id.linearLayout1);
@@ -410,7 +403,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         frame_layout2 = (FrameLayout) view.findViewById(R.id.frame_layout2);
         line_char = (WeatherChartView) view.findViewById(R.id.line_char);
         down = (ImageView) view.findViewById(R.id.down);
-
+        bg = (ImageView) view.findViewById(R.id.bg);
         day_1 = (TextView) view.findViewById(R.id.day_1);
         day_2 = (TextView) view.findViewById(R.id.day_2);
         day_3 = (TextView) view.findViewById(R.id.day_3);
@@ -490,6 +483,10 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 //弹出趋势图布局
                 frame_layout.setVisibility(View.GONE);
                 frame_layout2.setVisibility(View.VISIBLE);
+                Animation anim1 = AnimationUtils.loadAnimation(getActivity(), R.anim.dialog_out);
+                frame_layout.startAnimation(anim1);
+                Animation anim2 = AnimationUtils.loadAnimation(getActivity(), R.anim.dialog_in);
+                frame_layout2.startAnimation(anim2);
                 break;
             case R.id.linearLayout1:
                 //弹出今日小时预报
@@ -514,6 +511,10 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             case R.id.down:
                 frame_layout.setVisibility(View.VISIBLE);
                 frame_layout2.setVisibility(View.GONE);
+                Animation anim3 = AnimationUtils.loadAnimation(getActivity(), R.anim.dialog_out);
+                frame_layout2.startAnimation(anim3);
+                Animation anim4 = AnimationUtils.loadAnimation(getActivity(), R.anim.dialog_in);
+                frame_layout.startAnimation(anim4);
                 break;
         }
     }
@@ -560,10 +561,10 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             Dailyforecast mDailyForecastData = mData.get(i);
             if (i == 0) {
                 viewHolder.date.setText(mDailyForecastData.date.substring(5, mDailyForecastData.date.length()) + "(今)");
-                viewHolder.date.setTextColor(getResources().getColor(R.color.gred));
+                viewHolder.date.setTextColor(getResources().getColor(R.color.red));
             } else if (i == 1) {
                 viewHolder.date.setText(mDailyForecastData.date.substring(5, mDailyForecastData.date.length()) + "(明)");
-                viewHolder.date.setTextColor(getResources().getColor(R.color.gred));
+                viewHolder.date.setTextColor(getResources().getColor(R.color.red));
             } else {
                 viewHolder.date.setText(mDailyForecastData.date.substring(5, mDailyForecastData.date.length()));
             }
