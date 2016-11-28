@@ -1,5 +1,6 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,7 +13,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.CurrentCityActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.Managecity;
 import com.example.administrator.soweather.com.example.administrator.soweather.db.SoWeatherDB;
 import com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.City;
@@ -51,6 +54,8 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
     private List<City> cities = new ArrayList<>();
     private String city = null;
     private String cityid;
+    private TextView add_city;//添加城市
+    private TextView manage_city;//管理城市
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,9 +78,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
         if (getArguments() != null) {
             cityid = getArguments().getString("cityId");
             city = getArguments().getString("city");
-            if (cityid == null && (city == null || city.equals("获取位置失败") || city.equals("获取位置异常"))) {
-                // Toast.makeText(getActivity(), "当前定位城市失败,请手动选择", Toast.LENGTH_LONG).show();
-            } else if (cityid == null && (city != null && (!city.equals("获取位置失败")) || !city.equals("获取位置异常"))) {
+            if (cityid != null && city != null) {
                 //根据城市名找到城市Id
                 provinces = cityDB.getAllProvince();
                 for (int i = 0; i < provinces.size(); i++) {
@@ -136,6 +139,10 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
         tem_img = (ImageView) view.findViewById(R.id.tem_img);
         dress = (TextView) view.findViewById(R.id.dress);
         service_assistant = (RelativeLayout) view.findViewById(R.id.service_assistant);
+        add_city = (TextView) view.findViewById(R.id.add_city);
+        manage_city = (TextView) view.findViewById(R.id.manage_city);
+        add_city.setOnClickListener(this);
+        manage_city.setOnClickListener(this);
         mHome.setOnClickListener(this);
         mLittlebear.setOnClickListener(this);
         mSetting.setOnClickListener(this);
@@ -184,6 +191,17 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
             case R.id.service_assistant:
                 newContent = new CustomerFragment();
                 title = "我的助手";
+                break;
+            case R.id.add_city:
+                //添加城市 //传递一个参数过去  判断是首页的选择城市还是这里,在将选择的城市增加到数据库
+                Intent intent1 = new Intent(getActivity(), CurrentCityActivity.class);
+                intent1.putExtra("type", CurrentCityActivity.TYPE);
+                startActivity(intent1);
+                break;
+            case R.id.manage_city:
+                //管理城市   添加的城市,包括当前位置城市,卡片显示天气
+                Intent intent = new Intent(getActivity(), Managecity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

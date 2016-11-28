@@ -144,10 +144,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         if (getArguments() != null) {
             cityid = getArguments().getString("cityId");
             city = getArguments().getString("city");
-            if (cityid == null && (city == null || city.equals("获取位置失败") || city.equals("获取位置异常"))) {
-            } else if (cityid == null && (city != null && (!city.equals("获取位置失败")) || !city.equals("获取位置异常"))) {
-                //根据城市名找到城市Id
-                provinces = cityDB.getAllProvince();
+            //根据城市名找到城市Id
+            provinces = cityDB.getAllProvince();
+            if (city != null) {
                 for (int i = 0; i < provinces.size(); i++) {
                     String provin = provinces.get(i).getProvinceName();
                     cities = cityDB.getAllCity(provin);
@@ -491,21 +490,21 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             case R.id.linearLayout1:
                 //弹出今日小时预报
                 TimeDialogFragment f = new TimeDialogFragment();
-                Bundle bundle2 = new Bundle();
                 if (mHourlyforecast != null && mHourlyforecast.size() > 0) {
+                    Bundle bundle2 = new Bundle();
                     bundle2.putSerializable("date", (Serializable) mHourlyforecast);
+                    f.setArguments(bundle2);
                 }
-                f.setArguments(bundle2);
                 f.show(getChildFragmentManager(), "小时预报");
                 break;
             case R.id.linearLayout2:
                 //弹出今日小时预报
                 TimeDialogFragment f1 = new TimeDialogFragment();
-                Bundle bundle3 = new Bundle();
                 if (mHourlyforecast != null && mHourlyforecast.size() > 0) {
+                    Bundle bundle3 = new Bundle();
                     bundle3.putSerializable("date", (Serializable) mHourlyforecast);
+                    f1.setArguments(bundle3);
                 }
-                f1.setArguments(bundle3);
                 f1.show(getFragmentManager(), "小时预报");
                 break;
             case R.id.down:

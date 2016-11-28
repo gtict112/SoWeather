@@ -1,15 +1,14 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.activity;
 
 import android.content.Intent;
-import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
@@ -43,7 +42,9 @@ public class MainActivity extends SlidingFragmentActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-        getLocationAdress();
+        if (cityid == null) {
+            getLocationAdress();
+        }
         getCityDate();
         getWeather();
         initSlidingMenu(savedInstanceState);
@@ -62,8 +63,8 @@ public class MainActivity extends SlidingFragmentActivity implements
      * 定位城市
      */
     private void getLocationAdress() {
+        mDresss.setText("正在定位");
         mLocationClient = ((LocationApplication) getApplication()).mLocationClient;
-        ((LocationApplication) getApplication()).mLocationResult = mDresss;
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
         option.setOpenGps(true);
@@ -73,12 +74,20 @@ public class MainActivity extends SlidingFragmentActivity implements
         option.setScanSpan(10000);
         option.setIsNeedAddress(true);
         mLocationClient.setLocOption(option);
-        if (mDresss.getText().toString().equals("")) {
-            mLocationClient.start();
-        } else {
-            city = mDresss.getText().toString();
-            mLocationClient.stop();
-        }
+        mLocationClient.start();
+        ((LocationApplication) getApplication()).setCallbackadress(new LocationApplication.Callbackadress() {
+            @Override
+            public void finish(String address) {
+                if (address != null) {
+                    mLocationClient.stop();
+                    mDresss.setText(address);
+                } else {
+                    mLocationClient.stop();
+                    mDresss.setText("杭州");
+                    Toast.makeText(MainActivity.this, "定位失败,已默认城市为杭州,请手动修改城市!", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     /**
@@ -105,16 +114,15 @@ public class MainActivity extends SlidingFragmentActivity implements
 
     private void initView() {
         Intent intent = getIntent();
+        mDresss = (TextView) findViewById(R.id.dresss);
         if (intent != null) {
             city = intent.getStringExtra("city");
             cityid = intent.getStringExtra("cityid");
+            mDresss.setText(city);
         }
         topButton = (ImageView) findViewById(R.id.topButton);
         topButton.setOnClickListener(this);
         topTextView = (TextView) findViewById(R.id.topTv);
-        mDresss = (TextView) findViewById(R.id.dresss);
-        mDresss.setText("正在定位");
-        mDresss.setText(city);
     }
 
     private void initSlidingMenu(Bundle savedInstanceState) {
@@ -159,7 +167,6 @@ public class MainActivity extends SlidingFragmentActivity implements
                 public void onClick(View v) {
                     Intent intent = new Intent(MainActivity.this, CurrentCityActivity.class);
                     startActivity(intent);
-                    MainActivity.this.overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
                 }
             });
         } else {
