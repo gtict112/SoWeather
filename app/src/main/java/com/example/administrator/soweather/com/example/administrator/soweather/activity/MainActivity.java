@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +38,10 @@ public class MainActivity extends SlidingFragmentActivity implements
     private String city = null;
     private String cityid = null;
     private LocationClient mLocationClient;//定位SDK的核心类
+    private LinearLayout top_right;
+    private ImageView top_right_img;
+    private CallbackMoodline mCallbackMoodline;
+    private Boolean isClick = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -115,6 +122,8 @@ public class MainActivity extends SlidingFragmentActivity implements
     private void initView() {
         Intent intent = getIntent();
         mDresss = (TextView) findViewById(R.id.dresss);
+        top_right = (LinearLayout) findViewById(R.id.top_righgt);
+        top_right_img = (ImageView) findViewById(R.id.top_righgt_img);
         if (intent != null) {
             city = intent.getStringExtra("city");
             cityid = intent.getStringExtra("cityid");
@@ -154,23 +163,45 @@ public class MainActivity extends SlidingFragmentActivity implements
         getSupportFragmentManager().putFragment(outState, "mContent", mContent);
     }
 
-    public void switchConent(Fragment fragment, String title) {
+    public void switchConent(Fragment fragment, final String title) {
         mContent = fragment;
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, fragment).commit();
         getSlidingMenu().showContent();
         topTextView.setText(title);
         if (title.equals("首页")) {
+            top_right.setVisibility(View.VISIBLE);
             mDresss.setVisibility(View.VISIBLE);
-            mDresss.setOnClickListener(new View.OnClickListener() {
+            top_right_img.setImageResource(R.mipmap.place);
+            top_right.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(MainActivity.this, CurrentCityActivity.class);
                     startActivity(intent);
                 }
             });
-        } else {
+        } else if (title.equals("心情线")) {
+            top_right.setVisibility(View.VISIBLE);
             mDresss.setVisibility(View.GONE);
+            top_right_img.setImageResource(R.mipmap.add_content);
+            top_right_img.setPadding(0, 13, 0, 0);
+            top_right.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (isClick) {
+                        isClick = false;
+                        Animation anim2 = AnimationUtils.loadAnimation(MainActivity.this, R.anim.add);
+                        top_right_img.startAnimation(anim2);
+                    } else if (!isClick) {
+                        isClick = true;
+                        Animation anim2 = AnimationUtils.loadAnimation(MainActivity.this, R.anim.add);
+                        top_right_img.startAnimation(anim2);
+                    }
+                    mCallbackMoodline.finish(isClick, top_right_img);
+                }
+            });
+        } else {
+            top_right.setVisibility(View.GONE);
         }
     }
 
@@ -179,6 +210,7 @@ public class MainActivity extends SlidingFragmentActivity implements
         switch (v.getId()) {
             case R.id.topButton:
                 toggle();
+                mCallbackMoodline.finish(isClick, null);
                 break;
             default:
                 break;
@@ -207,4 +239,13 @@ public class MainActivity extends SlidingFragmentActivity implements
     @Override
     public void onReceive(Result<Integer> result) {
     }
+
+    public void setCallbackadress(CallbackMoodline mCallbackadress) {
+        this.mCallbackMoodline = mCallbackadress;
+    }
+
+    public interface CallbackMoodline {
+        void finish(Boolean isClick, View view);
+    }
+
 }

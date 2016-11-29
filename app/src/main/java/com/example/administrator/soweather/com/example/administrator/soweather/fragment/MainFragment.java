@@ -115,6 +115,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private ImageView day_img_5;
     private ImageView day_img_6;
 
+    private ImageView wind_img;
+    private TextView wind_txt;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -280,6 +283,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
     private void setNowWeatherView(NowWeather mNowWeather) {
         try {
+            Animation anim1 = AnimationUtils.loadAnimation(getActivity(), R.anim.wind);
+            wind_img.startAnimation(anim1);
+            wind_txt.setText(mNowWeather.dir + mNowWeather.sc + "级");
             date.setText(new JSONObject(mNowWeather.update).optString("loc"));
             date2.setText(new JSONObject(mNowWeather.update).optString("loc").substring(5, 10));
             mTmp.setText(mNowWeather.tmp + "℃");
@@ -383,6 +389,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
 
     private void initView(View view) {
+        wind_img = (ImageView) view.findViewById(R.id.wind_img);
+        wind_txt = (TextView) view.findViewById(R.id.wind_txt);
         date = (TextView) view.findViewById(R.id.date);
         code_img = (ImageView) view.findViewById(R.id.code_img);
         mTmp = (TextView) view.findViewById(R.id.tmp);

@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="10dp"
         android:padding="8dp"
         android:src="@mipmap/menu"/>
 
@@ -23,20 +23,35 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="center_vertical"
-        android:textColor="@color/background_progress"
         android:text="首页"
+        android:textColor="@color/background_progress"
         android:textSize="17sp"
         />
 
-    <TextView
-        android:id="@+id/dresss"
+    <LinearLayout
+        android:id="@+id/top_righgt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="5dp"
-        android:textColor="@color/background_progress"
-        android:drawableLeft="@mipmap/place"
-        android:padding="8dp"
-        android:textSize="15sp"
-        android:visibility="gone"/>
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/top_righgt_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/place"/>
+
+        <TextView
+            android:id="@+id/dresss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textColor="@color/background_progress"
+            android:textSize="15sp"
+            />
+
+    </LinearLayout>
 </RelativeLayout>

@@ -56,6 +56,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
     private String cityid;
     private TextView add_city;//添加城市
     private TextView manage_city;//管理城市
+    private Boolean isClose = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
         getAdress();
         getData();
         getHandlerMessage();
+        getCallbackadress();
         return view;
     }
 
@@ -165,7 +167,11 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
                 title = "首页";
                 break;
             case R.id.little_bear:
-                newContent = new MoodLineFragment();
+                MoodLineFragment mMoodLineFragment = new MoodLineFragment();
+                Bundle bundle1 = new Bundle();
+                bundle1.putBoolean("isClose", isClose);
+                mMoodLineFragment.setArguments(bundle1);
+                newContent = mMoodLineFragment;
                 title = "心情线";
                 break;
             case R.id.setting:
@@ -229,5 +235,17 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
         } else {
             result.getErrorMessage();
         }
+    }
+
+    private void getCallbackadress() {
+        MainActivity mMainActivity = (MainActivity) getActivity();
+        mMainActivity.setCallbackadress(new MainActivity.CallbackMoodline() {
+            @Override
+            public void finish(Boolean isClick, View view) {
+                if (view == null) {
+                    isClose = false;
+                }
+            }
+        });
     }
 }
