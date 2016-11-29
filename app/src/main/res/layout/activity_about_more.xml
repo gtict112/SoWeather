@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/left_fragment"
+              android:orientation="vertical">
+
+    <include
+        layout="@layout/activity_contain_title"/>
+
+    <TextView
+        android:id="@+id/about"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="小笨熊天气\n\n没情怀\n\n没品质\n\n别当真\t\t只是玩玩"
+        android:textColor="@color/background_progress"
+        android:textSize="15sp"
+        android:visibility="gone"/>
+</LinearLayout>

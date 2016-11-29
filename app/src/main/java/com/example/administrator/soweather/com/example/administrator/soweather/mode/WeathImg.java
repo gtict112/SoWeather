@@ -1,0 +1,52 @@
+package com.example.administrator.soweather.com.example.administrator.soweather.mode;
+
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+
+/**
+ * Created by Administrator on 2016/10/25.
+ */
+
+public class WeathImg {
+    public Bitmap icon;  //图片地址
+    public String txt_zh;   //天气英文
+    public String txt_en;  //天气中文
+    public String code; //天气id
+
+    public Bitmap getIcon() {
+        return icon;
+    }
+
+    public void setIcon(Bitmap icon) {
+        this.icon = icon;
+    }
+
+    public String getTxt_zh() {
+        return txt_zh;
+    }
+
+    public void setTxt_zh(String txt_zh) {
+        this.txt_zh = txt_zh;
+    }
+
+
+    public String getTxt_en() {
+        return txt_en;
+    }
+
+    public void setTxt_en(String txt_en) {
+        this.txt_en = txt_en;
+    }
+
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+}

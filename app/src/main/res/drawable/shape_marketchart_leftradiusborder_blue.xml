@@ -1,0 +1,19 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape>
+            <stroke
+                android:width="10dp"
+                android:color="@color/left_fragment_head"/>
+        </shape>
+    </item>
+
+    <item
+        android:bottom="2dp"
+        >
+        <shape>
+            <solid android:color="@color/theme_blue"/>
+        </shape>
+    </item>
+
+</layer-list>

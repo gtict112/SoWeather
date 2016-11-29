@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="150dp"
+              android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:text="今天阳光很好"
+            android:id="@+id/content_txt"
+            android:textColor="@color/background_progress"
+            android:layout_width="match_parent"
+            android:background="@drawable/shape_white"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:id="@+id/delete"
+            android:visibility="gone"
+            android:layout_gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/delete"/>
+    </FrameLayout>
+</LinearLayout>
