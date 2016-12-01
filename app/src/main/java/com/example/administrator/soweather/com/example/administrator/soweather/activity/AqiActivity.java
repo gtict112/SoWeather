@@ -41,12 +41,21 @@ import org.json.JSONObject;
 public class AqiActivity extends Activity implements View.OnClickListener {
     private Suggestion mSuggestion = new Suggestion();
     private CircleChart aqi;
+
+
     private TextView pm10;
     private TextView pm25;
     private TextView no2;
     private TextView so2;
     private TextView co;
     private TextView o3;
+    private CircleChart circle_pm10;
+    private CircleChart circle_pm25;
+    private CircleChart circle_no2;
+    private CircleChart circle_so2;
+    private CircleChart circle_co;
+    private CircleChart circle_o3;
+
     private TextView date;
     private TextView topTv;
     private ImageView topButton;
@@ -74,6 +83,7 @@ public class AqiActivity extends Activity implements View.OnClickListener {
     private TextView sport_txt;
     private TextureMapView map;
     private BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.place);
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -92,6 +102,12 @@ public class AqiActivity extends Activity implements View.OnClickListener {
         so2 = (TextView) findViewById(R.id.so2);
         co = (TextView) findViewById(R.id.co);
         o3 = (TextView) findViewById(R.id.o3);
+        circle_pm10 = (CircleChart) findViewById(R.id.circle_pm10);
+        circle_pm25 = (CircleChart) findViewById(R.id.circle_pm25);
+        circle_no2 = (CircleChart) findViewById(R.id.circle_no2);
+        circle_so2 = (CircleChart) findViewById(R.id.circle_so2);
+        circle_co = (CircleChart) findViewById(R.id.circle_co);
+        circle_o3 = (CircleChart) findViewById(R.id.circle_o3);
         date = (TextView) findViewById(R.id.date);
         topTv = (TextView) findViewById(R.id.topTv);
         wind = (TextView) findViewById(R.id.wind);
@@ -117,12 +133,21 @@ public class AqiActivity extends Activity implements View.OnClickListener {
             date.setText("发布时间 " + intent.getStringExtra("date"));
             aqi.setProgress(Integer.parseInt(intent.getStringExtra("aqi")));
             aqi.setmTxtHint2(intent.getStringExtra("qlty"));
+
             pm10.setText(intent.getStringExtra("pm10"));
             pm25.setText(intent.getStringExtra("pm25"));
             co.setText(intent.getStringExtra("co"));
             no2.setText(intent.getStringExtra("no2"));
             o3.setText(intent.getStringExtra("o3"));
             so2.setText(intent.getStringExtra("so2"));
+            circle_pm10.setProgress(Integer.valueOf(intent.getStringExtra("pm10")));
+            circle_pm25.setProgress(Integer.valueOf(intent.getStringExtra("pm25")));
+            circle_co.setProgress(Integer.valueOf(intent.getStringExtra("co")));
+            circle_no2.setProgress(Integer.valueOf(intent.getStringExtra("no2")));
+            circle_o3.setProgress(Integer.valueOf(intent.getStringExtra("o3")));
+            circle_so2.setProgress(Integer.valueOf(intent.getStringExtra("so2")));
+
+
             topTv.setText(intent.getStringExtra("city"));
             cityid = intent.getStringExtra("cityid");
             dir = intent.getStringExtra("dir");

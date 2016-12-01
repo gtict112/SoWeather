@@ -74,9 +74,10 @@
                             android:textColor="@color/background_progress"/>
 
                         <com.example.administrator.soweather.com.example.administrator.soweather.view.CircleChart
+                            android:id="@+id/circle_pm10"
                             android:layout_width="30dp"
-                            android:layout_marginTop="6dp"
-                            android:layout_height="30dp"/>
+                            android:layout_height="30dp"
+                            android:layout_marginTop="6dp"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -99,10 +100,12 @@
                             android:layout_marginTop="6dp"
                             android:text="90"
                             android:textColor="@color/background_progress"/>
+
                         <com.example.administrator.soweather.com.example.administrator.soweather.view.CircleChart
+                            android:id="@+id/circle_pm25"
                             android:layout_width="30dp"
-                            android:layout_marginTop="6dp"
-                            android:layout_height="30dp"/>
+                            android:layout_height="30dp"
+                            android:layout_marginTop="6dp"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -125,10 +128,12 @@
                             android:layout_marginTop="6dp"
                             android:text="90"
                             android:textColor="@color/background_progress"/>
+
                         <com.example.administrator.soweather.com.example.administrator.soweather.view.CircleChart
+                            android:id="@+id/circle_no2"
                             android:layout_width="30dp"
-                            android:layout_marginTop="6dp"
-                            android:layout_height="30dp"/>
+                            android:layout_height="30dp"
+                            android:layout_marginTop="6dp"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -151,10 +156,12 @@
                             android:layout_marginTop="6dp"
                             android:text="90"
                             android:textColor="@color/background_progress"/>
+
                         <com.example.administrator.soweather.com.example.administrator.soweather.view.CircleChart
+                            android:id="@+id/circle_so2"
                             android:layout_width="30dp"
-                            android:layout_marginTop="6dp"
-                            android:layout_height="30dp"/>
+                            android:layout_height="30dp"
+                            android:layout_marginTop="6dp"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -177,10 +184,12 @@
                             android:layout_marginTop="6dp"
                             android:text="90"
                             android:textColor="@color/background_progress"/>
+
                         <com.example.administrator.soweather.com.example.administrator.soweather.view.CircleChart
+                            android:id="@+id/circle_co"
                             android:layout_width="30dp"
-                            android:layout_marginTop="6dp"
-                            android:layout_height="30dp"/>
+                            android:layout_height="30dp"
+                            android:layout_marginTop="6dp"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -203,10 +212,12 @@
                             android:layout_marginTop="6dp"
                             android:text="90"
                             android:textColor="@color/background_progress"/>
+
                         <com.example.administrator.soweather.com.example.administrator.soweather.view.CircleChart
+                            android:id="@+id/circle_o3"
                             android:layout_width="30dp"
-                            android:layout_marginTop="6dp"
-                            android:layout_height="30dp"/>
+                            android:layout_height="30dp"
+                            android:layout_marginTop="6dp"/>
                     </LinearLayout>
                 </LinearLayout>
 
