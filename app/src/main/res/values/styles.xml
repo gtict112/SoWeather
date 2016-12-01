@@ -46,4 +46,10 @@
     </style>
 
     <style name="Widget_GifView"/>
+
+    <style name="Edittext">
+        <item name="android:textSize">13sp</item>
+        <item name="android:background">@null</item>
+    </style>
+
 </resources>

@@ -38,7 +38,6 @@ import java.util.List;
 
 public class LeftFragment extends Fragment implements View.OnClickListener, ResponseListenter<NowWeather> {
     private RelativeLayout mHome;//首页
-    private RelativeLayout mLittlebear;//心情线
     private RelativeLayout service_assistant;//我的助手
     private RelativeLayout mSetting;//设置
     private RelativeLayout mLogout;//退出
@@ -56,7 +55,6 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
     private String cityid;
     private TextView add_city;//添加城市
     private TextView manage_city;//管理城市
-    private Boolean isClose = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,7 +70,6 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
         getAdress();
         getData();
         getHandlerMessage();
-        getCallbackadress();
         return view;
     }
 
@@ -133,7 +130,6 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
 
     private void initView(View view) {
         mHome = (RelativeLayout) view.findViewById(R.id.home);
-        mLittlebear = (RelativeLayout) view.findViewById(R.id.little_bear);
         mSetting = (RelativeLayout) view.findViewById(R.id.setting);
         mLogout = (RelativeLayout) view.findViewById(R.id.logout);
         tmp = (TextView) view.findViewById(R.id.tmp);
@@ -146,7 +142,6 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
         add_city.setOnClickListener(this);
         manage_city.setOnClickListener(this);
         mHome.setOnClickListener(this);
-        mLittlebear.setOnClickListener(this);
         mSetting.setOnClickListener(this);
         mLogout.setOnClickListener(this);
         service_assistant.setOnClickListener(this);
@@ -165,14 +160,6 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
                 mMainFragment.setArguments(bundle);
                 newContent = mMainFragment;
                 title = "首页";
-                break;
-            case R.id.little_bear:
-                MoodLineFragment mMoodLineFragment = new MoodLineFragment();
-                Bundle bundle1 = new Bundle();
-                bundle1.putBoolean("isClose", isClose);
-                mMoodLineFragment.setArguments(bundle1);
-                newContent = mMoodLineFragment;
-                title = "心情线";
                 break;
             case R.id.setting:
                 newContent = new SettingFragment();
@@ -235,17 +222,5 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
         } else {
             result.getErrorMessage();
         }
-    }
-
-    private void getCallbackadress() {
-        MainActivity mMainActivity = (MainActivity) getActivity();
-        mMainActivity.setCallbackadress(new MainActivity.CallbackMoodline() {
-            @Override
-            public void finish(Boolean isClick, View view) {
-                if (view == null) {
-                    isClose = false;
-                }
-            }
-        });
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/bg"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="#EBE4D3"
@@ -8,7 +9,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#EBE4D3"
         android:orientation="horizontal"
         android:paddingBottom="10dp"
         android:paddingTop="10dp">
@@ -23,7 +23,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginRight="15dp"
             android:text="完成"
-            android:textColor="@color/a3"
+            android:textColor="#660000"
             android:textSize="15sp"
             />
 
@@ -38,7 +38,7 @@
             android:layout_marginLeft="17dp"
             android:layout_marginStart="17dp"
             android:text="取消"
-            android:textColor="@color/a3"
+            android:textColor="#660000"
             android:textSize="15sp"/>
     </RelativeLayout>
 
@@ -47,26 +47,32 @@
         android:layout_height="3dp"
         android:background="#D7917A"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="#660000"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:scrollbars="none">
 
-        <EditText
+        <com.example.administrator.soweather.com.example.administrator.soweather.view.LinedEditText
             android:id="@+id/content"
+            style="@style/Edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
-            android:background="@drawable/selector_bg_edittext"
             android:gravity="top"
             android:paddingBottom="8dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingTop="8dp"
-            android:textColor="#000000"
             />
     </ScrollView>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -82,7 +88,7 @@
             android:paddingBottom="8dp"
             android:paddingTop="8dp"
             android:text="11月29日 18:02 星期二"
-            android:textColor="@color/a3"/>
+            android:textColor="#660000"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -111,13 +117,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:src="@mipmap/graffiti"/>
-
-            <ImageView
-                android:id="@+id/clock"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@mipmap/clock"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

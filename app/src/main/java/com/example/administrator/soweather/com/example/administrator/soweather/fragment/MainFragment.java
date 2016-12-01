@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ScrollingView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -14,16 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.AqiActivity;
-import com.example.administrator.soweather.com.example.administrator.soweather.activity.LifeActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.TodayDetailActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Constans;
 import com.example.administrator.soweather.com.example.administrator.soweather.db.SoWeatherDB;
@@ -39,7 +36,6 @@ import com.example.administrator.soweather.com.example.administrator.soweather.m
 import com.example.administrator.soweather.com.example.administrator.soweather.service.WeatherService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.HorizontalRecyclerView;
-import com.example.administrator.soweather.com.example.administrator.soweather.view.WeatherChartView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,12 +52,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private TextView date;//更新时间
     private TextView mTmp;//温度
     private TextView code_txt;//天气描述
-    private TextView tem_min_max;//最高温度和最低温度
+    private String tem_min_max;//最高温度和最低温度
     private TextView pm;//pm2.5
     private TextView qlty;//空气质量描述
-    private TextView date2;//时间
-    private ImageView code_img;//天气图标
-    private TextView code_txt2;//天气描述
     private LinearLayout life;
     private String cityid;
     private String city;
@@ -84,37 +77,11 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private GalleryAdapter mDailyAdapter;
     private Aqi mAqi = new Aqi();
     private LinearLayout aqi;
-    private ImageView up;
-    private FrameLayout frame_layout;
-    private LinearLayout linearLayout1;
     private LinearLayout linearLayout2;
     private DisplayMetrics dm = new DisplayMetrics();
-    private FrameLayout frame_layout2;//弹出曲线图 详情
-    private WeatherChartView line_char;//曲线图
     private ImageView bg;
-    private ImageView down;
-    private TextView day_1;
-    private TextView day_2;
-    private TextView day_3;
-    private TextView day_4;
-    private TextView day_5;
-    private TextView day_6;
 
-    private TextView wether_1;
-    private TextView wether_2;
-    private TextView wether_3;
-    private TextView wether_4;
-    private TextView wether_5;
-    private TextView wether_6;
-
-
-    private ImageView day_img_1;
-    private ImageView day_img_2;
-    private ImageView day_img_3;
-    private ImageView day_img_4;
-    private ImageView day_img_5;
-    private ImageView day_img_6;
-
+    private LinearLayout today_detai;
     private ImageView wind_img;
     private TextView wind_txt;
 
@@ -287,18 +254,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             wind_img.startAnimation(anim1);
             wind_txt.setText(mNowWeather.dir + mNowWeather.sc + "级");
             date.setText(new JSONObject(mNowWeather.update).optString("loc"));
-            date2.setText(new JSONObject(mNowWeather.update).optString("loc").substring(5, 10));
             mTmp.setText(mNowWeather.tmp + "℃");
-            String code = new JSONObject(mNowWeather.cond).optString("code");
             String txt = new JSONObject(mNowWeather.cond).optString("txt");
             code_txt.setText(txt);
-            code_txt2.setText(txt);
-            weathimgs = cityDB.getAllWeatherImg();
-            for (int i = 0; i < weathimgs.size(); i++) {
-                if (code.equals(weathimgs.get(i).getCode())) {
-                    code_img.setImageBitmap(weathimgs.get(i).getIcon());
-                }
-            }
             dir = mNowWeather.dir;
             sc = mNowWeather.sc;
             fl = mNowWeather.fl;
@@ -322,66 +280,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         try {
             String max = new JSONObject(mDailyforecast.get(0).tmp).optString("max");
             String min = new JSONObject(mDailyforecast.get(0).tmp).optString("min");
-            tem_min_max.setText(min + "℃" + "~" + max + "℃");
+            tem_min_max = min + "℃" + "~" + max + "℃";
             mDailyAdapter = new GalleryAdapter(getActivity(), mDailyforecast);
             day_weather.setAdapter(mDailyAdapter);
-            int[] tempDay = new int[mDailyforecast.size()];
-
-            int[] tempNight = new int[mDailyforecast.size()];
-            for (int i = 0; i < mDailyforecast.size(); i++) {
-                tempDay[i] = Integer.parseInt(new JSONObject(mDailyforecast.get(i).tmp).optString("max"));
-                tempNight[i] = Integer.parseInt(new JSONObject(mDailyforecast.get(i).tmp).optString("min"));
-                String code_n = new JSONObject(mDailyforecast.get(i).cond).optString("code_n");//夜间
-                weathimgs = cityDB.getAllWeatherImg();
-                if (i > 0) {
-                    String code_d = new JSONObject(mDailyforecast.get(i).cond).optString("code_d");//白天
-                    for (int j = 0; j < weathimgs.size(); j++) {
-                        if (code_d.equals(weathimgs.get(j).getCode())) {
-                            if (i == 1) {
-                                day_img_1.setImageBitmap(weathimgs.get(j).getIcon());
-                            }
-                            if (i == 2) {
-                                day_img_2.setImageBitmap(weathimgs.get(j).getIcon());
-                            }
-                            if (i == 3) {
-                                day_img_3.setImageBitmap(weathimgs.get(j).getIcon());
-                            }
-                            if (i == 4) {
-                                day_img_4.setImageBitmap(weathimgs.get(j).getIcon());
-                            }
-                            if (i == 5) {
-                                day_img_5.setImageBitmap(weathimgs.get(j).getIcon());
-                            }
-                            if (i == 6) {
-                                day_img_6.setImageBitmap(weathimgs.get(j).getIcon());
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (mDailyforecast != null && mDailyforecast.size() > 0) {
-                day_1.setText(mDailyforecast.get(1).date.substring(5, mDailyforecast.get(1).date.length()) + "明");
-                day_2.setText(mDailyforecast.get(2).date.substring(5, mDailyforecast.get(1).date.length()));
-                day_3.setText(mDailyforecast.get(3).date.substring(5, mDailyforecast.get(1).date.length()));
-                day_4.setText(mDailyforecast.get(4).date.substring(5, mDailyforecast.get(1).date.length()));
-                day_5.setText(mDailyforecast.get(5).date.substring(5, mDailyforecast.get(1).date.length()));
-                day_6.setText(mDailyforecast.get(6).date.substring(5, mDailyforecast.get(1).date.length()));
-
-                wether_1.setText(new JSONObject(mDailyforecast.get(1).cond).optString("txt_d"));
-                wether_2.setText(new JSONObject(mDailyforecast.get(2).cond).optString("txt_d"));
-                wether_3.setText(new JSONObject(mDailyforecast.get(3).cond).optString("txt_d"));
-                wether_4.setText(new JSONObject(mDailyforecast.get(4).cond).optString("txt_d"));
-                wether_5.setText(new JSONObject(mDailyforecast.get(5).cond).optString("txt_d"));
-                wether_6.setText(new JSONObject(mDailyforecast.get(6).cond).optString("txt_d"));
-            }
-            // 设置当天最高温度曲线
-            line_char.setTempDay(tempDay);
-            // 设置当天最低温度曲线
-            line_char.setTempNight(tempNight);
-            line_char.invalidate();
-
-
         } catch (JSONException e) {
             e.printStackTrace();//异常
         }
@@ -392,78 +293,37 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         wind_img = (ImageView) view.findViewById(R.id.wind_img);
         wind_txt = (TextView) view.findViewById(R.id.wind_txt);
         date = (TextView) view.findViewById(R.id.date);
-        code_img = (ImageView) view.findViewById(R.id.code_img);
         mTmp = (TextView) view.findViewById(R.id.tmp);
         code_txt = (TextView) view.findViewById(R.id.code_txt);
-        tem_min_max = (TextView) view.findViewById(R.id.tem_min_max);
         pm = (TextView) view.findViewById(R.id.pm);
         qlty = (TextView) view.findViewById(R.id.qlty);
-        date2 = (TextView) view.findViewById(R.id.date2);
-        code_txt2 = (TextView) view.findViewById(R.id.code_txt2);
         life = (LinearLayout) view.findViewById(R.id.life);
-        up = (ImageView) view.findViewById(R.id.up);
-        frame_layout = (FrameLayout) view.findViewById(R.id.frame_layout);
-        linearLayout1 = (LinearLayout) view.findViewById(R.id.linearLayout1);
         linearLayout2 = (LinearLayout) view.findViewById(R.id.linearLayout2);
         day_weather = (HorizontalRecyclerView) view.findViewById(R.id.day_weather);
         aqi = (LinearLayout) view.findViewById(R.id.aqi);
-        frame_layout2 = (FrameLayout) view.findViewById(R.id.frame_layout2);
-        line_char = (WeatherChartView) view.findViewById(R.id.line_char);
-        down = (ImageView) view.findViewById(R.id.down);
         bg = (ImageView) view.findViewById(R.id.bg);
-        day_1 = (TextView) view.findViewById(R.id.day_1);
-        day_2 = (TextView) view.findViewById(R.id.day_2);
-        day_3 = (TextView) view.findViewById(R.id.day_3);
-        day_4 = (TextView) view.findViewById(R.id.day_4);
-        day_5 = (TextView) view.findViewById(R.id.day_5);
-        day_6 = (TextView) view.findViewById(R.id.day_6);
-        wether_1 = (TextView) view.findViewById(R.id.weather_1);
-        wether_2 = (TextView) view.findViewById(R.id.weather_2);
-        wether_3 = (TextView) view.findViewById(R.id.weather_3);
-        wether_4 = (TextView) view.findViewById(R.id.weather_4);
-        wether_5 = (TextView) view.findViewById(R.id.weather_5);
-        wether_6 = (TextView) view.findViewById(R.id.weather_6);
-
-        day_img_1 = (ImageView) view.findViewById(R.id.day_img_1);
-        day_img_2 = (ImageView) view.findViewById(R.id.day_img_2);
-        day_img_3 = (ImageView) view.findViewById(R.id.day_img_3);
-        day_img_4 = (ImageView) view.findViewById(R.id.day_img_4);
-        day_img_5 = (ImageView) view.findViewById(R.id.day_img_5);
-        day_img_6 = (ImageView) view.findViewById(R.id.day_img_6);
+        today_detai = (LinearLayout) view.findViewById(R.id.today_detail);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         day_weather.setLayoutManager(linearLayoutManager);
         life.setOnClickListener(this);
         aqi.setOnClickListener(this);
-        up.setOnClickListener(this);
-        down.setOnClickListener(this);
-        linearLayout1.setOnClickListener(this);
         linearLayout2.setOnClickListener(this);
+        today_detai.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.life:
-                Intent intent3 = new Intent();
-                intent3.setClass(getActivity(), LifeActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("dir", dir);
-                bundle.putString("sc", sc);
-                bundle.putString("fl", fl);
-                bundle.putString("hum", hum);
-                bundle.putString("pcpn", pcpn);
-                bundle.putString("pres", pres);
-                bundle.putString("vis", vis);
-                bundle.putString("tem_max_min", tem_min_max.getText().toString());
-                bundle.putString("cityid", cityid);
-                bundle.putString("city", city);
-                if (mDailyforecast != null && mDailyforecast.size() > 0) {
-                    bundle.putString("cond", mDailyforecast.get(0).cond);
+                //弹出今日小时预报
+                TimeDialogFragment f1 = new TimeDialogFragment();
+                if (mHourlyforecast != null && mHourlyforecast.size() > 0) {
+                    Bundle bundle3 = new Bundle();
+                    bundle3.putSerializable("date", (Serializable) mHourlyforecast);
+                    f1.setArguments(bundle3);
                 }
-                intent3.putExtras(bundle);
-                getActivity().startActivity(intent3);
-                getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
+                f1.show(getFragmentManager(), "小时预报");
                 break;
             case R.id.aqi:
                 Intent intent1 = new Intent();
@@ -482,47 +342,31 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                     bundle1.putString("qlty", mAqi.qlty);
                     bundle1.putString("so2", mAqi.so2);
                 }
+                bundle1.putString("dir", dir);
+                bundle1.putString("sc", sc);
+                bundle1.putString("fl", fl);
+                bundle1.putString("hum", hum);
+                bundle1.putString("pcpn", pcpn);
+                bundle1.putString("pres", pres);
+                bundle1.putString("vis", vis);
+                bundle1.putString("tem_max_min", tem_min_max);
+                if (mDailyforecast != null && mDailyforecast.size() > 0) {
+                    bundle1.putString("cond", mDailyforecast.get(0).cond);
+                }
+                if (mNowWeather != null) {
+                    bundle1.putString("lat", mNowWeather.lat);
+                    bundle1.putString("lon", mNowWeather.lon);
+                }
                 intent1.putExtras(bundle1);
                 getActivity().startActivity(intent1);
                 getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
                 break;
-            case R.id.up:
-                //弹出趋势图布局
-                frame_layout.setVisibility(View.GONE);
-                frame_layout2.setVisibility(View.VISIBLE);
-                Animation anim1 = AnimationUtils.loadAnimation(getActivity(), R.anim.dialog_out);
-                frame_layout.startAnimation(anim1);
-                Animation anim2 = AnimationUtils.loadAnimation(getActivity(), R.anim.dialog_in);
-                frame_layout2.startAnimation(anim2);
+            case R.id.today_detail:
+                Intent intent = new Intent(getActivity(), TodayDetailActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
                 break;
-            case R.id.linearLayout1:
-                //弹出今日小时预报
-                TimeDialogFragment f = new TimeDialogFragment();
-                if (mHourlyforecast != null && mHourlyforecast.size() > 0) {
-                    Bundle bundle2 = new Bundle();
-                    bundle2.putSerializable("date", (Serializable) mHourlyforecast);
-                    f.setArguments(bundle2);
-                }
-                f.show(getChildFragmentManager(), "小时预报");
-                break;
-            case R.id.linearLayout2:
-                //弹出今日小时预报
-                TimeDialogFragment f1 = new TimeDialogFragment();
-                if (mHourlyforecast != null && mHourlyforecast.size() > 0) {
-                    Bundle bundle3 = new Bundle();
-                    bundle3.putSerializable("date", (Serializable) mHourlyforecast);
-                    f1.setArguments(bundle3);
-                }
-                f1.show(getFragmentManager(), "小时预报");
-                break;
-            case R.id.down:
-                frame_layout.setVisibility(View.VISIBLE);
-                frame_layout2.setVisibility(View.GONE);
-                Animation anim3 = AnimationUtils.loadAnimation(getActivity(), R.anim.dialog_out);
-                frame_layout2.startAnimation(anim3);
-                Animation anim4 = AnimationUtils.loadAnimation(getActivity(), R.anim.dialog_in);
-                frame_layout.startAnimation(anim4);
-                break;
+
         }
     }
 
@@ -566,15 +410,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         @Override
         public void onBindViewHolder(final GalleryAdapter.ViewHolder viewHolder, final int i) {
             Dailyforecast mDailyForecastData = mData.get(i);
-            if (i == 0) {
-                viewHolder.date.setText(mDailyForecastData.date.substring(5, mDailyForecastData.date.length()) + "(今)");
-                viewHolder.date.setTextColor(getResources().getColor(R.color.red));
-            } else if (i == 1) {
-                viewHolder.date.setText(mDailyForecastData.date.substring(5, mDailyForecastData.date.length()) + "(明)");
-                viewHolder.date.setTextColor(getResources().getColor(R.color.red));
-            } else {
-                viewHolder.date.setText(mDailyForecastData.date.substring(5, mDailyForecastData.date.length()));
-            }
+            viewHolder.date.setText(mDailyForecastData.date.substring(5, mDailyForecastData.date.length()));
             String code = null;
             try {
                 String min = new JSONObject(mDailyForecastData.tmp).optString("min");

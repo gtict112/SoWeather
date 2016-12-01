@@ -14,6 +14,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.administrator.soweather.R;
@@ -48,6 +49,8 @@ public class Managecity extends Activity implements ResponseListenter<NowWeather
     private ImageView topButton;
     private TextView topRight;
     private Boolean isDelete = false;
+    private LinearLayout bg;
+    private int mDrawable[] = {R.drawable.bg_shape_a1, R.drawable.bg_shape_a2, R.drawable.bg_shape_a3, R.drawable.bg_shape_a4, R.drawable.bg_shape_a5};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,6 +70,7 @@ public class Managecity extends Activity implements ResponseListenter<NowWeather
         topRight.setVisibility(View.VISIBLE);
         topTv.setText("城市管理");
         topButton = (ImageView) findViewById(R.id.topButton);
+        bg = (LinearLayout) findViewById(R.id.bg);
         topButton.setOnClickListener(this);
         topRight.setOnClickListener(this);
         citylist = cityDB.getAllManagecity();
@@ -121,10 +125,12 @@ public class Managecity extends Activity implements ResponseListenter<NowWeather
                     isDelete = true;
                     mDailyAdapter = new GalleryAdapter(this, date);
                     list.setAdapter(mDailyAdapter);
+                    topRight.setText("取消");
                 } else if (isDelete) {
                     isDelete = false;
                     mDailyAdapter = new GalleryAdapter(this, date);
                     list.setAdapter(mDailyAdapter);
+                    topRight.setText("编辑");
                 }
                 break;
         }
@@ -171,6 +177,7 @@ public class Managecity extends Activity implements ResponseListenter<NowWeather
                 vh.tmp = (TextView) convertView.findViewById(R.id.tmp);
                 vh.cond_txt = (TextView) convertView.findViewById(R.id.cond_txt);
                 vh.delete = (ImageView) convertView.findViewById(R.id.delete);
+                vh.bg = (LinearLayout) convertView.findViewById(R.id.bg);
                 convertView.setTag(vh);
             } else {
                 vh = (ViewHolder) convertView.getTag();
@@ -179,7 +186,8 @@ public class Managecity extends Activity implements ResponseListenter<NowWeather
             final NowWeather mNowWeather = mData.get(position);
             vh.address.setText(mNowWeather.cnty + mNowWeather.city);
             vh.tmp.setText(mNowWeather.tmp + "℃");
-
+            int rand = (int) Math.round(Math.random() * 4);
+            vh.bg.setBackgroundResource(mDrawable[rand]);
             String code = null;
             try {
                 code = new JSONObject(mNowWeather.cond).optString("code");
@@ -221,6 +229,7 @@ public class Managecity extends Activity implements ResponseListenter<NowWeather
             TextView tmp;
             TextView cond_txt;
             ImageView delete;
+            LinearLayout bg;
         }
     }
 

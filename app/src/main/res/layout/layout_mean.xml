@@ -152,45 +152,6 @@
                     android:textSize="15sp"/>
             </RelativeLayout>
 
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/line"/>
-
-            <RelativeLayout
-                android:id="@+id/little_bear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="3dp"
-                android:orientation="horizontal"
-                android:paddingBottom="12dp"
-                android:paddingTop="12dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerInParent="true"
-                    android:src="@mipmap/to_right"/>
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:drawableLeft="@mipmap/mood_line"
-                    android:drawablePadding="6dp"
-                    android:gravity="center"
-                    android:text="心情线"
-                    android:textColor="@color/background_progress"
-                    android:textSize="15sp"/>
-            </RelativeLayout>
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"

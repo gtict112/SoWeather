@@ -76,7 +76,6 @@
             />
         <activity android:name=".com.example.administrator.soweather.activity.CurrentCityActivity"/>
         <activity android:name=".com.example.administrator.soweather.activity.HelpFeedbackActivity"/>
-        <activity android:name=".com.example.administrator.soweather.activity.LifeActivity"/>
         <activity android:name=".com.example.administrator.soweather.activity.AboutActivity"/>
         <activity android:name=".com.example.administrator.soweather.activity.CustomerServiceActivity"/>
         <activity android:name=".com.example.administrator.soweather.activity.CurrenCityTwoActivity"/>
@@ -85,5 +84,7 @@
         <activity android:name=".com.example.administrator.soweather.activity.AqiActivity"/>
         <activity android:name=".com.example.administrator.soweather.activity.Managecity"/>
         <activity android:name=".com.example.administrator.soweather.activity.MoodLineContentActivity"/>
+        <activity android:name=".com.example.administrator.soweather.activity.TodayDetailActivity"/>
+        <activity android:name=".com.example.administrator.soweather.activity.DiaryActvivty"/>
     </application>
 </manifest>
