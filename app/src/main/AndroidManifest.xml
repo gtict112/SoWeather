@@ -85,6 +85,5 @@
         <activity android:name=".com.example.administrator.soweather.activity.Managecity"/>
         <activity android:name=".com.example.administrator.soweather.activity.MoodLineContentActivity"/>
         <activity android:name=".com.example.administrator.soweather.activity.TodayDetailActivity"/>
-        <activity android:name=".com.example.administrator.soweather.activity.DiaryActvivty"/>
     </application>
 </manifest>

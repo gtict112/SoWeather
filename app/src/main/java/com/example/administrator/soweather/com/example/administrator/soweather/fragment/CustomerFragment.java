@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.CustomerServiceActivity;
-import com.example.administrator.soweather.com.example.administrator.soweather.activity.DiaryActvivty;
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.DiaryActivity;
 
 /**
  * Created by Administrator on 2016/11/11.
@@ -65,7 +65,7 @@ public class CustomerFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getActivity(), "待开发", Toast.LENGTH_LONG).show();
                 break;
             case R.id.diary:
-                Intent intent1 = new Intent(getActivity(), DiaryActvivty.class);
+                Intent intent1 = new Intent(getActivity(), DiaryActivity.class);
                 startActivity(intent1);
                 break;
         }

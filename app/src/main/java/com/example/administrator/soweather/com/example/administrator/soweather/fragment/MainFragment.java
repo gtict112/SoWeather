@@ -326,6 +326,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 f1.show(getFragmentManager(), "小时预报");
                 break;
             case R.id.aqi:
+                //弹出所在地当天的生活指数和相关信息
                 Intent intent1 = new Intent();
                 intent1.setClass(getActivity(), AqiActivity.class);
                 Bundle bundle1 = new Bundle();
@@ -362,7 +363,10 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
                 break;
             case R.id.today_detail:
+                //今日详情,当天数据的详细展示和趋势图和未来的预测,今日新闻推荐
                 Intent intent = new Intent(getActivity(), TodayDetailActivity.class);
+                intent.putExtra("city", city);
+                intent.putExtra("cityid",cityid);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
                 break;
