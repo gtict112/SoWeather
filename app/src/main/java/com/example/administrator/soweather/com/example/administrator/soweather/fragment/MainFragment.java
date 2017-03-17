@@ -355,7 +355,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                     intent.putExtra("city", city);
                     intent.putExtra("cityid", cityid);
                     intent.putExtra("date", (Serializable) mDailyforecast);
-                    intent.putExtra("time",data.date);
+                    intent.putExtra("time", data.date);
                     startActivity(intent);
                     Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.dialog_in);
                     animation.setFillAfter(true);
@@ -450,7 +450,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 intent.putExtra("cityid", cityid);
                 if (mDailyforecast != null && mDailyforecast.size() > 0) {
                     intent.putExtra("date", (Serializable) mDailyforecast);
-                    intent.putExtra("time",mDailyforecast.get(0).date);
+                    intent.putExtra("time", mDailyforecast.get(0).date);
                 }
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
@@ -546,6 +546,10 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 }
             }
             viewHolder.itemView.setTag(mDailyForecastData);
+            Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.dialog_in);
+            animation.setFillAfter(true);
+            viewHolder.itemView.startAnimation(animation);
+            viewHolder.itemView.setOnClickListener(this);
         }
     }
 

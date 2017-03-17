@@ -120,7 +120,7 @@ public class DiaryActivity extends Activity implements View.OnClickListener {
                 if (!isClick) {
                     initmPopupWindowView();
                     isClick = true;
-                    popupwindow.showAsDropDown(topRight, 0, 30);
+                    popupwindow.showAsDropDown(topRight, 5, 30);
                 } else {
                     if (popupwindow != null && popupwindow.isShowing()) {
                         popupwindow.dismiss();
