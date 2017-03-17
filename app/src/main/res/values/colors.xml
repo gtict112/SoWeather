@@ -6,7 +6,7 @@
     <color name="contain_title">#3F51B5</color>
     <color name="background_progress">#333333</color>
     <color name="grey">#666666</color>
-    <color name="font_progress">#bebebe</color>
+    <color name="font_progress">#666666</color>
     <color name="left_fragment">#f1f1f9</color>
     <color name="line">#bebebe</color>
     <color name="left_fragment_head">#3F5199</color>
@@ -27,4 +27,5 @@
     <color name="gray">#D6D6D6</color>
     <color name="main_fragment">#EEEEEE</color>
     <color name="txt_1">#717171</color>
+    <color name="home">#e09999cc</color>
 </resources>

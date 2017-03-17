@@ -57,7 +57,7 @@ public class CustomerServiceActivity extends Activity implements View.OnClickLis
         sendtext = (EditText) findViewById(R.id.senText);
         topButton = (ImageView) findViewById(R.id.topButton);
         topTv = (TextView) findViewById(R.id.topTv);
-        topTv.setText("Universal Robot");
+        topTv.setText("智能助手");
         topButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,7 +127,7 @@ public class CustomerServiceActivity extends Activity implements View.OnClickLis
     }
 
     @Override
-    public void onReceive(Result<String> result)  {
+    public void onReceive(Result<String> result) {
         if (result.isSuccess()) {
             parseText(result.getData());
         } else {

@@ -1,17 +1,26 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.utils;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Aqi;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Dailyforecast;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Hourlyforecast;
+import com.example.administrator.soweather.com.example.administrator.soweather.mode.New;
+import com.example.administrator.soweather.com.example.administrator.soweather.mode.TopNew;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.NowWeather;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Suggestion;
+import com.example.administrator.soweather.com.example.administrator.soweather.mode.Zodiac;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -212,4 +221,144 @@ public class ResponseProcessUtil {
         }
         return result;
     }
+
+    /**
+     * 获取老黄历
+     *
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    public static Result<Zodiac> getZodiac(Response response) throws IOException {
+        Result<Zodiac> result = new Result<Zodiac>();
+        try {
+            JSONObject jsonObjecty = new JSONObject(response.body().string());
+            String code = jsonObjecty.optString("reason");
+            if (code.equals("successed")) {
+                result.setSuccess(true);
+                JSONObject date = jsonObjecty.getJSONObject("result");
+                Zodiac mZodiac = Zodiac.Builder.creatZodiac();
+                result.setData(mZodiac);
+                mZodiac.yangli = date.optString("yangli");
+                mZodiac.yinli = date.optString("yinli");
+                mZodiac.wuxing = date.optString("wuxing");
+                mZodiac.chongsha = date.optString("chongsha");
+                mZodiac.baiji = date.optString("baiji");
+                mZodiac.jishen = date.optString("jishen");
+                mZodiac.yi = date.optString("yi");
+                mZodiac.xiongshen = date.optString("xiongshen");
+                mZodiac.ji = date.optString("ji");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+            result.setErrorMessage("老黄历信息获取失败,请升级客户端或与客服联系...");
+        }
+        return result;
+    }
+
+
+    public static Result<List<TopNew>> getTopNews(Response response) throws IOException {
+        Result<List<TopNew>> result = new Result<List<TopNew>>();
+        List<TopNew> list = new ArrayList<>();
+        result.setSuccess(false);
+        try {
+            JSONObject jsonObjecty = new JSONObject(response.body().string());
+            String code = jsonObjecty.optString("reason");
+            if (code.equals("成功的返回")) {
+                result.setSuccess(true);
+                JSONObject date = jsonObjecty.getJSONObject("result");
+                JSONArray mDate = date.getJSONArray("data");
+                for (int i = 0; i < mDate.length(); i++) {
+                    JSONObject mNew = mDate.getJSONObject(i);
+                    TopNew mNews = TopNew.Builder.creatNews();
+                    mNews.title = mNew.getString("title");//标题
+                    mNews.date = mNew.getString("date");//时间
+                    mNews.thumbnail_pic_s = mNew.optString("thumbnail_pic_s", null);//图片
+                    mNews.img = getHttpBitmap(mNews.thumbnail_pic_s);
+                    mNews.url = mNew.getString("url");//新闻链接
+                    if (mNew.optString("uniquekey", null) != null) {
+                        mNews.uniquekey = mNew.getString("uniquekey");//唯一标识
+                    }
+                    if (mNew.optString("type", null) != null) {
+                        mNews.type = mNew.getString("type");//类型 头条
+                    }
+                    if (mNew.optString("realtype", null) != null) {
+                        mNews.realtype = mNew.getString("realtype");//类型二 娱乐
+                    }
+                    mNews.author_name = mNew.getString("author_name");//来源
+                    list.add(mNews);
+                }
+            }
+            result.setData(list);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+            result.setErrorMessage("头条新闻获取失败,请升级客户端或与客服联系...");
+        }
+        return result;
+    }
+
+
+    public static Result<List<New>> getNews(Response response) throws IOException {
+        Result<List<New>> result = new Result<List<New>>();
+        List<New> list = new ArrayList<>();
+        result.setSuccess(false);
+        try {
+            JSONObject jsonObjecty = new JSONObject(response.body().string());
+            String code = jsonObjecty.optString("reason");
+            if (code.equals("成功的返回")) {
+                result.setSuccess(true);
+                JSONObject date = jsonObjecty.getJSONObject("result");
+                JSONArray mDate = date.getJSONArray("data");
+                for (int i = 0; i < mDate.length(); i++) {
+                    JSONObject mNew = mDate.getJSONObject(i);
+                    New mNews = New.Builder.creatNew();
+                    mNews.title = mNew.getString("title");//标题
+                    mNews.date = mNew.getString("date");//时间
+                    mNews.thumbnail_pic_s = mNew.getString("thumbnail_pic_s");//图片
+                    mNews.img_2 = getHttpBitmap(mNews.thumbnail_pic_s);
+                    mNews.url = mNew.getString("url");//新闻链接
+                    mNews.category = mNew.getString("category");////类型娱乐
+                    mNews.author_name = mNew.getString("author_name");//来源
+                    list.add(mNews);
+                }
+            }
+            result.setData(list);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+            result.setErrorMessage("老黄历信息获取失败,请升级客户端或与客服联系...");
+        }
+        return result;
+    }
+
+
+    /**
+     * 获取网落图片资源
+     *
+     * @param url
+     * @return
+     */
+    public static Bitmap getHttpBitmap(String url) {
+        URL myFileURL;
+        Bitmap bitmap = null;
+        try {
+            myFileURL = new URL(url);
+            HttpURLConnection conn = (HttpURLConnection) myFileURL.openConnection();
+            conn.setConnectTimeout(6000);
+            conn.setDoInput(true);
+            conn.setUseCaches(false);
+            InputStream is = conn.getInputStream();
+            bitmap = BitmapFactory.decodeStream(is);
+            is.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
 }
+
+
+
+

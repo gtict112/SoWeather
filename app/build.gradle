@@ -3,6 +3,8 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion "24.0.3"
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
     defaultConfig {
         applicationId "com.example.administrator.soweather"
         minSdkVersion 15
@@ -36,6 +38,6 @@ dependencies {
     compile files('libs/BaiduLBS_Android.jar')
     compile files('libs/IndoorscapeAlbumPlugin.jar')
     compile 'com.android.support:recyclerview-v7:25.0.1'
-    compile 'com.android.support:support-v4:25.0.1'
     compile 'com.android.support:appcompat-v7:25.0.1'
+    compile 'com.android.support:support-v4:25.0.1'
 }

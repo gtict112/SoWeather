@@ -10,6 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ public class MainActivity extends SlidingFragmentActivity implements
     private LinearLayout top_right;
     private ImageView top_right_img;
     private Boolean isClick = false;
+    private RelativeLayout content_title;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -123,6 +125,7 @@ public class MainActivity extends SlidingFragmentActivity implements
         mDresss = (TextView) findViewById(R.id.dresss);
         top_right = (LinearLayout) findViewById(R.id.top_righgt);
         top_right_img = (ImageView) findViewById(R.id.top_righgt_img);
+        content_title =(RelativeLayout)findViewById(R.id.content_title);
         if (intent != null) {
             city = intent.getStringExtra("city");
             cityid = intent.getStringExtra("cityid");
@@ -172,6 +175,7 @@ public class MainActivity extends SlidingFragmentActivity implements
             top_right.setVisibility(View.VISIBLE);
             mDresss.setVisibility(View.VISIBLE);
             top_right_img.setImageResource(R.mipmap.place);
+            content_title.setBackgroundResource(R.color.home);
             top_right.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -181,6 +185,7 @@ public class MainActivity extends SlidingFragmentActivity implements
             });
         } else {
             top_right.setVisibility(View.GONE);
+            content_title.setBackgroundResource(R.color.a4);
         }
     }
 

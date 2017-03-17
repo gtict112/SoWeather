@@ -1,4 +1,4 @@
-package com.example.administrator.soweather.com.example.administrator.soweather.activity;
+package com.example.administrator.soweather.com.example.administrator.soweather.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,7 +6,10 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
@@ -33,7 +36,7 @@ import java.util.List;
  * Created by Administrator on 2016/12/1.
  */
 
-public class TodayDetailActivity extends Activity implements View.OnClickListener {
+public class TodayDetailFragment extends Fragment implements View.OnClickListener {
     private TextView topTv;
     private ImageView topButton;
 
@@ -122,86 +125,83 @@ public class TodayDetailActivity extends Activity implements View.OnClickListene
      * 其实想把View增加到数据,再直接获取,唉,后面再改吧
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_today_detail);
-        cityDB = SoWeatherDB.getInstance(this);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_today_detail, null);
+        cityDB = SoWeatherDB.getInstance(getActivity());
         weathimgs = cityDB.getAllWeatherImg();
-        initView();
+        initView(view);
         getDate();
         getHandleMessge();
+        return view;
     }
 
-    private void initView() {
-        Intent intent = getIntent();
-        topTv = (TextView) findViewById(R.id.topTv);
-        topButton = (ImageView) findViewById(R.id.topButton);
-        line_chart = (WeatherChartView) findViewById(R.id.line_char);
-        date1 = (TextView) findViewById(R.id.date_1);
-        date2 = (TextView) findViewById(R.id.date_2);
-        date3 = (TextView) findViewById(R.id.date_3);
-        date4 = (TextView) findViewById(R.id.date_4);
-        date5 = (TextView) findViewById(R.id.date_5);
-        date6 = (TextView) findViewById(R.id.date_6);
-        date7 = (TextView) findViewById(R.id.date_7);
+    private void initView(View view) {
+        topTv = (TextView) view.findViewById(R.id.topTv);
+        topButton = (ImageView) view.findViewById(R.id.topButton);
+        line_chart = (WeatherChartView) view.findViewById(R.id.line_char);
+        date1 = (TextView) view.findViewById(R.id.date_1);
+        date2 = (TextView) view.findViewById(R.id.date_2);
+        date3 = (TextView) view.findViewById(R.id.date_3);
+        date4 = (TextView) view.findViewById(R.id.date_4);
+        date5 = (TextView) view.findViewById(R.id.date_5);
+        date6 = (TextView) view.findViewById(R.id.date_6);
+        date7 = (TextView) view.findViewById(R.id.date_7);
 
-        dir1 = (TextView) findViewById(R.id.dir_1);
-        dir2 = (TextView) findViewById(R.id.dir_2);
-        dir3 = (TextView) findViewById(R.id.dir_3);
-        dir4 = (TextView) findViewById(R.id.dir_4);
-        dir5 = (TextView) findViewById(R.id.dir_5);
-        dir6 = (TextView) findViewById(R.id.dir_6);
-        dir7 = (TextView) findViewById(R.id.dir_7);
+        dir1 = (TextView) view.findViewById(R.id.dir_1);
+        dir2 = (TextView) view.findViewById(R.id.dir_2);
+        dir3 = (TextView) view.findViewById(R.id.dir_3);
+        dir4 = (TextView) view.findViewById(R.id.dir_4);
+        dir5 = (TextView) view.findViewById(R.id.dir_5);
+        dir6 = (TextView) view.findViewById(R.id.dir_6);
+        dir7 = (TextView) view.findViewById(R.id.dir_7);
 
-        sc1 = (TextView) findViewById(R.id.sc_1);
-        sc2 = (TextView) findViewById(R.id.sc_2);
-        sc3 = (TextView) findViewById(R.id.sc_3);
-        sc4 = (TextView) findViewById(R.id.sc_4);
-        sc5 = (TextView) findViewById(R.id.sc_5);
-        sc6 = (TextView) findViewById(R.id.sc_6);
-        sc7 = (TextView) findViewById(R.id.sc_7);
+        sc1 = (TextView) view.findViewById(R.id.sc_1);
+        sc2 = (TextView) view.findViewById(R.id.sc_2);
+        sc3 = (TextView) view.findViewById(R.id.sc_3);
+        sc4 = (TextView) view.findViewById(R.id.sc_4);
+        sc5 = (TextView) view.findViewById(R.id.sc_5);
+        sc6 = (TextView) view.findViewById(R.id.sc_6);
+        sc7 = (TextView) view.findViewById(R.id.sc_7);
 
-        cond_txt1 = (TextView) findViewById(R.id.cond_txt1);
-        cond_txt2 = (TextView) findViewById(R.id.cond_txt2);
-        cond_txt3 = (TextView) findViewById(R.id.cond_txt3);
-        cond_txt4 = (TextView) findViewById(R.id.cond_txt4);
-        cond_txt5 = (TextView) findViewById(R.id.cond_txt5);
-        cond_txt6 = (TextView) findViewById(R.id.cond_txt6);
-        cond_txt7 = (TextView) findViewById(R.id.cond_txt7);
+        cond_txt1 = (TextView) view.findViewById(R.id.cond_txt1);
+        cond_txt2 = (TextView) view.findViewById(R.id.cond_txt2);
+        cond_txt3 = (TextView) view.findViewById(R.id.cond_txt3);
+        cond_txt4 = (TextView) view.findViewById(R.id.cond_txt4);
+        cond_txt5 = (TextView) view.findViewById(R.id.cond_txt5);
+        cond_txt6 = (TextView) view.findViewById(R.id.cond_txt6);
+        cond_txt7 = (TextView) view.findViewById(R.id.cond_txt7);
 
-        cond_img1 = (ImageView) findViewById(R.id.cond_img1);
-        cond_img2 = (ImageView) findViewById(R.id.cond_img2);
-        cond_img3 = (ImageView) findViewById(R.id.cond_img3);
-        cond_img4 = (ImageView) findViewById(R.id.cond_img4);
-        cond_img5 = (ImageView) findViewById(R.id.cond_img5);
-        cond_img6 = (ImageView) findViewById(R.id.cond_img6);
-        cond_img7 = (ImageView) findViewById(R.id.cond_img7);
+        cond_img1 = (ImageView) view.findViewById(R.id.cond_img1);
+        cond_img2 = (ImageView) view.findViewById(R.id.cond_img2);
+        cond_img3 = (ImageView) view.findViewById(R.id.cond_img3);
+        cond_img4 = (ImageView) view.findViewById(R.id.cond_img4);
+        cond_img5 = (ImageView) view.findViewById(R.id.cond_img5);
+        cond_img6 = (ImageView) view.findViewById(R.id.cond_img6);
+        cond_img7 = (ImageView) view.findViewById(R.id.cond_img7);
 
-        night_cond_txt1 = (TextView) findViewById(R.id.night_cond_txt1);
-        night_cond_txt2 = (TextView) findViewById(R.id.night_cond_txt2);
-        night_cond_txt3 = (TextView) findViewById(R.id.night_cond_txt3);
-        night_cond_txt4 = (TextView) findViewById(R.id.night_cond_txt4);
-        night_cond_txt5 = (TextView) findViewById(R.id.night_cond_txt5);
-        night_cond_txt6 = (TextView) findViewById(R.id.night_cond_txt6);
-        night_cond_txt7 = (TextView) findViewById(R.id.night_cond_txt7);
+        night_cond_txt1 = (TextView) view.findViewById(R.id.night_cond_txt1);
+        night_cond_txt2 = (TextView) view.findViewById(R.id.night_cond_txt2);
+        night_cond_txt3 = (TextView) view.findViewById(R.id.night_cond_txt3);
+        night_cond_txt4 = (TextView) view.findViewById(R.id.night_cond_txt4);
+        night_cond_txt5 = (TextView) view.findViewById(R.id.night_cond_txt5);
+        night_cond_txt6 = (TextView) view.findViewById(R.id.night_cond_txt6);
+        night_cond_txt7 = (TextView) view.findViewById(R.id.night_cond_txt7);
 
 
-        night_cond_img1 = (ImageView)findViewById(R.id.night_cond_img1);
-        night_cond_img2 = (ImageView)findViewById(R.id.night_cond_img2);
-        night_cond_img3 = (ImageView)findViewById(R.id.night_cond_img3);
-        night_cond_img4 = (ImageView)findViewById(R.id.night_cond_img4);
-        night_cond_img5 = (ImageView)findViewById(R.id.night_cond_img5);
-        night_cond_img6 = (ImageView)findViewById(R.id.night_cond_img6);
-        night_cond_img7 = (ImageView)findViewById(R.id.night_cond_img7);
-
+        night_cond_img1 = (ImageView) view.findViewById(R.id.night_cond_img1);
+        night_cond_img2 = (ImageView) view.findViewById(R.id.night_cond_img2);
+        night_cond_img3 = (ImageView) view.findViewById(R.id.night_cond_img3);
+        night_cond_img4 = (ImageView) view.findViewById(R.id.night_cond_img4);
+        night_cond_img5 = (ImageView) view.findViewById(R.id.night_cond_img5);
+        night_cond_img6 = (ImageView) view.findViewById(R.id.night_cond_img6);
+        night_cond_img7 = (ImageView) view.findViewById(R.id.night_cond_img7);
 
 
         topButton.setOnClickListener(this);
-        if (intent != null) {
-            city = intent.getStringExtra("city");
-            cityid = intent.getStringExtra("cityid");
+        if (getArguments() != null) {
+            city = getArguments().getString("city");
+            cityid = getArguments().getString("cityid");
             topTv.setText(city);
         }
     }
@@ -331,8 +331,6 @@ public class TodayDetailActivity extends Activity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.topButton:
-                finish();
-                overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
                 break;
         }
     }

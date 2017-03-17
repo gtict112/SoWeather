@@ -1,35 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.administrator.soweather"
-          android:versionCode="1"
-          android:versionName="1.0">
+    package="com.example.administrator.soweather"
+    android:versionCode="1"
+    android:versionName="1.0">
 
     <uses-sdk
         android:minSdkVersion="15"
-        android:targetSdkVersion="24"/>
+        android:targetSdkVersion="24" />
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION">
-    </uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION">
-    </uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE">
-    </uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE">
-    </uses-permission>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE">
-    </uses-permission>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE">
-    </uses-permission>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE">
-    </uses-permission>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS">
-    </uses-permission>
-    <uses-permission android:name="android.permission.READ_LOGS">
-    </uses-permission>
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
+    <uses-permission android:name="android.permission.READ_LOGS"></uses-permission>
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <application
         android:name=".com.example.administrator.soweather.core.LocationApplication"
@@ -43,47 +34,51 @@
             android:enabled="true"
             android:process=":remote">
             <intent-filter>
-                <action android:name="com.baidu.location.service_v2.2">
-                </action>
+                <action android:name="com.baidu.location.service_v2.2"></action>
             </intent-filter>
         </service>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="p9ZUBq1xOym3Gh9X15dfqYA9yuuY7RPy"/>
+            android:value="p9ZUBq1xOym3Gh9X15dfqYA9yuuY7RPy" />
         <receiver android:name="com.example.administrator.soweather.com.example.administrator.soweather.core.ParentsAppWidgetProvider">
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/appwidgetprovider"/>
+                android:resource="@xml/appwidgetprovider" />
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
         </receiver>
 
-        <service android:name=".com.example.administrator.soweather.service.AppWidgetUpdateService">
-        </service>
+        <service android:name=".com.example.administrator.soweather.service.AppWidgetUpdateService"></service>
 
         <activity
             android:name=".com.example.administrator.soweather.activity.WelcomeActivity"
             android:hardwareAccelerated="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".com.example.administrator.soweather.activity.MainActivity" />
+        <activity android:name=".com.example.administrator.soweather.activity.CurrentCityActivity" />
+        <activity android:name=".com.example.administrator.soweather.activity.HelpFeedbackActivity" />
+        <activity android:name=".com.example.administrator.soweather.activity.AboutActivity" />
+        <activity android:name=".com.example.administrator.soweather.activity.CustomerServiceActivity" />
+        <activity android:name=".com.example.administrator.soweather.activity.CurrenCityTwoActivity" />
+        <activity android:name=".com.example.administrator.soweather.activity.CurrenCityThreeActiivty" />
+        <activity android:name=".com.example.administrator.soweather.activity.AboutMoreActivity" />
+        <activity android:name=".com.example.administrator.soweather.activity.AqiActivity" />
+        <activity android:name=".com.example.administrator.soweather.activity.Managecity" />
+        <activity android:name=".com.example.administrator.soweather.activity.MoodLineContentActivity" />
+        <activity android:name=".com.example.administrator.soweather.activity.TipActivity" />
+        <activity android:name=".com.example.administrator.soweather.activity.NewsDetailActivity" />
+        <activity android:name=".com.example.administrator.soweather.activity.DiaryActivity" />
         <activity
-            android:name=".com.example.administrator.soweather.activity.MainActivity"
-            />
-        <activity android:name=".com.example.administrator.soweather.activity.CurrentCityActivity"/>
-        <activity android:name=".com.example.administrator.soweather.activity.HelpFeedbackActivity"/>
-        <activity android:name=".com.example.administrator.soweather.activity.AboutActivity"/>
-        <activity android:name=".com.example.administrator.soweather.activity.CustomerServiceActivity"/>
-        <activity android:name=".com.example.administrator.soweather.activity.CurrenCityTwoActivity"/>
-        <activity android:name=".com.example.administrator.soweather.activity.CurrenCityThreeActiivty"/>
-        <activity android:name=".com.example.administrator.soweather.activity.AboutMoreActivity"/>
-        <activity android:name=".com.example.administrator.soweather.activity.AqiActivity"/>
-        <activity android:name=".com.example.administrator.soweather.activity.Managecity"/>
-        <activity android:name=".com.example.administrator.soweather.activity.MoodLineContentActivity"/>
-        <activity android:name=".com.example.administrator.soweather.activity.TodayDetailActivity"/>
+            android:name=".com.example.administrator.soweather.activity.MoreInfoActivity"
+            android:theme="@style/StyledIndicators" />
+        <activity
+            android:name=".com.example.administrator.soweather.activity.MoreNewsActivity"
+            android:theme="@style/StyledIndicators" />
     </application>
 </manifest>

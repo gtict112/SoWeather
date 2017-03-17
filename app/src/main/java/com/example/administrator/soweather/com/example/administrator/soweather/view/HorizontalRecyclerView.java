@@ -26,8 +26,8 @@ public class HorizontalRecyclerView extends RecyclerView {
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
             // 当手指触摸listview时，让父控件交出ontouch权限,不能滚动
-            case MotionEvent.ACTION_DOWN:
-                setParentScrollAble(false);
+            case MotionEvent.ACTION_DOWN: setParentScrollAble(false);
+
             case MotionEvent.ACTION_MOVE:
                 break;
             case MotionEvent.ACTION_UP:

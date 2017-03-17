@@ -15,19 +15,18 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gred"/>
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#50000000"
-                android:padding="8dp"
-                android:text="未来7天预报"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/bg_shape_a5"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="7天预报"
                 android:textColor="@color/white"
-                />
+                android:textSize="15sp"/>
 
             <View
                 android:layout_width="match_parent"
@@ -37,579 +36,570 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_shape_a4"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
 
                     <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
                         android:id="@+id/date_1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:text="12/03"
-                        android:textColor="@color/txt_1"
+                        android:textColor="@color/background_progress"
                         android:textSize="12sp"/>
-
-                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                        android:id="@+id/dir_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="东风"
-                        android:textColor="@color/txt_1"
-                        android:textSize="12sp"/>
-
-                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                        android:id="@+id/sc_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="2级"
-                        android:textColor="@color/txt_1"
-                        android:textSize="12sp"/>
-
-                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                        android:id="@+id/cond_txt1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="多云"
-                        android:textColor="@color/txt_1"
-                        android:textSize="12sp"/>
-
-
-                    <ImageView
-                        android:id="@+id/cond_img1"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginTop="5dp"
-                        android:src="@mipmap/tourism"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
 
                     <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
                         android:id="@+id/date_2"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:text="12/04"
-                        android:textColor="@color/txt_1"
+                        android:textColor="@color/background_progress"
+                        android:textSize="12sp"/>
+
+                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                        android:id="@+id/date_3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="12/04"
+                        android:textColor="@color/background_progress"
+                        android:textSize="12sp"/>
+
+                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                        android:id="@+id/date_4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="12/05"
+                        android:textColor="@color/background_progress"
+                        android:textSize="12sp"/>
+
+                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                        android:id="@+id/date_5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="12/06"
+                        android:textColor="@color/background_progress"
+                        android:textSize="12sp"/>
+
+                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                        android:id="@+id/date_6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="12/06"
+                        android:textColor="@color/background_progress"
+                        android:textSize="12sp"/>
+
+
+                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                        android:id="@+id/date_7"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="12/03"
+                        android:textColor="@color/background_progress"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                        android:id="@+id/dir_1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="东风"
+                        android:textColor="@color/a6"
                         android:textSize="12sp"/>
 
                     <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
                         android:id="@+id/dir_2"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:text="东风"
-                        android:textColor="@color/txt_1"
-                        android:textSize="12sp"/>
-
-                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                        android:id="@+id/sc_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="2级"
-                        android:textColor="@color/txt_1"
-                        android:textSize="12sp"/>
-
-                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                        android:id="@+id/cond_txt2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="多云"
-                        android:textColor="@color/txt_1"
-                        android:textSize="12sp"/>
-
-                    <ImageView
-                        android:id="@+id/cond_img2"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginTop="5dp"
-                        android:src="@mipmap/tourism"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                        android:id="@+id/date_3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="12/04"
-                        android:textColor="@color/txt_1"
+                        android:textColor="@color/a6"
                         android:textSize="12sp"/>
 
                     <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
                         android:id="@+id/dir_3"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:text="南风"
-                        android:textColor="@color/txt_1"
-                        android:textSize="12sp"/>
-
-                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                        android:id="@+id/sc_3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="2级"
-                        android:textColor="@color/txt_1"
-                        android:textSize="12sp"/>
-
-                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                        android:id="@+id/cond_txt3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="多云"
-                        android:textColor="@color/txt_1"
-                        android:textSize="12sp"/>
-
-                    <ImageView
-                        android:id="@+id/cond_img3"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginTop="5dp"
-                        android:src="@mipmap/tourism"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                        android:id="@+id/date_4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="12/05"
-                        android:textColor="@color/txt_1"
+                        android:textColor="@color/a6"
                         android:textSize="12sp"/>
 
                     <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
                         android:id="@+id/dir_4"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:text="北风"
-                        android:textColor="@color/txt_1"
-                        android:textSize="12sp"/>
-
-                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                        android:id="@+id/sc_4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="3级"
-                        android:textColor="@color/txt_1"
-                        android:textSize="12sp"/>
-
-                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                        android:id="@+id/cond_txt4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="多云"
-                        android:textColor="@color/txt_1"
-                        android:textSize="12sp"/>
-
-                    <ImageView
-                        android:id="@+id/cond_img4"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginTop="5dp"
-                        android:src="@mipmap/tourism"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                        android:id="@+id/date_5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="12/06"
-                        android:textColor="@color/txt_1"
+                        android:textColor="@color/a6"
                         android:textSize="12sp"/>
 
                     <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
                         android:id="@+id/dir_5"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:text="北风"
-                        android:textColor="@color/txt_1"
-                        android:textSize="12sp"/>
-
-                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                        android:id="@+id/sc_5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="2级"
-                        android:textColor="@color/txt_1"
-                        android:textSize="12sp"/>
-
-                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                        android:id="@+id/cond_txt5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="多云"
-                        android:textColor="@color/txt_1"
-                        android:textSize="12sp"/>
-
-                    <ImageView
-                        android:id="@+id/cond_img5"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginTop="5dp"
-                        android:src="@mipmap/tourism"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                        android:id="@+id/date_6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="今天"
-                        android:textColor="@color/txt_1"
+                        android:textColor="@color/a6"
                         android:textSize="12sp"/>
 
                     <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
                         android:id="@+id/dir_6"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:text="东南风"
-                        android:textColor="@color/txt_1"
-                        android:textSize="12sp"/>
-
-                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                        android:id="@+id/sc_6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="2级"
-                        android:textColor="@color/txt_1"
-                        android:textSize="12sp"/>
-
-                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                        android:id="@+id/cond_txt6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="多云"
-                        android:textColor="@color/txt_1"
-                        android:textSize="12sp"/>
-
-                    <ImageView
-                        android:id="@+id/cond_img6"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginTop="5dp"
-                        android:src="@mipmap/tourism"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                        android:id="@+id/date_7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="12/03"
-                        android:textColor="@color/txt_1"
+                        android:textColor="@color/a6"
                         android:textSize="12sp"/>
 
                     <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
                         android:id="@+id/dir_7"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:text="东南风"
-                        android:textColor="@color/txt_1"
+                        android:textColor="@color/a6"
+                        android:textSize="12sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                        android:id="@+id/sc_1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="2级"
+                        android:textColor="@color/a1"
+                        android:textSize="12sp"/>
+
+                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                        android:id="@+id/sc_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="2级"
+                        android:textColor="@color/a1"
+                        android:textSize="12sp"/>
+
+                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                        android:id="@+id/sc_3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="2级"
+                        android:textColor="@color/a1"
+                        android:textSize="12sp"/>
+
+                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                        android:id="@+id/sc_4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="3级"
+                        android:textColor="@color/a1"
+                        android:textSize="12sp"/>
+
+                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                        android:id="@+id/sc_5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="2级"
+                        android:textColor="@color/a1"
+                        android:textSize="12sp"/>
+
+                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                        android:id="@+id/sc_6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="2级"
+                        android:textColor="@color/a1"
                         android:textSize="12sp"/>
 
                     <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
                         android:id="@+id/sc_7"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:text="2级"
-                        android:textColor="@color/txt_1"
+                        android:textColor="@color/a1"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                        android:id="@+id/cond_txt1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="多云"
+                        android:textColor="@color/a6"
+                        android:textSize="12sp"/>
+
+
+                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                        android:id="@+id/cond_txt2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="多云"
+                        android:textColor="@color/a6"
+                        android:textSize="12sp"/>
+
+
+                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                        android:id="@+id/cond_txt3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="多云"
+                        android:textColor="@color/a6"
+                        android:textSize="12sp"/>
+
+                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                        android:id="@+id/cond_txt4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="多云"
+                        android:textColor="@color/a6"
+                        android:textSize="12sp"/>
+
+                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                        android:id="@+id/cond_txt5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="多云"
+                        android:textColor="@color/a6"
+                        android:textSize="12sp"/>
+
+                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                        android:id="@+id/cond_txt6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="多云"
+                        android:textColor="@color/a6"
                         android:textSize="12sp"/>
 
                     <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
                         android:id="@+id/cond_txt7"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:text="多云"
-                        android:textColor="@color/txt_1"
+                        android:textColor="@color/a6"
                         android:textSize="12sp"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/cond_img1"
+                        android:layout_width="0dp"
+                        android:layout_height="25dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        />
+
+                    <ImageView
+                        android:id="@+id/cond_img2"
+                        android:layout_width="0dp"
+                        android:layout_height="25dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        />
+
+                    <ImageView
+                        android:id="@+id/cond_img3"
+                        android:layout_width="0dp"
+                        android:layout_height="25dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        />
+
+                    <ImageView
+                        android:id="@+id/cond_img4"
+                        android:layout_width="0dp"
+                        android:layout_height="25dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        />
+
+                    <ImageView
+                        android:id="@+id/cond_img5"
+                        android:layout_width="0dp"
+                        android:layout_height="25dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        />
+
+                    <ImageView
+                        android:id="@+id/cond_img6"
+                        android:layout_width="0dp"
+                        android:layout_height="25dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        />
 
                     <ImageView
                         android:id="@+id/cond_img7"
-                        android:layout_width="25dp"
+                        android:layout_width="0dp"
                         android:layout_height="25dp"
-                        android:layout_marginTop="5dp"
-                        android:src="@mipmap/tourism"/>
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        />
                 </LinearLayout>
-            </LinearLayout>
-
-            <com.example.administrator.soweather.com.example.administrator.soweather.view.WeatherChartView
-                xmlns:view="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/line_char"
-                android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                view:dayColor="#E86114"
-                view:nightColor="#1D4951"
-                view:textColor="@color/contain_title"
-                view:textSize="14sp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+
+                <com.example.administrator.soweather.com.example.administrator.soweather.view.WeatherChartView
+                    xmlns:view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/line_char"
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    view:dayColor="#E86114"
+                    view:nightColor="#1D4951"
+                    view:textColor="@color/contain_title"
+                    view:textSize="14sp"/>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
 
                     <ImageView
                         android:id="@+id/night_cond_img1"
-                        android:layout_width="25dp"
+                        android:layout_width="0dp"
                         android:layout_height="25dp"
-                        android:src="@mipmap/tourism"/>
-
-                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                        android:id="@+id/night_cond_txt1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="多云"
-                        android:textColor="@color/txt_1"
-                        android:textSize="12sp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        />
 
                     <ImageView
                         android:id="@+id/night_cond_img2"
-                        android:layout_width="25dp"
+                        android:layout_width="0dp"
                         android:layout_height="25dp"
-                        android:src="@mipmap/tourism"/>
-
-                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                        android:id="@+id/night_cond_txt2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="多云"
-                        android:textColor="@color/txt_1"
-                        android:textSize="12sp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        />
 
                     <ImageView
                         android:id="@+id/night_cond_img3"
-                        android:layout_width="25dp"
+                        android:layout_width="0dp"
                         android:layout_height="25dp"
-                        android:src="@mipmap/tourism"/>
-
-                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                        android:id="@+id/night_cond_txt3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="多云"
-                        android:textColor="@color/txt_1"
-                        android:textSize="12sp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        />
 
                     <ImageView
                         android:id="@+id/night_cond_img4"
-                        android:layout_width="25dp"
+                        android:layout_width="0dp"
                         android:layout_height="25dp"
-                        android:src="@mipmap/tourism"/>
-
-                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                        android:id="@+id/night_cond_txt4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="多云"
-                        android:textColor="@color/txt_1"
-                        android:textSize="12sp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        />
 
                     <ImageView
                         android:id="@+id/night_cond_img5"
-                        android:layout_width="25dp"
+                        android:layout_width="0dp"
                         android:layout_height="25dp"
-                        android:src="@mipmap/tourism"/>
-
-                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                        android:id="@+id/night_cond_txt5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="多云"
-                        android:textColor="@color/txt_1"
-                        android:textSize="12sp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        />
 
                     <ImageView
                         android:id="@+id/night_cond_img6"
-                        android:layout_width="25dp"
+                        android:layout_width="0dp"
                         android:layout_height="25dp"
-                        android:src="@mipmap/tourism"/>
-
-                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                        android:id="@+id/night_cond_txt6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="多云"
-                        android:textColor="@color/txt_1"
-                        android:textSize="12sp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        />
 
                     <ImageView
                         android:id="@+id/night_cond_img7"
-                        android:layout_width="25dp"
+                        android:layout_width="0dp"
                         android:layout_height="25dp"
-                        android:src="@mipmap/tourism"/>
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                        android:id="@+id/night_cond_txt1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="多云"
+                        android:textColor="@color/a6"
+                        android:textSize="12sp"/>
+
+                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                        android:id="@+id/night_cond_txt2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="多云"
+                        android:textColor="@color/a6"
+                        android:textSize="12sp"/>
+
+                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                        android:id="@+id/night_cond_txt3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="多云"
+                        android:textColor="@color/a6"
+                        android:textSize="12sp"/>
+
+                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                        android:id="@+id/night_cond_txt4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="多云"
+                        android:textColor="@color/a6"
+                        android:textSize="12sp"/>
+
+                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                        android:id="@+id/night_cond_txt5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="多云"
+                        android:textColor="@color/a6"
+                        android:textSize="12sp"/>
+
+                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                        android:id="@+id/night_cond_txt6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="多云"
+                        android:textColor="@color/a6"
+                        android:textSize="12sp"/>
 
                     <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
                         android:id="@+id/night_cond_txt7"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:text="多云"
-                        android:textColor="@color/txt_1"
+                        android:textColor="@color/a6"
                         android:textSize="12sp"/>
                 </LinearLayout>
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/a3"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/gred"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#50000000"
-                android:padding="8dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="今日推荐"
-                    android:textColor="@color/white"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="5dp"
-                    android:drawableRight="@mipmap/to_right"
-                    android:gravity="center"
-                    android:text="更多"
-                    android:textColor="@color/white"/>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gred"/>
         </LinearLayout>
     </ScrollView>
 
