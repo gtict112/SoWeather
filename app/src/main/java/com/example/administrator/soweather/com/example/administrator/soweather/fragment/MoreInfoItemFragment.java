@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,6 +75,14 @@ public class MoreInfoItemFragment extends Fragment {
     private String type;
     private String consname_txt = "巨蟹座";
 
+
+    private LinearLayout week_layout;
+    private TextView week_work, week_love, week_money, week_health, week_job;
+
+
+    private LinearLayout day_layout;
+    private TextView day_work, day_love, day_money, day_health, day_color, day_number, day_qfriend, all, day_summary;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -127,6 +136,24 @@ public class MoreInfoItemFragment extends Fragment {
         ji = (TextView) view.findViewById(R.id.ji);
         yi = (TextView) view.findViewById(R.id.yi);
         consname = (TextView) view.findViewById(R.id.consname);
+        consname.setText(consname_txt);
+        week_layout = (LinearLayout) view.findViewById(R.id.week_layout);
+        day_layout = (LinearLayout) view.findViewById(R.id.day_layout);
+        week_work = (TextView) view.findViewById(R.id.week_work);
+        week_love = (TextView) view.findViewById(R.id.week_love);
+        week_money = (TextView) view.findViewById(R.id.week_money);
+        week_health = (TextView) view.findViewById(R.id.week_health);
+        week_job = (TextView) view.findViewById(R.id.week_job);
+
+        day_work = (TextView) view.findViewById(R.id.day_work);
+        day_love = (TextView) view.findViewById(R.id.day_love);
+        day_money = (TextView) view.findViewById(R.id.day_money);
+        day_health = (TextView) view.findViewById(R.id.day_health);
+        day_color = (TextView) view.findViewById(R.id.day_color);
+        day_number = (TextView) view.findViewById(R.id.day_number);
+        day_qfriend = (TextView) view.findViewById(R.id.day_qfriend);
+        all = (TextView) view.findViewById(R.id.all);
+        day_summary = (TextView) view.findViewById(R.id.day_summary);
         DisplayMetrics dm = new DisplayMetrics();
         WindowManager windowManager = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
         windowManager.getDefaultDisplay().getMetrics(dm);
@@ -142,6 +169,7 @@ public class MoreInfoItemFragment extends Fragment {
             public void selected(int item, View view) {
                 consname_txt = getConstellationName(item);
                 consname.setText(consname_txt);
+                getConstellationService();
             }
         });
 
@@ -254,7 +282,27 @@ public class MoreInfoItemFragment extends Fragment {
     }
 
     private void setConstellation(Constellation mConstellation) {
-
+        if (mConstellation.all != null) {
+            day_layout.setVisibility(View.VISIBLE);
+            week_layout.setVisibility(View.GONE);
+            day_love.setText("恋爱指数:  " + mConstellation.love);
+            day_work.setText("工作指数:  " + mConstellation.work);
+            day_money.setText("财运指数:  " + mConstellation.money);
+            day_health.setText("健康指数:  " + mConstellation.health);
+            day_color.setText("幸运色:  " + mConstellation.color);
+            all.setText("综合指数:  " + mConstellation.all);
+            day_number.setText("幸运数字:  " + mConstellation.number);
+            day_qfriend.setText("速配星座:  " + mConstellation.QFriend);
+            day_summary.setText("今日概述:  " + mConstellation.summary);
+        } else {
+            week_layout.setVisibility(View.VISIBLE);
+            day_layout.setVisibility(View.GONE);
+            week_love.setText("恋爱指数:  " + mConstellation.love);
+            week_work.setText("工作指数:  " + mConstellation.work);
+            week_money.setText("财运指数:  " + mConstellation.money);
+            week_health.setText("健康指数:  " + mConstellation.health);
+            week_job.setText("求职指数:  " + mConstellation.job);
+        }
     }
 
 
