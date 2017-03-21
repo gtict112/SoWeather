@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -247,6 +249,9 @@ public class TodayDetailFragment extends Fragment implements View.OnClickListene
                 e.printStackTrace();
             }
         }
+        Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.dialog_in);
+        animation.setFillAfter(true);
+        line_chart.startAnimation(animation);
         line_chart.setTempDay(mDayLineChart);
         line_chart.setTempNight(mNightLineChart);
         line_chart.invalidate();
@@ -274,7 +279,7 @@ public class TodayDetailFragment extends Fragment implements View.OnClickListene
             sc6.setText(new JSONObject(mDailyforecast.get(5).wind).optString("sc"));
             sc7.setText(new JSONObject(mDailyforecast.get(6).wind).optString("sc"));
 
-            cond_txt1.setText(new JSONObject(mDailyforecast.get(0).cond).optString("txt_d"));
+            cond_txt1.setText("(日)" + new JSONObject(mDailyforecast.get(0).cond).optString("txt_d"));
             cond_txt2.setText(new JSONObject(mDailyforecast.get(1).cond).optString("txt_d"));
             cond_txt3.setText(new JSONObject(mDailyforecast.get(2).cond).optString("txt_d"));
             cond_txt4.setText(new JSONObject(mDailyforecast.get(3).cond).optString("txt_d"));
@@ -282,7 +287,7 @@ public class TodayDetailFragment extends Fragment implements View.OnClickListene
             cond_txt6.setText(new JSONObject(mDailyforecast.get(5).cond).optString("txt_d"));
             cond_txt7.setText(new JSONObject(mDailyforecast.get(6).cond).optString("txt_d"));
 
-            night_cond_txt1.setText(new JSONObject(mDailyforecast.get(0).cond).optString("txt_n"));
+            night_cond_txt1.setText("(夜)" + new JSONObject(mDailyforecast.get(0).cond).optString("txt_n"));
             night_cond_txt2.setText(new JSONObject(mDailyforecast.get(1).cond).optString("txt_n"));
             night_cond_txt3.setText(new JSONObject(mDailyforecast.get(2).cond).optString("txt_n"));
             night_cond_txt4.setText(new JSONObject(mDailyforecast.get(3).cond).optString("txt_n"));

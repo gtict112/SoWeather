@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Aqi;
+import com.example.administrator.soweather.com.example.administrator.soweather.mode.Constellation;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Dailyforecast;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Hourlyforecast;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.New;
@@ -257,7 +258,13 @@ public class ResponseProcessUtil {
         return result;
     }
 
-
+    /**
+     * 获取头条新闻
+     *
+     * @param response
+     * @return
+     * @throws IOException
+     */
     public static Result<List<TopNew>> getTopNews(Response response) throws IOException {
         Result<List<TopNew>> result = new Result<List<TopNew>>();
         List<TopNew> list = new ArrayList<>();
@@ -299,7 +306,13 @@ public class ResponseProcessUtil {
         return result;
     }
 
-
+    /**
+     * 获取新闻
+     *
+     * @param response
+     * @return
+     * @throws IOException
+     */
     public static Result<List<New>> getNews(Response response) throws IOException {
         Result<List<New>> result = new Result<List<New>>();
         List<New> list = new ArrayList<>();
@@ -356,6 +369,42 @@ public class ResponseProcessUtil {
             e.printStackTrace();
         }
         return bitmap;
+    }
+
+    /**
+     * 获取星座运势
+     *
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    public static Result<Constellation> getConstellation(Response response) throws IOException {
+        Result<Constellation> result = new Result<Constellation>();
+        result.setSuccess(false);
+        try {
+            JSONObject jsonObjecty = new JSONObject(response.body().string());
+            String code = jsonObjecty.optString("resultcode");
+            if (code.equals("200")) {
+                result.setSuccess(true);
+                Constellation mConstellation = Constellation.Builder.creatConstellation();
+                result.setData(mConstellation);
+                mConstellation.love = jsonObjecty.optString("love", null);
+                mConstellation.work = jsonObjecty.optString("work", null);
+                mConstellation.money = jsonObjecty.optString("money", null);
+                mConstellation.health = jsonObjecty.optString("health", null);
+                mConstellation.job = jsonObjecty.optString("job", null);
+                mConstellation.all = jsonObjecty.optString("all", null);
+                mConstellation.color = jsonObjecty.optString("color", null);
+                mConstellation.number = jsonObjecty.optString("number", null);
+                mConstellation.QFriend = jsonObjecty.optString("QFriend", null);
+                mConstellation.summary = jsonObjecty.optString("summary", null);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+            result.setErrorMessage("星座运势获取失败,请升级客户端或与客服联系...");
+        }
+        return result;
     }
 }
 

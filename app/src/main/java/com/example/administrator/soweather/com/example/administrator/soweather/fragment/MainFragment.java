@@ -291,11 +291,17 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         pm.setText(mAqi.aqi);
         if (mAqi.qlty.equals("优")) {
             aqi_img.setImageResource(R.mipmap.aqi_1);
+            pm.setTextColor(getResources().getColor(R.color.gred));
+            qlty.setTextColor(getResources().getColor(R.color.gred));
 
         } else if (mAqi.qlty.equals("良")) {
             aqi_img.setImageResource(R.mipmap.aqi_2);
+            pm.setTextColor(getResources().getColor(R.color.yellow));
+            qlty.setTextColor(getResources().getColor(R.color.yellow));
         } else {
             aqi_img.setImageResource(R.mipmap.aqi_3);
+            pm.setTextColor(getResources().getColor(R.color.red));
+            qlty.setTextColor(getResources().getColor(R.color.red));
         }
         qlty.setText(mAqi.qlty);
         visitityAqi();
@@ -352,9 +358,10 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 public void onItemClick(View view, Dailyforecast data) {
                     //展示界面
                     Intent intent = new Intent(getActivity(), MoreInfoActivity.class);
-                    intent.putExtra("city", city);
-                    intent.putExtra("cityid", cityid);
+                    intent.putExtra("city", city != null ? city : "杭州");
+                    intent.putExtra("cityid", cityid != null ? city : "CN101210101");
                     intent.putExtra("date", (Serializable) mDailyforecast);
+                    intent.putExtra("qlty", qlty.getText().toString());
                     intent.putExtra("time", data.date);
                     startActivity(intent);
                     Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.dialog_in);
@@ -400,8 +407,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 Intent intent2 = new Intent(getActivity(), TipActivity.class);
                 if (mHourlyforecast != null && mHourlyforecast.size() > 0) {
                     intent2.putExtra("date", (Serializable) mHourlyforecast);
-                    intent2.putExtra("city", city);
-                    intent2.putExtra("cityid", cityid);
+                    intent2.putExtra("city", city != null ? city : "杭州");
+                    intent2.putExtra("cityid", cityid != null ? city : "CN101210101");
                 }
                 startActivity(intent2);
                 getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
@@ -411,9 +418,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 Intent intent1 = new Intent();
                 intent1.setClass(getActivity(), AqiActivity.class);
                 Bundle bundle1 = new Bundle();
-                bundle1.putString("city", city);
+                bundle1.putString("city", city != null ? city : "杭州");
                 bundle1.putString("date", date.getText().toString());
-                bundle1.putString("cityid", cityid);
+                bundle1.putString("cityid", cityid != null ? city : "CN101210101");
                 if (mAqi != null) {
                     bundle1.putString("aqi", mAqi.aqi);
                     bundle1.putString("co", mAqi.co);
@@ -446,8 +453,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             case R.id.linearLayout2:
                 //展示界面
                 Intent intent = new Intent(getActivity(), MoreInfoActivity.class);
-                intent.putExtra("city", city);
-                intent.putExtra("cityid", cityid);
+                intent.putExtra("city", city != null ? city : "杭州");
+                intent.putExtra("cityid", cityid != null ? city : "CN101210101");
+                intent.putExtra("qlty", qlty.getText().toString());
                 if (mDailyforecast != null && mDailyforecast.size() > 0) {
                     intent.putExtra("date", (Serializable) mDailyforecast);
                     intent.putExtra("time", mDailyforecast.get(0).date);
@@ -459,8 +467,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 Intent intent3 = new Intent(getActivity(), TipActivity.class);
                 if (mHourlyforecast != null && mHourlyforecast.size() > 0) {
                     intent3.putExtra("date", (Serializable) mHourlyforecast);
-                    intent3.putExtra("city", city);
-                    intent3.putExtra("cityid", cityid);
+                    intent3.putExtra("city", city != null ? city : "杭州");
+                    intent3.putExtra("cityid", cityid != null ? city : "CN101210101");
                 }
                 startActivity(intent3);
                 getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
