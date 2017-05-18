@@ -11,12 +11,13 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 
 /**
  * Created by Administrator on 2016/12/7.
  */
 
-public class NewsDetailActivity extends Activity {
+public class NewsDetailActivity extends BaseActivity {
     private WebView content;
     private String url;
 

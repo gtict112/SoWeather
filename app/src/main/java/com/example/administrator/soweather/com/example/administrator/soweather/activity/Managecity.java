@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.db.SoWeatherDB;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.ManageCity;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.NowWeather;
@@ -36,7 +37,7 @@ import java.util.List;
  * Created by Administrator on 2016/11/28.
  */
 
-public class Managecity extends Activity implements ResponseListenter<NowWeather>, View.OnClickListener {
+public class Managecity extends BaseActivity implements ResponseListenter<NowWeather>, View.OnClickListener {
     private GridView list;
     private SoWeatherDB cityDB;
     private List<ManageCity> citylist = new ArrayList<>();//数据库添加的城市

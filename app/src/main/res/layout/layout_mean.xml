@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -34,8 +34,7 @@
                         android:id="@+id/tem_img"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        android:background="@color/white"
-                        />
+                        android:background="@color/white" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -49,23 +48,21 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/left_fragment"
-                            android:textSize="14sp"/>
+                            android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/tmp_txt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/left_fragment"
-                            android:textSize="14sp"
-                            />
+                            android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/tmp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/left_fragment"
-                            android:textSize="14sp"
-                            />
+                            android:textSize="14sp" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -96,7 +93,7 @@
                             android:gravity="center_vertical"
                             android:text="城市管理"
                             android:textColor="@color/white"
-                            android:textSize="15sp"/>
+                            android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/add_city"
@@ -108,7 +105,7 @@
                             android:gravity="right|center_vertical"
                             android:text="添加城市"
                             android:textColor="@color/white"
-                            android:textSize="15sp"/>
+                            android:textSize="15sp" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -117,7 +114,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/line"/>
+                android:background="@color/line" />
 
             <RelativeLayout
                 android:id="@+id/home"
@@ -135,7 +132,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerInParent="true"
-                    android:src="@mipmap/to_right"/>
+                    android:src="@mipmap/to_right" />
 
                 <TextView
                     android:id="@+id/textView2"
@@ -149,13 +146,13 @@
                     android:gravity="center"
                     android:text="首页"
                     android:textColor="@color/background_progress"
-                    android:textSize="15sp"/>
+                    android:textSize="15sp" />
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/line"/>
+                android:background="@color/line" />
 
             <RelativeLayout
                 android:id="@+id/setting"
@@ -173,7 +170,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerInParent="true"
-                    android:src="@mipmap/to_right"/>
+                    android:src="@mipmap/to_right" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -186,13 +183,13 @@
                     android:gravity="center"
                     android:text="系统设置"
                     android:textColor="@color/background_progress"
-                    android:textSize="15sp"/>
+                    android:textSize="15sp" />
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/line"/>
+                android:background="@color/line" />
 
             <RelativeLayout
                 android:id="@+id/service_assistant"
@@ -210,7 +207,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerInParent="true"
-                    android:src="@mipmap/to_right"/>
+                    android:src="@mipmap/to_right" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -223,13 +220,13 @@
                     android:gravity="center"
                     android:text="我的助手"
                     android:textColor="@color/background_progress"
-                    android:textSize="15sp"/>
+                    android:textSize="15sp" />
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/line"/>
+                android:background="@color/line" />
 
             <RelativeLayout
                 android:id="@+id/logout"
@@ -252,32 +249,68 @@
                     android:gravity="center"
                     android:text="退出"
                     android:textColor="@color/background_progress"
-                    android:textSize="15sp"/>
+                    android:textSize="15sp" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerInParent="true"
-                    android:src="@mipmap/to_right"/>
+                    android:src="@mipmap/to_right" />
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/line"/>
+                android:background="@color/line" />
+
+            <RelativeLayout
+                android:id="@+id/skin_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="true"
+                    android:drawableLeft="@mipmap/setting"
+                    android:drawablePadding="6dp"
+                    android:gravity="center"
+                    android:text="主题设置"
+                    android:textColor="@color/background_progress"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/to_right" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|bottom"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="50dp"
                 android:drawableLeft="@mipmap/smiling"
                 android:drawablePadding="5dp"
                 android:gravity="center"
                 android:text="最好的天气是好心情!"
                 android:textColor="@color/background_progress"
-                android:textSize="13sp"/>
+                android:textSize="13sp" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

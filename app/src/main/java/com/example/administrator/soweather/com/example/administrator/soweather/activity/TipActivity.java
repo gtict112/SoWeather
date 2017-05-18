@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.TimeDialogFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.TodayDetailFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Hourlyforecast;
@@ -27,7 +28,7 @@ import java.util.List;
  * Created by Administrator on 2016/12/5.
  */
 
-public class TipActivity extends FragmentActivity implements View.OnClickListener {
+public class TipActivity extends BaseActivity implements View.OnClickListener {
     private List<Hourlyforecast> mHourlyforecast = new ArrayList<>();
     private List<Fragment> fragmentsList = new ArrayList<>();
     private String city;

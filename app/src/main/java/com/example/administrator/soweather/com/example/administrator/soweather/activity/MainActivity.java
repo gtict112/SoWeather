@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.LocationApplication;
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.LeftFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.MainFragment;
@@ -208,7 +209,7 @@ public class MainActivity extends SlidingFragmentActivity implements
             @Override
             public void doConfirm() {
                 confirmDialog.dismiss();
-                finish();
+                Appconfiguration.getInstance().closeAllActivities();
             }
 
             @Override

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.db.SoWeatherDB;
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.MoreInfoItemFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Dailyforecast;
@@ -31,7 +32,7 @@ import java.util.List;
  * Created by Administrator on 2016/12/7.
  */
 
-public class MoreInfoActivity extends FragmentActivity implements View.OnClickListener {
+public class MoreInfoActivity extends BaseActivity implements View.OnClickListener {
     private String city;
     private String cityid;
     private List<Dailyforecast> mDailyforecast = new ArrayList<>();//未来几天预报数据

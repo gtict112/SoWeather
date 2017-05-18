@@ -10,6 +10,7 @@ import android.view.Window;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.MoreNewsItemFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.TabPageIndicator;
 
@@ -17,7 +18,7 @@ import com.example.administrator.soweather.com.example.administrator.soweather.v
  * Created by Administrator on 2016/12/8.
  */
 
-public class MoreNewsActivity extends FragmentActivity {
+public class MoreNewsActivity extends BaseActivity {
     /**
      * Tab标题
      */

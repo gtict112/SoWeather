@@ -11,6 +11,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 
 /**
  * Created by Administrator on 2016/10/10.
@@ -18,7 +19,7 @@ import com.example.administrator.soweather.R;
  * First enter the App
  */
 
-public class WelcomeActivity extends Activity {
+public class WelcomeActivity extends BaseActivity {
     private String url;
     WebView webView;
 

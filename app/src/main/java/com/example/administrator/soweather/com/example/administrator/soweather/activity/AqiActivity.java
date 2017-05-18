@@ -24,6 +24,7 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.mapapi.model.LatLng;
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Suggestion;
@@ -38,7 +39,7 @@ import org.json.JSONObject;
  * Created by Administrator on 2016/11/22.
  */
 
-public class AqiActivity extends Activity implements View.OnClickListener {
+public class AqiActivity extends BaseActivity implements View.OnClickListener {
     private Suggestion mSuggestion = new Suggestion();
     private CircleChart aqi;
 

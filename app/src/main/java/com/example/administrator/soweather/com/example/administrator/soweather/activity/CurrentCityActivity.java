@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Constans;
 import com.example.administrator.soweather.com.example.administrator.soweather.db.SoWeatherDB;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Province;
@@ -29,7 +30,7 @@ import static android.view.ViewGroup.LayoutParams.*;
 /**
  * Created by Administrator on 2016/10/13.
  */
-public class CurrentCityActivity extends Activity implements View.OnClickListener {
+public class CurrentCityActivity extends BaseActivity implements View.OnClickListener {
     private ImageView mBack;
     private TextView mTitle;
     private Xcflowlayout mFlowLayout;

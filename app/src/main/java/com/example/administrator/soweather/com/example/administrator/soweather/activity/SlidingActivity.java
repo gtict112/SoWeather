@@ -5,9 +5,10 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 
+import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.SlidingMenu;
 
-public class SlidingActivity extends Activity implements SlidingActivityBase {
+public class SlidingActivity extends BaseActivity implements SlidingActivityBase {
 
 	private SlidingActivityHelper mHelper;
 

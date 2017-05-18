@@ -6,10 +6,11 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 
+import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.SlidingMenu;
 
 @SuppressLint("NewApi")
-public class SlidingFragmentActivity extends FragmentActivity implements SlidingActivityBase {
+public class SlidingFragmentActivity extends BaseActivity implements SlidingActivityBase {
 
 	private SlidingActivityHelper mHelper;
 

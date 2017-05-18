@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.LocationApplication;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.MoodLineDate;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.HeartLayout;
@@ -37,7 +38,7 @@ import java.util.TimerTask;
  */
 //        //内容列表数据点击,进入另一个界面,不同于增加界面,类似于修改
 //        //城市列表数据,只有重新获取定位城市才可以手动选择修改城市,其它不可以,进来,只有位置发生了改变了,才会重新定位,区间"市"
-public class DiaryActivity extends Activity implements View.OnClickListener {
+public class DiaryActivity extends BaseActivity implements View.OnClickListener {
     private HeartLayout heart_layout;
     private Timer mTimer = new Timer();
     private Random mRandom = new Random();

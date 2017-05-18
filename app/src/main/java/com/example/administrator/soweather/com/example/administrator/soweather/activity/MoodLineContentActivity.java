@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.LinedEditText;
 
 import java.text.SimpleDateFormat;
@@ -22,7 +23,7 @@ import java.util.Date;
  * Created by Administrator on 2016/11/29.
  */
 
-public class MoodLineContentActivity extends Activity implements View.OnClickListener {
+public class MoodLineContentActivity extends BaseActivity implements View.OnClickListener {
     private TextView cancle;
     private TextView confirm;
     private ImageView skin;

@@ -11,11 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.CurrentCityActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.Managecity;
+import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.db.SoWeatherDB;
 import com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.City;
@@ -139,12 +141,14 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
         service_assistant = (RelativeLayout) view.findViewById(R.id.service_assistant);
         add_city = (TextView) view.findViewById(R.id.add_city);
         manage_city = (TextView) view.findViewById(R.id.manage_city);
+        RelativeLayout mSkinSetting = (RelativeLayout) view.findViewById(R.id.skin_setting);
         add_city.setOnClickListener(this);
         manage_city.setOnClickListener(this);
         mHome.setOnClickListener(this);
         mSetting.setOnClickListener(this);
         mLogout.setOnClickListener(this);
         service_assistant.setOnClickListener(this);
+        mSkinSetting.setOnClickListener(this);
     }
 
     @Override
@@ -172,7 +176,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
                     @Override
                     public void doConfirm() {
                         confirmDialog.dismiss();
-                        getActivity().finish();
+                        Appconfiguration.getInstance().closeAllActivities();
                     }
 
                     @Override
@@ -195,6 +199,9 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
                 //管理城市   添加的城市,包括当前位置城市,卡片显示天气
                 Intent intent = new Intent(getActivity(), Managecity.class);
                 startActivity(intent);
+                break;
+            case R.id.skin_setting:
+                Toast.makeText(getActivity(), "设置更换的主题", Toast.LENGTH_LONG).show();
                 break;
             default:
                 break;

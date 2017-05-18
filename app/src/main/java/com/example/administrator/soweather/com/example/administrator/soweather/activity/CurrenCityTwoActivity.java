@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.db.SoWeatherDB;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.City;
 
@@ -25,7 +26,7 @@ import java.util.List;
  * Created by Administrator on 2016/11/16.
  */
 
-public class CurrenCityTwoActivity extends Activity implements View.OnClickListener {
+public class CurrenCityTwoActivity extends BaseActivity implements View.OnClickListener {
     private ListView mListView;
     private String provinceName;
     private CityAdapter mCityAdapter;

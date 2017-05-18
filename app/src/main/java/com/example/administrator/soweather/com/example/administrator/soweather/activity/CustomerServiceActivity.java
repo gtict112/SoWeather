@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.ChatListData;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
 import com.example.administrator.soweather.com.example.administrator.soweather.service.CustomerService;
@@ -30,7 +31,7 @@ import java.util.List;
  * Created by Administrator on 2016/11/10.
  */
 
-public class CustomerServiceActivity extends Activity implements View.OnClickListener, ResponseListenter<String> {
+public class CustomerServiceActivity extends BaseActivity implements View.OnClickListener, ResponseListenter<String> {
     private List<ChatListData> list;
     private ListView lv;
     private Button send_btn;

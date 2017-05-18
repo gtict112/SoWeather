@@ -16,12 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 
 /**
  * Created by Administrator on 2016/10/26.
  */
 
-public class HelpFeedbackActivity extends Activity implements View.OnClickListener {
+public class HelpFeedbackActivity extends BaseActivity implements View.OnClickListener {
     private TextView topTv;
     private ImageView topButton;
     private WebView mWebView;

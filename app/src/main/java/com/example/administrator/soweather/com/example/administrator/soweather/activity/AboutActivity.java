@@ -9,12 +9,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 
 /**
  * Created by Administrator on 2016/11/10.
  */
 
-public class AboutActivity extends Activity implements View.OnClickListener {
+public class AboutActivity extends BaseActivity implements View.OnClickListener {
     private TextView topTv;
     private ImageView topButton;
     private LinearLayout product_adout;

@@ -10,12 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 
 /**
  * Created by Administrator on 2016/11/18.
  */
 
-public class AboutMoreActivity extends Activity implements View.OnClickListener {
+public class AboutMoreActivity extends BaseActivity implements View.OnClickListener {
     private TextView about;
     private String type;
     private TextView tvTop;
