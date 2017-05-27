@@ -444,7 +444,7 @@
                     android:layout_marginTop="5dp"
                     view:dayColor="#E86114"
                     view:nightColor="#1D4951"
-                    view:textColor="@color/contain_title"
+                    view:textColor="@color/text_chartview"
                     view:textSize="14sp"/>
 
 

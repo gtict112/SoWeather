@@ -7,11 +7,13 @@ import android.support.v4.app.FragmentActivity;
 
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 
+import cn.feng.skin.manager.base.BaseSkinFragmentActivity;
+
 /**
  * Created by Administrator on 2017/5/18.
  */
 
-public class BaseActivity extends FragmentActivity {
+public class BaseActivity extends BaseSkinFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Appconfiguration.getInstance().addActivity(this);

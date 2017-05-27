@@ -44,8 +44,7 @@
                     <ImageView
                         android:id="@+id/weather_img"
                         android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:src="@mipmap/cloudy"/>
+                        android:layout_height="35dp" />
 
                     <TextView
                         android:id="@+id/cond_txt"

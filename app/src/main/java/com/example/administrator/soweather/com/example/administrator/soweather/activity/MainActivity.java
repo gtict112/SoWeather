@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -18,7 +16,7 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
-import com.example.administrator.soweather.com.example.administrator.soweather.core.LocationApplication;
+import com.example.administrator.soweather.com.example.administrator.soweather.core.SoWeatherApplication;
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.LeftFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.MainFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout;
@@ -73,7 +71,7 @@ public class MainActivity extends SlidingFragmentActivity implements
      */
     private void getLocationAdress() {
         mDresss.setText("正在定位");
-        mLocationClient = ((LocationApplication) getApplication()).mLocationClient;
+        mLocationClient = ((SoWeatherApplication) getApplication()).mLocationClient;
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
         option.setOpenGps(true);
@@ -84,7 +82,7 @@ public class MainActivity extends SlidingFragmentActivity implements
         option.setIsNeedAddress(true);
         mLocationClient.setLocOption(option);
         mLocationClient.start();
-        ((LocationApplication) getApplication()).setCallbackadress(new LocationApplication.Callbackadress() {
+        ((SoWeatherApplication) getApplication()).setCallbackadress(new SoWeatherApplication.Callbackadress() {
             @Override
             public void finish(String address) {
                 if (address != null) {

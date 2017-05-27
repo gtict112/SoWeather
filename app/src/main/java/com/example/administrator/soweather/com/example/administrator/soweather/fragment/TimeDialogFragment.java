@@ -6,7 +6,6 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,7 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.soweather.R;
-import com.example.administrator.soweather.com.example.administrator.soweather.activity.MoreNewsActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.NewsDetailActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.db.SoWeatherDB;
@@ -40,23 +38,22 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.feng.skin.manager.base.BaseSkinFragment;
+
 /**
  * Created by Administrator on 2016/11/23.
  */
 
-public class TimeDialogFragment extends Fragment implements View.OnClickListener {
+public class TimeDialogFragment extends BaseSkinFragment implements View.OnClickListener {
     private List<Hourlyforecast> mHourlyforecast = new ArrayList<>();
     private TimeAdapter mTimeAdapter;
     private NewsAdapter mNewsAdapter;
     private RecyclerView time_weather;
     private SoWeatherDB cityDB;
     private List<WeathImg> weathimgs = new ArrayList<>();
-    private ListView recommended;
     private List<TopNew> mNewDate = new ArrayList<>();
     private Handler mHandler;
-    private int mDrawable[] = {R.drawable.bg_shape_a1, R.drawable.bg_shape_a2, R.drawable.bg_shape_a3, R.drawable.bg_shape_a4, R.drawable.bg_shape_a5};
     private Appconfiguration config = Appconfiguration.getInstance();
-    private TextView more;
     private ImageView set;
     private Boolean isOnclick = true;
     private TextView tip;
@@ -75,11 +72,8 @@ public class TimeDialogFragment extends Fragment implements View.OnClickListener
 
     private void init(View view) {
         time_weather = (RecyclerView) view.findViewById(R.id.time_weather);
-        recommended = (ListView) view.findViewById(R.id.recommended);
-        more = (TextView) view.findViewById(R.id.more);
         set = (ImageView) view.findViewById(R.id.set);
         tip = (TextView) view.findViewById(R.id.tip);
-        more.setOnClickListener(this);
         set.setOnClickListener(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -92,18 +86,6 @@ public class TimeDialogFragment extends Fragment implements View.OnClickListener
             time_weather.setAdapter(mTimeAdapter);
             mTimeAdapter.notifyDataSetChanged(mHourlyforecast);
         }
-        recommended.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //资讯详情
-                if (mNewDate != null && mNewDate.size() > 0) {
-                    String url = mNewDate.get(position).url;
-                    Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
-                    intent.putExtra("url", url);
-                    startActivity(intent);
-                }
-            }
-        });
         if (isOnclick) {
             set.setImageResource(R.mipmap.up);
         }
@@ -112,12 +94,6 @@ public class TimeDialogFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.more:
-                //新闻资讯界面
-                Intent intent = new Intent(getActivity(), MoreNewsActivity.class);
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
-                break;
             case R.id.set:
                 if (isOnclick) {
                     Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.dialog_in);
@@ -231,7 +207,6 @@ public class TimeDialogFragment extends Fragment implements View.OnClickListener
                 } else {
                     config.dismissProgressDialog();
                     tip.setVisibility(View.VISIBLE);
-                    recommended.setVisibility(View.GONE);
                     Toast.makeText(getActivity(), result.getErrorMessage(), Toast.LENGTH_LONG).show();
                 }
             }
@@ -252,8 +227,7 @@ public class TimeDialogFragment extends Fragment implements View.OnClickListener
     }
 
     private void setNews(List<TopNew> mNewDate) {
-        mNewsAdapter = new NewsAdapter(getActivity().getApplicationContext(), mNewDate);
-        recommended.setAdapter(mNewsAdapter);
+        mNewsAdapter = new NewsAdapter(getActivity(), mNewDate);
         config.dismissProgressDialog();
     }
 
@@ -294,8 +268,6 @@ public class TimeDialogFragment extends Fragment implements View.OnClickListener
                 convertView = inflater.inflate(R.layout.item_news, parent,
                         false);
                 vh = new ViewHolder();
-                vh.realtype = (TextView) convertView.findViewById(R.id.realtype);
-                vh.tab = (LinearLayout) convertView.findViewById(R.id.tab);
                 vh.title = (TextView) convertView.findViewById(R.id.content);
                 vh.date = (TextView) convertView.findViewById(R.id.date);
                 vh.author_name = (TextView) convertView.findViewById(R.id.author_name);
@@ -305,14 +277,6 @@ public class TimeDialogFragment extends Fragment implements View.OnClickListener
                 vh = (ViewHolder) convertView.getTag();
             }
             TopNew mNew = mData.get(position);
-            if (mNew.realtype != null) {
-                vh.realtype.setText(mNew.realtype);
-                int rand = (int) Math.round(Math.random() * 4);
-                vh.tab.setBackgroundResource(mDrawable[rand]);
-            } else {
-                vh.realtype.setVisibility(View.GONE);
-                vh.tab.setVisibility(View.GONE);
-            }
             vh.img.setImageBitmap(mNew.img);
             vh.title.setText(mNew.title);
             vh.date.setText(mNew.date);
@@ -321,8 +285,6 @@ public class TimeDialogFragment extends Fragment implements View.OnClickListener
         }
 
         class ViewHolder {
-            private TextView realtype;
-            private LinearLayout tab;
             private TextView title;
             private ImageView img;
             private TextView date;

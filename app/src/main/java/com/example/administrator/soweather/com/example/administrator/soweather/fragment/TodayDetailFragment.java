@@ -34,11 +34,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.feng.skin.manager.base.BaseSkinFragment;
+
 /**
  * Created by Administrator on 2016/12/1.
  */
 
-public class TodayDetailFragment extends Fragment implements View.OnClickListener {
+public class TodayDetailFragment extends BaseSkinFragment implements View.OnClickListener {
     private TextView topTv;
     private ImageView topButton;
 

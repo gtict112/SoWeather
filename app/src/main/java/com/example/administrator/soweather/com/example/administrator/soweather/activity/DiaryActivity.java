@@ -1,6 +1,5 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -23,7 +22,7 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
-import com.example.administrator.soweather.com.example.administrator.soweather.core.LocationApplication;
+import com.example.administrator.soweather.com.example.administrator.soweather.core.SoWeatherApplication;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.MoodLineDate;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.HeartLayout;
 
@@ -139,7 +138,7 @@ public class DiaryActivity extends BaseActivity implements View.OnClickListener 
      */
 
     private void getLocationAdress() {
-        mLocationClient = ((LocationApplication) getApplication()).mLocationClient;
+        mLocationClient = ((SoWeatherApplication) getApplication()).mLocationClient;
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
         option.setOpenGps(true);
@@ -150,7 +149,7 @@ public class DiaryActivity extends BaseActivity implements View.OnClickListener 
         option.setIsNeedAddress(true);
         mLocationClient.setLocOption(option);
         mLocationClient.start();
-        ((LocationApplication) getApplication()).setCallbackadress(new LocationApplication.Callbackadress() {
+        ((SoWeatherApplication) getApplication()).setCallbackadress(new SoWeatherApplication.Callbackadress() {
             @Override
             public void finish(String address) {
                 if (address != null) {

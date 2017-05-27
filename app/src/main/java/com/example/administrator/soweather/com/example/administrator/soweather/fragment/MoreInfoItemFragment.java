@@ -38,9 +38,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.feng.skin.manager.base.BaseSkinFragment;
+
 import static android.R.attr.width;
 
-public class MoreInfoItemFragment extends Fragment {
+public class MoreInfoItemFragment extends BaseSkinFragment {
     private String time;
     private String today;
     private String tomorrow;

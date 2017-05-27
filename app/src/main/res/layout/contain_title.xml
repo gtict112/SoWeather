@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/content_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/a4"
-                android:orientation="horizontal"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp">
+    xmlns:skin="http://schemas.android.com/android/skin"
+    android:id="@+id/content_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/a4"
+    android:orientation="horizontal"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp"
+    skin:enable="true">
 
     <ImageView
         android:id="@+id/topButton"
@@ -15,7 +17,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="10dp"
         android:padding="8dp"
-        android:src="@mipmap/menu"/>
+        android:src="@mipmap/menu" />
 
     <TextView
         android:id="@+id/topTv"
@@ -26,7 +28,7 @@
         android:text="首页"
         android:textColor="@color/background_progress"
         android:textSize="17sp"
-        />
+        skin:enable="true" />
 
     <LinearLayout
         android:id="@+id/top_righgt"
@@ -42,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@mipmap/place"/>
+            android:src="@mipmap/place" />
 
         <TextView
             android:id="@+id/dresss"
@@ -51,7 +53,7 @@
             android:padding="8dp"
             android:textColor="@color/background_progress"
             android:textSize="15sp"
-            />
+            skin:enable="true" />
 
     </LinearLayout>
 </RelativeLayout>

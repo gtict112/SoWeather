@@ -306,45 +306,6 @@ public class ResponseProcessUtil {
         return result;
     }
 
-    /**
-     * 获取新闻
-     *
-     * @param response
-     * @return
-     * @throws IOException
-     */
-    public static Result<List<New>> getNews(Response response) throws IOException {
-        Result<List<New>> result = new Result<List<New>>();
-        List<New> list = new ArrayList<>();
-        result.setSuccess(false);
-        try {
-            JSONObject jsonObjecty = new JSONObject(response.body().string());
-            String code = jsonObjecty.optString("reason");
-            if (code.equals("成功的返回")) {
-                result.setSuccess(true);
-                JSONObject date = jsonObjecty.getJSONObject("result");
-                JSONArray mDate = date.getJSONArray("data");
-                for (int i = 0; i < mDate.length(); i++) {
-                    JSONObject mNew = mDate.getJSONObject(i);
-                    New mNews = New.Builder.creatNew();
-                    mNews.title = mNew.getString("title");//标题
-                    mNews.date = mNew.getString("date");//时间
-                    mNews.thumbnail_pic_s = mNew.getString("thumbnail_pic_s");//图片
-                    mNews.img_2 = getHttpBitmap(mNews.thumbnail_pic_s);
-                    mNews.url = mNew.getString("url");//新闻链接
-                    mNews.category = mNew.getString("category");////类型娱乐
-                    mNews.author_name = mNew.getString("author_name");//来源
-                    list.add(mNews);
-                }
-            }
-            result.setData(list);
-        } catch (JSONException e) {
-            e.printStackTrace();
-            result.setSuccess(false);
-            result.setErrorMessage("老黄历信息获取失败,请升级客户端或与客服联系...");
-        }
-        return result;
-    }
 
 
     /**

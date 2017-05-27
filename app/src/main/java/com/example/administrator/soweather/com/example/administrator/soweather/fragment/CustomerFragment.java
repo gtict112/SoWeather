@@ -13,11 +13,13 @@ import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.CustomerServiceActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.DiaryActivity;
 
+import cn.feng.skin.manager.base.BaseSkinFragment;
+
 /**
  * Created by Administrator on 2016/11/11.
  */
 
-public class CustomerFragment extends Fragment implements View.OnClickListener {
+public class CustomerFragment extends BaseSkinFragment implements View.OnClickListener {
     private LinearLayout customer_service;
     private LinearLayout alarm_clock;
     private LinearLayout running;

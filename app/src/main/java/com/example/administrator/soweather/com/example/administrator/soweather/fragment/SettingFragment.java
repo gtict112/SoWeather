@@ -41,13 +41,15 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.feng.skin.manager.base.BaseSkinFragment;
+
 import static android.content.Context.NOTIFICATION_SERVICE;
 
 /**
  * Created by Administrator on 2016/11/1.
  */
 
-public class SettingFragment extends Fragment implements View.OnClickListener, ResponseListenter<NowWeather> {
+public class SettingFragment extends BaseSkinFragment implements View.OnClickListener, ResponseListenter<NowWeather> {
     private Switch noti;
     private LinearLayout win;
     private TextView clear;

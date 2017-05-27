@@ -26,6 +26,7 @@ public class Appconfiguration {
     private ProgressDialogFragment progressDialog;
     private Context mContext;
     private static Appconfiguration config;
+
     /**
      * 当前页面集合，方便退出
      */
@@ -74,6 +75,10 @@ public class Appconfiguration {
             activity.finish();
         }
         activitySet.clear();
+    }
+
+    public Set<FragmentActivity> getActivitySet() {
+        return activitySet;
     }
 
     public List<FragmentActivity> getFrontActivityList() {

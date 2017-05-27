@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/icon_popular" />
+
+    <FrameLayout
+        android:id="@+id/rl_receive_apicture"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="65dp">
+
+        <ImageView
+            android:id="@+id/iv_receive_1"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="top|right"
+            android:src="@drawable/icon_reward_2" />
+
+        <ImageView
+            android:id="@+id/iv_receive_apicture"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal|top"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/icon_reward" />
+
+        <ImageView
+            android:id="@+id/iv_receive_2"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="bottom|left"
+            android:src="@drawable/icon_reward_1" />
+
+
+        <ImageView
+            android:id="@+id/iv_receive_3"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="bottom|right"
+            android:src="@drawable/icon_reward_2" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/reward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_shooting_video_money"
+        android:layout_centerHorizontal="true"
+        android:text="天气护航"
+        android:textColor="#FFFFFFFF"
+        android:textSize="54dp" />
+
+    <TextView
+        android:id="@+id/tv_shooting_video_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60dp"
+        android:layout_marginTop="10dp"
+        android:text="好天气    好心情"
+        android:textColor="#FFFFFFFF"
+        android:textSize="37dp" />
+
+</RelativeLayout>

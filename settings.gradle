@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':android-skin-loader-lib', ':android-skin-loader-skin', ':shapeloading'

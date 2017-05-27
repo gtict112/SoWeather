@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/left_fragment"
-              android:orientation="vertical">
+    xmlns:skin="http://schemas.android.com/android/skin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/left_fragment"
+    android:orientation="vertical"
+    skin:enable="true">
 
-    <include
-        layout="@layout/activity_contain_title"/>
+    <include layout="@layout/activity_contain_title" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -35,7 +36,8 @@
                     android:layout_marginTop="5dp"
                     android:text="发布时间"
                     android:textColor="@color/grey"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp"
+                    skin:enable="true" />
 
                 <com.example.administrator.soweather.com.example.administrator.soweather.view.CircleChart
                     android:id="@+id/aqi"
@@ -43,7 +45,7 @@
                     android:layout_height="200dp"
                     android:layout_gravity="center"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="10dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -63,13 +65,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="PM10"
-                            android:textColor="@color/grey"/>
+                            android:textColor="@color/grey"
+                            skin:enable="true" />
 
                         <com.example.administrator.soweather.com.example.administrator.soweather.view.CircleChart
                             android:id="@+id/circle_pm10"
                             android:layout_width="35dp"
                             android:layout_height="35dp"
-                            android:layout_marginTop="6dp"/>
+                            android:layout_marginTop="6dp"
+                            skin:enable="true" />
 
                         <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
                             android:id="@+id/pm10"
@@ -77,7 +81,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
                             android:text="90"
-                            android:textColor="@color/background_progress"/>
+                            android:textColor="@color/background_progress"
+                            skin:enable="true" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -91,13 +96,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="PM2.5"
-                            android:textColor="@color/grey"/>
+                            android:textColor="@color/grey"
+                            skin:enable="true" />
 
                         <com.example.administrator.soweather.com.example.administrator.soweather.view.CircleChart
                             android:id="@+id/circle_pm25"
                             android:layout_width="35dp"
                             android:layout_height="35dp"
-                            android:layout_marginTop="6dp"/>
+                            android:layout_marginTop="6dp"
+                            skin:enable="true" />
 
                         <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
                             android:id="@+id/pm25"
@@ -105,7 +112,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
                             android:text="90"
-                            android:textColor="@color/background_progress"/>
+                            android:textColor="@color/background_progress"
+                            skin:enable="true" />
 
                     </LinearLayout>
 
@@ -120,13 +128,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="NO2"
-                            android:textColor="@color/grey"/>
+                            android:textColor="@color/grey"
+                            skin:enable="true" />
 
                         <com.example.administrator.soweather.com.example.administrator.soweather.view.CircleChart
                             android:id="@+id/circle_no2"
                             android:layout_width="35dp"
                             android:layout_height="35dp"
-                            android:layout_marginTop="6dp"/>
+                            android:layout_marginTop="6dp"
+                            skin:enable="true" />
 
                         <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
                             android:id="@+id/no2"
@@ -134,7 +144,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
                             android:text="90"
-                            android:textColor="@color/background_progress"/>
+                            android:textColor="@color/background_progress"
+                            skin:enable="true" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -148,13 +159,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="SO2"
-                            android:textColor="@color/grey"/>
+                            android:textColor="@color/grey"
+                            skin:enable="true" />
 
                         <com.example.administrator.soweather.com.example.administrator.soweather.view.CircleChart
                             android:id="@+id/circle_so2"
                             android:layout_width="35dp"
                             android:layout_height="35dp"
-                            android:layout_marginTop="6dp"/>
+                            android:layout_marginTop="6dp"
+                            skin:enable="true" />
 
                         <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
                             android:id="@+id/so2"
@@ -162,7 +175,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
                             android:text="90"
-                            android:textColor="@color/background_progress"/>
+                            android:textColor="@color/background_progress"
+                            skin:enable="true" />
 
                     </LinearLayout>
 
@@ -177,20 +191,23 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="CO"
-                            android:textColor="@color/grey"/>
+                            android:textColor="@color/grey"
+                            skin:enable="true" />
 
                         <com.example.administrator.soweather.com.example.administrator.soweather.view.CircleChart
                             android:id="@+id/circle_co"
                             android:layout_width="35dp"
                             android:layout_height="35dp"
-                            android:layout_marginTop="6dp"/>
+                            android:layout_marginTop="6dp" />
+
                         <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
                             android:id="@+id/co"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
                             android:text="90"
-                            android:textColor="@color/background_progress"/>
+                            android:textColor="@color/background_progress"
+                            skin:enable="true" />
 
                     </LinearLayout>
 
@@ -205,81 +222,56 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="O3"
-                            android:textColor="@color/grey"/>
+                            android:textColor="@color/grey"
+                            skin:enable="true" />
+
                         <com.example.administrator.soweather.com.example.administrator.soweather.view.CircleChart
                             android:id="@+id/circle_o3"
                             android:layout_width="35dp"
                             android:layout_height="35dp"
-                            android:layout_marginTop="6dp"/>
+                            android:layout_marginTop="6dp"
+                            skin:enable="true" />
+
                         <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
                             android:id="@+id/o3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
                             android:text="90"
-                            android:textColor="@color/background_progress"/>
+                            android:textColor="@color/background_progress"
+                            skin:enable="true" />
 
                     </LinearLayout>
+
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/today_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/table_white_shape"
+                    android:drawablePadding="3dp"
+                    android:drawableRight="@drawable/right_gray"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:text="今日提醒"
+                    android:textColor="#BE7E7E"
+                    android:textSize="14sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/gray"/>
+                    android:background="@color/gray"
+                    skin:enable="true" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
                     android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:padding="8dp"
-                        android:text="今日提醒"
-                        android:textColor="#BE7E7E"
-                        android:textSize="14sp"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginLeft="13dp"
-                        android:background="@color/gray"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="15dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/wind"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:textColor="@color/grey"
-                            android:textSize="14sp"/>
-
-                        <TextView
-                            android:id="@+id/desc"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:textColor="@color/grey"
-                            android:textSize="14sp"/>
-
-                        <TextView
-                            android:id="@+id/index"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:textColor="@color/grey"
-                            android:textSize="14sp"/>
-                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/textView3"
@@ -289,13 +281,14 @@
                         android:padding="8dp"
                         android:text="今日建议"
                         android:textColor="#BE7E7E"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginLeft="13dp"
-                        android:background="@color/gray"/>
+                        android:background="@color/gray"
+                        skin:enable="true" />
 
 
                     <LinearLayout
@@ -315,7 +308,8 @@
                             android:drawablePadding="15dp"
                             android:drawableTop="@mipmap/running"
                             android:textColor="@color/grey"
-                            android:textSize="13sp"/>
+                            android:textSize="13sp"
+                            skin:enable="true" />
 
                         <TextView
                             android:id="@+id/sportbrf_txt"
@@ -325,14 +319,15 @@
                             android:layout_marginLeft="30dp"
                             android:layout_weight="2"
                             android:textColor="#7E7E7E"
-                            android:textSize="13sp"/>
+                            android:textSize="13sp" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginLeft="13dp"
-                        android:background="@color/gray"/>
+                        android:background="@color/gray"
+                        skin:enable="true" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -351,7 +346,8 @@
                             android:drawablePadding="15dp"
                             android:drawableTop="@mipmap/cold"
                             android:textColor="@color/grey"
-                            android:textSize="13sp"/>
+                            android:textSize="13sp"
+                            skin:enable="true" />
 
                         <TextView
                             android:id="@+id/flubrf_txt"
@@ -361,14 +357,15 @@
                             android:layout_marginLeft="30dp"
                             android:layout_weight="2"
                             android:textColor="#7E7E7E"
-                            android:textSize="13sp"/>
+                            android:textSize="13sp" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginLeft="13dp"
-                        android:background="@color/gray"/>
+                        android:background="@color/gray"
+                        skin:enable="true" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -387,7 +384,8 @@
                             android:drawablePadding="15dp"
                             android:drawableTop="@mipmap/coat"
                             android:textColor="@color/grey"
-                            android:textSize="13sp"/>
+                            android:textSize="13sp"
+                            skin:enable="true" />
 
                         <TextView
                             android:id="@+id/drsgbrf_txt"
@@ -397,14 +395,15 @@
                             android:layout_marginLeft="30dp"
                             android:layout_weight="2"
                             android:textColor="#7E7E7E"
-                            android:textSize="13sp"/>
+                            android:textSize="13sp" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginLeft="13dp"
-                        android:background="@color/gray"/>
+                        android:background="@color/gray"
+                        skin:enable="true" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -423,7 +422,8 @@
                             android:drawablePadding="15dp"
                             android:drawableTop="@mipmap/tourism"
                             android:textColor="@color/grey"
-                            android:textSize="13sp"/>
+                            android:textSize="13sp"
+                            skin:enable="true" />
 
                         <TextView
                             android:id="@+id/travbrf_txt"
@@ -433,14 +433,15 @@
                             android:layout_marginLeft="30dp"
                             android:layout_weight="2"
                             android:textColor="#7E7E7E"
-                            android:textSize="13sp"/>
+                            android:textSize="13sp" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginLeft="13dp"
-                        android:background="@color/gray"/>
+                        android:background="@color/gray"
+                        skin:enable="true" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -455,13 +456,13 @@
                             android:padding="8dp"
                             android:text="地图模式"
                             android:textColor="#BE7E7E"
-                            android:textSize="14sp"/>
+                            android:textSize="14sp" />
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_marginLeft="13dp"
-                            android:background="@color/gray"/>
+                            android:background="@color/gray" />
 
                         <com.baidu.mapapi.map.TextureMapView
                             android:id="@+id/map"

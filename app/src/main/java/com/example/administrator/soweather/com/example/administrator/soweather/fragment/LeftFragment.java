@@ -17,6 +17,7 @@ import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.CurrentCityActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.Managecity;
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.SettingSkinActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.db.SoWeatherDB;
 import com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout;
@@ -34,11 +35,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.feng.skin.manager.base.BaseSkinFragment;
+
 /**
  * Created by Administrator on 2016/10/10.
  */
 
-public class LeftFragment extends Fragment implements View.OnClickListener, ResponseListenter<NowWeather> {
+public class LeftFragment extends BaseSkinFragment implements View.OnClickListener, ResponseListenter<NowWeather> {
     private RelativeLayout mHome;//首页
     private RelativeLayout service_assistant;//我的助手
     private RelativeLayout mSetting;//设置
@@ -57,6 +60,7 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
     private String cityid;
     private TextView add_city;//添加城市
     private TextView manage_city;//管理城市
+    private RelativeLayout today_top_new;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,9 +69,11 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
+
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_mean, null);
         initView(view);
+
         cityDB = SoWeatherDB.getInstance(getActivity());
         getAdress();
         getData();
@@ -131,6 +137,8 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
     }
 
     private void initView(View view) {
+        today_top_new = (RelativeLayout) view.findViewById(R.id.today_top_new);
+        today_top_new.setOnClickListener(this);
         mHome = (RelativeLayout) view.findViewById(R.id.home);
         mSetting = (RelativeLayout) view.findViewById(R.id.setting);
         mLogout = (RelativeLayout) view.findViewById(R.id.logout);
@@ -201,7 +209,11 @@ public class LeftFragment extends Fragment implements View.OnClickListener, Resp
                 startActivity(intent);
                 break;
             case R.id.skin_setting:
-                Toast.makeText(getActivity(), "设置更换的主题", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getActivity(), SettingSkinActivity.class));
+                break;
+            case R.id.today_top_new:
+                newContent = new TodayTopNewFragment();
+                title = "今天头条";
                 break;
             default:
                 break;

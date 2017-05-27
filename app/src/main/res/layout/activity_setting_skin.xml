@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:skin="http://schemas.android.com/android/skin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/left_fragment"
+    android:orientation="vertical"
+    skin:enable="true">
+
+    <include layout="@layout/activity_contain_title" />
+
+    <Button
+        android:id="@+id/set_default_skin"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/left_fragment"
+        android:text="官方默认"
+        android:textColor="@color/background_progress"
+        android:textSize="20sp"
+        skin:enable="true" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line" />
+
+    <Button
+        android:id="@+id/set_night_skin"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/divider"
+        android:background="@color/left_fragment"
+        android:text="黑色梦幻"
+        android:textColor="@color/background_progress"
+        android:textSize="20sp"
+        skin:enable="true" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/set_night_skin"
+        android:background="@color/line" />
+
+</LinearLayout>

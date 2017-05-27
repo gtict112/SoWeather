@@ -49,6 +49,7 @@ public class AppWidgetUpdateService extends Service {
     private List<WeathImg> weathImgs = new ArrayList<>();//图片数据
     private NowWeather mNowWeather = new NowWeather();
     private List<Dailyforecast> mDailyforecast = new ArrayList<>();
+    private int rand = 1;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -115,9 +116,13 @@ public class AppWidgetUpdateService extends Service {
                 if (txt != null) {
                     for (Constans.WeatherBgImg cu : citys) {
                         if (txt.equals(cu.getName())) {
-                            remoteViews.setImageViewResource(
-                                    R.id.widget_bg,
-                                    cu.getimgId());
+                            if (cu.getimgId().length > 0) {
+                                rand = (int) Math.round(Math.random() * (cu.getimgId().length - 1));
+                                remoteViews.setImageViewResource(R.id.widget_bg, cu.getimgId()[rand]);
+                            } else {
+                                remoteViews.setImageViewResource(R.id.widget_bg, cu.getimgId()[0]);
+                            }
+
                             break;
                         }
                     }

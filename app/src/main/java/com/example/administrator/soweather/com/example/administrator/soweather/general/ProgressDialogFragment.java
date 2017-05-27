@@ -1,4 +1,5 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.general;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -16,10 +17,10 @@ import com.example.administrator.soweather.R;
  * Created by Administrator on 2016/10/10.
  */
 
-public class ProgressDialogFragment  extends DialogFragment {
+public class ProgressDialogFragment extends DialogFragment {
     private final Object DIALOG_LOCK = new Object();
     private boolean isShown;
-    private TextView messageTextView;
+    //    private TextView messageTextView;
     private String message;
 
     /*
@@ -99,10 +100,10 @@ public class ProgressDialogFragment  extends DialogFragment {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.diallog_progress, null);
 
-        messageTextView = (TextView) view.findViewById(R.id.message);
+//        messageTextView = (TextView) view.findViewById(R.id.message);
         if (message != null)
-            messageTextView.setText(message);
-        builder.setView(view);
+//            messageTextView.setText(message);
+            builder.setView(view);
         return builder.show();
     }
 
@@ -118,15 +119,15 @@ public class ProgressDialogFragment  extends DialogFragment {
      */
     public void setMessage(final String message) {
         this.message = message;
-        if (messageTextView != null)
-            messageTextView.post(new Runnable() {
-                @Override
-                public void run() {
-                    if (messageTextView != null) {
-                        messageTextView.setText(message);
-                    }
-                }
-            });
+//        if (messageTextView != null)
+//            messageTextView.post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    if (messageTextView != null) {
+//                        messageTextView.setText(message);
+//                    }
+//                }
+//            });
     }
 
     @Override
@@ -144,7 +145,6 @@ public class ProgressDialogFragment  extends DialogFragment {
             }
         }
     }
-
 
 
 }

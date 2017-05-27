@@ -13,6 +13,20 @@
         <item name="android:windowExitAnimation">@anim/dialog_out</item>
     </style>
 
+    <style name="dialog_progress_bar">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="dialog_progress_message">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1.5</item>
+        <item name="android:gravity">center|left</item>
+        <item name="android:textColor">#bebebe</item>
+    </style>
+
     <style name="fragment_system_setting_switch">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -25,8 +39,9 @@
     </style>
 
     <style name="Dialog" parent="android:style/Theme.Dialog">
-        <item name="android:background">#00000000</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:background">#00000000</item> <!-- 设置自定义布局的背景透明 -->
+        <item name="android:windowBackground">@android:color/transparent
+        </item>  <!-- 设置window背景透明，也就是去边框 -->
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
     </style>
@@ -45,7 +60,7 @@
         <item name="@android:windowExitAnimation">@anim/dialog_out</item>
     </style>
 
-    <style name="Widget_GifView"/>
+    <style name="Widget_GifView" />
 
     <style name="Edittext">
         <item name="android:textSize">13sp</item>

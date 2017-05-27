@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="200dp"
-                android:background="#e09999cc"
-                android:layout_height="80dp">
+    xmlns:skin="http://schemas.android.com/android/skin"
+    android:layout_width="200dp"
+    android:layout_height="80dp"
+    android:background="@color/home"
+    skin:enable="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +27,7 @@
                 android:layout_weight="1"
                 android:gravity="center|left"
                 android:text="2016-10-29"
-                android:textColor="#e01D4951"/>
+                android:textColor="#e01D4951" />
 
             <TextView
                 android:id="@+id/tmp"
@@ -35,7 +37,7 @@
                 android:layout_weight="1"
                 android:gravity="right"
                 android:text="12"
-                android:textColor="#e01D4951"/>
+                android:textColor="#e01D4951" />
 
         </LinearLayout>
 
@@ -54,14 +56,13 @@
                 android:layout_weight="1"
                 android:gravity="center|left"
                 android:text="晴"
-                android:textColor="#e01D4951"/>
+                android:textColor="#e01D4951" />
 
             <ImageView
                 android:id="@+id/txt_img"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_gravity="center"
-                />
+                android:layout_gravity="center" />
         </LinearLayout>
 
     </LinearLayout>
@@ -71,5 +72,5 @@
         android:layout_height="65dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:background="@color/white"/>
+        android:background="@color/white" />
 </RelativeLayout>

@@ -3,8 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="contain_title">#3F51B5</color>
+
+    <color name="text_chartview">#3F51B5</color>
     <color name="background_progress">#333333</color>
+
     <color name="grey">#666666</color>
     <color name="font_progress">#666666</color>
     <color name="left_fragment">#f1f1f9</color>

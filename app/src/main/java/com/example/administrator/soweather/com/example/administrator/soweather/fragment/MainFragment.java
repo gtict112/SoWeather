@@ -1,16 +1,19 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.fragment;
 
+import android.animation.Keyframe;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.text.TextWatcher;
 import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +21,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.TranslateAnimation;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ViewSwitcher;
 
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.AqiActivity;
@@ -55,10 +55,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.feng.skin.manager.base.BaseSkinFragment;
+
 /**
  * Created by Administrator on 2016/10/10.
  */
-public class MainFragment extends Fragment implements View.OnClickListener {
+public class MainFragment extends BaseSkinFragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     private Appconfiguration config = Appconfiguration.getInstance();
     private TextView date;//更新时间
     private TextView mTmp;//温度
@@ -101,6 +103,10 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private TextView yi;
     private ImageView aqi_img;
     private LinearLayout today_detail;
+    private Bitmap bmp = null;
+    private SwipeRefreshLayout mSwipeLayout;
+    private ImageView tip;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -145,6 +151,19 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 }
             }
         }
+    }
+
+    private void refresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeLayout.setRefreshing(false);
+            }
+        }, 2000);
+        getDailyforecastData(cityid);
+        getHourlyforecastData(cityid);
+        getNowWeatherData(cityid);
+        getWeather(cityid);
     }
 
     private void getDate() {
@@ -333,9 +352,19 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             pres = mNowWeather.pres;
             vis = mNowWeather.vis;
             Constans.WeatherBgImg citys[] = Constans.WeatherBgImg.values();
+            if (bmp != null) {
+                bmp.recycle();
+            }
             for (Constans.WeatherBgImg cu : citys) {
                 if (txt.equals(cu.getName())) {
-                    bg.setImageResource(cu.getimgId());
+                    if (cu.getimgId().length > 0) {
+                        int rand = (int) Math.round(Math.random() * (cu.getimgId().length - 1));
+                        bmp = BitmapFactory.decodeResource(this.getResources(), cu.getimgId()[rand]);
+                        bg.setImageBitmap(bmp);
+                    } else {
+                        bmp = BitmapFactory.decodeResource(this.getResources(), cu.getimgId()[0]);
+                        bg.setImageBitmap(bmp);
+                    }
                     break;
                 }
             }
@@ -375,6 +404,30 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initView(View view) {
+        mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeLayout);
+        mSwipeLayout.setOnRefreshListener(this);
+        // 设置下拉圆圈上的颜色，蓝色、绿色、橙色、红色
+        mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
+                android.R.color.holo_orange_light, android.R.color.holo_red_light);
+        mSwipeLayout.setDistanceToTriggerSync(400);// 设置手指在屏幕下拉多少距离会触发下拉刷新
+        mSwipeLayout.setProgressBackgroundColor(R.color.white); // 设定下拉圆圈的背景
+        mSwipeLayout.setSize(SwipeRefreshLayout.LARGE); // 设置圆圈的大小
+
+        tip = (ImageView) view.findViewById(R.id.tip);
+        tip.setOnClickListener(this);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ObjectAnimator animator = tada(tip);
+                animator.setRepeatCount(ValueAnimator.INFINITE);
+                animator.start();
+
+                ObjectAnimator nopeAnimator = nope(tip);
+                nopeAnimator.setRepeatCount(ValueAnimator.INFINITE);
+                nopeAnimator.start();
+            }
+        }, 2000);
+
         today_detail = (LinearLayout) view.findViewById(R.id.today_detail);
         today_detail.setOnClickListener(this);
         wind_img = (ImageView) view.findViewById(R.id.wind_img);
@@ -404,51 +457,11 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.life:
-                Intent intent2 = new Intent(getActivity(), TipActivity.class);
-                if (mHourlyforecast != null && mHourlyforecast.size() > 0) {
-                    intent2.putExtra("date", (Serializable) mHourlyforecast);
-                    intent2.putExtra("city", city != null ? city : "杭州");
-                    intent2.putExtra("cityid", cityid != null ? city : "CN101210101");
-                }
-                startActivity(intent2);
-                getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
+                toActivty();
                 break;
             case R.id.aqi:
                 //弹出所在地当天的生活指数和相关信息
-                Intent intent1 = new Intent();
-                intent1.setClass(getActivity(), AqiActivity.class);
-                Bundle bundle1 = new Bundle();
-                bundle1.putString("city", city != null ? city : "杭州");
-                bundle1.putString("date", date.getText().toString());
-                bundle1.putString("cityid", cityid != null ? city : "CN101210101");
-                if (mAqi != null) {
-                    bundle1.putString("aqi", mAqi.aqi);
-                    bundle1.putString("co", mAqi.co);
-                    bundle1.putString("no2", mAqi.no2);
-                    bundle1.putString("o3", mAqi.o3);
-                    bundle1.putString("pm10", mAqi.pm10);
-                    bundle1.putString("pm25", mAqi.pm25);
-                    bundle1.putString("qlty", mAqi.qlty);
-                    bundle1.putString("so2", mAqi.so2);
-                }
-                bundle1.putString("dir", dir);
-                bundle1.putString("sc", sc);
-                bundle1.putString("fl", fl);
-                bundle1.putString("hum", hum);
-                bundle1.putString("pcpn", pcpn);
-                bundle1.putString("pres", pres);
-                bundle1.putString("vis", vis);
-                bundle1.putString("tem_max_min", tem_min_max);
-                if (mDailyforecast != null && mDailyforecast.size() > 0) {
-                    bundle1.putString("cond", mDailyforecast.get(0).cond);
-                }
-                if (mNowWeather != null) {
-                    bundle1.putString("lat", mNowWeather.lat);
-                    bundle1.putString("lon", mNowWeather.lon);
-                }
-                intent1.putExtras(bundle1);
-                getActivity().startActivity(intent1);
-                getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
+                toActivty();
                 break;
             case R.id.linearLayout2:
                 //展示界面
@@ -464,17 +477,63 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
                 break;
             case R.id.today_detail:
-                Intent intent3 = new Intent(getActivity(), TipActivity.class);
+                toActivty();
+                break;
+            case R.id.tip:
+                Intent intent2 = new Intent(getActivity(), TipActivity.class);
                 if (mHourlyforecast != null && mHourlyforecast.size() > 0) {
-                    intent3.putExtra("date", (Serializable) mHourlyforecast);
-                    intent3.putExtra("city", city != null ? city : "杭州");
-                    intent3.putExtra("cityid", cityid != null ? city : "CN101210101");
+                    intent2.putExtra("date", (Serializable) mHourlyforecast);
+                    intent2.putExtra("city", city != null ? city : "杭州");
+                    intent2.putExtra("cityid", cityid != null ? city : "CN101210101");
                 }
-                startActivity(intent3);
+                startActivity(intent2);
                 getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
                 break;
         }
     }
+
+    private void toActivty() {
+        Intent intent1 = new Intent();
+        intent1.setClass(getActivity(), AqiActivity.class);
+        Bundle bundle1 = new Bundle();
+        bundle1.putString("city", city != null ? city : "杭州");
+        bundle1.putString("date", date.getText().toString());
+        bundle1.putString("cityid", cityid != null ? city : "CN101210101");
+        if (mAqi != null) {
+            bundle1.putString("aqi", mAqi.aqi);
+            bundle1.putString("co", mAqi.co);
+            bundle1.putString("no2", mAqi.no2);
+            bundle1.putString("o3", mAqi.o3);
+            bundle1.putString("pm10", mAqi.pm10);
+            bundle1.putString("pm25", mAqi.pm25);
+            bundle1.putString("qlty", mAqi.qlty);
+            bundle1.putString("so2", mAqi.so2);
+        }
+        bundle1.putString("dir", dir);
+        bundle1.putString("sc", sc);
+        bundle1.putString("fl", fl);
+        bundle1.putString("hum", hum);
+        bundle1.putString("pcpn", pcpn);
+        bundle1.putString("pres", pres);
+        bundle1.putString("vis", vis);
+        bundle1.putString("tem_max_min", tem_min_max);
+        if (mDailyforecast != null && mDailyforecast.size() > 0) {
+            bundle1.putString("cond", mDailyforecast.get(0).cond);
+        }
+        if (mNowWeather != null) {
+            bundle1.putString("lat", mNowWeather.lat);
+            bundle1.putString("lon", mNowWeather.lon);
+        }
+        intent1.putExtras(bundle1);
+        getActivity().startActivity(intent1);
+        getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
+    }
+
+    @Override
+    public void onRefresh() {
+        refresh();
+    }
+
 
     public interface OnRecyclerViewItemClickListener {
         void onItemClick(View view, Dailyforecast data);
@@ -587,6 +646,77 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         down.setInterpolator(new BounceInterpolator());//弹跳动画,要其它效果的当然也可以设置为其它的值
         down.setDuration(2000);//持续时间
         linearLayout2.startAnimation(down);
+    }
+
+
+    public static ObjectAnimator tada(View view) {
+        return tada(view, 1f);
+    }
+
+    public static ObjectAnimator tada(View view, float shakeFactor) {
+
+        PropertyValuesHolder pvhScaleX = PropertyValuesHolder.ofKeyframe(View.SCALE_X,
+                Keyframe.ofFloat(0f, 1f),
+                Keyframe.ofFloat(.1f, .9f),
+                Keyframe.ofFloat(.2f, .9f),
+                Keyframe.ofFloat(.3f, 1.1f),
+                Keyframe.ofFloat(.4f, 1.1f),
+                Keyframe.ofFloat(.5f, 1.1f),
+                Keyframe.ofFloat(.6f, 1.1f),
+                Keyframe.ofFloat(.7f, 1.1f),
+                Keyframe.ofFloat(.8f, 1.1f),
+                Keyframe.ofFloat(.9f, 1.1f),
+                Keyframe.ofFloat(1f, 1f)
+        );
+
+        PropertyValuesHolder pvhScaleY = PropertyValuesHolder.ofKeyframe(View.SCALE_Y,
+                Keyframe.ofFloat(0f, 1f),
+                Keyframe.ofFloat(.1f, .9f),
+                Keyframe.ofFloat(.2f, .9f),
+                Keyframe.ofFloat(.3f, 1.1f),
+                Keyframe.ofFloat(.4f, 1.1f),
+                Keyframe.ofFloat(.5f, 1.1f),
+                Keyframe.ofFloat(.6f, 1.1f),
+                Keyframe.ofFloat(.7f, 1.1f),
+                Keyframe.ofFloat(.8f, 1.1f),
+                Keyframe.ofFloat(.9f, 1.1f),
+                Keyframe.ofFloat(1f, 1f)
+        );
+
+        PropertyValuesHolder pvhRotate = PropertyValuesHolder.ofKeyframe(View.ROTATION,
+                Keyframe.ofFloat(0f, 0f),
+                Keyframe.ofFloat(.1f, -3f * shakeFactor),
+                Keyframe.ofFloat(.2f, -3f * shakeFactor),
+                Keyframe.ofFloat(.3f, 3f * shakeFactor),
+                Keyframe.ofFloat(.4f, -3f * shakeFactor),
+                Keyframe.ofFloat(.5f, 3f * shakeFactor),
+                Keyframe.ofFloat(.6f, -3f * shakeFactor),
+                Keyframe.ofFloat(.7f, 3f * shakeFactor),
+                Keyframe.ofFloat(.8f, -3f * shakeFactor),
+                Keyframe.ofFloat(.9f, 3f * shakeFactor),
+                Keyframe.ofFloat(1f, 0)
+        );
+
+        return ObjectAnimator.ofPropertyValuesHolder(view, pvhScaleX, pvhScaleY, pvhRotate).
+                setDuration(1000);
+    }
+
+    public static ObjectAnimator nope(View view) {
+        int delta = view.getResources().getDimensionPixelOffset(R.dimen.spacing_medium);
+
+        PropertyValuesHolder pvhTranslateX = PropertyValuesHolder.ofKeyframe(View.TRANSLATION_X,
+                Keyframe.ofFloat(0f, 0),
+                Keyframe.ofFloat(.10f, -delta),
+                Keyframe.ofFloat(.26f, delta),
+                Keyframe.ofFloat(.42f, -delta),
+                Keyframe.ofFloat(.58f, delta),
+                Keyframe.ofFloat(.74f, -delta),
+                Keyframe.ofFloat(.90f, delta),
+                Keyframe.ofFloat(1f, 0f)
+        );
+
+        return ObjectAnimator.ofPropertyValuesHolder(view, pvhTranslateX).
+                setDuration(500);
     }
 
 }

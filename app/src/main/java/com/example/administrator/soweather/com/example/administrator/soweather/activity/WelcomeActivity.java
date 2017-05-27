@@ -1,17 +1,25 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.activity;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.LinearLayout;
 
 import com.example.administrator.soweather.R;
-import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.adapter.BaseFragmentAdapter;
+import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
+import com.example.administrator.soweather.com.example.administrator.soweather.fragment.LauncherBaseFragment;
+import com.example.administrator.soweather.com.example.administrator.soweather.fragment.PrivateMessageLauncherFragment;
+import com.example.administrator.soweather.com.example.administrator.soweather.fragment.RewardLauncherFragment;
+import com.example.administrator.soweather.com.example.administrator.soweather.fragment.StereoscopicLauncherFragment;
+import com.example.administrator.soweather.com.example.administrator.soweather.view.GuideViewPager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/10/10.
@@ -19,40 +27,100 @@ import com.example.administrator.soweather.com.example.administrator.soweather.B
  * First enter the App
  */
 
-public class WelcomeActivity extends BaseActivity {
-    private String url;
-    WebView webView;
+public class WelcomeActivity extends FragmentActivity {
+    private GuideViewPager vPager;
+    private List<LauncherBaseFragment> list = new ArrayList<LauncherBaseFragment>();
+    private BaseFragmentAdapter adapter;
+
+    private ImageView[] tips;
+    private int currentSelect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //将屏幕设置为全屏
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        //去掉标题栏
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_welcome);
-        webView = (WebView) findViewById(R.id.wv_webview);
-        url = "file:///android_asset/guide/index.html";
-        loadLocalHtml(url);
+        final Appconfiguration appConfig = Appconfiguration.getInstance();
+        if (appConfig.getActivitySet().size() > 0) {
+            finish();
+            return;
+        }else {
+            //初始化点点点控件
+            ViewGroup group = (ViewGroup) findViewById(R.id.viewGroup);
+            tips = new ImageView[3];
+            for (int i = 0; i < tips.length; i++) {
+                ImageView imageView = new ImageView(this);
+                imageView.setLayoutParams(new LayoutParams(10, 10));
+                if (i == 0) {
+                    imageView.setBackgroundResource(R.drawable.page_indicator_focused);
+                } else {
+                    imageView.setBackgroundResource(R.drawable.page_indicator_unfocused);
+                }
+                tips[i] = imageView;
+
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+                layoutParams.leftMargin = 20;//设置点点点view的左边距
+                layoutParams.rightMargin = 20;//设置点点点view的右边距
+                group.addView(imageView, layoutParams);
+            }
+
+            //获取自定义viewpager 然后设置背景图片
+            vPager = (GuideViewPager) findViewById(R.id.viewpager_launcher);
+            vPager.setBackGroud(BitmapFactory.decodeResource(getResources(), R.drawable.bg_kaka_launcher));
+
+            /**
+             * 初始化三个fragment  并且添加到list中
+             */
+            RewardLauncherFragment rewardFragment = new RewardLauncherFragment();
+            PrivateMessageLauncherFragment privateFragment = new PrivateMessageLauncherFragment();
+            StereoscopicLauncherFragment stereoscopicFragment = new StereoscopicLauncherFragment();
+            list.add(rewardFragment);
+            list.add(privateFragment);
+            list.add(stereoscopicFragment);
+
+            adapter = new BaseFragmentAdapter(getSupportFragmentManager(), list);
+            vPager.setAdapter(adapter);
+            vPager.setOffscreenPageLimit(2);
+            vPager.setCurrentItem(0);
+            vPager.setOnPageChangeListener(changeListener);
+        }
     }
 
-    @SuppressLint({"JavascriptInterface", "SetJavaScriptEnabled"})
-    public void loadLocalHtml(String url) {
-        WebSettings ws = webView.getSettings();
-        ws.setJavaScriptEnabled(true);//开启JavaScript支持
-        webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                //重写此方法，用于捕捉页面上的跳转链接
-                if ("http://start/".equals(url)) {
-                    //在html代码中的按钮跳转地址需要同此地址一致
-                    startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-                    overridePendingTransition(R.anim.inuptodown,R.anim.indowntoup);
-                    finish();
-                }
-                return true;
+    /**
+     * 监听viewpager的移动
+     */
+    ViewPager.OnPageChangeListener changeListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageSelected(int index) {
+            setImageBackground(index);//改变点点点的切换效果
+            LauncherBaseFragment fragment = list.get(index);
+
+            list.get(currentSelect).stopAnimation();//停止前一个页面的动画
+            fragment.startAnimation();//开启当前页面的动画
+
+            currentSelect = index;
+        }
+
+        @Override
+        public void onPageScrolled(int arg0, float arg1, int arg2) {
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int arg0) {
+        }
+    };
+
+    /**
+     * 改变点点点的切换效果
+     *
+     * @param selectItems
+     */
+    private void setImageBackground(int selectItems) {
+        for (int i = 0; i < tips.length; i++) {
+            if (i == selectItems) {
+                tips[i].setBackgroundResource(R.drawable.page_indicator_focused);
+            } else {
+                tips[i].setBackgroundResource(R.drawable.page_indicator_unfocused);
             }
-        });
-        webView.loadUrl(url);
+        }
     }
 }

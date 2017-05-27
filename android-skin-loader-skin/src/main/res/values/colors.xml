@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="left_fragment">#006666</color>
+    <color name="background_progress">#CCFFFF</color>
+    <color name="line">#bebebe</color>
+    <color name="grey">#115eeb98</color>
+    <color name="left_fragment_head">#003333</color>
+    <color name="white">#006666</color>
+
+    <color name="theme_blue">#717171</color>
+    <color name="half_transparent">#d0717171</color>
+    <color name="a1">#717171</color>
+    <color name="a2">#717171</color>
+    <color name="a3">#717171</color>
+    <color name="a4">#003333</color>
+    <color name="a5">#717171</color>
+    <color name="a6">#717171</color>
+    <color name="a7">#717171</color>
+    <color name="gray">#717171</color>
+    <color name="main_fragment">#717171</color>
+    <color name="txt_1">#717171</color>
+    <color name="home">#717171</color>
+</resources>

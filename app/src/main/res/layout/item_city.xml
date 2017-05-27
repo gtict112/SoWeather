@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    xmlns:skin="http://schemas.android.com/android/skin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/left_fragment"
+    android:orientation="vertical"
+    skin:enable="true">
 
     <TextView
         android:id="@+id/city_name"
@@ -11,5 +14,6 @@
         android:padding="5dp"
         android:text="北京"
         android:textColor="@color/background_progress"
-        android:textSize="14sp"/>
+        android:textSize="14sp"
+        skin:enable="true" />
 </LinearLayout>
