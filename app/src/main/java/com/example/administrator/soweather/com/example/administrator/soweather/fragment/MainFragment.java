@@ -106,7 +106,8 @@ public class MainFragment extends BaseSkinFragment implements View.OnClickListen
     private Bitmap bmp = null;
     private SwipeRefreshLayout mSwipeLayout;
     private ImageView tip;
-
+    private int flag = 0;
+    private String current;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -343,6 +344,7 @@ public class MainFragment extends BaseSkinFragment implements View.OnClickListen
             mDate = new JSONObject(mNowWeather.update).optString("loc").substring(0, 10);
             mTmp.setText(mNowWeather.tmp + "℃");
             String txt = new JSONObject(mNowWeather.cond).optString("txt");
+            current = txt;
             code_txt.setText(txt);
             dir = mNowWeather.dir;
             sc = mNowWeather.sc;
@@ -360,6 +362,7 @@ public class MainFragment extends BaseSkinFragment implements View.OnClickListen
                     if (cu.getimgId().length > 0) {
                         int rand = (int) Math.round(Math.random() * (cu.getimgId().length - 1));
                         bmp = BitmapFactory.decodeResource(this.getResources(), cu.getimgId()[rand]);
+                        flag = rand;
                         bg.setImageBitmap(bmp);
                     } else {
                         bmp = BitmapFactory.decodeResource(this.getResources(), cu.getimgId()[0]);
@@ -422,9 +425,9 @@ public class MainFragment extends BaseSkinFragment implements View.OnClickListen
                 animator.setRepeatCount(ValueAnimator.INFINITE);
                 animator.start();
 
-                ObjectAnimator nopeAnimator = nope(tip);
-                nopeAnimator.setRepeatCount(ValueAnimator.INFINITE);
-                nopeAnimator.start();
+//                ObjectAnimator nopeAnimator = nope(tip);
+//                nopeAnimator.setRepeatCount(ValueAnimator.INFINITE);
+//                nopeAnimator.start();
             }
         }, 2000);
 
@@ -482,10 +485,11 @@ public class MainFragment extends BaseSkinFragment implements View.OnClickListen
             case R.id.tip:
                 Intent intent2 = new Intent(getActivity(), TipActivity.class);
                 if (mHourlyforecast != null && mHourlyforecast.size() > 0) {
-                    intent2.putExtra("date", (Serializable) mHourlyforecast);
                     intent2.putExtra("city", city != null ? city : "杭州");
                     intent2.putExtra("cityid", cityid != null ? city : "CN101210101");
                 }
+                intent2.putExtra("flag", flag);
+                intent2.putExtra("txt", current);
                 startActivity(intent2);
                 getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
                 break;
@@ -569,6 +573,7 @@ public class MainFragment extends BaseSkinFragment implements View.OnClickListen
             ImageView txt_img;
             TextView date;
             TextView tmp;
+            TextView cond_txt;
         }
 
         @Override
@@ -584,6 +589,7 @@ public class MainFragment extends BaseSkinFragment implements View.OnClickListen
             viewHolder.date = (TextView) view.findViewById(R.id.date);
             viewHolder.txt_img = (ImageView) view.findViewById(R.id.txt_img);
             viewHolder.tmp = (TextView) view.findViewById(R.id.tmp);
+            viewHolder.cond_txt = (TextView) view.findViewById(R.id.cond_txt);
             Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.dialog_in);
             animation.setFillAfter(true);
             view.startAnimation(animation);
@@ -603,6 +609,7 @@ public class MainFragment extends BaseSkinFragment implements View.OnClickListen
                 String max = new JSONObject(mDailyForecastData.tmp).optString("max");
                 viewHolder.tmp.setText(min + "~" + max + "℃");
                 code = new JSONObject(mDailyForecastData.cond).optString("code_d");
+                viewHolder.cond_txt.setText(new JSONObject(mDailyForecastData.cond).optString("txt_d"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -701,22 +708,22 @@ public class MainFragment extends BaseSkinFragment implements View.OnClickListen
                 setDuration(1000);
     }
 
-    public static ObjectAnimator nope(View view) {
-        int delta = view.getResources().getDimensionPixelOffset(R.dimen.spacing_medium);
-
-        PropertyValuesHolder pvhTranslateX = PropertyValuesHolder.ofKeyframe(View.TRANSLATION_X,
-                Keyframe.ofFloat(0f, 0),
-                Keyframe.ofFloat(.10f, -delta),
-                Keyframe.ofFloat(.26f, delta),
-                Keyframe.ofFloat(.42f, -delta),
-                Keyframe.ofFloat(.58f, delta),
-                Keyframe.ofFloat(.74f, -delta),
-                Keyframe.ofFloat(.90f, delta),
-                Keyframe.ofFloat(1f, 0f)
-        );
-
-        return ObjectAnimator.ofPropertyValuesHolder(view, pvhTranslateX).
-                setDuration(500);
-    }
+//    public static ObjectAnimator nope(View view) {
+//        int delta = view.getResources().getDimensionPixelOffset(R.dimen.spacing_medium);
+//
+//        PropertyValuesHolder pvhTranslateX = PropertyValuesHolder.ofKeyframe(View.TRANSLATION_X,
+//                Keyframe.ofFloat(0f, 0),
+//                Keyframe.ofFloat(.10f, -delta),
+//                Keyframe.ofFloat(.26f, delta),
+//                Keyframe.ofFloat(.42f, -delta),
+//                Keyframe.ofFloat(.58f, delta),
+//                Keyframe.ofFloat(.74f, -delta),
+//                Keyframe.ofFloat(.90f, delta),
+//                Keyframe.ofFloat(1f, 0f)
+//        );
+//
+//        return ObjectAnimator.ofPropertyValuesHolder(view, pvhTranslateX).
+//                setDuration(500);
+//    }
 
 }

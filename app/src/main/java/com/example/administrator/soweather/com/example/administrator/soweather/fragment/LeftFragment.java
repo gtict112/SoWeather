@@ -213,7 +213,7 @@ public class LeftFragment extends BaseSkinFragment implements View.OnClickListen
                 break;
             case R.id.today_top_new:
                 newContent = new TodayTopNewFragment();
-                title = "今天头条";
+                title = "今日头条";
                 break;
             default:
                 break;

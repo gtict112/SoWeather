@@ -85,6 +85,7 @@ public class MoreInfoItemFragment extends BaseSkinFragment {
     private LinearLayout day_layout;
     private TextView day_work, day_love, day_money, day_health, day_color, day_number, day_qfriend, all, day_summary;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -201,7 +202,7 @@ public class MoreInfoItemFragment extends BaseSkinFragment {
                 cond_txt = new JSONObject(mDailyforecast.cond).optString("txt_d");
                 dir_txt = new JSONObject(mDailyforecast.wind).optString("dir");
                 sc_txt = new JSONObject(mDailyforecast.wind).optString("sc");
-                tmp_txt = new JSONObject(mDailyforecast.tmp).optString("min") + "/" + new JSONObject(mDailyforecast.tmp).optString("max");
+                tmp_txt = new JSONObject(mDailyforecast.tmp).optString("min") + "℃" + "/" + new JSONObject(mDailyforecast.tmp).optString("max") + "℃";
 //                sunrise_txt = new JSONObject(mDailyforecast.astro).optString("sr");//日出日落时间字段暂时为空
 //                sunset_txt = new JSONObject(mDailyforecast.astro).optString("ss");
             } catch (JSONException e) {
@@ -218,7 +219,7 @@ public class MoreInfoItemFragment extends BaseSkinFragment {
             sc.setText(sc_txt);
             vis.setText(mDailyforecast.vis + " KM");
             hum.setText(mDailyforecast.hum + "%");
-            pop.setText(mDailyforecast.pop);
+            pop.setText(mDailyforecast.pop + "%");
             pcpn.setText(mDailyforecast.pcpn + "mm");
             pres.setText(mDailyforecast.pres + "hPa");
             yangli.setText(mDailyforecast.date.substring(mDailyforecast.date.length() - 2, mDailyforecast.date.length()));

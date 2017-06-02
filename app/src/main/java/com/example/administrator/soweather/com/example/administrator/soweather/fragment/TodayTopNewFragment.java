@@ -46,7 +46,7 @@ public class TodayTopNewFragment extends BaseSkinFragment implements SwipeRefres
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_today_topnew, null);
         initView(view);
-        getDate();
+        initDate();
         getHandleMessge();
         return view;
     }
@@ -169,8 +169,12 @@ public class TodayTopNewFragment extends BaseSkinFragment implements SwipeRefres
         });
     }
 
-    private void getDate() {
+    private void initDate() {
         config.showProgressDialog("拼命加载中....", getActivity());
+        getDate();
+    }
+
+    private void getDate() {
         News mNews = new News();
         mNews.getTopNews(new ResponseListenter<List<TopNew>>() {
             @Override

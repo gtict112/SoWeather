@@ -245,33 +245,72 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/today_tip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginLeft="5dp"
-                    android:background="@drawable/table_white_shape"
-                    android:drawablePadding="3dp"
-                    android:drawableRight="@drawable/right_gray"
-                    android:gravity="center"
-                    android:padding="4dp"
-                    android:text="今日提醒"
-                    android:textColor="#BE7E7E"
-                    android:textSize="14sp" />
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/gray"
-                    skin:enable="true" />
+                    android:background="@color/gray"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
                     android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:padding="8dp"
+                        android:text="今日提醒"
+                        android:textColor="#BE7E7E"
+                        android:textSize="14sp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="13dp"
+                        android:background="@color/gray"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/wind"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@mipmap/smiling_face"
+                            android:drawablePadding="10dp"
+                            android:gravity="top|left"
+                            android:text="dsdsdsd"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/desc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:drawableLeft="@mipmap/smiling_face"
+                            android:drawablePadding="10dp"
+                            android:gravity="top|left"
+                            android:text="dsdsdsd"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/index"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:drawableLeft="@mipmap/smiling_face"
+                            android:drawablePadding="10dp"
+                            android:gravity="top|left"
+                            android:text="dsdsdsd"
+                            android:textSize="14sp" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/textView3"

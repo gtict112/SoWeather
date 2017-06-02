@@ -5,10 +5,15 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.example.administrator.soweather.R;
@@ -31,6 +36,11 @@ public class ProgressDialogFragment extends DialogFragment {
     @Override
     public void onStart() {
         super.onStart();
+        Window window = getDialog().getWindow();
+        WindowManager.LayoutParams windowParams = window.getAttributes();
+        windowParams.dimAmount = 0.0f;
+
+        window.setAttributes(windowParams);
     }
 
     /*
@@ -92,19 +102,12 @@ public class ProgressDialogFragment extends DialogFragment {
         this.setCancelable(false);
     }
 
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(
-                ProgressDialogFragment.this.getActivity());
-        LayoutInflater inflater = (LayoutInflater) ProgressDialogFragment.this
-                .getActivity()
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.diallog_progress, null);
-
-//        messageTextView = (TextView) view.findViewById(R.id.message);
-        if (message != null)
-//            messageTextView.setText(message);
-            builder.setView(view);
-        return builder.show();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.diallog_progress, container, false);
+        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        return view;
     }
 
     /**

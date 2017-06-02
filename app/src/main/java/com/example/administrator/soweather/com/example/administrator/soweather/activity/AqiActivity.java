@@ -26,7 +26,6 @@ import com.baidu.mapapi.model.LatLng;
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
-import com.example.administrator.soweather.com.example.administrator.soweather.general.TodayTipDialogFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Suggestion;
 import com.example.administrator.soweather.com.example.administrator.soweather.service.WeatherService;
@@ -61,10 +60,12 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
     private TextView date;
     private TextView topTv;
     private ImageView topButton;
+    private TextView wind;
+    private TextView desc;
+    private TextView index;
     private String cityid;
-    private String index;
     private Handler mHandler;
-    private Appconfiguration config = Appconfiguration.getInstance();
+//    private Appconfiguration config = Appconfiguration.getInstance();
     private String dir;
     private String sc;
     private String fl;
@@ -72,7 +73,6 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
     private String pcpn;
     private String pres;
     private String vis;
-    private String cond;
     private String tem_max_min;
     private TextView flubrf;
     private TextView flu_txt;
@@ -84,7 +84,6 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
     private TextView sport_txt;
     private TextureMapView map;
     private BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.place);
-    private TextView today_tip;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -97,8 +96,6 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initView() {
-        today_tip = (TextView) findViewById(R.id.today_tip);
-        today_tip.setOnClickListener(this);
         aqi = (CircleChart) findViewById(R.id.aqi);
         pm10 = (TextView) findViewById(R.id.pm10);
         pm25 = (TextView) findViewById(R.id.pm25);
@@ -114,6 +111,9 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
         circle_o3 = (CircleChart) findViewById(R.id.circle_o3);
         date = (TextView) findViewById(R.id.date);
         topTv = (TextView) findViewById(R.id.topTv);
+        wind = (TextView) findViewById(R.id.wind);
+        desc = (TextView) findViewById(R.id.desc);
+        index = (TextView) findViewById(R.id.index);
         flubrf = (TextView) findViewById(R.id.flubrf);
         flu_txt = (TextView) findViewById(R.id.flubrf_txt);
         drsgbrf = (TextView) findViewById(R.id.drsgbrf);
@@ -159,10 +159,12 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
             pres = intent.getStringExtra("pres");
             vis = intent.getStringExtra("vis");
             tem_max_min = intent.getStringExtra("tem_max_min");
-            cond = intent.getStringExtra("cond");
+            wind.setText("今日风力," + dir + sc + "级");
+            desc.setText("温度" + tem_max_min + "," + "体感温度" + fl + "℃" + "," + "相对湿度" + hum + "%" + "," + "降水量" + pcpn + "mm" + "," + "气压" + pres + "," + "能见度" + vis + "km");
+            String cond = intent.getStringExtra("cond");
             try {
                 JSONObject astrodate = new JSONObject(cond);
-                index = "*  " + "白天" + astrodate.optString("txt_d") + "," + "夜间" + astrodate.optString("txt_n");
+                index.setText("白天" + astrodate.optString("txt_d") + "," + "夜间" + astrodate.optString("txt_n"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -172,17 +174,17 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void getSuggestionData(String cityid) {
-        config.showProgressDialog("正在加载", this);
+//        config.showProgressDialog("正在加载", this);
         WeatherService mWeatherService = new WeatherService();
         mWeatherService.getSuggestionData(new ResponseListenter<Suggestion>() {
             @Override
             public void onReceive(Result<Suggestion> result) {
                 if (result.isSuccess()) {
-                    config.dismissProgressDialog();
+//                    config.dismissProgressDialog();
                     mSuggestion = result.getData();
                     mHandler.sendMessage(mHandler.obtainMessage(1, mSuggestion));
                 } else {
-                    config.dismissProgressDialog();
+//                    config.dismissProgressDialog();
                     Toast.makeText(getApplicationContext(), result.getErrorMessage(), Toast.LENGTH_LONG).show();
                 }
             }
@@ -203,7 +205,7 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void setView(Suggestion mSuggestion) {
-        config.dismissProgressDialog();
+//        config.dismissProgressDialog();
         flubrf.setText("感冒指数---" + mSuggestion.flubrf);
         flu_txt.setText(mSuggestion.flutex);
         drsgbrf.setText("穿衣指数---" + mSuggestion.drsgbrf);
@@ -212,7 +214,7 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
         trav_txt.setText(mSuggestion.travtex);
         sportbrf.setText("运动指数---" + mSuggestion.sportbrf);
         sport_txt.setText(mSuggestion.sporttex);
-        index = index + "," + "紫外线强度" + mSuggestion.uvbrf + "," + mSuggestion.cwbrf + "洗车";
+        index.setText(index.getText().toString() + "," + "紫外线强度" + mSuggestion.uvbrf + "," + mSuggestion.cwbrf + "洗车");
 
     }
 
@@ -222,16 +224,6 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
             case R.id.topButton:
                 finish();
                 this.overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
-                break;
-            case R.id.today_tip:
-                TodayTipDialogFragment mTodayTipDialogFragment = new TodayTipDialogFragment();
-                Bundle arguments = new Bundle();
-                arguments.putString("wind", "*  " + "今日风力," + dir + sc + "级");
-                arguments.putString("desc", "*  " + "温度" + tem_max_min + "," + "体感温度" + fl + "℃" + "," + "相对湿度" + hum + "%" + "," + "降水量" + pcpn + "mm" + "," + "气压" + pres + "," + "能见度" + vis + "km");
-                arguments.putString("index", index);
-                mTodayTipDialogFragment.setArguments(arguments);
-                mTodayTipDialogFragment.show(this
-                        .getSupportFragmentManager(), null);
                 break;
         }
     }
