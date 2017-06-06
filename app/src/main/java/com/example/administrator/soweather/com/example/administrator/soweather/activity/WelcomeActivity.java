@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
@@ -37,13 +38,14 @@ public class WelcomeActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         final Appconfiguration appConfig = Appconfiguration.getInstance();
         if (appConfig.getActivitySet().size() > 0) {
             finish();
             return;
-        }else {
+        } else {
             //初始化点点点控件
             ViewGroup group = (ViewGroup) findViewById(R.id.viewGroup);
             tips = new ImageView[3];

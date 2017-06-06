@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Aqi;
+import com.example.administrator.soweather.com.example.administrator.soweather.mode.BeautyListDate;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Constellation;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Dailyforecast;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Hourlyforecast;
@@ -307,7 +308,6 @@ public class ResponseProcessUtil {
     }
 
 
-
     /**
      * 获取网落图片资源
      *
@@ -360,6 +360,49 @@ public class ResponseProcessUtil {
                 mConstellation.QFriend = jsonObjecty.optString("QFriend", null);
                 mConstellation.summary = jsonObjecty.optString("summary", null);
             }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+            result.setErrorMessage("星座运势获取失败,请升级客户端或与客服联系...");
+        }
+        return result;
+    }
+
+
+    /**
+     * 获取星座运势
+     *
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    public static Result<List<BeautyListDate>> getBeautyListDate(Response response) throws IOException {
+        Result<List<BeautyListDate>> result = new Result<List<BeautyListDate>>();
+        List<BeautyListDate> list = new ArrayList<>();
+        result.setSuccess(false);
+        try {
+            JSONObject jsonObjecty = new JSONObject(response.body().string());
+            String code = jsonObjecty.optString("status");
+            if (code.equals("true")) {
+                result.setSuccess(true);
+                JSONArray mDate = jsonObjecty.getJSONArray("tngou");
+                for (int i = 0; i < mDate.length(); i++) {
+                    JSONObject mNew = mDate.getJSONObject(i);
+                    BeautyListDate mNews = BeautyListDate.Builder.creatBeautyListDate();
+                    mNews.id = mNew.getString("id");
+                    mNews.galleryclass = mNew.getString("galleryclass");
+                    mNews.title = mNew.optString("title", null);
+                    mNews.img = mNew.optString("img", null);
+                    mNews.bg = getHttpBitmap(mNews.img);
+                    mNews.count = mNew.getString("count");
+                    mNews.rcount = mNew.getString("rcount");
+                    mNews.fcount = mNew.getString("fcount");
+                    mNews.size = mNew.getString("size");
+
+                    list.add(mNews);
+                }
+            }
+            result.setData(list);
         } catch (JSONException e) {
             e.printStackTrace();
             result.setSuccess(false);

@@ -31,7 +31,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="#70666666"
+                    android:background="#80666666"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -52,6 +52,7 @@
                             android:textColor="@color/white" />
 
                         <ImageView
+                            android:id="@+id/hour_rotate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@mipmap/up" />
@@ -70,7 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:background="#70666666"
+                    android:background="#80666666"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -90,6 +91,7 @@
                             android:textColor="@color/white" />
 
                         <ImageView
+                            android:id="@+id/date_rotate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@mipmap/up" />
@@ -97,6 +99,7 @@
 
 
                     <LinearLayout
+                        android:id="@+id/date_linear"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -116,7 +119,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="12/03"
-                                android:textColor="@color/background_progress"
+                                android:textColor="@color/white"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -126,7 +129,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="12/04"
-                                android:textColor="@color/background_progress"
+                                android:textColor="@color/white"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -136,7 +139,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="12/04"
-                                android:textColor="@color/background_progress"
+                                android:textColor="@color/white"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -146,7 +149,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="12/05"
-                                android:textColor="@color/background_progress"
+                                android:textColor="@color/white"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -156,7 +159,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="12/06"
-                                android:textColor="@color/background_progress"
+                                android:textColor="@color/white"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -166,7 +169,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="12/06"
-                                android:textColor="@color/background_progress"
+                                android:textColor="@color/white"
                                 android:textSize="12sp" />
 
 
@@ -177,7 +180,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="12/03"
-                                android:textColor="@color/background_progress"
+                                android:textColor="@color/white"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -196,7 +199,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="东风"
-                                android:textColor="@color/a6"
+                                android:textColor="@color/gray"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -206,7 +209,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="东风"
-                                android:textColor="@color/a6"
+                                android:textColor="@color/gray"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -216,7 +219,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="南风"
-                                android:textColor="@color/a6"
+                                android:textColor="@color/gray"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -226,7 +229,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="北风"
-                                android:textColor="@color/a6"
+                                android:textColor="@color/gray"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -236,7 +239,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="北风"
-                                android:textColor="@color/a6"
+                                android:textColor="@color/gray"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -246,7 +249,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="东南风"
-                                android:textColor="@color/a6"
+                                android:textColor="@color/gray"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -256,7 +259,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="东南风"
-                                android:textColor="@color/a6"
+                                android:textColor="@color/gray"
                                 android:textSize="12sp" />
 
                         </LinearLayout>
@@ -276,7 +279,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="2级"
-                                android:textColor="@color/a1"
+                                android:textColor="@color/gray"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -286,7 +289,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="2级"
-                                android:textColor="@color/a1"
+                                android:textColor="@color/gray"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -296,7 +299,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="2级"
-                                android:textColor="@color/a1"
+                                android:textColor="@color/gray"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -306,7 +309,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="3级"
-                                android:textColor="@color/a1"
+                                android:textColor="@color/gray"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -316,7 +319,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="2级"
-                                android:textColor="@color/a1"
+                                android:textColor="@color/gray"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -326,7 +329,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="2级"
-                                android:textColor="@color/a1"
+                                android:textColor="@color/gray"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -336,7 +339,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="2级"
-                                android:textColor="@color/a1"
+                                android:textColor="@color/gray"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -355,7 +358,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="多云"
-                                android:textColor="@color/a6"
+                                android:textColor="@color/white"
                                 android:textSize="12sp" />
 
 
@@ -366,7 +369,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="多云"
-                                android:textColor="@color/a6"
+                                android:textColor="@color/white"
                                 android:textSize="12sp" />
 
 
@@ -377,7 +380,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="多云"
-                                android:textColor="@color/a6"
+                                android:textColor="@color/white"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -387,7 +390,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="多云"
-                                android:textColor="@color/a6"
+                                android:textColor="@color/white"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -397,7 +400,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="多云"
-                                android:textColor="@color/a6"
+                                android:textColor="@color/white"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -407,7 +410,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="多云"
-                                android:textColor="@color/a6"
+                                android:textColor="@color/white"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -417,7 +420,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="多云"
-                                android:textColor="@color/a6"
+                                android:textColor="@color/white"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -500,7 +503,7 @@
                             android:layout_marginTop="5dp"
                             view:dayColor="#E86114"
                             view:nightColor="#1D4951"
-                            view:textColor="@color/text_chartview"
+                            view:textColor="@color/white"
                             view:textSize="14sp" />
 
 
@@ -580,7 +583,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="多云"
-                                android:textColor="@color/a6"
+                                android:textColor="@color/white"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -590,7 +593,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="多云"
-                                android:textColor="@color/a6"
+                                android:textColor="@color/white"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -600,7 +603,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="多云"
-                                android:textColor="@color/a6"
+                                android:textColor="@color/white"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -610,7 +613,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="多云"
-                                android:textColor="@color/a6"
+                                android:textColor="@color/white"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -620,7 +623,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="多云"
-                                android:textColor="@color/a6"
+                                android:textColor="@color/white"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -630,7 +633,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="多云"
-                                android:textColor="@color/a6"
+                                android:textColor="@color/white"
                                 android:textSize="12sp" />
 
                             <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
@@ -640,7 +643,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="多云"
-                                android:textColor="@color/a6"
+                                android:textColor="@color/white"
                                 android:textSize="12sp" />
                         </LinearLayout>
                     </LinearLayout>

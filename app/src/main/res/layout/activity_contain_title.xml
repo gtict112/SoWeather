@@ -4,7 +4,7 @@
     android:id="@+id/content_title"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/a4"
+    android:background="@color/theme_title"
     android:orientation="horizontal"
     android:paddingBottom="8dp"
     android:paddingTop="8dp"
@@ -27,9 +27,9 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center_vertical"
         android:text="首页"
-        skin:enable="true"
-        android:textColor="@color/background_progress"
-        android:textSize="17sp" />
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        skin:enable="true" />
 
     <TextView
         android:id="@+id/topRight"
@@ -40,8 +40,8 @@
         android:layout_gravity="center_vertical"
         android:layout_marginRight="15dp"
         android:text="编辑"
-        skin:enable="true"
         android:textColor="@color/background_progress"
         android:textSize="15sp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        skin:enable="true" />
 </RelativeLayout>

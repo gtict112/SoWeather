@@ -139,7 +139,7 @@ public class CurrenCityThreeActiivty extends BaseActivity implements View.OnClic
         switch (v.getId()) {
             case R.id.topButton:
                 finish();
-                overridePendingTransition(R.anim.activity_back_left, R.anim.activity_back_right);
+                overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
                 break;
         }
     }

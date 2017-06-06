@@ -86,7 +86,7 @@ public class CurrentCityActivity extends BaseActivity implements View.OnClickLis
                 intent.putExtra("provinceName", provinces.get(position).getProvinceName());
                 intent.putExtra("type", type);
                 startActivity(intent);
-                overridePendingTransition(R.anim.activity_right, R.anim.activity_left);
+                overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
             }
         });
     }

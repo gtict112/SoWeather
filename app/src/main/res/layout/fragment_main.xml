@@ -39,12 +39,10 @@
                     android:layout_gravity="right|bottom"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/table_white_shape"
-                    android:drawableLeft="@mipmap/update"
                     android:drawablePadding="8dp"
                     android:gravity="center"
-                    android:textColor="@color/grey"
-                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
                     android:visibility="invisible" />
 
                 <LinearLayout
@@ -61,7 +59,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:textColor="#e01D4951"
+                        android:textColor="@color/white"
                         android:textSize="50sp" />
 
                     <TextView
@@ -71,7 +69,7 @@
                         android:layout_gravity="bottom"
                         android:layout_marginBottom="5dp"
                         android:layout_marginLeft="5dp"
-                        android:textColor="#e01D4951"
+                        android:textColor="@color/white"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -136,7 +134,7 @@
                         android:layout_marginLeft="4dp"
                         app:mvAnimDuration="1000"
                         app:mvInterval="3000"
-                        app:mvTextColor="#1296DB"
+                        app:mvTextColor="@color/white"
                         app:mvTextSize="14sp" />
                 </LinearLayout>
 

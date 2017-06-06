@@ -1,6 +1,5 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -51,7 +50,6 @@ public class Managecity extends BaseActivity implements ResponseListenter<NowWea
     private TextView topRight;
     private Boolean isDelete = false;
     private LinearLayout bg;
-    private int mDrawable[] = {R.drawable.bg_shape_a1, R.drawable.bg_shape_a2, R.drawable.bg_shape_a3, R.drawable.bg_shape_a4, R.drawable.bg_shape_a5};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -187,15 +185,14 @@ public class Managecity extends BaseActivity implements ResponseListenter<NowWea
             final NowWeather mNowWeather = mData.get(position);
             vh.address.setText(mNowWeather.cnty + mNowWeather.city);
             vh.tmp.setText(mNowWeather.tmp + "℃");
-            int rand = (int) Math.round(Math.random() * 4);
-            vh.bg.setBackgroundResource(mDrawable[rand]);
             String code = null;
             try {
                 code = new JSONObject(mNowWeather.cond).optString("code");
-                vh.cond_txt.setText(new JSONObject(mNowWeather.cond).optString("txt") + "(今)");
+                vh.cond_txt.setText(new JSONObject(mNowWeather.cond).optString("txt"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            setItemBg(mNowWeather.city, vh.cond_txt.getText().toString(), vh.bg);
             weathimgs = cityDB.getAllWeatherImg();
             for (int j = 0; j < weathimgs.size(); j++) {
                 if (code.equals(weathimgs.get(j).getCode())) {
@@ -234,5 +231,40 @@ public class Managecity extends BaseActivity implements ResponseListenter<NowWea
         }
     }
 
+    private void setItemBg(String city, String cond_txt, LinearLayout bg) {
+        if (city.contains("北京")) {
+            if (cond_txt.contains("云")) {
+                bg.setBackgroundResource(R.mipmap.city_beijing_cloudy);
+            } else if (cond_txt.contains("雨")) {
+                bg.setBackgroundResource(R.mipmap.city_beijing_rainy);
+            } else {
+                bg.setBackgroundResource(R.mipmap.city_beijing_sunny);
+            }
+        } else if (city.contains("上海")) {
+            if (cond_txt.contains("云")) {
+                bg.setBackgroundResource(R.mipmap.city_shanghai_cloudy);
+            } else if (cond_txt.contains("雨")) {
+                bg.setBackgroundResource(R.mipmap.city_shanghai_rainy);
+            } else {
+                bg.setBackgroundResource(R.mipmap.city_shanghai_sunny);
+            }
+        } else if (city.contains("苏州")) {
+            if (cond_txt.contains("云")) {
+                bg.setBackgroundResource(R.mipmap.city_suzhou_cloudy);
+            } else if (cond_txt.contains("雨")) {
+                bg.setBackgroundResource(R.mipmap.city_suzhou_rain);
+            } else {
+                bg.setBackgroundResource(R.mipmap.city_suzhou_sunny);
+            }
+        } else {
+            if (cond_txt.contains("云")) {
+                bg.setBackgroundResource(R.mipmap.city_other_cloudy);
+            } else if (cond_txt.contains("雨")) {
+                bg.setBackgroundResource(R.mipmap.city_other_rainy);
+            } else {
+                bg.setBackgroundResource(R.mipmap.city_other_sunny);
+            }
+        }
+    }
 
 }

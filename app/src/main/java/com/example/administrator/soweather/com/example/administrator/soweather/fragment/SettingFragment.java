@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.AboutActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.HelpFeedbackActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.SettingSkinActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.WelcomeActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.db.SoWeatherDB;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.NowWeather;
@@ -132,12 +133,14 @@ public class SettingFragment extends BaseSkinFragment implements View.OnClickLis
         clear = (TextView) view.findViewById(R.id.clear);
         feed_back = (LinearLayout) view.findViewById(R.id.feed_back);
         setting_about = (LinearLayout) view.findViewById(R.id.setting_about);
+        LinearLayout skin_setting = (LinearLayout) view.findViewById(R.id.skin_setting);
         initSwitch(noti);
         noti.setOnClickListener(this);
         clear.setOnClickListener(this);
         feed_back.setOnClickListener(this);
         setting_about.setOnClickListener(this);
         win.setOnClickListener(this);
+        skin_setting.setOnClickListener(this);
     }
 
     @SuppressLint("NewApi")
@@ -261,6 +264,9 @@ public class SettingFragment extends BaseSkinFragment implements View.OnClickLis
             case R.id.setting_about:
                 Intent intent1 = new Intent(getActivity(), AboutActivity.class);
                 startActivity(intent1);
+                break;
+            case R.id.skin_setting:
+                startActivity(new Intent(getActivity(), SettingSkinActivity.class));
                 break;
         }
     }

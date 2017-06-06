@@ -3,8 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="theme_title">#75ADA2</color>
+    <color name="theme_main_title">#e075ADA2</color>
+    <color name="theme_background">#ffffff</color>
 
-    <color name="text_chartview">#3F51B5</color>
     <color name="background_progress">#333333</color>
 
     <color name="grey">#666666</color>
@@ -18,7 +20,6 @@
     <color name="red">#D81E06</color>
     <color name="white">#ffffff</color>
     <color name="theme_disabled">#e1e1e1</color>
-    <color name="theme_blue">#3081dc</color>
     <color name="half_transparent">#d0ffffff</color>
     <color name="a1">#D7917A</color>
     <color name="a2">#FAC0C9</color>
@@ -28,7 +29,4 @@
     <color name="a6">#996699</color>
     <color name="a7">#cccc99</color>
     <color name="gray">#D6D6D6</color>
-    <color name="main_fragment">#EEEEEE</color>
-    <color name="txt_1">#717171</color>
-    <color name="home">#e09999cc</color>
 </resources>

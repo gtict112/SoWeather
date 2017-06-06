@@ -44,6 +44,7 @@ import com.example.administrator.soweather.com.example.administrator.soweather.m
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Zodiac;
 import com.example.administrator.soweather.com.example.administrator.soweather.service.WeatherService;
 import com.example.administrator.soweather.com.example.administrator.soweather.service.ZodiacService;
+import com.example.administrator.soweather.com.example.administrator.soweather.utils.DateToWeek;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.HorizontalRecyclerView;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.MarqueeView;
@@ -340,7 +341,7 @@ public class MainFragment extends BaseSkinFragment implements View.OnClickListen
             items.add(desc1);
             items.add(dedc2);
             wind_txt.startWithList(items);
-            date.setText(new JSONObject(mNowWeather.update).optString("loc"));
+            date.setText("更新于 " + new JSONObject(mNowWeather.update).optString("loc"));
             mDate = new JSONObject(mNowWeather.update).optString("loc").substring(0, 10);
             mTmp.setText(mNowWeather.tmp + "℃");
             String txt = new JSONObject(mNowWeather.cond).optString("txt");
@@ -602,7 +603,8 @@ public class MainFragment extends BaseSkinFragment implements View.OnClickListen
         public void onBindViewHolder(final GalleryAdapter.ViewHolder viewHolder, final int i) {
             viewHolder.itemView.setTag(mData.get(i));
             Dailyforecast mDailyForecastData = mData.get(i);
-            viewHolder.date.setText(mDailyForecastData.date.substring(5, mDailyForecastData.date.length()));
+            viewHolder.date.setText(DateToWeek.getWeek(mDailyForecastData.date) + " (" +
+                    mDailyForecastData.date.substring(5, mDailyForecastData.date.length()) + ")");
             String code = null;
             try {
                 String min = new JSONObject(mDailyForecastData.tmp).optString("min");

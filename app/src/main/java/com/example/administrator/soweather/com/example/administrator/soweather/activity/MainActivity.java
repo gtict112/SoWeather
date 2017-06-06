@@ -62,7 +62,7 @@ public class MainActivity extends SlidingFragmentActivity implements
             bundle.putString("cityId", cityid);
             mMainFragment.setArguments(bundle);
             mContent = mMainFragment;
-            switchConent(mContent, "首页");
+            switchConent(mContent, "天气");
         }
     }
 
@@ -170,11 +170,10 @@ public class MainActivity extends SlidingFragmentActivity implements
                 .replace(R.id.content_frame, fragment).commit();
         getSlidingMenu().showContent();
         topTextView.setText(title);
-        if (title.equals("首页")) {
+        if (title.equals("天气")) {
             top_right.setVisibility(View.VISIBLE);
             mDresss.setVisibility(View.VISIBLE);
             top_right_img.setImageResource(R.mipmap.place);
-            content_title.setBackgroundResource(R.color.home);
             top_right.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -184,7 +183,6 @@ public class MainActivity extends SlidingFragmentActivity implements
             });
         } else {
             top_right.setVisibility(View.GONE);
-            content_title.setBackgroundResource(R.color.a4);
         }
     }
 

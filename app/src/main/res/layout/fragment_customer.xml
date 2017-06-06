@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/left_fragment"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/left_fragment"
+    android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="50dp"
-        android:background="@color/gray"/>
 
     <LinearLayout
         android:id="@+id/alarm_clock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:background="@color/white"
         android:orientation="horizontal"
         android:padding="10dp">
@@ -27,20 +23,20 @@
             android:drawableRight="@mipmap/to_right"
             android:text="闹钟设置"
             android:textColor="@color/background_progress"
-            android:textSize="14sp"/>
+            android:textSize="14sp" />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray"/>
+        android:background="@color/gray" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="5dp"
-        android:background="@color/gray"/>
+        android:background="@color/gray" />
 
     <LinearLayout
         android:id="@+id/running"
@@ -58,14 +54,14 @@
             android:drawableRight="@mipmap/to_right"
             android:text="健康管理"
             android:textColor="@color/background_progress"
-            android:textSize="14sp"/>
+            android:textSize="14sp" />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray"/>
+        android:background="@color/gray" />
 
     <LinearLayout
         android:id="@+id/customer_service"
@@ -83,14 +79,14 @@
             android:drawableRight="@mipmap/to_right"
             android:text="智能助手"
             android:textColor="@color/background_progress"
-            android:textSize="14sp"/>
+            android:textSize="14sp" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="5dp"
-        android:background="@color/gray"/>
+        android:background="@color/gray" />
 
 
     <LinearLayout
@@ -109,7 +105,7 @@
             android:drawableRight="@mipmap/to_right"
             android:text="我的日记"
             android:textColor="@color/background_progress"
-            android:textSize="14sp"/>
+            android:textSize="14sp" />
 
     </LinearLayout>
 
@@ -117,5 +113,5 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="5dp"
-        android:background="@color/gray"/>
+        android:background="@color/gray" />
 </LinearLayout>

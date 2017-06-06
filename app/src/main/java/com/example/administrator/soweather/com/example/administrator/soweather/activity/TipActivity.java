@@ -15,7 +15,9 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -127,6 +129,12 @@ public class TipActivity extends BaseActivity implements View.OnClickListener {
     private int[] mNightLineChart;//夜间曲线图数组
     private List<Bitmap> mDayBitmap = new ArrayList<>();
     private List<Bitmap> mNightBitmap = new ArrayList<>();
+
+    private ImageView hour_rotate;
+    private ImageView date_rotate;
+    private Boolean isUnfoldHour = false;
+    private Boolean isUnfolddate = true;
+    private LinearLayout date_linear;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -294,6 +302,7 @@ public class TipActivity extends BaseActivity implements View.OnClickListener {
         String a = null;
         int flag = 0;
         Intent intent = getIntent();
+        date_linear = (LinearLayout) findViewById(R.id.date_linear);
         topTv = (TextView) findViewById(R.id.topTv);
         topButton = (ImageView) findViewById(R.id.topButton);
         time_weather = (RecyclerView) findViewById(R.id.time_weather);
@@ -355,6 +364,11 @@ public class TipActivity extends BaseActivity implements View.OnClickListener {
         night_cond_img5 = (ImageView) findViewById(R.id.night_cond_img5);
         night_cond_img6 = (ImageView) findViewById(R.id.night_cond_img6);
         night_cond_img7 = (ImageView) findViewById(R.id.night_cond_img7);
+
+        hour_rotate = (ImageView) findViewById(R.id.hour_rotate);
+        date_rotate = (ImageView) findViewById(R.id.date_rotate);
+        hour_rotate.setOnClickListener(this);
+        date_rotate.setOnClickListener(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.space);
@@ -388,6 +402,31 @@ public class TipActivity extends BaseActivity implements View.OnClickListener {
             case R.id.topButton:
                 finish();
                 overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
+                break;
+            case R.id.hour_rotate:
+//                Animation rotate = AnimationUtils.loadAnimation(this, R.anim.rotate);//创建动画
+//                rotate.setInterpolator(new LinearInterpolator());//设置为线性旋转
+//                rotate.setFillAfter(true);
+//                hour_rotate.startAnimation(rotate);
+//
+//                if (isUnfoldHour) {
+//                    time_weather.setVisibility(View.GONE);
+//                    isUnfoldHour = false;
+//                } else {
+//                    isUnfoldHour = true;
+//                    time_weather.setVisibility(View.VISIBLE);
+//                }
+                break;
+            case R.id.date_rotate:
+//                Animation rotate1 = AnimationUtils.loadAnimation(this, R.anim.rotate);//创建动画
+//                date_rotate.startAnimation(rotate1);
+//                if (isUnfolddate) {
+//                    date_linear.setVisibility(View.GONE);
+//                    isUnfolddate = false;
+//                } else {
+//                    date_linear.setVisibility(View.VISIBLE);
+//                    isUnfolddate = true;
+//                }
                 break;
         }
     }
@@ -440,7 +479,9 @@ public class TipActivity extends BaseActivity implements View.OnClickListener {
                 String min = mTimeWeatherData.tmp;
                 viewHolder.tmp.setText(min + "℃");
                 code = new JSONObject(mTimeWeatherData.cond).optString("code");
-                viewHolder.decs.setText("降水率为" + mTimeWeatherData.pop + " 相对湿度" + mTimeWeatherData.hum + "%");
+                String txt = new JSONObject(mTimeWeatherData.cond).optString("txt");
+                viewHolder.tmp.setText(txt);
+                viewHolder.decs.setText("温度" + min + "℃ " + "降水率为" + mTimeWeatherData.pop + " 相对湿度" + mTimeWeatherData.hum + "%");
             } catch (JSONException e) {
                 e.printStackTrace();
             }

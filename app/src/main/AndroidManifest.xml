@@ -28,7 +28,7 @@
         android:icon="@mipmap/app"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/StyledIndicators">
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
@@ -53,7 +53,8 @@
 
         <activity
             android:name=".com.example.administrator.soweather.activity.WelcomeActivity"
-            android:hardwareAccelerated="true">
+            android:hardwareAccelerated="true"
+            android:theme="@style/StyledIndicators">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -74,9 +75,7 @@
         <activity android:name=".com.example.administrator.soweather.activity.TipActivity" />
         <activity android:name=".com.example.administrator.soweather.activity.NewsDetailActivity" />
         <activity android:name=".com.example.administrator.soweather.activity.DiaryActivity" />
-        <activity
-            android:name=".com.example.administrator.soweather.activity.MoreInfoActivity"
-            android:theme="@style/StyledIndicators" />
+        <activity android:name=".com.example.administrator.soweather.activity.MoreInfoActivity" />
         <activity android:name=".com.example.administrator.soweather.activity.SettingSkinActivity" />
     </application>
 </manifest>

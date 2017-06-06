@@ -42,10 +42,10 @@ import cn.feng.skin.manager.base.BaseSkinFragment;
  */
 
 public class LeftFragment extends BaseSkinFragment implements View.OnClickListener, ResponseListenter<NowWeather> {
-    private RelativeLayout mHome;//首页
-    private RelativeLayout service_assistant;//我的助手
-    private RelativeLayout mSetting;//设置
-    private RelativeLayout mLogout;//退出
+    private TextView mHome;//首页
+    private TextView service_assistant;//我的助手
+    private TextView mSetting;//设置
+    private TextView mLogout;//退出
     private TextView tmp;
     private TextView tmp_txt;
     private ImageView tem_img;
@@ -58,9 +58,8 @@ public class LeftFragment extends BaseSkinFragment implements View.OnClickListen
     private List<City> cities = new ArrayList<>();
     private String city = null;
     private String cityid;
-    private TextView add_city;//添加城市
     private TextView manage_city;//管理城市
-    private RelativeLayout today_top_new;
+    private TextView today_top_new;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,7 +72,6 @@ public class LeftFragment extends BaseSkinFragment implements View.OnClickListen
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_mean, null);
         initView(view);
-
         cityDB = SoWeatherDB.getInstance(getActivity());
         getAdress();
         getData();
@@ -137,26 +135,26 @@ public class LeftFragment extends BaseSkinFragment implements View.OnClickListen
     }
 
     private void initView(View view) {
-        today_top_new = (RelativeLayout) view.findViewById(R.id.today_top_new);
+        today_top_new = (TextView) view.findViewById(R.id.today_top_new);
+        TextView add_city = (TextView) view.findViewById(R.id.add_city);
+        TextView welfare_association = (TextView) view.findViewById(R.id.welfare_association);
+        welfare_association.setOnClickListener(this);
+        add_city.setOnClickListener(this);
         today_top_new.setOnClickListener(this);
-        mHome = (RelativeLayout) view.findViewById(R.id.home);
-        mSetting = (RelativeLayout) view.findViewById(R.id.setting);
-        mLogout = (RelativeLayout) view.findViewById(R.id.logout);
+        mHome = (TextView) view.findViewById(R.id.home);
+        mSetting = (TextView) view.findViewById(R.id.setting);
+        mLogout = (TextView) view.findViewById(R.id.logout);
         tmp = (TextView) view.findViewById(R.id.tmp);
         tmp_txt = (TextView) view.findViewById(R.id.tmp_txt);
         tem_img = (ImageView) view.findViewById(R.id.tem_img);
         dress = (TextView) view.findViewById(R.id.dress);
-        service_assistant = (RelativeLayout) view.findViewById(R.id.service_assistant);
-        add_city = (TextView) view.findViewById(R.id.add_city);
+        service_assistant = (TextView) view.findViewById(R.id.service_assistant);
         manage_city = (TextView) view.findViewById(R.id.manage_city);
-        RelativeLayout mSkinSetting = (RelativeLayout) view.findViewById(R.id.skin_setting);
-        add_city.setOnClickListener(this);
         manage_city.setOnClickListener(this);
         mHome.setOnClickListener(this);
         mSetting.setOnClickListener(this);
         mLogout.setOnClickListener(this);
         service_assistant.setOnClickListener(this);
-        mSkinSetting.setOnClickListener(this);
     }
 
     @Override
@@ -171,7 +169,7 @@ public class LeftFragment extends BaseSkinFragment implements View.OnClickListen
                 bundle.putString("cityId", cityid);
                 mMainFragment.setArguments(bundle);
                 newContent = mMainFragment;
-                title = "首页";
+                title = "天气";
                 break;
             case R.id.setting:
                 newContent = new SettingFragment();
@@ -197,23 +195,24 @@ public class LeftFragment extends BaseSkinFragment implements View.OnClickListen
                 newContent = new CustomerFragment();
                 title = "我的助手";
                 break;
+            case R.id.manage_city:
+                //管理城市   添加的城市,包括当前位置城市,卡片显示天气
+                Intent intent = new Intent(getActivity(), Managecity.class);
+                startActivity(intent);
+                break;
+            case R.id.today_top_new:
+                newContent = new TodayTopNewFragment();
+                title = "今日头条";
+                break;
             case R.id.add_city:
                 //添加城市 //传递一个参数过去  判断是首页的选择城市还是这里,在将选择的城市增加到数据库
                 Intent intent1 = new Intent(getActivity(), CurrentCityActivity.class);
                 intent1.putExtra("type", CurrentCityActivity.TYPE);
                 startActivity(intent1);
                 break;
-            case R.id.manage_city:
-                //管理城市   添加的城市,包括当前位置城市,卡片显示天气
-                Intent intent = new Intent(getActivity(), Managecity.class);
-                startActivity(intent);
-                break;
-            case R.id.skin_setting:
-                startActivity(new Intent(getActivity(), SettingSkinActivity.class));
-                break;
-            case R.id.today_top_new:
-                newContent = new TodayTopNewFragment();
-                title = "今日头条";
+            case R.id.welfare_association:
+                newContent = new BeautyFragment();
+                title = "福利社";
                 break;
             default:
                 break;
@@ -222,6 +221,7 @@ public class LeftFragment extends BaseSkinFragment implements View.OnClickListen
             switchFragment(newContent, title);
         }
     }
+
 
     private void switchFragment(Fragment fragment, String title) {
         if (getActivity() == null) {

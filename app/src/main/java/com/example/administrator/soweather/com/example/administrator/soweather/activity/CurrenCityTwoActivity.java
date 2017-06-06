@@ -72,7 +72,7 @@ public class CurrenCityTwoActivity extends BaseActivity implements View.OnClickL
                     intent.putExtra("cityId", cities.get(position).getCityId());
                     intent.putExtra("type", type);
                     startActivity(intent);
-                    overridePendingTransition(R.anim.activity_right, R.anim.activity_left);
+                    overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
                 }
             });
         }
@@ -83,7 +83,7 @@ public class CurrenCityTwoActivity extends BaseActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.topButton:
                 finish();
-                overridePendingTransition(R.anim.activity_back_left, R.anim.activity_back_right);
+                overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
                 break;
         }
     }

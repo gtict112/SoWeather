@@ -19,6 +19,7 @@ import com.example.administrator.soweather.com.example.administrator.soweather.d
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.MoreInfoItemFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Dailyforecast;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.WeathImg;
+import com.example.administrator.soweather.com.example.administrator.soweather.utils.DateToWeek;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.TabPageIndicator;
 
 import java.io.Serializable;
@@ -88,7 +89,7 @@ public class MoreInfoActivity extends BaseActivity implements View.OnClickListen
         indicator.setViewPager(pager);
         int j = 0;
         for (int i = 0; i < TITLE.length; i++) {
-            if (getWeek(time).equals(TITLE[i])) {
+            if (DateToWeek.getWeek(time).equals(TITLE[i])) {
                 j = i;
             }
         }
@@ -104,7 +105,7 @@ public class MoreInfoActivity extends BaseActivity implements View.OnClickListen
             qlty = intent.getStringExtra("qlty");
             mDailyforecast = (List<Dailyforecast>) intent.getSerializableExtra("date");
             for (int i = 0; i < mDailyforecast.size(); i++) {
-                TITLE[i] = getWeek(mDailyforecast.get(i).date);
+                TITLE[i] = DateToWeek.getWeek(mDailyforecast.get(i).date);
                 TIMES[i] = mDailyforecast.get(i).date;
             }
             time = intent.getStringExtra("time");
@@ -152,42 +153,5 @@ public class MoreInfoActivity extends BaseActivity implements View.OnClickListen
         public int getCount() {
             return TITLE.length;
         }
-    }
-
-    /**
-     * 根据日期计算星期几
-     */
-    private String getWeek(String date) {
-        String Week = "";
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar c = Calendar.getInstance();
-        try {
-            c.setTime(format.parse(date));
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        if (c.get(Calendar.DAY_OF_WEEK) == 1) {
-            Week += "星期天";
-        }
-        if (c.get(Calendar.DAY_OF_WEEK) == 2) {
-            Week += "星期一";
-        }
-        if (c.get(Calendar.DAY_OF_WEEK) == 3) {
-            Week += "星期二";
-        }
-        if (c.get(Calendar.DAY_OF_WEEK) == 4) {
-            Week += "星期三";
-        }
-        if (c.get(Calendar.DAY_OF_WEEK) == 5) {
-            Week += "星期四";
-        }
-        if (c.get(Calendar.DAY_OF_WEEK) == 6) {
-            Week += "星期五";
-        }
-        if (c.get(Calendar.DAY_OF_WEEK) == 7) {
-            Week += "星期六";
-        }
-        return Week;
     }
 }
