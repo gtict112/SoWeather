@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.TabPageIndicator;
 
 import cn.feng.skin.manager.base.BaseSkinFragment;
@@ -26,7 +27,6 @@ public class BeautyFragment extends BaseSkinFragment {
     private String[] IDS = {"1", "2", "3", "4", "5", "6", "7"};
     private ViewPager pager;
     private TabPageIndicator indicator;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,11 +48,10 @@ public class BeautyFragment extends BaseSkinFragment {
         pager = (ViewPager) view.findViewById(R.id.beauty_pager);
         indicator = (TabPageIndicator) view.findViewById(R.id.beauty_indicator);
         FragmentPagerAdapter adapter = new TabPageIndicatorAdapter(getChildFragmentManager());
+        pager.setOffscreenPageLimit(7);
         pager.setAdapter(adapter);
         indicator.setViewPager(pager);
-        for (int i = 0; i < TITLE.length; i++) {
-            indicator.setCurrentItem(i);
-        }
+        indicator.setCurrentItem(0);
         indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int arg0) {

@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.AqiActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.MoreInfoActivity;
@@ -104,7 +105,6 @@ public class MainFragment extends BaseSkinFragment implements View.OnClickListen
     private TextView yi;
     private ImageView aqi_img;
     private LinearLayout today_detail;
-    private Bitmap bmp = null;
     private SwipeRefreshLayout mSwipeLayout;
     private ImageView tip;
     private int flag = 0;
@@ -314,15 +314,21 @@ public class MainFragment extends BaseSkinFragment implements View.OnClickListen
             aqi_img.setImageResource(R.mipmap.aqi_1);
             pm.setTextColor(getResources().getColor(R.color.gred));
             qlty.setTextColor(getResources().getColor(R.color.gred));
+            mTmp.setTextColor(getResources().getColor(R.color.gred));
+            code_txt.setTextColor(getResources().getColor(R.color.gred));
 
         } else if (mAqi.qlty.equals("良")) {
             aqi_img.setImageResource(R.mipmap.aqi_2);
             pm.setTextColor(getResources().getColor(R.color.yellow));
             qlty.setTextColor(getResources().getColor(R.color.yellow));
+            mTmp.setTextColor(getResources().getColor(R.color.yellow));
+            code_txt.setTextColor(getResources().getColor(R.color.yellow));
         } else {
             aqi_img.setImageResource(R.mipmap.aqi_3);
             pm.setTextColor(getResources().getColor(R.color.red));
             qlty.setTextColor(getResources().getColor(R.color.red));
+            mTmp.setTextColor(getResources().getColor(R.color.red));
+            code_txt.setTextColor(getResources().getColor(R.color.red));
         }
         qlty.setText(mAqi.qlty);
         visitityAqi();
@@ -355,19 +361,16 @@ public class MainFragment extends BaseSkinFragment implements View.OnClickListen
             pres = mNowWeather.pres;
             vis = mNowWeather.vis;
             Constans.WeatherBgImg citys[] = Constans.WeatherBgImg.values();
-            if (bmp != null) {
-                bmp.recycle();
-            }
             for (Constans.WeatherBgImg cu : citys) {
                 if (txt.equals(cu.getName())) {
                     if (cu.getimgId().length > 0) {
                         int rand = (int) Math.round(Math.random() * (cu.getimgId().length - 1));
-                        bmp = BitmapFactory.decodeResource(this.getResources(), cu.getimgId()[rand]);
                         flag = rand;
-                        bg.setImageBitmap(bmp);
+                        Glide.with(getActivity()).load(cu.getimgId()[rand]).crossFade()
+                                .placeholder(R.drawable.bg_loading_eholder).into(bg);
                     } else {
-                        bmp = BitmapFactory.decodeResource(this.getResources(), cu.getimgId()[0]);
-                        bg.setImageBitmap(bmp);
+                        Glide.with(getActivity()).load(cu.getimgId()[0]).crossFade()
+                                .placeholder(R.drawable.bg_loading_eholder).into(bg);
                     }
                     break;
                 }
@@ -413,9 +416,9 @@ public class MainFragment extends BaseSkinFragment implements View.OnClickListen
         // 设置下拉圆圈上的颜色，蓝色、绿色、橙色、红色
         mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
                 android.R.color.holo_orange_light, android.R.color.holo_red_light);
-        mSwipeLayout.setDistanceToTriggerSync(400);// 设置手指在屏幕下拉多少距离会触发下拉刷新
+        mSwipeLayout.setDistanceToTriggerSync(300);// 设置手指在屏幕下拉多少距离会触发下拉刷新
         mSwipeLayout.setProgressBackgroundColor(R.color.white); // 设定下拉圆圈的背景
-        mSwipeLayout.setSize(SwipeRefreshLayout.LARGE); // 设置圆圈的大小
+        mSwipeLayout.setSize(SwipeRefreshLayout.DEFAULT); // 设置圆圈的大小
 
         tip = (ImageView) view.findViewById(R.id.tip);
         tip.setOnClickListener(this);

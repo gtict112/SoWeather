@@ -1,22 +1,27 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.fragment;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.BeautyDetailActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.BeautyListDate;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
-import com.example.administrator.soweather.com.example.administrator.soweather.mode.TopNew;
 import com.example.administrator.soweather.com.example.administrator.soweather.service.BeautyService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
 
@@ -29,12 +34,14 @@ import cn.feng.skin.manager.base.BaseSkinFragment;
  * Created by Administrator on 2017/6/6.
  */
 
-public class BeautyItemFragment extends BaseSkinFragment {
+public class BeautyItemFragment extends BaseSkinFragment implements SwipeRefreshLayout.OnRefreshListener {
     private String id = "1";
     private List<BeautyListDate> mDate = new ArrayList<>();
     private Handler mHandler;
-    private ListView mList;
+    private RecyclerView mList;
     private BeautyAdapter mBeautyAdapter;
+    private Appconfiguration config = Appconfiguration.getInstance();
+    private SwipeRefreshLayout mSwipeLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,10 +62,24 @@ public class BeautyItemFragment extends BaseSkinFragment {
     }
 
     private void initView(View view) {
-        mList = (ListView) view.findViewById(R.id.beauty_list);
+        mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeLayout);
+        mSwipeLayout.setOnRefreshListener(this);
+        // 设置下拉圆圈上的颜色，蓝色、绿色、橙色、红色
+        mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
+                android.R.color.holo_orange_light, android.R.color.holo_red_light);
+        mSwipeLayout.setDistanceToTriggerSync(300);// 设置手指在屏幕下拉多少距离会触发下拉刷新
+        mSwipeLayout.setProgressBackgroundColor(R.color.white); // 设定下拉圆圈的背景
+        mSwipeLayout.setSize(SwipeRefreshLayout.DEFAULT); // 设置圆圈的大小
+        mList = (RecyclerView) view.findViewById(R.id.beauty_list);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.space);
+        mList.setLayoutManager(linearLayoutManager);
+        mList.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
     }
 
     private void getDate(String Id) {
+        config.showProgressDialog("正在加载", getActivity());
         final BeautyService mNews = new BeautyService();
         mNews.getBeautyList(new ResponseListenter<List<BeautyListDate>>() {
             @Override
@@ -86,67 +107,138 @@ public class BeautyItemFragment extends BaseSkinFragment {
         };
     }
 
-
-    private void setNews(List<BeautyListDate> mDate) {
-        mBeautyAdapter = new BeautyAdapter(getActivity(), mDate);
-        mList.setAdapter(mBeautyAdapter);
+    private void refresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeLayout.setRefreshing(false);
+            }
+        }, 2000);
+        final BeautyService mNews = new BeautyService();
+        mNews.getBeautyList(new ResponseListenter<List<BeautyListDate>>() {
+            @Override
+            public void onReceive(Result<List<BeautyListDate>> result) {
+                if (result.isSuccess()) {
+                    mDate = result.getData();
+                    mHandler.sendMessage(mHandler.obtainMessage(1, mDate));
+                } else {
+                    Toast.makeText(getActivity(), result.getErrorMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        }, id);
     }
 
-    public class BeautyAdapter extends BaseAdapter {
-        private List<BeautyListDate> mData = new ArrayList<BeautyListDate>();
-        private LayoutInflater inflater;
+    private void setNews(final List<BeautyListDate> mDate) {
+        config.dismissProgressDialog();
+        mBeautyAdapter = new BeautyAdapter(getActivity(), mDate);
+        mList.setAdapter(mBeautyAdapter);
+        mBeautyAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                String id = mDate.get(position).id;
+                Intent intent = new Intent(getActivity(), BeautyDetailActivity.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void onRefresh() {
+        refresh();
+    }
+
+
+    public class BeautyAdapter extends
+            RecyclerView.Adapter<BeautyAdapter.ViewHolder> implements View.OnClickListener {
+        private List<BeautyListDate> mData = new ArrayList<>();
+        private Context context;
 
         public BeautyAdapter(Context context, List<BeautyListDate> datas) {
             this.mData = datas;
-            inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            this.context = context;
         }
 
+        private OnItemClickListener mOnItemClickListener = null;
 
         @Override
-        public int getCount() {
-            if (mData != null && mData.size() > 0) {
-                return mData.size();
+        public void onClick(View v) {
+            if (mOnItemClickListener != null) {
+                //注意这里使用getTag方法获取position
+                mOnItemClickListener.onItemClick(v, (int) v.getTag());
             }
-            return 0;
         }
 
-        @Override
-        public Object getItem(int position) {
-            return mData.get(position);
+        public void setOnItemClickListener(OnItemClickListener listener) {
+            this.mOnItemClickListener = listener;
         }
 
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            final BeautyAdapter.ViewHolder vh;
-            if (convertView == null) {
-                convertView = inflater.inflate(R.layout.item_news, parent,
-                        false);
-                vh = new BeautyAdapter.ViewHolder();
-                vh.title = (TextView) convertView.findViewById(R.id.content);
-                vh.date = (TextView) convertView.findViewById(R.id.date);
-                vh.author_name = (TextView) convertView.findViewById(R.id.author_name);
-                vh.img = (ImageView) convertView.findViewById(R.id.img);
-                convertView.setTag(vh);
-            } else {
-                vh = (BeautyAdapter.ViewHolder) convertView.getTag();
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            public ViewHolder(View arg0) {
+                super(arg0);
+                title = (TextView) arg0.findViewById(R.id.content_title);
+                access = (TextView) arg0.findViewById(R.id.access);
+                reply = (TextView) arg0.findViewById(R.id.reply);
+                collection = (TextView) arg0.findViewById(R.id.collection);
+                img = (ImageView) arg0.findViewById(R.id.img);
             }
-            BeautyListDate mNew = mData.get(position);
-            vh.img.setImageBitmap(mNew.bg);
-            vh.title.setText(mNew.title);
-            return convertView;
-        }
 
-        class ViewHolder {
             private TextView title;
             private ImageView img;
-            private TextView date;
-            private TextView author_name;
+            private TextView access;
+            private TextView reply;
+            private TextView collection;
         }
+
+        @Override
+        public int getItemCount() {
+            return mData.size();
+        }
+
+
+        public BeautyAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+            LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+            View view = inflater.inflate(R.layout.item_beauty, viewGroup, false);
+            ViewHolder viewHolder = new ViewHolder(view);
+            view.setOnClickListener(this);
+            return viewHolder;
+        }
+
+
+        @Override
+        public void onBindViewHolder(final BeautyAdapter.ViewHolder viewHolder, final int i) {
+            viewHolder.itemView.setTag(i);
+            BeautyListDate mTimeWeatherData = mData.get(i);
+            Glide.with(context).load(mTimeWeatherData.img).animate(R.anim.img_loading)
+                    .placeholder(R.drawable.bg_loading_eholder).centerCrop().into(viewHolder.img);
+            viewHolder.title.setText(mTimeWeatherData.title);
+            viewHolder.access.setText(mTimeWeatherData.count);
+            viewHolder.reply.setText(mTimeWeatherData.rcount);
+            viewHolder.collection.setText(mTimeWeatherData.fcount);
+        }
+    }
+
+
+    /**
+     * RecyclerView的间隔问题
+     */
+    public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
+
+        private int space;
+
+        public SpaceItemDecoration(int space) {
+            this.space = space;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+
+            if (parent.getChildPosition(view) != 0)
+                outRect.top = space;
+        }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
     }
 }

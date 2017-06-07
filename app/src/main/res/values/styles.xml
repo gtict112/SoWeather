@@ -68,10 +68,10 @@
     </style>
 
     <style name="StyledIndicators" parent="@android:style/Theme.Light">
-        <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
         <item name="colorPrimary">@color/theme_title</item>
         <item name="colorPrimaryDark">@color/theme_title</item>
         <item name="colorAccent">@color/theme_title</item>
+        <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
     </style>
 
     <style name="CustomTabPageIndicator" parent="Widget.TabPageIndicator">

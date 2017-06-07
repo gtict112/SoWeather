@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Aqi;
+import com.example.administrator.soweather.com.example.administrator.soweather.mode.BeautyDetail;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.BeautyListDate;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Constellation;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Dailyforecast;
@@ -283,7 +284,6 @@ public class ResponseProcessUtil {
                     mNews.title = mNew.getString("title");//标题
                     mNews.date = mNew.getString("date");//时间
                     mNews.thumbnail_pic_s = mNew.optString("thumbnail_pic_s", null);//图片
-                    mNews.img = getHttpBitmap(mNews.thumbnail_pic_s);
                     mNews.url = mNew.getString("url");//新闻链接
                     if (mNew.optString("uniquekey", null) != null) {
                         mNews.uniquekey = mNew.getString("uniquekey");//唯一标识
@@ -307,30 +307,6 @@ public class ResponseProcessUtil {
         return result;
     }
 
-
-    /**
-     * 获取网落图片资源
-     *
-     * @param url
-     * @return
-     */
-    public static Bitmap getHttpBitmap(String url) {
-        URL myFileURL;
-        Bitmap bitmap = null;
-        try {
-            myFileURL = new URL(url);
-            HttpURLConnection conn = (HttpURLConnection) myFileURL.openConnection();
-            conn.setConnectTimeout(6000);
-            conn.setDoInput(true);
-            conn.setUseCaches(false);
-            InputStream is = conn.getInputStream();
-            bitmap = BitmapFactory.decodeStream(is);
-            is.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return bitmap;
-    }
 
     /**
      * 获取星座运势
@@ -370,7 +346,7 @@ public class ResponseProcessUtil {
 
 
     /**
-     * 获取星座运势
+     * 图库列表
      *
      * @param response
      * @return
@@ -392,8 +368,7 @@ public class ResponseProcessUtil {
                     mNews.id = mNew.getString("id");
                     mNews.galleryclass = mNew.getString("galleryclass");
                     mNews.title = mNew.optString("title", null);
-                    mNews.img = mNew.optString("img", null);
-                    mNews.bg = getHttpBitmap(mNews.img);
+                    mNews.img = "http://tnfs.tngou.net/image" + mNew.optString("img", null);
                     mNews.count = mNew.getString("count");
                     mNews.rcount = mNew.getString("rcount");
                     mNews.fcount = mNew.getString("fcount");
@@ -406,7 +381,48 @@ public class ResponseProcessUtil {
         } catch (JSONException e) {
             e.printStackTrace();
             result.setSuccess(false);
-            result.setErrorMessage("星座运势获取失败,请升级客户端或与客服联系...");
+            result.setErrorMessage("图库列表获取失败,请升级客户端或与客服联系...");
+        }
+        return result;
+    }
+
+
+    /**
+     * 图库详情
+     *
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    public static Result<BeautyDetail> getBeautyDetail(Response response) throws IOException {
+        Result<BeautyDetail> result = new Result<>();
+        List<BeautyDetail.Gallery> Gallerys = new ArrayList<>();
+        BeautyDetail mDate = new BeautyDetail();
+        result.setSuccess(false);
+        try {
+            JSONObject jsonObjecty = new JSONObject(response.body().string());
+            String code = jsonObjecty.optString("status");
+            if (code.equals("true")) {
+                result.setSuccess(true);
+                JSONArray list = jsonObjecty.getJSONArray("list");
+                mDate = BeautyDetail.Builder.creatBeautyDetail();
+                for (int i = 0; i < list.length(); i++) {
+                    JSONObject gallery = list.getJSONObject(i);
+                    BeautyDetail.Gallery mGallery = new BeautyDetail.Gallery();
+                    mGallery.gallery = gallery.getString("gallery");
+                    mGallery.gallery_id = gallery.getString("id");
+                    mGallery.gallery_img = "http://tnfs.tngou.net/image" + gallery.optString("src", null);
+                    Gallerys.add(mGallery);
+                }
+                mDate.title = jsonObjecty.getString("title");
+                mDate.time = jsonObjecty.getString("time");
+                mDate.gallerys = Gallerys;
+            }
+            result.setData(mDate);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+            result.setErrorMessage("图库详情获取失败,请升级客户端或与客服联系...");
         }
         return result;
     }

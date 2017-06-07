@@ -54,7 +54,7 @@
         <activity
             android:name=".com.example.administrator.soweather.activity.WelcomeActivity"
             android:hardwareAccelerated="true"
-            android:theme="@style/StyledIndicators">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -77,5 +77,6 @@
         <activity android:name=".com.example.administrator.soweather.activity.DiaryActivity" />
         <activity android:name=".com.example.administrator.soweather.activity.MoreInfoActivity" />
         <activity android:name=".com.example.administrator.soweather.activity.SettingSkinActivity" />
+        <activity android:name=".com.example.administrator.soweather.activity.BeautyDetailActivity"/>
     </application>
 </manifest>

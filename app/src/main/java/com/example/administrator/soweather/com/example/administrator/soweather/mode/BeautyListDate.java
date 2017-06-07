@@ -17,8 +17,6 @@ public class BeautyListDate {
     public String rcount;//           回复数
     public String fcount;//          收藏数
     public String size;//      图片多少张
-    public Bitmap bg;
-
     public static class Builder implements Serializable {
         public static BeautyListDate creatBeautyListDate() {
             return new BeautyListDate();

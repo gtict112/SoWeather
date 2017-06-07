@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Constans;
@@ -388,9 +389,11 @@ public class TipActivity extends BaseActivity implements View.OnClickListener {
         for (Constans.WeatherBgImg cu : citys) {
             if (a != null && a.equals(cu.getName())) {
                 if (cu.getimgId().length > 0) {
-                    bg.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), cu.getimgId()[flag]));
+                    Glide.with(this).load(cu.getimgId()[flag]).crossFade()
+                            .placeholder(R.drawable.bg_loading_eholder).into(bg);
                 } else {
-                    bg.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), cu.getimgId()[0]));
+                    Glide.with(this).load(cu.getimgId()[0]).crossFade()
+                            .placeholder(R.drawable.bg_loading_eholder).into(bg);
                 }
             }
         }

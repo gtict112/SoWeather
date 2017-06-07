@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.NewsDetailActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
@@ -88,9 +89,11 @@ public class TodayTopNewFragment extends BaseSkinFragment implements SwipeRefres
     public class NewsAdapter extends BaseAdapter {
         private List<TopNew> mData = new ArrayList<TopNew>();
         private LayoutInflater inflater;
+        private Context context;
 
         public NewsAdapter(Context context, List<TopNew> datas) {
             this.mData = datas;
+            this.context = context;
             inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
@@ -130,7 +133,9 @@ public class TodayTopNewFragment extends BaseSkinFragment implements SwipeRefres
                 vh = (TodayTopNewFragment.NewsAdapter.ViewHolder) convertView.getTag();
             }
             TopNew mNew = mData.get(position);
-            vh.img.setImageBitmap(mNew.img);
+
+            Glide.with(context).load(mNew.thumbnail_pic_s).animate(R.anim.img_loading)
+                    .placeholder(R.drawable.bg_loading_eholder).into(vh.img);
             vh.title.setText(mNew.title);
             vh.date.setText(mNew.date);
             vh.author_name.setText(mNew.author_name);
@@ -151,9 +156,9 @@ public class TodayTopNewFragment extends BaseSkinFragment implements SwipeRefres
         // 设置下拉圆圈上的颜色，蓝色、绿色、橙色、红色
         mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
                 android.R.color.holo_orange_light, android.R.color.holo_red_light);
-        mSwipeLayout.setDistanceToTriggerSync(400);// 设置手指在屏幕下拉多少距离会触发下拉刷新
+        mSwipeLayout.setDistanceToTriggerSync(300);// 设置手指在屏幕下拉多少距离会触发下拉刷新
         mSwipeLayout.setProgressBackgroundColor(R.color.white); // 设定下拉圆圈的背景
-        mSwipeLayout.setSize(SwipeRefreshLayout.LARGE); // 设置圆圈的大小
+        mSwipeLayout.setSize(SwipeRefreshLayout.DEFAULT); // 设置圆圈的大小
         recommended = (ListView) view.findViewById(R.id.recommended);
         recommended.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

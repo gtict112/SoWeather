@@ -232,6 +232,8 @@ public class Managecity extends BaseActivity implements ResponseListenter<NowWea
     }
 
     private void setItemBg(String city, String cond_txt, LinearLayout bg) {
+        Animation anim1 = AnimationUtils.loadAnimation(this, R.anim.img_loading);
+        bg.startAnimation(anim1);
         if (city.contains("北京")) {
             if (cond_txt.contains("云")) {
                 bg.setBackgroundResource(R.mipmap.city_beijing_cloudy);
