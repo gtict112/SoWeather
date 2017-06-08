@@ -16,10 +16,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
-import com.example.administrator.soweather.com.example.administrator.soweather.fragment.BeautyItemFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.BeautyDetail;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
 import com.example.administrator.soweather.com.example.administrator.soweather.service.BeautyService;
@@ -33,7 +33,6 @@ import java.util.List;
  */
 
 public class BeautyDetailActivity extends BaseActivity implements ResponseListenter<BeautyDetail> {
-    private TextView title;
     private TextView date;
     private RecyclerView mList;
     private String id = "1";
@@ -41,6 +40,8 @@ public class BeautyDetailActivity extends BaseActivity implements ResponseListen
     private BeautyDetail mDate = new BeautyDetail();
     private BeautyDetailAdapter mBeautyAdapter;
     private Appconfiguration config = Appconfiguration.getInstance();
+    private TextView topTv;
+    private ImageView topButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,8 +67,8 @@ public class BeautyDetailActivity extends BaseActivity implements ResponseListen
 
     private void setView(BeautyDetail mDate) {
         config.dismissProgressDialog();
-        title.setText(mDate.title);
         date.setText(mDate.time);
+        topTv.setText(mDate.title);
         mBeautyAdapter = new BeautyDetailAdapter(this, mDate.gallerys);
         mList.setAdapter(mBeautyAdapter);
     }
@@ -82,8 +83,15 @@ public class BeautyDetailActivity extends BaseActivity implements ResponseListen
 
     private void initView() {
         date = (TextView) findViewById(R.id.date);
-        title = (TextView) findViewById(R.id.title);
         mList = (RecyclerView) findViewById(R.id.beauty_detail_list);
+        topTv = (TextView) findViewById(R.id.topTv);
+        topButton = (ImageView) findViewById(R.id.topButton);
+        topButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.space);
@@ -139,8 +147,9 @@ public class BeautyDetailActivity extends BaseActivity implements ResponseListen
         public void onBindViewHolder(BeautyDetailAdapter.ViewHolder holder, int position) {
             holder.itemView.setTag(position);
             BeautyDetail.Gallery mGallery = mData.get(position);
-            Glide.with(context).load(mGallery.gallery_img).animate(R.anim.img_loading)
-                    .placeholder(R.drawable.bg_loading_eholder).centerCrop().into(holder.src);
+            Glide.with(context).load(mGallery.gallery_img).animate(R.anim.img_loading).diskCacheStrategy(DiskCacheStrategy.NONE).
+                    skipMemoryCache(true)
+                    .placeholder(R.drawable.bg_loading_eholder).fitCenter().thumbnail(0.5f).into(holder.src);
         }
 
         @Override

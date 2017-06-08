@@ -23,10 +23,11 @@ public class BeautyFragment extends BaseSkinFragment {
     /**
      * Tab标题
      */
-    private String[] TITLE = {"性感美女", "韩日美女", "丝袜美腿", "美女照片", "美女写真", "清纯美女", "性感车模"};
-    private String[] IDS = {"1", "2", "3", "4", "5", "6", "7"};
+    private String[] TITLE = {"干货", "性感美女", "韩日美女", "丝袜美腿", "美女照片", "美女写真", "清纯美女", "性感车模"};
+    private String[] IDS = {"福利", "1", "2", "3", "4", "5", "6", "7"};
     private ViewPager pager;
     private TabPageIndicator indicator;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -9,7 +9,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:background="#1D4951"
+        android:background="@color/theme_title"
         android:orientation="horizontal"
         android:padding="5dp">
 
@@ -17,15 +17,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="笨熊天气提醒!"
+            android:text="YoYo提醒!"
             android:textColor="@color/white"
-            android:textSize="15sp"/>
+            android:textSize="15sp" />
 
         <ImageView
             android:id="@+id/right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/right"/>
+            android:src="@mipmap/to_right" />
     </LinearLayout>
 
     <FrameLayout
@@ -40,8 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@mipmap/cloudy2"
-            />
+            android:src="@mipmap/city_other_cloudy" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,8 +50,7 @@
             <RelativeLayout
                 android:id="@+id/linearLayout3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -67,8 +65,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="杭州"
-                        android:textColor="@color/background_progress"
-                        android:textSize="18sp"/>
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/time"
@@ -76,8 +74,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:text="14:23"
-                        android:textColor="@color/background_progress"
-                        android:textSize="25sp"/>
+                        android:textColor="@color/white"
+                        android:textSize="25sp" />
                 </LinearLayout>
 
 
@@ -101,7 +99,7 @@
                             android:layout_height="wrap_content"
                             android:text="23°"
                             android:textColor="@color/red"
-                            android:textSize="35sp"/>
+                            android:textSize="35sp" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -115,23 +113,22 @@
                                 android:layout_height="wrap_content"
                                 android:text="26°"
                                 android:textColor="@color/red"
-                                android:textSize="17sp"/>
+                                android:textSize="17sp" />
 
                             <TextView
                                 android:id="@+id/tmp_min"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="22°"
-                                android:textColor="@color/background_progress"
-                                android:textSize="17sp"/>
+                                android:textColor="@color/red"
+                                android:textSize="17sp" />
                         </LinearLayout>
 
                         <ImageView
                             android:id="@+id/weather_img"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:layout_marginLeft="10dp"
-                            />
+                            android:layout_marginLeft="10dp" />
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
@@ -150,16 +147,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="11/16(今)"
-                    android:textColor="@color/background_progress"
-                    android:textSize="15sp"/>
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/fl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="体感温度26°"
-                    android:textColor="@color/a4"
-                    android:textSize="15sp"/>
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <TextView
@@ -170,9 +167,8 @@
                 android:layout_marginTop="2dp"
                 android:gravity="right"
                 android:text="少云"
-                android:textColor="@color/a4"
-                android:textSize="15sp"
-                />
+                android:textColor="@color/white"
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/desc"
@@ -183,9 +179,8 @@
                 android:layout_marginTop="4dp"
                 android:maxLines="1"
                 android:text="今天相对湿度,降水量,风向!"
-                android:textColor="@color/background_progress"
-                android:textSize="13sp"
-                />
+                android:textColor="@color/white"
+                android:textSize="13sp" />
         </LinearLayout>
     </FrameLayout>
 
@@ -197,7 +192,8 @@
         android:layout_marginTop="10dp"
         android:background="#1D4951"
         android:orientation="horizontal"
-        android:padding="5dp">
+        android:padding="5dp"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/decs"
@@ -206,7 +202,7 @@
             android:layout_weight="1"
             android:text="星座运势"
             android:textColor="@color/white"
-            android:textSize="15sp"/>
+            android:textSize="15sp" />
 
     </LinearLayout>
 </LinearLayout>

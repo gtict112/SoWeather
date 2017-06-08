@@ -352,29 +352,44 @@ public class ResponseProcessUtil {
      * @return
      * @throws IOException
      */
-    public static Result<List<BeautyListDate>> getBeautyListDate(Response response) throws IOException {
+    public static Result<List<BeautyListDate>> getBeautyListDate(Response response, String id) throws IOException {
         Result<List<BeautyListDate>> result = new Result<List<BeautyListDate>>();
         List<BeautyListDate> list = new ArrayList<>();
         result.setSuccess(false);
         try {
             JSONObject jsonObjecty = new JSONObject(response.body().string());
-            String code = jsonObjecty.optString("status");
-            if (code.equals("true")) {
-                result.setSuccess(true);
-                JSONArray mDate = jsonObjecty.getJSONArray("tngou");
-                for (int i = 0; i < mDate.length(); i++) {
-                    JSONObject mNew = mDate.getJSONObject(i);
-                    BeautyListDate mNews = BeautyListDate.Builder.creatBeautyListDate();
-                    mNews.id = mNew.getString("id");
-                    mNews.galleryclass = mNew.getString("galleryclass");
-                    mNews.title = mNew.optString("title", null);
-                    mNews.img = "http://tnfs.tngou.net/image" + mNew.optString("img", null);
-                    mNews.count = mNew.getString("count");
-                    mNews.rcount = mNew.getString("rcount");
-                    mNews.fcount = mNew.getString("fcount");
-                    mNews.size = mNew.getString("size");
-
-                    list.add(mNews);
+            if (id.equals("福利")) {
+                String code = jsonObjecty.optString("error");
+                if (code.equals("false")) {
+                    result.setSuccess(true);
+                    JSONArray mDate = jsonObjecty.getJSONArray("results");
+                    for (int i = 0; i < mDate.length(); i++) {
+                        JSONObject mNew = mDate.getJSONObject(i);
+                        BeautyListDate mNews = BeautyListDate.Builder.creatBeautyListDate();
+                        mNews.id = mNew.getString("_id");
+                        mNews.title = mNew.optString("desc", null);
+                        mNews.img = mNew.optString("url", null);
+                        list.add(mNews);
+                    }
+                }
+            } else {
+                String code = jsonObjecty.optString("status");
+                if (code.equals("true")) {
+                    result.setSuccess(true);
+                    JSONArray mDate = jsonObjecty.getJSONArray("tngou");
+                    for (int i = 0; i < mDate.length(); i++) {
+                        JSONObject mNew = mDate.getJSONObject(i);
+                        BeautyListDate mNews = BeautyListDate.Builder.creatBeautyListDate();
+                        mNews.id = mNew.getString("id");
+                        mNews.galleryclass = mNew.getString("galleryclass");
+                        mNews.title = mNew.optString("title", null);
+                        mNews.img = "http://tnfs.tngou.net/image" + mNew.optString("img", null);
+                        mNews.count = mNew.getString("count");
+                        mNews.rcount = mNew.getString("rcount");
+                        mNews.fcount = mNew.getString("fcount");
+                        mNews.size = mNew.getString("size");
+                        list.add(mNews);
+                    }
                 }
             }
             result.setData(list);

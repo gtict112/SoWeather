@@ -190,7 +190,7 @@ public class SettingFragment extends BaseSkinFragment implements View.OnClickLis
         builder.setOngoing(false);
         builder.setAutoCancel(false);
         builder.setContent(remoteViews);
-        builder.setTicker("笨熊天气随时为你报道天气");
+        builder.setTicker("YoYo天气随时为你报道天气");
         builder.setSmallIcon(R.mipmap.app);
         Notification notification = builder.build();
         notification.defaults = Notification.DEFAULT_SOUND;

@@ -7,7 +7,11 @@ import com.example.administrator.soweather.com.example.administrator.soweather.m
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseProcessUtil;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Call;
@@ -33,8 +37,11 @@ public class BeautyService {
      * @param a
      * @param id
      */
-    public void getBeautyList(final ResponseListenter<List<BeautyListDate>> a, String id) {
-        String url = "http://www.tngou.net/tnfs/api/list?id=" + id + "&page=1&rows=10";
+    public void getBeautyList(final ResponseListenter<List<BeautyListDate>> a, final String id, int page) {
+        String url = "http://www.tngou.net/tnfs/api/list?id=" + id + "&page=" + page + "&rows=5";
+        if (id.equals("福利")) {
+            url = " http://gank.io/api/data/福利/20/" + page;
+        }
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -53,7 +60,7 @@ public class BeautyService {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                final Result<List<BeautyListDate>> res = ResponseProcessUtil.getBeautyListDate(response);
+                final Result<List<BeautyListDate>> res = ResponseProcessUtil.getBeautyListDate(response, id);
                 try {
                     if (res.isSuccess()) {
                         a.onReceive(res);

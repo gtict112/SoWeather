@@ -83,7 +83,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:drawableRight="@mipmap/to_right" />
+            android:drawableRight="@mipmap/to_right"
+            android:visibility="gone"/>
     </LinearLayout>
 
     <View
@@ -103,7 +104,8 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="horizontal"
-        android:padding="8dp">
+        android:padding="8dp"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="match_parent"

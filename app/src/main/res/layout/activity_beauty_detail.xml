@@ -4,14 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/activity_contain_title" />
+
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="10dp" />
-
+        android:layout_gravity="right"
+        android:layout_margin="5dp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/beauty_detail_list"
@@ -20,14 +20,6 @@
         android:layout_margin="5dp"
         android:layout_weight="1"
         android:divider="@null"
-        android:dividerHeight="15dp"></android.support.v7.widget.RecyclerView>
+        android:dividerHeight="10dp" />
 
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp" />
 </LinearLayout>

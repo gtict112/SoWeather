@@ -26,7 +26,11 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="center_vertical"
-        android:text="首页"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="20dp"
+        android:ellipsize="end"
+        android:lines="1"
+        android:text=""
         android:textColor="@color/white"
         android:textSize="17sp"
         skin:enable="true" />
@@ -40,7 +44,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginRight="15dp"
         android:text="编辑"
-        android:textColor="@color/background_progress"
+        android:textColor="@color/white"
         android:textSize="15sp"
         android:visibility="gone"
         skin:enable="true" />

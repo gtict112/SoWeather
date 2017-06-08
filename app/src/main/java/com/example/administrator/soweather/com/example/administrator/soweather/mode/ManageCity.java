@@ -8,7 +8,6 @@ public class ManageCity {
     private String cityid;
     private String cityname;
 
-
     public String getCityId() {
         return cityid;
     }

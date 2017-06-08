@@ -6,6 +6,6 @@
 
     <ImageView
         android:id="@+id/src"
-        android:layout_width="100dp"
-        android:layout_height="100dp" />
+        android:layout_width="match_parent"
+        android:layout_height="350dp" />
 </LinearLayout>

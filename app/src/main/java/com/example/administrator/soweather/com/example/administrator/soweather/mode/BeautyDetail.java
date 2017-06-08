@@ -1,5 +1,7 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.mode;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

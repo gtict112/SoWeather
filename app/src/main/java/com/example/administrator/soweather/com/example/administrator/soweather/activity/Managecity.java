@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.db.SoWeatherDB;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.ManageCity;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.NowWeather;
@@ -67,13 +68,15 @@ public class Managecity extends BaseActivity implements ResponseListenter<NowWea
         topTv = (TextView) findViewById(R.id.topTv);
         topRight = (TextView) findViewById(R.id.topRight);
         topRight.setVisibility(View.VISIBLE);
-        topTv.setText("城市管理");
+        topTv.setText("多城市管理");
         topButton = (ImageView) findViewById(R.id.topButton);
         bg = (LinearLayout) findViewById(R.id.bg);
         topButton.setOnClickListener(this);
         topRight.setOnClickListener(this);
         citylist = cityDB.getAllManagecity();
         weathimgs = cityDB.getAllWeatherImg();
+        mDailyAdapter = new GalleryAdapter(this, date);
+        list.setAdapter(mDailyAdapter);
     }
 
     private void getData(List<ManageCity> citylist) {
@@ -90,15 +93,14 @@ public class Managecity extends BaseActivity implements ResponseListenter<NowWea
             @Override
             public void handleMessage(Message msg) {
                 if (msg.what == 1) {
-                    setDate(date);
+                    setDate();
                 }
             }
         };
     }
 
-    private void setDate(List<NowWeather> date) {
-        mDailyAdapter = new GalleryAdapter(this, date);
-        list.setAdapter(mDailyAdapter);
+    private void setDate() {
+        mDailyAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -122,13 +124,11 @@ public class Managecity extends BaseActivity implements ResponseListenter<NowWea
             case R.id.topRight:
                 if (!isDelete) {
                     isDelete = true;
-                    mDailyAdapter = new GalleryAdapter(this, date);
-                    list.setAdapter(mDailyAdapter);
+                    mDailyAdapter.notifyDataSetChanged();
                     topRight.setText("取消");
                 } else if (isDelete) {
                     isDelete = false;
-                    mDailyAdapter = new GalleryAdapter(this, date);
-                    list.setAdapter(mDailyAdapter);
+                    mDailyAdapter.notifyDataSetChanged();
                     topRight.setText("编辑");
                 }
                 break;
@@ -232,7 +232,7 @@ public class Managecity extends BaseActivity implements ResponseListenter<NowWea
     }
 
     private void setItemBg(String city, String cond_txt, LinearLayout bg) {
-        Animation anim1 = AnimationUtils.loadAnimation(this, R.anim.img_loading);
+        Animation anim1 = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
         bg.startAnimation(anim1);
         if (city.contains("北京")) {
             if (cond_txt.contains("云")) {

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.BeautyDetailActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
@@ -42,6 +43,8 @@ public class BeautyItemFragment extends BaseSkinFragment implements SwipeRefresh
     private BeautyAdapter mBeautyAdapter;
     private Appconfiguration config = Appconfiguration.getInstance();
     private SwipeRefreshLayout mSwipeLayout;
+    private LinearLayoutManager linearLayoutManager;
+    private int page = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,7 +74,7 @@ public class BeautyItemFragment extends BaseSkinFragment implements SwipeRefresh
         mSwipeLayout.setProgressBackgroundColor(R.color.white); // 设定下拉圆圈的背景
         mSwipeLayout.setSize(SwipeRefreshLayout.DEFAULT); // 设置圆圈的大小
         mList = (RecyclerView) view.findViewById(R.id.beauty_list);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.space);
         mList.setLayoutManager(linearLayoutManager);
@@ -88,10 +91,11 @@ public class BeautyItemFragment extends BaseSkinFragment implements SwipeRefresh
                     mDate = result.getData();
                     mHandler.sendMessage(mHandler.obtainMessage(1, mDate));
                 } else {
+                    config.dismissProgressDialog();
                     Toast.makeText(getActivity(), result.getErrorMessage(), Toast.LENGTH_LONG).show();
                 }
             }
-        }, Id);
+        }, Id, page);
     }
 
     private void getHandleMessge() {
@@ -122,16 +126,23 @@ public class BeautyItemFragment extends BaseSkinFragment implements SwipeRefresh
                     mDate = result.getData();
                     mHandler.sendMessage(mHandler.obtainMessage(1, mDate));
                 } else {
+                    config.dismissProgressDialog();
                     Toast.makeText(getActivity(), result.getErrorMessage(), Toast.LENGTH_LONG).show();
                 }
             }
-        }, id);
+        }, id, 1);
+        page = 1;
     }
 
     private void setNews(final List<BeautyListDate> mDate) {
         config.dismissProgressDialog();
-        mBeautyAdapter = new BeautyAdapter(getActivity(), mDate);
-        mList.setAdapter(mBeautyAdapter);
+        if (page != 1) {
+            mBeautyAdapter.notifyDataSetChanged();
+            mSwipeLayout.setRefreshing(false);
+        } else {
+            mBeautyAdapter = new BeautyAdapter(getActivity(), mDate);
+            mList.setAdapter(mBeautyAdapter);
+        }
         mBeautyAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -139,6 +150,31 @@ public class BeautyItemFragment extends BaseSkinFragment implements SwipeRefresh
                 Intent intent = new Intent(getActivity(), BeautyDetailActivity.class);
                 intent.putExtra("id", id);
                 startActivity(intent);
+            }
+        });
+        mList.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
+                        >= recyclerView.computeVerticalScrollRange()) {
+                    mSwipeLayout.setRefreshing(true);
+                    page = page + 1;
+                    final BeautyService mNews = new BeautyService();
+                    mNews.getBeautyList(new ResponseListenter<List<BeautyListDate>>() {
+                        @Override
+                        public void onReceive(Result<List<BeautyListDate>> result) {
+                            if (result.isSuccess()) {
+                                mDate.addAll(result.getData());
+                                mHandler.sendMessage(mHandler.obtainMessage(1, mDate));
+                            } else {
+                                mSwipeLayout.setRefreshing(false);
+                                config.dismissProgressDialog();
+                                Toast.makeText(getActivity(), result.getErrorMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }, id, page);
+                }
             }
         });
     }
@@ -188,6 +224,7 @@ public class BeautyItemFragment extends BaseSkinFragment implements SwipeRefresh
             private TextView access;
             private TextView reply;
             private TextView collection;
+
         }
 
         @Override
@@ -209,8 +246,10 @@ public class BeautyItemFragment extends BaseSkinFragment implements SwipeRefresh
         public void onBindViewHolder(final BeautyAdapter.ViewHolder viewHolder, final int i) {
             viewHolder.itemView.setTag(i);
             BeautyListDate mTimeWeatherData = mData.get(i);
-            Glide.with(context).load(mTimeWeatherData.img).animate(R.anim.img_loading)
-                    .placeholder(R.drawable.bg_loading_eholder).centerCrop().into(viewHolder.img);
+            Glide.with(context).load(mTimeWeatherData.img).animate(R.anim.img_loading).diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.drawable.bg_loading_eholder).centerCrop()
+                    .into(viewHolder.img);
+
             viewHolder.title.setText(mTimeWeatherData.title);
             viewHolder.access.setText(mTimeWeatherData.count);
             viewHolder.reply.setText(mTimeWeatherData.rcount);
