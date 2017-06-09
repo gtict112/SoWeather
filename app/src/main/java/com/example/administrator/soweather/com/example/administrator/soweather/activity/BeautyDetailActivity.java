@@ -33,15 +33,13 @@ import java.util.List;
  */
 
 public class BeautyDetailActivity extends BaseActivity implements ResponseListenter<BeautyDetail> {
-    private TextView date;
-    private RecyclerView mList;
     private String id = "1";
     private Handler mHandler;
     private BeautyDetail mDate = new BeautyDetail();
-    private BeautyDetailAdapter mBeautyAdapter;
     private Appconfiguration config = Appconfiguration.getInstance();
     private TextView topTv;
     private ImageView topButton;
+    private ImageView src;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,10 +65,9 @@ public class BeautyDetailActivity extends BaseActivity implements ResponseListen
 
     private void setView(BeautyDetail mDate) {
         config.dismissProgressDialog();
-        date.setText(mDate.time);
-        topTv.setText(mDate.title);
-        mBeautyAdapter = new BeautyDetailAdapter(this, mDate.gallerys);
-        mList.setAdapter(mBeautyAdapter);
+        topTv.setText("详情");
+        Glide.with(this).load(mDate.img).animate(R.anim.img_loading).diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.bg_loading_eholder).centerCrop().into(src);
     }
 
 
@@ -82,21 +79,15 @@ public class BeautyDetailActivity extends BaseActivity implements ResponseListen
     }
 
     private void initView() {
-        date = (TextView) findViewById(R.id.date);
-        mList = (RecyclerView) findViewById(R.id.beauty_detail_list);
         topTv = (TextView) findViewById(R.id.topTv);
         topButton = (ImageView) findViewById(R.id.topButton);
+        src = (ImageView) findViewById(R.id.src);
         topButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.space);
-        mList.setLayoutManager(linearLayoutManager);
-        mList.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
     }
 
     private void getDate() {
@@ -111,70 +102,9 @@ public class BeautyDetailActivity extends BaseActivity implements ResponseListen
             mDate = result.getData();
             mHandler.sendMessage(mHandler.obtainMessage(1, mDate));
         } else {
-            result.getErrorMessage();
+            config.dismissProgressDialog();
         }
     }
 
-    public class BeautyDetailAdapter extends RecyclerView.Adapter<BeautyDetailAdapter.ViewHolder> {
-        private List<BeautyDetail.Gallery> mData = new ArrayList<>();
-        private Context context;
-
-        public BeautyDetailAdapter(Context context, List<BeautyDetail.Gallery> datas) {
-            this.mData = datas;
-            this.context = context;
-        }
-
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            public ViewHolder(View arg0) {
-                super(arg0);
-            }
-
-            ImageView src;
-        }
-
-
-        @Override
-        public BeautyDetailAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-            LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-            View view = inflater.inflate(R.layout.item_beauty_detail, viewGroup, false);
-            BeautyDetailAdapter.ViewHolder viewHolder = new BeautyDetailAdapter.ViewHolder(view);
-            viewHolder.src = (ImageView) view.findViewById(R.id.src);
-            return viewHolder;
-        }
-
-        @Override
-        public void onBindViewHolder(BeautyDetailAdapter.ViewHolder holder, int position) {
-            holder.itemView.setTag(position);
-            BeautyDetail.Gallery mGallery = mData.get(position);
-            Glide.with(context).load(mGallery.gallery_img).animate(R.anim.img_loading).diskCacheStrategy(DiskCacheStrategy.NONE).
-                    skipMemoryCache(true)
-                    .placeholder(R.drawable.bg_loading_eholder).fitCenter().thumbnail(0.5f).into(holder.src);
-        }
-
-        @Override
-        public int getItemCount() {
-            return mData.size();
-        }
-    }
-
-    /**
-     * RecyclerView的间隔问题
-     */
-    public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
-
-        private int space;
-
-        public SpaceItemDecoration(int space) {
-            this.space = space;
-        }
-
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-
-            if (parent.getChildPosition(view) != 0)
-                outRect.top = space;
-        }
-    }
 
 }

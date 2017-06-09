@@ -23,8 +23,8 @@ public class BeautyFragment extends BaseSkinFragment {
     /**
      * Tab标题
      */
-    private String[] TITLE = {"干货", "性感美女", "韩日美女", "丝袜美腿", "美女照片", "美女写真", "清纯美女", "性感车模"};
-    private String[] IDS = {"福利", "1", "2", "3", "4", "5", "6", "7"};
+    private String[] TITLE = {"最热", "性感妹子", "日本妹子", "台湾妹子", "清纯妹子"};
+    private String[] IDS = {"hot", "xinggan", "japan", "taiwan", "mm"};
     private ViewPager pager;
     private TabPageIndicator indicator;
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,7 +37,7 @@ import cn.feng.skin.manager.base.BaseSkinFragment;
  */
 
 public class BeautyItemFragment extends BaseSkinFragment implements SwipeRefreshLayout.OnRefreshListener {
-    private String id = "1";
+    private String id = "hot";
     private List<BeautyListDate> mDate = new ArrayList<>();
     private Handler mHandler;
     private RecyclerView mList;
@@ -92,7 +93,6 @@ public class BeautyItemFragment extends BaseSkinFragment implements SwipeRefresh
                     mHandler.sendMessage(mHandler.obtainMessage(1, mDate));
                 } else {
                     config.dismissProgressDialog();
-                    Toast.makeText(getActivity(), result.getErrorMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         }, Id, page);
@@ -127,7 +127,6 @@ public class BeautyItemFragment extends BaseSkinFragment implements SwipeRefresh
                     mHandler.sendMessage(mHandler.obtainMessage(1, mDate));
                 } else {
                     config.dismissProgressDialog();
-                    Toast.makeText(getActivity(), result.getErrorMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         }, id, 1);
@@ -170,7 +169,6 @@ public class BeautyItemFragment extends BaseSkinFragment implements SwipeRefresh
                             } else {
                                 mSwipeLayout.setRefreshing(false);
                                 config.dismissProgressDialog();
-                                Toast.makeText(getActivity(), result.getErrorMessage(), Toast.LENGTH_LONG).show();
                             }
                         }
                     }, id, page);
@@ -213,17 +211,11 @@ public class BeautyItemFragment extends BaseSkinFragment implements SwipeRefresh
             public ViewHolder(View arg0) {
                 super(arg0);
                 title = (TextView) arg0.findViewById(R.id.content_title);
-                access = (TextView) arg0.findViewById(R.id.access);
-                reply = (TextView) arg0.findViewById(R.id.reply);
-                collection = (TextView) arg0.findViewById(R.id.collection);
                 img = (ImageView) arg0.findViewById(R.id.img);
             }
 
             private TextView title;
             private ImageView img;
-            private TextView access;
-            private TextView reply;
-            private TextView collection;
 
         }
 
@@ -249,11 +241,7 @@ public class BeautyItemFragment extends BaseSkinFragment implements SwipeRefresh
             Glide.with(context).load(mTimeWeatherData.img).animate(R.anim.img_loading).diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.drawable.bg_loading_eholder).centerCrop()
                     .into(viewHolder.img);
-
             viewHolder.title.setText(mTimeWeatherData.title);
-            viewHolder.access.setText(mTimeWeatherData.count);
-            viewHolder.reply.setText(mTimeWeatherData.rcount);
-            viewHolder.collection.setText(mTimeWeatherData.fcount);
         }
     }
 

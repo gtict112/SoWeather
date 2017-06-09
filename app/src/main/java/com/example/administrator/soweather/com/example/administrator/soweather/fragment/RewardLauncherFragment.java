@@ -9,6 +9,8 @@ import android.view.animation.TranslateAnimation;
 import android.view.animation.AnimationSet;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.administrator.soweather.R;
 
 
@@ -20,41 +22,25 @@ import com.example.administrator.soweather.R;
  */
 public class RewardLauncherFragment extends LauncherBaseFragment {
     private boolean started;//是否开启动画
-    private ImageView iv_receive_1, iv_receive_2, iv_receive_3;
+    private ImageView welcome_1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rooView = inflater.inflate(R.layout.fragment_reward_launcher, null);
-        iv_receive_1 =(ImageView)rooView.findViewById(R.id.iv_receive_1);
-        iv_receive_2 =(ImageView)rooView.findViewById(R.id.iv_receive_2);
-        iv_receive_3 =(ImageView)rooView.findViewById(R.id.iv_receive_3);
-        //获取硬币的高度
+        welcome_1 = (ImageView) rooView.findViewById(R.id.welcome_1);
         startAnimation();
         return rooView;
     }
 
     public void startAnimation() {
         started = true;
-        //初始化 Translate动画
-        TranslateAnimation translateAnimation = new TranslateAnimation(0.1f, 100.0f, 0.1f, 100.0f);
-        //初始化 Alpha动画
-        AlphaAnimation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
-        //动画集
-        AnimationSet set = new AnimationSet(true);
-        set.addAnimation(translateAnimation);
-        set.addAnimation(alphaAnimation);
-        //设置动画时间 (作用到每个动画)
-        set.setDuration(2000);
-        iv_receive_1.startAnimation(set);
-        iv_receive_2.startAnimation(set);
-        iv_receive_3.startAnimation(set);
+        Glide.with(getActivity()).load(R.mipmap.welcome_1).asGif().animate(R.anim.img_loading).diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.bg_loading_eholder)
+                .into(welcome_1);
     }
 
     @Override
     public void stopAnimation() {
         started = false;//结束动画时标示符设置为false
-        iv_receive_1.clearAnimation();//清空view上的动画
-        iv_receive_2.clearAnimation();//清空view上的动画
-        iv_receive_3.clearAnimation();//清空view上的动画
     }
 }

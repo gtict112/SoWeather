@@ -69,7 +69,6 @@ public class WelcomeActivity extends FragmentActivity {
 
             //获取自定义viewpager 然后设置背景图片
             vPager = (GuideViewPager) findViewById(R.id.viewpager_launcher);
-            vPager.setBackGroud(BitmapFactory.decodeResource(getResources(), R.drawable.bg_kaka_launcher));
 
             /**
              * 初始化三个fragment  并且添加到list中
