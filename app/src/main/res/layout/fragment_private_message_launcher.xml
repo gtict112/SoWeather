@@ -27,7 +27,6 @@
                 android:id="@+id/reward"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="福利社   今日头条"
                 android:textColor="@color/background_progress"
                 android:textSize="22dp" />
 
@@ -35,7 +34,6 @@
                 android:id="@+id/tv_watch_video_dating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="只为专注"
                 android:textColor="@color/background_progress"
                 android:textSize="18dp" />
         </LinearLayout>

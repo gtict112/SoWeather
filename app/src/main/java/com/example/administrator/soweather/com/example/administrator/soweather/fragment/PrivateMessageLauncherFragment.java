@@ -33,9 +33,6 @@ public class PrivateMessageLauncherFragment extends LauncherBaseFragment {
     public void stopAnimation() {
         //动画开启标示符设置成false
         started = false;
-        Glide.with(getActivity()).load(R.mipmap.welcome_2).asGif().animate(R.anim.img_loading).diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.bg_loading_eholder)
-                .into(welcome_2);
     }
 
 

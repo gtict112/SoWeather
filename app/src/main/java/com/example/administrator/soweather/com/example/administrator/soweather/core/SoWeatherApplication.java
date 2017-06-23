@@ -28,6 +28,8 @@ public class SoWeatherApplication extends Application {
         mMyLocationListener = new MyLocationListener();
         mLocationClient.registerLocationListener(mMyLocationListener);
         initSkinLoader();
+        Appconfiguration config = Appconfiguration.getInstance();
+        config.initGeneralPreferences(getApplicationContext());
     }
 
     /**

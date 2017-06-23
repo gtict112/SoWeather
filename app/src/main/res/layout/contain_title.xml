@@ -3,7 +3,7 @@
     xmlns:skin="http://schemas.android.com/android/skin"
     android:id="@+id/content_title"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="50dp"
     android:background="@color/theme_main_title"
     android:orientation="horizontal"
     android:paddingBottom="8dp"

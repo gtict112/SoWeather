@@ -134,7 +134,7 @@
                         android:layout_marginLeft="4dp"
                         app:mvAnimDuration="1000"
                         app:mvInterval="3000"
-                        app:mvTextColor="@color/white"
+                        app:mvTextColor="#e01D4951"
                         app:mvTextSize="14sp" />
                 </LinearLayout>
 

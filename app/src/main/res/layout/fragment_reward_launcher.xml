@@ -31,7 +31,6 @@
                 android:id="@+id/reward"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="天气护航"
                 android:textColor="@color/background_progress"
                 android:textSize="22dp" />
 
@@ -40,7 +39,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="好天气    好心情"
                 android:textColor="@color/background_progress"
                 android:textSize="18dp" />
         </LinearLayout>

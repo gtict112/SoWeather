@@ -2,24 +2,38 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
-    <ImageView
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:paddingLeft="0dp"
-        android:paddingTop="22dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/launcher_the_world_is_so_big_not_to_see" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_marginTop="40dp"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/imgView_immediate_experience"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/launcher_immediate_experience" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@mipmap/welcome_3" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="50dp"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/imgView_immediate_experience"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/selector_button_welcome"
+                android:paddingBottom="7dp"
+                android:paddingLeft="21dp"
+                android:paddingRight="21dp"
+                android:paddingTop="7dp"
+                android:text="一杯咖啡的时间 >"
+                android:textColor="#C2C3BB" />
+        </LinearLayout>
+    </FrameLayout>
 </LinearLayout>

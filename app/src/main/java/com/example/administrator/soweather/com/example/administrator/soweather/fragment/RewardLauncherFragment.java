@@ -15,7 +15,6 @@ import com.example.administrator.soweather.R;
 
 
 /**
- * 打赏页面
  *
  * @author ansen
  * @create time 2015-08-07
@@ -34,9 +33,6 @@ public class RewardLauncherFragment extends LauncherBaseFragment {
 
     public void startAnimation() {
         started = true;
-        Glide.with(getActivity()).load(R.mipmap.welcome_1).asGif().animate(R.anim.img_loading).diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.bg_loading_eholder)
-                .into(welcome_1);
     }
 
     @Override

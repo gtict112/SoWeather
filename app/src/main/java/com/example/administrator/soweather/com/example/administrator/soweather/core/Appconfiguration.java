@@ -37,6 +37,12 @@ public class Appconfiguration {
      */
     private List<FragmentActivity> frontActivityList;
 
+    /**
+     * 系统配置文件，全局就一个文件。
+     */
+    private SharedPreferences generalPreferences;
+    private SharedPreferences.Editor generalPreferenceEditor;
+
     public Context getContext() {
         return mContext;
     }
@@ -99,5 +105,27 @@ public class Appconfiguration {
 
     public void dismissProgressDialog() {
         progressDialog.dismiss();
+    }
+
+    public void initGeneralPreferences(Context context) {
+        this.mContext = context;
+        this.generalPreferences = mContext.getSharedPreferences(
+                "generalPreferences",
+                Context.MODE_PRIVATE);
+        this.generalPreferenceEditor = generalPreferences.edit();
+        config.setIsFirstStartApp(generalPreferences.getBoolean(
+                "isFirstStartApp", true));
+    }
+
+
+    public void setIsFirstStartApp(boolean isFirstStartApp) {
+        generalPreferenceEditor.putBoolean(
+                "generalPreferences", isFirstStartApp).commit();
+    }
+
+    public Boolean getIsFirstStartApp() {
+        return generalPreferences.getBoolean(
+                "isFirstStartApp", true);
+
     }
 }

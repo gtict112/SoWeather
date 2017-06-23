@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/left_fragment"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     skin:enable="true">
 
@@ -248,7 +250,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/gray"/>
+                    android:background="@color/gray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -263,13 +265,13 @@
                         android:padding="8dp"
                         android:text="今日提醒"
                         android:textColor="#BE7E7E"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginLeft="13dp"
-                        android:background="@color/gray"/>
+                        android:background="@color/gray" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

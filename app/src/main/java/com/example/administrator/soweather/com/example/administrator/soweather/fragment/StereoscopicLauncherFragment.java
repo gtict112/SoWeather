@@ -14,6 +14,7 @@ import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.Animation.AnimationListener;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.administrator.soweather.R;
@@ -25,58 +26,15 @@ import com.example.administrator.soweather.com.example.administrator.soweather.a
  * @author apple
  */
 public class StereoscopicLauncherFragment extends LauncherBaseFragment implements OnClickListener {
-    private static final float ZOOM_MAX = 1.3f;
-    private static final float ZOOM_MIN = 1.0f;
-
-    private ImageView imgView_immediate_experience;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rooView = inflater.inflate(R.layout.fragment_stereoscopic_launcher, null);
-        imgView_immediate_experience = (ImageView) rooView.findViewById(R.id.imgView_immediate_experience);
+        Button imgView_immediate_experience = (Button) rooView.findViewById(R.id.imgView_immediate_experience);
         imgView_immediate_experience.setOnClickListener(this);
         return rooView;
     }
 
-    public void playHeartbeatAnimation() {
-        /**
-         * 放大动画
-         */
-        AnimationSet animationSet = new AnimationSet(true);
-        animationSet.addAnimation(new ScaleAnimation(ZOOM_MIN, ZOOM_MAX, ZOOM_MIN, ZOOM_MAX, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f));
-        animationSet.addAnimation(new AlphaAnimation(1.0f, 0.8f));
-
-        animationSet.setDuration(500);
-        animationSet.setInterpolator(new AccelerateInterpolator());
-        animationSet.setFillAfter(true);
-
-        animationSet.setAnimationListener(new AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                /**
-                 * 缩小动画
-                 */
-                AnimationSet animationSet = new AnimationSet(true);
-                animationSet.addAnimation(new ScaleAnimation(ZOOM_MAX, ZOOM_MIN, ZOOM_MAX, ZOOM_MIN, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f));
-                animationSet.addAnimation(new AlphaAnimation(0.8f, 1.0f));
-                animationSet.setDuration(600);
-                animationSet.setInterpolator(new DecelerateInterpolator());
-                animationSet.setFillAfter(false);
-                // 实现心跳的View
-                imgView_immediate_experience.startAnimation(animationSet);
-            }
-        });
-        // 实现心跳的View
-        imgView_immediate_experience.startAnimation(animationSet);
-    }
 
     @Override
     public void onClick(View v) {
@@ -85,14 +43,19 @@ public class StereoscopicLauncherFragment extends LauncherBaseFragment implement
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), MainActivity.class);
                 startActivity(intent);
+                getActivity().overridePendingTransition(
+                        android.R.anim.fade_in,
+                        android.R.anim.fade_out);
                 getActivity().finish();
+                getActivity().overridePendingTransition(
+                        android.R.anim.fade_in,
+                        android.R.anim.fade_out);
                 break;
         }
     }
 
     @Override
     public void startAnimation() {
-        playHeartbeatAnimation();
     }
 
     @Override

@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <include layout="@layout/activity_contain_title" />
@@ -496,14 +498,14 @@
 
                         <com.example.administrator.soweather.com.example.administrator.soweather.view.WeatherChartView xmlns:view="http://schemas.android.com/apk/res-auto"
                             android:id="@+id/line_char"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="150dp"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
                             android:layout_marginTop="5dp"
                             view:dayColor="#E86114"
                             view:nightColor="#1D4951"
-                            view:textColor="@color/white"
+                            view:textColor="@color/colorPrimaryDark"
                             view:textSize="14sp" />
 
 

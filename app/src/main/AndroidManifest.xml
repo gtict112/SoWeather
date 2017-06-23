@@ -77,6 +77,6 @@
         <activity android:name=".com.example.administrator.soweather.activity.DiaryActivity" />
         <activity android:name=".com.example.administrator.soweather.activity.MoreInfoActivity" />
         <activity android:name=".com.example.administrator.soweather.activity.SettingSkinActivity" />
-        <activity android:name=".com.example.administrator.soweather.activity.BeautyDetailActivity"/>
+        <activity android:name=".com.example.administrator.soweather.activity.BeautyDetailActivity" />
     </application>
 </manifest>

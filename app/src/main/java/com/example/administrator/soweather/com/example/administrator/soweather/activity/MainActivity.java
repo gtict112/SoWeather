@@ -1,11 +1,15 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.activity;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -24,6 +28,7 @@ import com.example.administrator.soweather.com.example.administrator.soweather.m
 import com.example.administrator.soweather.com.example.administrator.soweather.service.CityAndWeatherImgService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.SlidingMenu;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 /**
  * Created by Administrator on 2016/10/10.
@@ -48,6 +53,18 @@ public class MainActivity extends SlidingFragmentActivity implements
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // 4.4及以上版本开启
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(true);
+        }
+
+        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setNavigationBarTintEnabled(true);
+        // 自定义颜色
+        tintManager.setTintColor(Color.parseColor("#e075ADA2"));
+
         initView();
         if (cityid == null) {
             getLocationAdress();
@@ -64,6 +81,19 @@ public class MainActivity extends SlidingFragmentActivity implements
             mContent = mMainFragment;
             switchConent(mContent, "天气");
         }
+    }
+
+    @TargetApi(19)
+    private void setTranslucentStatus(boolean on) {
+        Window win = getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
     }
 
     /**
@@ -124,7 +154,7 @@ public class MainActivity extends SlidingFragmentActivity implements
         mDresss = (TextView) findViewById(R.id.dresss);
         top_right = (LinearLayout) findViewById(R.id.top_righgt);
         top_right_img = (ImageView) findViewById(R.id.top_righgt_img);
-        content_title =(RelativeLayout)findViewById(R.id.content_title);
+        content_title = (RelativeLayout) findViewById(R.id.content_title);
         if (intent != null) {
             city = intent.getStringExtra("city");
             cityid = intent.getStringExtra("cityid");
@@ -173,6 +203,7 @@ public class MainActivity extends SlidingFragmentActivity implements
         if (title.equals("天气")) {
             top_right.setVisibility(View.VISIBLE);
             mDresss.setVisibility(View.VISIBLE);
+            content_title.setBackgroundResource(R.color.theme_main_title);
             top_right_img.setImageResource(R.mipmap.place);
             top_right.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -182,6 +213,7 @@ public class MainActivity extends SlidingFragmentActivity implements
                 }
             });
         } else {
+            content_title.setBackgroundResource(R.color.theme_title);
             top_right.setVisibility(View.GONE);
         }
     }

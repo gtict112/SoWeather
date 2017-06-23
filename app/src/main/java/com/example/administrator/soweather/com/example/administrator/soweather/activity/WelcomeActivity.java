@@ -1,5 +1,6 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.activity;
 
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -44,6 +45,7 @@ public class WelcomeActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         final Appconfiguration appConfig = Appconfiguration.getInstance();
+        appConfig.setIsFirstStartApp(false);
         if (appConfig.getActivitySet().size() > 0) {
             finish();
             return;
@@ -66,26 +68,25 @@ public class WelcomeActivity extends FragmentActivity {
                 layoutParams.rightMargin = 20;//设置点点点view的右边距
                 group.addView(imageView, layoutParams);
             }
-
-            //获取自定义viewpager 然后设置背景图片
-            vPager = (GuideViewPager) findViewById(R.id.viewpager_launcher);
-
-            /**
-             * 初始化三个fragment  并且添加到list中
-             */
-            RewardLauncherFragment rewardFragment = new RewardLauncherFragment();
-            PrivateMessageLauncherFragment privateFragment = new PrivateMessageLauncherFragment();
-            StereoscopicLauncherFragment stereoscopicFragment = new StereoscopicLauncherFragment();
-            list.add(rewardFragment);
-            list.add(privateFragment);
-            list.add(stereoscopicFragment);
-
-            adapter = new BaseFragmentAdapter(getSupportFragmentManager(), list);
-            vPager.setAdapter(adapter);
-            vPager.setOffscreenPageLimit(2);
-            vPager.setCurrentItem(0);
-            vPager.setOnPageChangeListener(changeListener);
         }
+        //获取自定义viewpager 然后设置背景图片
+        vPager = (GuideViewPager) findViewById(R.id.viewpager_launcher);
+
+        /**
+         * 初始化三个fragment  并且添加到list中
+         */
+        RewardLauncherFragment rewardFragment = new RewardLauncherFragment();
+        PrivateMessageLauncherFragment privateFragment = new PrivateMessageLauncherFragment();
+        StereoscopicLauncherFragment stereoscopicFragment = new StereoscopicLauncherFragment();
+        list.add(rewardFragment);
+        list.add(privateFragment);
+        list.add(stereoscopicFragment);
+
+        adapter = new BaseFragmentAdapter(getSupportFragmentManager(), list);
+        vPager.setAdapter(adapter);
+        vPager.setOffscreenPageLimit(2);
+        vPager.setCurrentItem(0);
+        vPager.setOnPageChangeListener(changeListener);
     }
 
     /**

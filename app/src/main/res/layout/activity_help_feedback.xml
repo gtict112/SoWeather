@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/gray"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
-    <include layout="@layout/activity_contain_title"/>
+    <include layout="@layout/activity_contain_title" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -15,14 +17,13 @@
         android:layout_marginTop="10dp"
         android:text="请邮我,我们将尽快联系您!"
         android:textColor="@color/background_progress"
-        android:textSize="17sp"/>
+        android:textSize="17sp" />
 
 
     <WebView
         android:id="@+id/webview"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </WebView>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"></WebView>
 </LinearLayout>

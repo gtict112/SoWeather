@@ -48,7 +48,7 @@ public class CityAndWeatherImgService {
      * @return
      */
     public Result<Integer> getCityData(Activity mainActivity, final ResponseListenter<Integer> a) {
-        String url = "http://files.heweather.com/china-city-list.json";
+        String url = "https://cdn.heweather.com/china-city-list.txt";
         Context context = mainActivity;
         final SoWeatherDB cityDB = SoWeatherDB.getInstance(context);
         final Request request = new Request.Builder()
@@ -72,46 +72,33 @@ public class CityAndWeatherImgService {
                 }
                 //加一个判断,是否code为200
                 String txt = response.body().string();
-                String list = txt.substring(txt.indexOf("["), txt.indexOf("]")) + "]";
-                JSONArray jsonArray = null;
-                try {
-                    jsonArray = new JSONArray(list);
+                String list = txt.substring(txt.indexOf("CN101010100"), txt.indexOf("120.538"));
+                String[] date = list.split("\n");
+                if (date != null && date.length > 0) {
                     List<Province> provinceList = new ArrayList<>();//省份数据
                     List<City> citylist = new ArrayList<>();//城市数据
                     List<County> countyList = new ArrayList<>();//县区数据
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    for (int i = 0; i < date.length; i++) {
+                        String str = date[i];
+                        String[] strarray = str.split("\t");
                         Province province = new Province();
                         City city = new City();
                         County county = new County();
-
                         province.setProvinceId(String.valueOf(i));
-                        province.setProvinceName(jsonObject.optString("provinceZh"));
-
-                        city.setProvinceeName(jsonObject.optString("provinceZh"));
-                        city.setCityId(jsonObject.optString("id"));
-                        city.setCityName(jsonObject.optString("leaderZh"));
-
-
-                        county.setCityName(jsonObject.optString("leaderZh"));
-                        county.setCountyName(jsonObject.optString("cityZh"));
-                        county.setCountyId(jsonObject.optString("id"));
-
-
+                        province.setProvinceName(strarray[7]);
+                        city.setProvinceeName(strarray[7]);
+                        city.setCityId(strarray[0]);
+                        city.setCityName(strarray[9]);
+                        county.setCityName(strarray[9]);
+                        county.setCountyName(strarray[2]);
+                        county.setCountyId(String.valueOf(i));
                         provinceList.add(province);
                         citylist.add(city);
                         countyList.add(county);
                     }
-
-
                     cityDB.saveProvinces(provinceList);
                     cityDB.saveCitys(citylist);
                     cityDB.savaCounty(countyList);
-
-
-                } catch (JSONException e) {
-                    result.setSuccess(false);
-                    result.setErrorMessage(e.toString());
                 }
                 result.setSuccess(true);
                 a.onReceive(result);
@@ -128,7 +115,7 @@ public class CityAndWeatherImgService {
      * @return
      */
     public Result<Integer> getWeatherImgData(Activity mainActivity, final ResponseListenter<Integer> a) {
-        String url = "http://files.heweather.com/condition-code.txt";
+        String url = "https://cdn.heweather.com/condition-code.txt";
         Context context = mainActivity;
         final SoWeatherDB cityDB = SoWeatherDB.getInstance(context);
         final Request request = new Request.Builder()

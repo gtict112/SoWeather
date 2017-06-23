@@ -13,9 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.BounceInterpolator;
 import android.view.animation.LinearInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -150,6 +153,7 @@ public class TipActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void getDate() {
+
         getHourDate();
         getDailyDate();
     }
@@ -211,12 +215,21 @@ public class TipActivity extends BaseActivity implements View.OnClickListener {
                 e.printStackTrace();
             }
         }
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.dialog_in);
-        animation.setFillAfter(true);
-        line_chart.startAnimation(animation);
         line_chart.setTempDay(mDayLineChart);
         line_chart.setTempNight(mNightLineChart);
-        line_chart.invalidate();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                AlphaAnimation mShowAnimation = new AlphaAnimation(0.0f, 1.0f);
+                mShowAnimation.setDuration(800);
+                mShowAnimation.setFillAfter(true);
+                line_chart.startAnimation(mShowAnimation);
+                line_chart.setVisibility(View.VISIBLE);
+                line_chart.invalidate();
+            }
+        }, 1200);
+
+
         date1.setText(mDailyforecast.get(0).date.substring(5, mDailyforecast.get(0).date.length()));
         date2.setText(mDailyforecast.get(1).date.substring(5, mDailyforecast.get(1).date.length()));
         date3.setText(mDailyforecast.get(2).date.substring(5, mDailyforecast.get(2).date.length()));
@@ -309,6 +322,7 @@ public class TipActivity extends BaseActivity implements View.OnClickListener {
         time_weather = (RecyclerView) findViewById(R.id.time_weather);
         bg = (ImageView) findViewById(R.id.bg);
         line_chart = (WeatherChartView) findViewById(R.id.line_char);
+        line_chart.setVisibility(View.INVISIBLE);
         date1 = (TextView) findViewById(R.id.date_1);
         date2 = (TextView) findViewById(R.id.date_2);
         date3 = (TextView) findViewById(R.id.date_3);
