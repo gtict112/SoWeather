@@ -1,15 +1,10 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.utils;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Aqi;
-import com.example.administrator.soweather.com.example.administrator.soweather.mode.BeautyDetail;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.BeautyListDate;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Constellation;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Dailyforecast;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Hourlyforecast;
-import com.example.administrator.soweather.com.example.administrator.soweather.mode.New;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.TopNew;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.NowWeather;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
@@ -21,9 +16,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -335,6 +327,39 @@ public class ResponseProcessUtil {
                 mConstellation.number = jsonObjecty.optString("number", null);
                 mConstellation.QFriend = jsonObjecty.optString("QFriend", null);
                 mConstellation.summary = jsonObjecty.optString("summary", null);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+            result.setErrorMessage("星座运势获取失败,请升级客户端或与客服联系...");
+        }
+        return result;
+    }
+
+    /**
+     * 获取福利社图片
+     *
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    public static Result<List<BeautyListDate>> getListBeauty(Response response) throws IOException {
+        Result<List<BeautyListDate>> result = new Result<>();
+        List<BeautyListDate> list = new ArrayList<>();
+        result.setSuccess(false);
+        try {
+            JSONObject jsonObjecty = new JSONObject(response.body().string());
+            String code = jsonObjecty.optString("error");
+            if (code.equals("false")) {
+                result.setSuccess(true);
+                JSONArray mDate = jsonObjecty.getJSONArray("results");
+                for (int i = 0; i < mDate.length(); i++) {
+                    JSONObject mNew = mDate.getJSONObject(i);
+                    BeautyListDate mNews = BeautyListDate.Builder.creatBeautyListDate();
+                    mNews.img = mNew.optString("url", null);//增加图片尺寸
+                    list.add(mNews);
+                }
+                result.setData(list);
             }
         } catch (JSONException e) {
             e.printStackTrace();

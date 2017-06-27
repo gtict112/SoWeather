@@ -227,7 +227,7 @@ public class TipActivity extends BaseActivity implements View.OnClickListener {
                 line_chart.setVisibility(View.VISIBLE);
                 line_chart.invalidate();
             }
-        }, 1200);
+        }, 1000);
 
 
         date1.setText(mDailyforecast.get(0).date.substring(5, mDailyforecast.get(0).date.length()));

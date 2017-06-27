@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/desc"
@@ -13,7 +11,7 @@
         android:layout_centerInParent="true"
         android:gravity="center"
         android:textColor="@color/background_progress"
-        android:textSize="12sp"/>
+        android:textSize="12sp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -29,7 +27,7 @@
             android:layout_height="wrap_content"
             android:text="长沙"
             android:textColor="@color/background_progress"
-            android:textSize="15sp"/>
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/weather"
@@ -40,7 +38,7 @@
             android:gravity="center_horizontal"
             android:text="晴"
             android:textColor="@color/background_progress"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -56,15 +54,13 @@
             android:id="@+id/weather_img"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@mipmap/app"
-            />
+            android:src="@mipmap/app" />
 
         <TextView
             android:id="@+id/temperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="14℃"
-            android:textColor="@color/background_progress"
-            />
+            android:textColor="@color/background_progress" />
     </LinearLayout>
 </RelativeLayout>

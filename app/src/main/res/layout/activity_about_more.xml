@@ -15,8 +15,8 @@
         android:layout_height="match_parent"
         android:layout_marginTop="5dp"
         android:gravity="center"
-        android:text="YoYo天气\n\n有情怀\n\n有品质\n\n很认真\t\t只做最好!"
+        android:text="YoYo天气\n\n\n\n专注\t\t只为更好!"
         android:textColor="@color/background_progress"
-        android:textSize="15sp"
+        android:textSize="18sp"
         android:visibility="gone" />
 </LinearLayout>

@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/bg_shape_dialog"
                 android:orientation="vertical"
                 android:paddingBottom="20dp"
@@ -65,7 +65,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="小雨"
-                                android:textColor="@color/font_progress"
+                                android:textColor="@color/white"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -88,7 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:layout_marginTop="35dp"
-                    android:background="@color/line" />
+                    android:background="@color/theme_main_title" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -110,7 +110,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1212"
-                            android:textColor="@color/font_progress"
+                            android:textColor="@color/white"
                             android:textSize="18sp" />
 
                         <TextView
@@ -118,14 +118,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="相对湿度"
-                            android:textColor="@color/grey"
+                            android:textColor="@color/white"
                             android:textSize="16sp" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:background="@color/line" />
+                        android:background="@color/theme_main_title" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -139,7 +139,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1212"
-                            android:textColor="@color/font_progress"
+                            android:textColor="@color/white"
                             android:textSize="18sp" />
 
                         <TextView
@@ -147,14 +147,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="降水概率"
-                            android:textColor="@color/font_progress"
+                            android:textColor="@color/white"
                             android:textSize="16sp" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:background="@color/line" />
+                        android:background="@color/theme_main_title" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -168,7 +168,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1212"
-                            android:textColor="@color/font_progress"
+                            android:textColor="@color/white"
                             android:textSize="18sp" />
 
                         <TextView
@@ -176,14 +176,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="降水量"
-                            android:textColor="@color/grey"
+                            android:textColor="@color/white"
                             android:textSize="16sp" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:background="@color/line" />
+                        android:background="@color/theme_main_title" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -197,7 +197,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1212"
-                            android:textColor="@color/font_progress"
+                            android:textColor="@color/white"
                             android:textSize="18sp" />
 
                         <TextView
@@ -205,7 +205,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="气压"
-                            android:textColor="@color/grey"
+                            android:textColor="@color/white"
                             android:textSize="16sp" />
                     </LinearLayout>
 
@@ -216,7 +216,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:layout_marginTop="10dp"
-                    android:background="@color/line" />
+                    android:background="@color/theme_main_title" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -249,14 +249,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="3级"
-                                android:textColor="@color/font_progress" />
+                                android:textColor="@color/white" />
 
                             <TextView
                                 android:id="@+id/dir"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="东北风"
-                                android:textColor="@color/grey" />
+                                android:textColor="@color/white" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -277,7 +277,7 @@
                                 android:drawableLeft="@mipmap/sunrise"
                                 android:drawablePadding="10dp"
                                 android:text="日出"
-                                android:textColor="@color/grey" />
+                                android:textColor="@color/white" />
 
                             <TextView
                                 android:id="@+id/sunrise"
@@ -285,7 +285,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="8dp"
                                 android:text="06:50"
-                                android:textColor="@color/font_progress" />
+                                android:textColor="@color/white" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -300,7 +300,7 @@
                                 android:drawableLeft="@mipmap/sunset"
                                 android:drawablePadding="10dp"
                                 android:text="日落"
-                                android:textColor="@color/grey" />
+                                android:textColor="@color/white" />
 
                             <TextView
                                 android:id="@+id/sunset"
@@ -308,7 +308,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="8dp"
                                 android:text="06:50"
-                                android:textColor="@color/font_progress" />
+                                android:textColor="@color/white" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -327,7 +327,7 @@
                         android:drawablePadding="10dp"
                         android:gravity="center"
                         android:text="能见度"
-                        android:textColor="@color/grey" />
+                        android:textColor="@color/white" />
 
                     <TextView
                         android:id="@+id/vis"
@@ -336,7 +336,7 @@
                         android:layout_marginLeft="6dp"
                         android:gravity="center"
                         android:text="8km"
-                        android:textColor="@color/font_progress" />
+                        android:textColor="@color/white" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -345,7 +345,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/bg_shape_dialog"
                 android:orientation="vertical"
                 android:padding="10dp">
@@ -369,7 +369,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="20"
-                        android:textColor="#1296DB"
+                        android:textColor="@color/a6"
                         android:textSize="20sp" />
 
                     <TextView
@@ -379,7 +379,7 @@
                         android:layout_marginLeft="8dp"
                         android:layout_weight="1"
                         android:text="周一"
-                        android:textColor="@color/font_progress"
+                        android:textColor="@color/a6"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -391,7 +391,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_weight="1"
                     android:text="丁年"
-                    android:textColor="@color/font_progress"
+                    android:textColor="@color/white"
                     android:textSize="18sp" />
 
                 <TextView
@@ -405,7 +405,7 @@
                     android:drawablePadding="5dp"
                     android:gravity="center_vertical|left"
                     android:text="嫁娶 "
-                    android:textColor="@color/font_progress"
+                    android:textColor="@color/a6"
                     android:textSize="12sp" />
 
                 <TextView
@@ -418,7 +418,7 @@
                     android:drawablePadding="5dp"
                     android:gravity="center_vertical|left"
                     android:text="诸事不宜"
-                    android:textColor="@color/font_progress"
+                    android:textColor="@color/a6"
                     android:textSize="12sp" />
             </LinearLayout>
 
@@ -429,7 +429,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/bg_shape_dialog"
                 android:orientation="vertical"
                 android:padding="10dp">
@@ -441,86 +441,11 @@
                     android:textColor="@color/background_progress"
                     android:textSize="22sp" />
 
-                <FrameLayout
+
+                <com.example.administrator.soweather.com.example.administrator.soweather.view.CustomGallery
+                    android:id="@+id/loop_rotary_switch"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp">
-
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:src="@mipmap/circle" />
-
-                    <com.example.administrator.soweather.com.example.administrator.soweather.view.LoopRotarySwitchView
-                        android:id="@+id/loop_rotary_switch"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        app:direction="right">
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:src="@mipmap/jvxie" />
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:src="@mipmap/shizi" />
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:src="@mipmap/chunv" />
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:src="@mipmap/tiancheng" />
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:src="@mipmap/tianxie" />
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:src="@mipmap/sheshou" />
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:src="@mipmap/mojie" />
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:src="@mipmap/shuiping" />
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:src="@mipmap/shuangyu" />
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:src="@mipmap/muyang" />
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:src="@mipmap/jinniu" />
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:src="@mipmap/shuangzi" />
-                    </com.example.administrator.soweather.com.example.administrator.soweather.view.LoopRotarySwitchView>
-                </FrameLayout>
+                    android:layout_height="200dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -539,7 +464,7 @@
                         android:drawableLeft="@mipmap/diamond"
                         android:drawableRight="@mipmap/diamond"
                         android:textColor="@color/background_progress"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                     <LinearLayout
                         android:id="@+id/week_layout"
@@ -555,8 +480,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical|left"
-                            android:textColor="@color/font_progress"
-                            android:textSize="16sp" />
+                            android:textColor="@color/white"
+                            android:typeface="serif"
+                            android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/week_love"
@@ -564,8 +490,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:gravity="center_vertical|left"
-                            android:textColor="@color/font_progress"
-                            android:textSize="16sp" />
+                            android:textColor="@color/white"
+                            android:typeface="serif"
+                            android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/week_money"
@@ -573,8 +500,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:gravity="center_vertical|left"
-                            android:textColor="@color/font_progress"
-                            android:textSize="16sp" />
+                            android:textColor="@color/white"
+                            android:typeface="serif"
+                            android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/week_health"
@@ -582,8 +510,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:gravity="center_vertical|left"
-                            android:textColor="@color/font_progress"
-                            android:textSize="16sp" />
+                            android:textColor="@color/white"
+                            android:typeface="serif"
+                            android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/week_job"
@@ -591,8 +520,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:gravity="center_vertical|left"
-                            android:textColor="@color/font_progress"
-                            android:textSize="16sp" />
+                            android:textColor="@color/white"
+                            android:typeface="serif"
+                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -614,15 +544,17 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:textColor="@color/font_progress"
-                                android:textSize="16sp" />
+                                android:textColor="@color/white"
+                                android:typeface="serif"
+                                android:textSize="14sp" />
 
                             <TextView
                                 android:id="@+id/day_love"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/font_progress"
-                                android:textSize="16sp" />
+                                android:textColor="@color/white"
+                                android:typeface="serif"
+                                android:textSize="14sp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -636,15 +568,17 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:textColor="@color/font_progress"
-                                android:textSize="16sp" />
+                                android:textColor="@color/white"
+                                android:typeface="serif"
+                                android:textSize="14sp" />
 
                             <TextView
                                 android:id="@+id/day_health"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/font_progress"
-                                android:textSize="16sp" />
+                                android:textColor="@color/white"
+                                android:typeface="serif"
+                                android:textSize="14sp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -658,15 +592,17 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:textColor="@color/font_progress"
-                                android:textSize="16sp" />
+                                android:textColor="@color/white"
+                                android:typeface="serif"
+                                android:textSize="14sp" />
 
                             <TextView
                                 android:id="@+id/day_number"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/font_progress"
-                                android:textSize="16sp" />
+                                android:textColor="@color/white"
+                                android:typeface="serif"
+                                android:textSize="14sp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -680,14 +616,16 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:textColor="@color/font_progress"
-                                android:textSize="16sp" />
+                                android:textColor="@color/white"
+                                android:typeface="serif"
+                                android:textSize="14sp" />
 
                             <TextView
                                 android:id="@+id/all"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/font_progress"
+                                android:textColor="@color/white"
+                                android:typeface="serif"
                                 android:textSize="16sp" />
                         </LinearLayout>
 
@@ -697,8 +635,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:gravity="center_vertical|left"
-                            android:textColor="@color/font_progress"
-                            android:textSize="16sp" />
+                            android:textColor="@color/white"
+                            android:typeface="serif"
+                            android:textSize="14sp" />
                     </LinearLayout>
                 </LinearLayout>
 

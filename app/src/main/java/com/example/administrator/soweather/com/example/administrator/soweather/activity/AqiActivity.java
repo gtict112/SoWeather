@@ -8,6 +8,7 @@ import android.os.Message;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,22 +51,20 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
     private TextView so2;
     private TextView co;
     private TextView o3;
-    private CircleChart circle_pm10;
-    private CircleChart circle_pm25;
-    private CircleChart circle_no2;
-    private CircleChart circle_so2;
-    private CircleChart circle_co;
-    private CircleChart circle_o3;
+    private ProgressBar circle_pm10;
+    private ProgressBar circle_pm25;
+    private ProgressBar circle_no2;
+    private ProgressBar circle_so2;
+    private ProgressBar circle_co;
+    private ProgressBar circle_o3;
 
     private TextView date;
     private TextView topTv;
     private ImageView topButton;
     private TextView wind;
-    private TextView desc;
-    private TextView index;
     private String cityid;
     private Handler mHandler;
-//    private Appconfiguration config = Appconfiguration.getInstance();
+    //    private Appconfiguration config = Appconfiguration.getInstance();
     private String dir;
     private String sc;
     private String fl;
@@ -103,17 +102,15 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
         so2 = (TextView) findViewById(R.id.so2);
         co = (TextView) findViewById(R.id.co);
         o3 = (TextView) findViewById(R.id.o3);
-        circle_pm10 = (CircleChart) findViewById(R.id.circle_pm10);
-        circle_pm25 = (CircleChart) findViewById(R.id.circle_pm25);
-        circle_no2 = (CircleChart) findViewById(R.id.circle_no2);
-        circle_so2 = (CircleChart) findViewById(R.id.circle_so2);
-        circle_co = (CircleChart) findViewById(R.id.circle_co);
-        circle_o3 = (CircleChart) findViewById(R.id.circle_o3);
+        circle_pm10 = (ProgressBar) findViewById(R.id.circle_pm10);
+        circle_pm25 = (ProgressBar) findViewById(R.id.circle_pm25);
+        circle_no2 = (ProgressBar) findViewById(R.id.circle_no2);
+        circle_so2 = (ProgressBar) findViewById(R.id.circle_so2);
+        circle_co = (ProgressBar) findViewById(R.id.circle_co);
+        circle_o3 = (ProgressBar) findViewById(R.id.circle_o3);
         date = (TextView) findViewById(R.id.date);
         topTv = (TextView) findViewById(R.id.topTv);
         wind = (TextView) findViewById(R.id.wind);
-        desc = (TextView) findViewById(R.id.desc);
-        index = (TextView) findViewById(R.id.index);
         flubrf = (TextView) findViewById(R.id.flubrf);
         flu_txt = (TextView) findViewById(R.id.flubrf_txt);
         drsgbrf = (TextView) findViewById(R.id.drsgbrf);
@@ -141,6 +138,12 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
             no2.setText(intent.getStringExtra("no2"));
             o3.setText(intent.getStringExtra("o3"));
             so2.setText(intent.getStringExtra("so2"));
+            circle_pm10.setMax(400);
+            circle_pm25.setMax(400);
+            circle_so2.setMax(400);
+            circle_no2.setMax(400);
+            circle_co.setMax(1000);
+            circle_o3.setMax(1000);
             circle_pm10.setProgress(Integer.valueOf(intent.getStringExtra("pm10")));
             circle_pm25.setProgress(Integer.valueOf(intent.getStringExtra("pm25")));
             circle_co.setProgress(Integer.valueOf(intent.getStringExtra("co")));
@@ -159,12 +162,12 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
             pres = intent.getStringExtra("pres");
             vis = intent.getStringExtra("vis");
             tem_max_min = intent.getStringExtra("tem_max_min");
-            wind.setText("今日风力," + dir + sc + "级");
-            desc.setText("温度" + tem_max_min + "," + "体感温度" + fl + "℃" + "," + "相对湿度" + hum + "%" + "," + "降水量" + pcpn + "mm" + "," + "气压" + pres + "," + "能见度" + vis + "km");
             String cond = intent.getStringExtra("cond");
             try {
                 JSONObject astrodate = new JSONObject(cond);
-                index.setText("白天" + astrodate.optString("txt_d") + "," + "夜间" + astrodate.optString("txt_n"));
+                wind.setText("今日风力:\t\t" + dir + "\t" + sc + "级 !\n\n" + "今日温度:" + "\t\t" + tem_max_min + " ! \n" + "当前体感温度:" + "\t\t" + fl + "℃ ! " + "\n\n"
+                        + "相对湿度" + hum + "%" + ", " + "降水量" + pcpn + "mm" + ", " + "气压" + pres + ", " + "能见度" + vis + "km ! " + "\n\n" +
+                        "白天" + astrodate.optString("txt_d") + ",  " + "夜间" + astrodate.optString("txt_n"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -214,7 +217,7 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
         trav_txt.setText(mSuggestion.travtex);
         sportbrf.setText("运动指数---" + mSuggestion.sportbrf);
         sport_txt.setText(mSuggestion.sporttex);
-        index.setText(index.getText().toString() + "," + "紫外线强度" + mSuggestion.uvbrf + "," + mSuggestion.cwbrf + "洗车");
+        wind.setText(wind.getText().toString() + ",  " + "紫外线强度" + mSuggestion.uvbrf + ",  " + mSuggestion.cwbrf + "洗车 !");
 
     }
 

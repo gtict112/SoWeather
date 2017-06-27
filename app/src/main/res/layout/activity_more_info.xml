@@ -11,7 +11,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/line" />
+        android:background="@color/theme_main_title" />
 
     <com.example.administrator.soweather.com.example.administrator.soweather.view.TabPageIndicator
         android:id="@+id/indicator"

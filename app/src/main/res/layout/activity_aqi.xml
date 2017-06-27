@@ -28,229 +28,502 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="5dp"
-                    android:text="发布时间"
-                    android:textColor="@color/grey"
-                    android:textSize="12sp"
-                    skin:enable="true" />
-
-                <com.example.administrator.soweather.com.example.administrator.soweather.view.CircleChart
-                    android:id="@+id/aqi"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="40dp"
-                    android:layout_marginTop="17dp"
-                    android:orientation="horizontal">
+                    android:layout_height="180dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                   >
 
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:layout_gravity="right"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="5dp"
+                        android:text="发布时间"
+                        android:textColor="@color/grey"
+                        android:textSize="12sp"
+                        skin:enable="true" />
 
-                        <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="PM10"
-                            android:textColor="@color/grey"
-                            skin:enable="true" />
-
-                        <com.example.administrator.soweather.com.example.administrator.soweather.view.CircleChart
-                            android:id="@+id/circle_pm10"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:layout_marginTop="6dp"
-                            skin:enable="true" />
-
-                        <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                            android:id="@+id/pm10"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="90"
-                            android:textColor="@color/background_progress"
-                            skin:enable="true" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="PM2.5"
-                            android:textColor="@color/grey"
-                            skin:enable="true" />
-
-                        <com.example.administrator.soweather.com.example.administrator.soweather.view.CircleChart
-                            android:id="@+id/circle_pm25"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:layout_marginTop="6dp"
-                            skin:enable="true" />
-
-                        <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                            android:id="@+id/pm25"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="90"
-                            android:textColor="@color/background_progress"
-                            skin:enable="true" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="NO2"
-                            android:textColor="@color/grey"
-                            skin:enable="true" />
-
-                        <com.example.administrator.soweather.com.example.administrator.soweather.view.CircleChart
-                            android:id="@+id/circle_no2"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:layout_marginTop="6dp"
-                            skin:enable="true" />
-
-                        <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                            android:id="@+id/no2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="90"
-                            android:textColor="@color/background_progress"
-                            skin:enable="true" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="SO2"
-                            android:textColor="@color/grey"
-                            skin:enable="true" />
-
-                        <com.example.administrator.soweather.com.example.administrator.soweather.view.CircleChart
-                            android:id="@+id/circle_so2"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:layout_marginTop="6dp"
-                            skin:enable="true" />
-
-                        <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                            android:id="@+id/so2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="90"
-                            android:textColor="@color/background_progress"
-                            skin:enable="true" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="CO"
-                            android:textColor="@color/grey"
-                            skin:enable="true" />
-
-                        <com.example.administrator.soweather.com.example.administrator.soweather.view.CircleChart
-                            android:id="@+id/circle_co"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:layout_marginTop="6dp" />
-
-                        <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                            android:id="@+id/co"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="90"
-                            android:textColor="@color/background_progress"
-                            skin:enable="true" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="O3"
-                            android:textColor="@color/grey"
-                            skin:enable="true" />
-
-                        <com.example.administrator.soweather.com.example.administrator.soweather.view.CircleChart
-                            android:id="@+id/circle_o3"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:layout_marginTop="6dp"
-                            skin:enable="true" />
-
-                        <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
-                            android:id="@+id/o3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="90"
-                            android:textColor="@color/background_progress"
-                            skin:enable="true" />
-
-                    </LinearLayout>
-
+                    <com.example.administrator.soweather.com.example.administrator.soweather.view.CircleChart
+                        android:id="@+id/aqi"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/gray" />
+                    android:layout_height="1px"
+                    android:background="@color/line" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:padding="8dp"
+                        android:text="主要污染物"
+                        android:textColor="@color/grey"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:padding="8dp"
+                        android:text="单位: ug/m3"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="13dp"
+                    android:background="@color/line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                  >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="17dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="13dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="8dp"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="clip_horizontal"
+                                        android:text="PM10"
+                                        android:textColor="@color/grey"
+                                        android:textSize="12sp"
+                                        skin:enable="true" />
+
+                                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="clip_horizontal"
+                                        android:text="可吸入颗粒物"
+                                        android:textColor="@color/line"
+                                        android:textSize="10sp"
+                                        skin:enable="true" />
+                                </LinearLayout>
+
+                                <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                                    android:id="@+id/pm10"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="6dp"
+                                    android:text="90"
+                                    android:textColor="@color/grey"
+                                    android:textSize="20sp"
+                                    skin:enable="true" />
+                            </LinearLayout>
+
+                            <ProgressBar
+                                android:id="@+id/circle_pm10"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="fill_parent"
+                                android:layout_height="1.5dp"
+                                android:max="100"
+                                android:progress="80"
+                                android:progressDrawable="@drawable/progressbar"
+                                skin:enable="true" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="13dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="8dp"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="clip_horizontal"
+                                        android:text="PM2.5"
+                                        android:textColor="@color/grey"
+                                        android:textSize="12sp"
+                                        skin:enable="true" />
+
+                                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="clip_horizontal"
+                                        android:text="细颗粒物"
+                                        android:textColor="@color/line"
+                                        android:textSize="12sp"
+                                        skin:enable="true" />
+                                </LinearLayout>
+
+                                <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                                    android:id="@+id/pm25"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="6dp"
+                                    android:text="90"
+                                    android:textColor="@color/grey"
+                                    android:textSize="20sp"
+                                    skin:enable="true" />
+                            </LinearLayout>
+
+                            <ProgressBar
+                                android:id="@+id/circle_pm25"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="fill_parent"
+                                android:layout_height="1.5dp"
+                                android:max="100"
+                                android:progress="80"
+                                android:progressDrawable="@drawable/progressbar"
+                                skin:enable="true" />
+                            />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="13dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="8dp"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="clip_horizontal"
+                                        android:text="NO2"
+                                        android:textColor="@color/grey"
+                                        android:textSize="12sp"
+                                        skin:enable="true" />
+
+                                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="clip_horizontal"
+                                        android:text="二氧化氮"
+                                        android:textColor="@color/line"
+                                        android:textSize="12sp"
+                                        skin:enable="true" />
+                                </LinearLayout>
+
+                                <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                                    android:id="@+id/no2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="6dp"
+                                    android:text="90"
+                                    android:textColor="@color/grey"
+                                    android:textSize="20sp"
+                                    skin:enable="true" />
+                            </LinearLayout>
+
+                            <ProgressBar
+                                android:id="@+id/circle_no2"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="fill_parent"
+                                android:layout_height="1.5dp"
+                                android:max="100"
+                                android:progress="80"
+                                android:progressDrawable="@drawable/progressbar"
+                                skin:enable="true" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="13dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="8dp"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="clip_horizontal"
+                                        android:text="SO2"
+                                        android:textColor="@color/grey"
+                                        android:textSize="12sp"
+                                        skin:enable="true" />
+
+                                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="clip_horizontal"
+                                        android:text="二氧化硫"
+                                        android:textColor="@color/line"
+                                        android:textSize="12sp"
+                                        skin:enable="true" />
+                                </LinearLayout>
+
+                                <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                                    android:id="@+id/so2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="6dp"
+                                    android:text="90"
+                                    android:textColor="@color/grey"
+                                    android:textSize="20sp"
+                                    skin:enable="true" />
+                            </LinearLayout>
+
+
+                            <ProgressBar
+                                android:id="@+id/circle_so2"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="fill_parent"
+                                android:layout_height="1.5dp"
+                                android:max="100"
+                                android:progress="80"
+                                android:progressDrawable="@drawable/progressbar"
+                                skin:enable="true" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="13dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="8dp"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="clip_horizontal"
+                                        android:text="CO"
+                                        android:textColor="@color/grey"
+                                        android:textSize="12sp"
+                                        skin:enable="true" />
+
+                                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="clip_horizontal"
+                                        android:text="一氧化氮"
+                                        android:textColor="@color/line"
+                                        android:textSize="12sp"
+                                        skin:enable="true" />
+                                </LinearLayout>
+
+                                <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                                    android:id="@+id/co"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="6dp"
+                                    android:text="90"
+                                    android:textColor="@color/grey"
+                                    android:textSize="20sp"
+                                    skin:enable="true" />
+                            </LinearLayout>
+
+                            <ProgressBar
+                                android:id="@+id/circle_co"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="fill_parent"
+                                android:layout_height="1.5dp"
+                                android:max="100"
+                                android:progress="80"
+                                android:progressDrawable="@drawable/progressbar"
+                                skin:enable="true" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="13dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="8dp"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="clip_horizontal"
+                                        android:text="O3"
+                                        android:textColor="@color/grey"
+                                        android:textSize="12sp"
+                                        skin:enable="true" />
+
+                                    <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="clip_horizontal"
+                                        android:text="臭氧"
+                                        android:textColor="@color/line"
+                                        android:textSize="12sp"
+                                        skin:enable="true" />
+                                </LinearLayout>
+
+                                <com.example.administrator.soweather.com.example.administrator.soweather.view.AutofitTextView
+                                    android:id="@+id/o3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="6dp"
+                                    android:text="90"
+                                    android:textColor="@color/grey"
+                                    android:textSize="20sp"
+                                    skin:enable="true" />
+                            </LinearLayout>
+
+                            <ProgressBar
+                                android:id="@+id/circle_o3"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="fill_parent"
+                                android:layout_height="1.5dp"
+                                android:max="100"
+                                android:progress="80"
+                                android:progressDrawable="@drawable/progressbar"
+                                skin:enable="true" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/line" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/line" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -258,236 +531,289 @@
                     android:layout_marginBottom="10dp"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:padding="8dp"
-                        android:text="今日提醒"
-                        android:textColor="#BE7E7E"
-                        android:textSize="14sp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginLeft="13dp"
-                        android:background="@color/gray" />
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="15dp"
+                        android:background="@color/white"
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/wind"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:drawableLeft="@mipmap/smiling_face"
-                            android:drawablePadding="10dp"
-                            android:gravity="top|left"
-                            android:text="dsdsdsd"
-                            android:textSize="14sp" />
+                            android:layout_marginLeft="5dp"
+                            android:padding="8dp"
+                            android:text="今日提醒"
+                            android:textColor="@color/grey"
+                            android:textSize="16sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_marginLeft="13dp"
+                            android:background="@color/line" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="15dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="15dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/wind"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="10dp"
+                                android:gravity="top|left"
+                                android:text="dsdsdsd"
+                                android:textColor="@color/grey"
+                                android:textSize="13sp"
+                                android:typeface="serif" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/line" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/line" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/desc"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/textView3"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:padding="8dp"
+                            android:text="今日建议"
+                            android:textColor="@color/grey"
+                            android:textSize="16sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_marginLeft="13dp"
+                            android:background="@color/line"
+                            skin:enable="true" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="10dp"
                             android:layout_marginTop="20dp"
-                            android:drawableLeft="@mipmap/smiling_face"
-                            android:drawablePadding="10dp"
-                            android:gravity="top|left"
-                            android:text="dsdsdsd"
-                            android:textSize="14sp" />
+                            android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/index"
-                            android:layout_width="wrap_content"
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/running" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="20dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/sportbrf"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/grey"
+                                    android:textSize="14sp"
+                                    skin:enable="true" />
+
+                                <TextView
+                                    android:id="@+id/sportbrf_txt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:ellipsize="end"
+                                    android:lines="1"
+                                    android:textColor="#7E7E7E"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_marginLeft="13dp"
+                            android:background="@color/line"
+                            skin:enable="true" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="10dp"
                             android:layout_marginTop="20dp"
-                            android:drawableLeft="@mipmap/smiling_face"
-                            android:drawablePadding="10dp"
-                            android:gravity="top|left"
-                            android:text="dsdsdsd"
-                            android:textSize="14sp" />
-                    </LinearLayout>
+                            android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:padding="8dp"
-                        android:text="今日建议"
-                        android:textColor="#BE7E7E"
-                        android:textSize="14sp" />
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/cold" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginLeft="13dp"
-                        android:background="@color/gray"
-                        skin:enable="true" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="20dp"
+                                android:orientation="vertical">
 
+                                <TextView
+                                    android:id="@+id/flubrf"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/grey"
+                                    android:textSize="14sp"
+                                    skin:enable="true" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginTop="30dp"
-                        android:orientation="horizontal">
+                                <TextView
+                                    android:id="@+id/flubrf_txt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:ellipsize="end"
+                                    android:lines="1"
+                                    android:textColor="#7E7E7E"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+                        </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/sportbrf"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:drawablePadding="15dp"
-                            android:drawableTop="@mipmap/running"
-                            android:textColor="@color/grey"
-                            android:textSize="13sp"
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_marginLeft="13dp"
+                            android:background="@color/line"
                             skin:enable="true" />
 
-                        <TextView
-                            android:id="@+id/sportbrf_txt"
-                            android:layout_width="0dp"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
+                            android:layout_marginBottom="20dp"
                             android:layout_marginLeft="30dp"
-                            android:layout_weight="2"
-                            android:textColor="#7E7E7E"
-                            android:textSize="13sp" />
-                    </LinearLayout>
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal">
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginLeft="13dp"
-                        android:background="@color/gray"
-                        skin:enable="true" />
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/coat" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginTop="30dp"
-                        android:orientation="horizontal">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="20dp"
+                                android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/flubrf"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:drawablePadding="15dp"
-                            android:drawableTop="@mipmap/cold"
-                            android:textColor="@color/grey"
-                            android:textSize="13sp"
+                                <TextView
+                                    android:id="@+id/drsgbrf"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/grey"
+                                    android:textSize="14sp"
+                                    skin:enable="true" />
+
+                                <TextView
+                                    android:id="@+id/drsgbrf_txt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:ellipsize="end"
+                                    android:lines="1"
+                                    android:textColor="#7E7E7E"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_marginLeft="13dp"
+                            android:background="@color/line"
                             skin:enable="true" />
 
-                        <TextView
-                            android:id="@+id/flubrf_txt"
-                            android:layout_width="0dp"
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
+                            android:layout_marginBottom="20dp"
                             android:layout_marginLeft="30dp"
-                            android:layout_weight="2"
-                            android:textColor="#7E7E7E"
-                            android:textSize="13sp" />
-                    </LinearLayout>
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal">
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginLeft="13dp"
-                        android:background="@color/gray"
-                        skin:enable="true" />
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/tourism" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginTop="30dp"
-                        android:orientation="horizontal">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="20dp"
+                                android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/drsgbrf"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:drawablePadding="15dp"
-                            android:drawableTop="@mipmap/coat"
-                            android:textColor="@color/grey"
-                            android:textSize="13sp"
+
+                                <TextView
+                                    android:id="@+id/travbrf"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/grey"
+                                    android:textSize="14sp"
+                                    skin:enable="true" />
+
+                                <TextView
+                                    android:id="@+id/travbrf_txt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:ellipsize="end"
+                                    android:lines="1"
+                                    android:textColor="#7E7E7E"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="@color/line"
                             skin:enable="true" />
-
-                        <TextView
-                            android:id="@+id/drsgbrf_txt"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="30dp"
-                            android:layout_weight="2"
-                            android:textColor="#7E7E7E"
-                            android:textSize="13sp" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginLeft="13dp"
-                        android:background="@color/gray"
-                        skin:enable="true" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginTop="30dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/travbrf"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:drawablePadding="15dp"
-                            android:drawableTop="@mipmap/tourism"
-                            android:textColor="@color/grey"
-                            android:textSize="13sp"
-                            skin:enable="true" />
-
-                        <TextView
-                            android:id="@+id/travbrf_txt"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="30dp"
-                            android:layout_weight="2"
-                            android:textColor="#7E7E7E"
-                            android:textSize="13sp" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginLeft="13dp"
-                        android:background="@color/gray"
-                        skin:enable="true" />
+                        android:layout_height="1px"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/line" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="10dp"
+                        android:background="@color/white"
                         android:orientation="vertical">
 
                         <TextView
@@ -496,14 +822,14 @@
                             android:layout_marginLeft="5dp"
                             android:padding="8dp"
                             android:text="地图模式"
-                            android:textColor="#BE7E7E"
-                            android:textSize="14sp" />
+                            android:textColor="@color/grey"
+                            android:textSize="16sp" />
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="1dp"
+                            android:layout_height="1px"
                             android:layout_marginLeft="13dp"
-                            android:background="@color/gray" />
+                            android:background="@color/line" />
 
                         <com.baidu.mapapi.map.TextureMapView
                             android:id="@+id/map"

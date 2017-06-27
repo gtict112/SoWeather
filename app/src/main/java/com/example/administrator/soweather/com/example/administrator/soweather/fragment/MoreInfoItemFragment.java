@@ -1,15 +1,19 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.fragment;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,9 +28,10 @@ import com.example.administrator.soweather.com.example.administrator.soweather.m
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Zodiac;
 import com.example.administrator.soweather.com.example.administrator.soweather.service.ConstellationService;
 import com.example.administrator.soweather.com.example.administrator.soweather.service.ZodiacService;
+import com.example.administrator.soweather.com.example.administrator.soweather.utils.ImageUtil;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.OnItemSelectedListener;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
-import com.example.administrator.soweather.com.example.administrator.soweather.view.LoopRotarySwitchView;
+import com.example.administrator.soweather.com.example.administrator.soweather.view.CustomGallery;
 
 /**
  * Created by Administrator on 2016/12/9.
@@ -39,8 +44,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.feng.skin.manager.base.BaseSkinFragment;
-
-import static android.R.attr.width;
 
 public class MoreInfoItemFragment extends BaseSkinFragment {
     private String time;
@@ -72,11 +75,23 @@ public class MoreInfoItemFragment extends BaseSkinFragment {
     private Zodiac mZodiac = new Zodiac();
     private Constellation mConstellation = new Constellation();
     private Handler mHandler;
-    private LoopRotarySwitchView mLoopRotarySwitch;
+    private CustomGallery mLoopRotarySwitch;
     private TextView consname;
     private String type;
     private String consname_txt = "巨蟹座";
-
+    private int[] imageResIDs = new int[]{
+            R.mipmap.jvxie,
+            R.mipmap.shizi,
+            R.mipmap.chuyu,
+            R.mipmap.tiancheng,
+            R.mipmap.tianxie,
+            R.mipmap.sheshou,
+            R.mipmap.mojie,
+            R.mipmap.shuiping,
+            R.mipmap.shuangyu,
+            R.mipmap.baiyang,
+            R.mipmap.jinniu,
+            R.mipmap.shuangzi};
 
     private LinearLayout week_layout;
     private TextView week_work, week_love, week_money, week_health, week_job;
@@ -157,22 +172,20 @@ public class MoreInfoItemFragment extends BaseSkinFragment {
         day_qfriend = (TextView) view.findViewById(R.id.day_qfriend);
         all = (TextView) view.findViewById(R.id.all);
         day_summary = (TextView) view.findViewById(R.id.day_summary);
-        DisplayMetrics dm = new DisplayMetrics();
-        WindowManager windowManager = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
-        windowManager.getDefaultDisplay().getMetrics(dm);
-        int width = dm.widthPixels;
-        mLoopRotarySwitch = (LoopRotarySwitchView) view.findViewById(R.id.loop_rotary_switch);
-        mLoopRotarySwitch
-                .setR(width / 3)//设置R的大小
-                .setAutoRotation(false)//是否自动切换
-                .setAutoScrollDirection(LoopRotarySwitchView.AutoScrollDirection.left)
-                .setAutoRotationTime(1500);//自动切换的时间  单位毫秒
-        mLoopRotarySwitch.setOnItemSelectedListener(new OnItemSelectedListener() {
+        mLoopRotarySwitch = (CustomGallery) view.findViewById(R.id.loop_rotary_switch);
+        ImageAdapter adapter = new ImageAdapter();
+        mLoopRotarySwitch.setAdapter(adapter);
+        mLoopRotarySwitch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void selected(int item, View view) {
-                consname_txt = getConstellationName(item);
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                consname_txt = getConstellationName(position);
                 consname.setText(consname_txt);
                 getConstellationService();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 
@@ -352,4 +365,43 @@ public class MoreInfoItemFragment extends BaseSkinFragment {
         return mConstellationName;
     }
 
+    public class ImageAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            // TODO Auto-generated method stub
+            return imageResIDs.length;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            // TODO Auto-generated method stub
+            return imageResIDs[position];
+        }
+
+        @Override
+        public long getItemId(int position) {
+            // TODO Auto-generated method stub
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // TODO Auto-generated method stub
+            ImageView imageView;
+            if (convertView != null) {
+                imageView = (ImageView) convertView;
+            } else {
+                imageView = new ImageView(getActivity());
+            }
+            Bitmap bitmap = ImageUtil.getImageBitmap(getResources(),
+                    imageResIDs[position]);
+            BitmapDrawable drawable = new BitmapDrawable(bitmap);
+            drawable.setAntiAlias(true); // 消除锯齿
+            imageView.setImageDrawable(drawable);
+            Gallery.LayoutParams params = new Gallery.LayoutParams(340, 300);
+            imageView.setLayoutParams(params);
+            return imageView;
+        }
+    }
 }

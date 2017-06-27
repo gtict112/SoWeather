@@ -1,6 +1,7 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -20,6 +22,7 @@ import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.db.SoWeatherDB;
+import com.example.administrator.soweather.com.example.administrator.soweather.fragment.MainFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.ManageCity;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.NowWeather;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
@@ -49,7 +52,7 @@ public class Managecity extends BaseActivity implements ResponseListenter<NowWea
     private TextView topTv;
     private ImageView topButton;
     private TextView topRight;
-    private Boolean isDelete = false;
+    //    private Boolean isDelete = false;
     private LinearLayout bg;
 
     @Override
@@ -67,7 +70,7 @@ public class Managecity extends BaseActivity implements ResponseListenter<NowWea
         list = (GridView) findViewById(R.id.list);
         topTv = (TextView) findViewById(R.id.topTv);
         topRight = (TextView) findViewById(R.id.topRight);
-        topRight.setVisibility(View.VISIBLE);
+        topRight.setVisibility(View.GONE);
         topTv.setText("多城市管理");
         topButton = (ImageView) findViewById(R.id.topButton);
         bg = (LinearLayout) findViewById(R.id.bg);
@@ -77,6 +80,16 @@ public class Managecity extends BaseActivity implements ResponseListenter<NowWea
         weathimgs = cityDB.getAllWeatherImg();
         mDailyAdapter = new GalleryAdapter(this, date);
         list.setAdapter(mDailyAdapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(Managecity.this, MainActivity.class);
+                intent.putExtra("cityid", citylist.get(position).getCityId());
+                intent.putExtra("city", citylist.get(position).getCityName());
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void getData(List<ManageCity> citylist) {
@@ -122,15 +135,6 @@ public class Managecity extends BaseActivity implements ResponseListenter<NowWea
                 overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
                 break;
             case R.id.topRight:
-                if (!isDelete) {
-                    isDelete = true;
-                    mDailyAdapter.notifyDataSetChanged();
-                    topRight.setText("取消");
-                } else if (isDelete) {
-                    isDelete = false;
-                    mDailyAdapter.notifyDataSetChanged();
-                    topRight.setText("编辑");
-                }
                 break;
         }
     }
@@ -175,7 +179,6 @@ public class Managecity extends BaseActivity implements ResponseListenter<NowWea
                 vh.weather_img = (ImageView) convertView.findViewById(R.id.weather_img);
                 vh.tmp = (TextView) convertView.findViewById(R.id.tmp);
                 vh.cond_txt = (TextView) convertView.findViewById(R.id.cond_txt);
-                vh.delete = (ImageView) convertView.findViewById(R.id.delete);
                 vh.bg = (LinearLayout) convertView.findViewById(R.id.bg);
                 convertView.setTag(vh);
             } else {
@@ -199,25 +202,25 @@ public class Managecity extends BaseActivity implements ResponseListenter<NowWea
                     vh.weather_img.setImageBitmap(weathimgs.get(j).getIcon());
                 }
             }
-            if (isDelete) {
-                vh.delete.setVisibility(View.VISIBLE);
-                Animation anim1 = AnimationUtils.loadAnimation(Managecity.this, R.anim.dialog_out);
-                vh.delete.startAnimation(anim1);
-                Animation anim2 = AnimationUtils.loadAnimation(Managecity.this, R.anim.dialog_in);
-                vh.delete.startAnimation(anim2);
-                vh.delete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        cityDB.deleteManagecity(mNowWeather.id);//删除数据库数据
-                        citylist = cityDB.getAllManagecity();
-                        date.clear();
-                        getData(citylist);
-                    }
-                });
-            }
-            if (!isDelete) {
-                vh.delete.setVisibility(View.GONE);
-            }
+//            if (isDelete) {
+//                vh.delete.setVisibility(View.VISIBLE);
+//                Animation anim1 = AnimationUtils.loadAnimation(Managecity.this, R.anim.dialog_out);
+//                vh.delete.startAnimation(anim1);
+//                Animation anim2 = AnimationUtils.loadAnimation(Managecity.this, R.anim.dialog_in);
+//                vh.delete.startAnimation(anim2);
+//                vh.delete.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        cityDB.deleteManagecity(mNowWeather.id);//删除数据库数据
+//                        citylist = cityDB.getAllManagecity();
+//                        date.clear();
+//                        getData(citylist);
+//                    }
+//                });
+//            }
+//            if (!isDelete) {
+//                vh.delete.setVisibility(View.GONE);
+//            }
             return convertView;
         }
 
@@ -226,7 +229,6 @@ public class Managecity extends BaseActivity implements ResponseListenter<NowWea
             TextView address;
             TextView tmp;
             TextView cond_txt;
-            ImageView delete;
             LinearLayout bg;
         }
     }

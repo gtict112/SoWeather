@@ -12,7 +12,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,17 +27,21 @@ import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.AboutActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.HelpFeedbackActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.SettingSkinActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.SpanActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.WelcomeActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.db.SoWeatherDB;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.NowWeather;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.WeathImg;
 import com.example.administrator.soweather.com.example.administrator.soweather.service.WeatherService;
+import com.example.administrator.soweather.com.example.administrator.soweather.utils.CashDataManager;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +56,7 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 public class SettingFragment extends BaseSkinFragment implements View.OnClickListener, ResponseListenter<NowWeather> {
     private Switch noti;
     private LinearLayout win;
-    private TextView clear;
+    private LinearLayout clear;
     private LinearLayout feed_back;
     private LinearLayout setting_about;
     public final static String ACTION_BTN = "com.example.notification.btn.login";
@@ -70,6 +73,9 @@ public class SettingFragment extends BaseSkinFragment implements View.OnClickLis
     private String hum;
     private NotificationManager notificationManager;
     private String desc;
+    private TextView cash_size;
+    private LinearLayout noti_layout;
+    private Boolean isConfirm = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,6 +94,7 @@ public class SettingFragment extends BaseSkinFragment implements View.OnClickLis
         cityDB = SoWeatherDB.getInstance(getActivity());
         getData();
         getHandlerMessage();
+        getCashSize();
         return view;
     }
 
@@ -128,14 +135,17 @@ public class SettingFragment extends BaseSkinFragment implements View.OnClickLis
     }
 
     private void initView(View view) {
+        noti_layout = (LinearLayout) view.findViewById(R.id.noti_layout);
+        cash_size = (TextView) view.findViewById(R.id.cash_size);
         noti = (Switch) view.findViewById(R.id.noti);
         win = (LinearLayout) view.findViewById(R.id.win);
-        clear = (TextView) view.findViewById(R.id.clear);
+        clear = (LinearLayout) view.findViewById(R.id.clear);
         feed_back = (LinearLayout) view.findViewById(R.id.feed_back);
         setting_about = (LinearLayout) view.findViewById(R.id.setting_about);
         LinearLayout skin_setting = (LinearLayout) view.findViewById(R.id.skin_setting);
         initSwitch(noti);
         noti.setOnClickListener(this);
+        noti_layout.setOnClickListener(this);
         clear.setOnClickListener(this);
         feed_back.setOnClickListener(this);
         setting_about.setOnClickListener(this);
@@ -183,7 +193,7 @@ public class SettingFragment extends BaseSkinFragment implements View.OnClickLis
         intent.putExtra(INTENT_NAME, INTENT_BTN_LOGIN);
         PendingIntent intentpi = PendingIntent.getBroadcast(getActivity(), 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         Intent intent2 = new Intent();
-        intent2.setClass(getActivity(), WelcomeActivity.class);
+        intent2.setClass(getActivity(), SpanActivity.class);
         intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent intentContent = PendingIntent.getActivity(getActivity(), 0, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity());
@@ -249,12 +259,18 @@ public class SettingFragment extends BaseSkinFragment implements View.OnClickLis
             case R.id.noti:
                 //设置通知
                 break;
+            case R.id.noti_layout:
+                isConfirm = !isConfirm;
+                noti.setChecked(isConfirm);
+                break;
             case R.id.win:
                 Toast.makeText(getActivity(), "桌面小控件可在手机系统小部件进行添加,相关定制功能待开发", Toast.LENGTH_LONG).show();
                 break;
             case R.id.clear:
                 //清除缓存
+                CashDataManager.clearAllCache(Appconfiguration.getInstance().getContext());
                 Toast.makeText(getActivity(), "清除应用缓存成功", Toast.LENGTH_LONG).show();
+                getCashSize();
                 break;
             case R.id.feed_back:
                 //帮助与反馈
@@ -268,6 +284,17 @@ public class SettingFragment extends BaseSkinFragment implements View.OnClickLis
             case R.id.skin_setting:
                 startActivity(new Intent(getActivity(), SettingSkinActivity.class));
                 break;
+        }
+    }
+
+    /**
+     * 获取应用的缓存目录大小
+     */
+    private void getCashSize() {
+        try {
+            cash_size.setText(CashDataManager.getTotalCacheSize(Appconfiguration.getInstance().getContext()));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
