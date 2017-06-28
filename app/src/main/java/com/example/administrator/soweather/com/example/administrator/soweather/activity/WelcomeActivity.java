@@ -1,8 +1,7 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.activity;
 
-import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.ViewGroup;
@@ -15,14 +14,16 @@ import android.widget.LinearLayout;
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.adapter.BaseFragmentAdapter;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
-import com.example.administrator.soweather.com.example.administrator.soweather.fragment.LauncherBaseFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.PrivateMessageLauncherFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.RewardLauncherFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.StereoscopicLauncherFragment;
-import com.example.administrator.soweather.com.example.administrator.soweather.view.GuideViewPager;
+
+import net.youmi.android.AdManager;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.waps.AppConnect;
 
 /**
  * Created by Administrator on 2016/10/10.
@@ -31,8 +32,8 @@ import java.util.List;
  */
 
 public class WelcomeActivity extends FragmentActivity {
-    private GuideViewPager vPager;
-    private List<LauncherBaseFragment> list = new ArrayList<LauncherBaseFragment>();
+    private ViewPager vPager;
+    private List<Fragment> list = new ArrayList<>();
     private BaseFragmentAdapter adapter;
 
     private ImageView[] tips;
@@ -44,6 +45,8 @@ public class WelcomeActivity extends FragmentActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        AdManager.getInstance(Appconfiguration.getInstance().getContext()).init("6a741d1cb4fa8d83", "f0b8ac4ca96cd1d9", true);//有米
+        AppConnect.getInstance("0aa0ac95f187d3b59db4bba59b48e19e", "goapk", this);//万普
         final Appconfiguration appConfig = Appconfiguration.getInstance();
         appConfig.setIsFirstStartApp(false);
         if (appConfig.getActivitySet().size() > 0) {
@@ -70,7 +73,7 @@ public class WelcomeActivity extends FragmentActivity {
             }
         }
         //获取自定义viewpager 然后设置背景图片
-        vPager = (GuideViewPager) findViewById(R.id.viewpager_launcher);
+        vPager = (ViewPager) findViewById(R.id.viewpager_launcher);
 
         /**
          * 初始化三个fragment  并且添加到list中
@@ -96,11 +99,6 @@ public class WelcomeActivity extends FragmentActivity {
         @Override
         public void onPageSelected(int index) {
             setImageBackground(index);//改变点点点的切换效果
-            LauncherBaseFragment fragment = list.get(index);
-
-            list.get(currentSelect).stopAnimation();//停止前一个页面的动画
-            fragment.startAnimation();//开启当前页面的动画
-
             currentSelect = index;
         }
 

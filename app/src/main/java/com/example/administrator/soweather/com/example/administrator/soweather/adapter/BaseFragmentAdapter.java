@@ -7,16 +7,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.example.administrator.soweather.com.example.administrator.soweather.fragment.LauncherBaseFragment;
-
 /**
  * Viewpager适配器
  * @author apple
  *
  */
 public class BaseFragmentAdapter extends FragmentStatePagerAdapter {
-	private List<LauncherBaseFragment>list;
-	public BaseFragmentAdapter(FragmentManager fm, List<LauncherBaseFragment> list) {
+	private List<Fragment>list;
+	public BaseFragmentAdapter(FragmentManager fm, List<Fragment> list) {
 		super(fm);
 		this.list = list;
 	}

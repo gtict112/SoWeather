@@ -32,8 +32,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
                     android:background="@color/white"
-                    android:orientation="vertical"
-                   >
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/date"
@@ -103,8 +102,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:orientation="vertical"
-                  >
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -512,24 +510,33 @@
                         </LinearLayout>
 
                     </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/line" />
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/line" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
+                <LinearLayout
+                    android:id="@+id/ll_banner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="8dp"
-                    android:background="@color/line" />
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal" />
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
                     android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/line" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -571,12 +578,21 @@
                                 android:textSize="13sp"
                                 android:typeface="serif" />
                         </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="@color/line" />
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:background="@color/line" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_banner2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal" />
 
                     <View
                         android:layout_width="match_parent"
@@ -802,6 +818,14 @@
                             android:background="@color/line"
                             skin:enable="true" />
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_banner3"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal" />
 
                     <View
                         android:layout_width="match_parent"

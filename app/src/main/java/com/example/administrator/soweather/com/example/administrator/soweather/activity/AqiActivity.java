@@ -8,6 +8,7 @@ import android.os.Message;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,8 +34,14 @@ import com.example.administrator.soweather.com.example.administrator.soweather.s
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.CircleChart;
 
+import net.youmi.android.nm.bn.BannerManager;
+import net.youmi.android.nm.bn.BannerViewListener;
+import net.youmi.android.nm.sp.SpotManager;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import cn.waps.AppConnect;
 
 /**
  * Created by Administrator on 2016/11/22.
@@ -83,6 +90,7 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
     private TextView sport_txt;
     private TextureMapView map;
     private BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.place);
+    private LinearLayout ll_banner, ll_banner2, ll_banner3;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -92,6 +100,7 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
         initView();
         getData();
         getHandleMessge();
+        setupBannerAd();
     }
 
     private void initView() {
@@ -272,5 +281,63 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
                 return true;
             }
         });
+    }
+
+
+    private void setupBannerAd() {
+        // 获取广告条
+        showBanner1();
+        showBanner2();
+        showBanner3();
+    }
+
+
+    private void showBanner1() {
+        View bannerView = BannerManager.getInstance(this)
+                .getBannerView(this, new BannerViewListener() {
+                    @Override
+                    public void onRequestSuccess() {
+                    }
+
+                    @Override
+                    public void onSwitchBanner() {
+
+                    }
+
+                    @Override
+                    public void onRequestFailed() {
+                    }
+                });
+        // 获取要嵌入广告条的布局
+        ll_banner = (LinearLayout) findViewById(R.id.ll_banner);
+        // 将广告条加入到布局中
+        ll_banner.addView(bannerView);
+    }
+
+
+    private void showBanner2() {
+        ll_banner2 = (LinearLayout) findViewById(R.id.ll_banner2);
+//        BanView banView = new BanView(this);
+//        ll_banner2.addView(banView);
+    }
+
+
+    private void showBanner3() {
+        LinearLayout adlayout = (LinearLayout) findViewById(R.id.ll_banner3);
+        AppConnect.getInstance(this).showBannerAd(this, adlayout);
+    }
+
+    @Override
+    protected void onStop() {
+        // 如果不调用此方法，则按home键的时候会出现图标无法显示的情况
+        SpotManager.getInstance(this).onStop();
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        // 调用插屏，开屏，退屏时退出
+        SpotManager.getInstance(this).onDestroy();
+        super.onDestroy();
     }
 }

@@ -30,6 +30,8 @@ import com.example.administrator.soweather.com.example.administrator.soweather.u
 import com.example.administrator.soweather.com.example.administrator.soweather.view.SlidingMenu;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+import cn.waps.AppConnect;
+
 /**
  * Created by Administrator on 2016/10/10.
  * MainActivity 界面切换,初识定位,获取城市数据,保存至数据库
@@ -238,6 +240,7 @@ public class MainActivity extends SlidingFragmentActivity implements
             public void doConfirm() {
                 confirmDialog.dismiss();
                 Appconfiguration.getInstance().closeAllActivities();
+                AppConnect.getInstance(MainActivity.this).close();
             }
 
             @Override

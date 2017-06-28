@@ -2,6 +2,7 @@ package com.example.administrator.soweather.com.example.administrator.soweather.
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,24 +20,13 @@ import com.example.administrator.soweather.R;
  *
  * @author ansen
  */
-public class PrivateMessageLauncherFragment extends LauncherBaseFragment {
+public class PrivateMessageLauncherFragment extends Fragment {
     private ImageView welcome_2;
-    private boolean started;//是否开启动画
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rooView = inflater.inflate(R.layout.fragment_private_message_launcher, null);
         welcome_2 = (ImageView)rooView.findViewById(R.id.welcome_2);
         return rooView;
-    }
-
-    public void stopAnimation() {
-        //动画开启标示符设置成false
-        started = false;
-    }
-
-
-    public void startAnimation() {
-        started = true;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,15 +9,18 @@ import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.BeautyDetailActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.BeautyListDate;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
@@ -42,6 +46,7 @@ public class BeautyFragment extends BaseSkinFragment implements SwipeRefreshLayo
     private SwipeRefreshLayout mSwipeLayout;
     private LinearLayoutManager linearLayoutManager;
     private int page = 1;
+    private int width;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,6 +59,10 @@ public class BeautyFragment extends BaseSkinFragment implements SwipeRefreshLayo
     }
 
     private void initView(View view) {
+        WindowManager manager = getActivity().getWindowManager();
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        manager.getDefaultDisplay().getMetrics(outMetrics);
+        width = outMetrics.widthPixels;
         mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeLayout);
         mSwipeLayout.setOnRefreshListener(this);
         // 设置下拉圆圈上的颜色，蓝色、绿色、橙色、红色
@@ -133,10 +142,10 @@ public class BeautyFragment extends BaseSkinFragment implements SwipeRefreshLayo
         mBeautyAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-//                String id = mDate.get(position).id;
-//                Intent intent = new Intent(getActivity(), BeautyDetailActivity.class);
-//                intent.putExtra("id", id);
-//                startActivity(intent);
+                String id = mDate.get(position).img;
+                Intent intent = new Intent(getActivity(), BeautyDetailActivity.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
             }
         });
         mList.setOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -227,7 +236,7 @@ public class BeautyFragment extends BaseSkinFragment implements SwipeRefreshLayo
             viewHolder.itemView.setTag(i);
             BeautyListDate mTimeWeatherData = mData.get(i);
             Glide.with(context).load(mTimeWeatherData.img).animate(R.anim.img_loading).diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.drawable.bg_loading_eholder).override(1800, 1200).centerCrop()
+                    .placeholder(R.drawable.bg_loading_eholder).override(width, 260)
                     .into(viewHolder.img);
 //            viewHolder.title.setText(mTimeWeatherData.title);
         }

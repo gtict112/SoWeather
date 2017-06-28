@@ -4,7 +4,7 @@
     android:clipToPadding="true"
     android:fitsSystemWindows="true">
 
-    <com.example.administrator.soweather.com.example.administrator.soweather.view.GuideViewPager
+    <android.support.v4.view.ViewPager
         android:id="@+id/viewpager_launcher"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -15,18 +15,13 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/viewGroup"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
-
-            <LinearLayout
-                android:id="@+id/viewGroup"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal" />
-        </LinearLayout>
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" />
     </RelativeLayout>
 
 </RelativeLayout>
