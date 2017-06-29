@@ -51,13 +51,21 @@ public class MoreInfoActivity extends BaseActivity implements View.OnClickListen
     private String qlty;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_more_info);
+    protected int getLayoutId() {
+        return R.layout.activity_more_info;
+    }
+
+    @Override
+    protected int getMenuId() {
+        return 0;
+    }
+
+    @Override
+    protected void initViews(Bundle savedInstanceState) {
         initDate();
         initView();
     }
+
 
     private void initView() {
         topTv = (TextView) findViewById(R.id.topTv);

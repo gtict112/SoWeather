@@ -41,6 +41,6 @@ public class SpanActivity extends FragmentActivity {
                     finish();
                 }
             }
-        }, 1000);
+        }, 1200);
     }
 }

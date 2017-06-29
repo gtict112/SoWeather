@@ -56,15 +56,23 @@ public class Managecity extends BaseActivity implements ResponseListenter<NowWea
     private LinearLayout bg;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_city);
+    protected int getLayoutId() {
+        return R.layout.activity_manage_city;
+    }
+
+    @Override
+    protected int getMenuId() {
+        return 0;
+    }
+
+    @Override
+    protected void initViews(Bundle savedInstanceState) {
         cityDB = SoWeatherDB.getInstance(this);
         initView();
         getData(citylist);
         getHandleMessge();
     }
+
 
     private void initView() {
         list = (GridView) findViewById(R.id.list);

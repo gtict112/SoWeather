@@ -52,10 +52,17 @@ public class CurrentCityActivity extends BaseActivity implements View.OnClickLis
     public static String TYPE = "leftfragment";
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_current_city);
+    protected int getLayoutId() {
+        return R.layout.activity_current_city;
+    }
+
+    @Override
+    protected int getMenuId() {
+        return 0;
+    }
+
+    @Override
+    protected void initViews(Bundle savedInstanceState) {
         instance = this;
         Intent intent = getIntent();
         if (intent != null) {

@@ -121,13 +121,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="@drawable/selector_left_fragment_item_layout"
-                android:drawableLeft="@drawable/selector_weather_bg"
                 android:drawablePadding="26dp"
                 android:gravity="center_vertical|left"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:text="天气"
-                android:textColor="@drawable/selector_item_text"
                 android:textSize="15sp" />
 
             <View
@@ -140,13 +138,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="@drawable/selector_left_fragment_item_layout"
-                android:drawableLeft="@drawable/selector_welfare_association"
                 android:drawablePadding="26dp"
                 android:gravity="center_vertical|left"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:text="福利社"
-                android:textColor="@drawable/selector_item_text"
                 android:textSize="15sp" />
 
             <View
@@ -159,13 +155,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="@drawable/selector_left_fragment_item_layout"
-                android:drawableLeft="@drawable/selector_top_news"
                 android:drawablePadding="26dp"
                 android:gravity="center_vertical|left"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:text="今日头条"
-                android:textColor="@drawable/selector_item_text"
                 android:textSize="15sp" />
 
 
@@ -181,13 +175,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="@drawable/selector_left_fragment_item_layout"
-                android:drawableLeft="@drawable/selector_service_assostant"
                 android:drawablePadding="26dp"
                 android:gravity="center_vertical|left"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:text="我的助手"
-                android:textColor="@drawable/selector_item_text"
                 android:textSize="15sp" />
 
             <View
@@ -201,13 +193,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="@drawable/selector_left_fragment_item_layout"
-                android:drawableLeft="@drawable/selector_setting"
                 android:drawablePadding="26dp"
                 android:gravity="center_vertical|left"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:text="系统设置"
-                android:textColor="@drawable/selector_item_text"
                 android:textSize="15sp" />
 
             <View
@@ -220,13 +210,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="@drawable/selector_left_fragment_item_layout"
-                android:drawableLeft="@drawable/selector_logout"
                 android:drawablePadding="26dp"
                 android:gravity="center_vertical|left"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:text="退出"
-                android:textColor="@drawable/selector_item_text"
                 android:textSize="15sp" />
 
             <View

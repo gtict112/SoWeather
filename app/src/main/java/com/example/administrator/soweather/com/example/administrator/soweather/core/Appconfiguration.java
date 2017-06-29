@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.ArraySet;
 
 import com.baidu.mapapi.SDKInitializer;
@@ -30,12 +31,12 @@ public class Appconfiguration {
     /**
      * 当前页面集合，方便退出
      */
-    private Set<FragmentActivity> activitySet;
+    private Set<AppCompatActivity> activitySet;
     // General Settings
     /**
      * 存放最前面的activity。
      */
-    private List<FragmentActivity> frontActivityList;
+    private List<AppCompatActivity> frontActivityList;
 
     /**
      * 系统配置文件，全局就一个文件。
@@ -66,12 +67,12 @@ public class Appconfiguration {
         return config;
     }
 
-    public void addActivity(FragmentActivity activity) {
+    public void addActivity(AppCompatActivity activity) {
         activitySet.add(activity);
     }
 
 
-    public void removeActivity(FragmentActivity activity) {
+    public void removeActivity(AppCompatActivity activity) {
         activitySet.remove(activity);
     }
 
@@ -83,11 +84,11 @@ public class Appconfiguration {
         activitySet.clear();
     }
 
-    public Set<FragmentActivity> getActivitySet() {
+    public Set<AppCompatActivity> getActivitySet() {
         return activitySet;
     }
 
-    public List<FragmentActivity> getFrontActivityList() {
+    public List<AppCompatActivity> getFrontActivityList() {
         return frontActivityList;
     }
 

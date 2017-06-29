@@ -44,12 +44,19 @@ public class CustomerServiceActivity extends BaseActivity implements View.OnClic
     private TextView topTv;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customer_service);
-        initView();
+    protected int getLayoutId() {
+        return R.layout.activity_customer_service;
     }
 
+    @Override
+    protected int getMenuId() {
+        return 0;
+    }
+
+    @Override
+    protected void initViews(Bundle savedInstanceState) {
+        initView();
+    }
 
     private void initView() {
         list = new ArrayList<ChatListData>();

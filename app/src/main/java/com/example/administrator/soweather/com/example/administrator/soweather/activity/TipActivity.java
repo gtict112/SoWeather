@@ -141,16 +141,24 @@ public class TipActivity extends BaseActivity implements View.OnClickListener {
     private LinearLayout date_linear;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_dialog_tip);
+    protected int getLayoutId() {
+        return R.layout.fragment_dialog_tip;
+    }
+
+    @Override
+    protected int getMenuId() {
+        return 0;
+    }
+
+    @Override
+    protected void initViews(Bundle savedInstanceState) {
         cityDB = SoWeatherDB.getInstance(this);
         weathimgs = cityDB.getAllWeatherImg();
         init();
         getDate();
         getHandleMessge();
     }
+
 
     private void getDate() {
 

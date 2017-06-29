@@ -54,15 +54,22 @@ public class DiaryActivity extends BaseActivity implements View.OnClickListener 
     private TextView topRight;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_diary);
+    protected int getLayoutId() {
+        return R.layout.activity_diary;
+    }
+
+    @Override
+    protected int getMenuId() {
+        return 0;
+    }
+
+    @Override
+    protected void initViews(Bundle savedInstanceState) {
         initView();
         getLocationAdress();
         setHeart();
     }
+
 
     private void initView() {
         heart_layout = (HeartLayout) findViewById(R.id.heart_layout);

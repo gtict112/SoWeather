@@ -1,6 +1,5 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,10 +37,17 @@ public class CurrenCityThreeActiivty extends BaseActivity implements View.OnClic
     private String type = null;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_current_city_three);
+    protected int getLayoutId() {
+        return R.layout.activity_current_city_three;
+    }
+
+    @Override
+    protected int getMenuId() {
+        return 0;
+    }
+
+    @Override
+    protected void initViews(Bundle savedInstanceState) {
         initView();
     }
 

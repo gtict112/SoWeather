@@ -26,11 +26,19 @@ public class HelpFeedbackActivity extends BaseActivity implements View.OnClickLi
     private TextView topTv;
     private ImageView topButton;
     private WebView mWebView;
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_help_feedback);
+    protected int getLayoutId() {
+        return R.layout.activity_help_feedback;
+    }
+
+    @Override
+    protected int getMenuId() {
+        return 0;
+    }
+
+    @Override
+    protected void initViews(Bundle savedInstanceState) {
         initView();
         String encoding = "UTF-8";
         String mimeType = "text/html";
@@ -40,6 +48,7 @@ public class HelpFeedbackActivity extends BaseActivity implements View.OnClickLi
                         "</a>";
         mWebView.loadDataWithBaseURL("file://", html, mimeType, encoding, "about:blank");
     }
+
 
     private void initView() {
         topTv = (TextView) findViewById(R.id.topTv);

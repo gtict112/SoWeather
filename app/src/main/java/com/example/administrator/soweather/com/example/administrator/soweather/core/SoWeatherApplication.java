@@ -9,7 +9,6 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.mapapi.SDKInitializer;
 
-import cn.feng.skin.manager.loader.SkinManager;
 
 /**
  * Created by Administrator on 2016/11/14.
@@ -27,18 +26,10 @@ public class SoWeatherApplication extends Application {
         mLocationClient = new LocationClient(this.getApplicationContext());
         mMyLocationListener = new MyLocationListener();
         mLocationClient.registerLocationListener(mMyLocationListener);
-        initSkinLoader();
         Appconfiguration config = Appconfiguration.getInstance();
         config.initGeneralPreferences(getApplicationContext());
     }
 
-    /**
-     * Must call init first
-     */
-    private void initSkinLoader() {
-        SkinManager.getInstance().init(this);
-        SkinManager.getInstance().load();
-    }
 
 
     /**

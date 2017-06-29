@@ -38,13 +38,21 @@ public class CurrenCityTwoActivity extends BaseActivity implements View.OnClickL
     private String type = null;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_curren_city_two);
+    protected int getLayoutId() {
+        return R.layout.activity_curren_city_two;
+    }
+
+    @Override
+    protected int getMenuId() {
+        return 0;
+    }
+
+    @Override
+    protected void initViews(Bundle savedInstanceState) {
         instance = this;
         initView();
     }
+
 
     private void initView() {
 

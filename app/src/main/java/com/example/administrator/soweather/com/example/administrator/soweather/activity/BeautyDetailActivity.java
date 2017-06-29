@@ -25,12 +25,20 @@ public class BeautyDetailActivity extends BaseActivity implements View.OnClickLi
     private TextView topTv;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_beauty_detail);
+    protected int getLayoutId() {
+        return R.layout.activity_beauty_detail;
+    }
+
+    @Override
+    protected int getMenuId() {
+        return 0;
+    }
+
+    @Override
+    protected void initViews(Bundle savedInstanceState) {
         initView();
     }
+
 
     private void initView() {
         src = (ImageView) findViewById(R.id.src);

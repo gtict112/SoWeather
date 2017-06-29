@@ -23,10 +23,9 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
 import com.example.administrator.soweather.R;
-import com.example.administrator.soweather.com.example.administrator.soweather.activity.WelcomeActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.SpanActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Constans;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.ParentsAppWidgetProvider;
 import com.example.administrator.soweather.com.example.administrator.soweather.db.SoWeatherDB;
@@ -79,7 +78,7 @@ public class AppWidgetUpdateService extends Service {
         }
         updateTime();
         getWeatherData();
-        Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
+        Intent intent = new Intent(getApplicationContext(), SpanActivity.class);
         PendingIntent pi = PendingIntent.getActivity(getApplicationContext(),
                 0, intent, 0);
         remoteViews.setOnClickPendingIntent(R.id.right, pi);

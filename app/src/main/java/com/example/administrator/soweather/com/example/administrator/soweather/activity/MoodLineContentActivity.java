@@ -38,10 +38,17 @@ public class MoodLineContentActivity extends BaseActivity implements View.OnClic
     private LinearLayout bg;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_moodline_content);
+    protected int getLayoutId() {
+        return R.layout.activity_moodline_content;
+    }
+
+    @Override
+    protected int getMenuId() {
+        return 0;
+    }
+
+    @Override
+    protected void initViews(Bundle savedInstanceState) {
         initView();
         getTime();
     }

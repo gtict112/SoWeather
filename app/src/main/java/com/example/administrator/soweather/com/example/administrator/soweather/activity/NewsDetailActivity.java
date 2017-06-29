@@ -28,12 +28,20 @@ public class NewsDetailActivity extends BaseActivity {
     private TextView topTv;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news_detail);
+    protected int getLayoutId() {
+        return R.layout.activity_news_detail;
+    }
+
+    @Override
+    protected int getMenuId() {
+        return 0;
+    }
+
+    @Override
+    protected void initViews(Bundle savedInstanceState) {
         initview();
     }
+
 
     private void initview() {
         content = (WebView) findViewById(R.id.content);

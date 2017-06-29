@@ -1,20 +1,20 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.fragment;
-
 import android.animation.Keyframe;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -27,9 +27,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.AqiActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.MoreInfoActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.TipActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
@@ -62,12 +62,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.feng.skin.manager.base.BaseSkinFragment;
 
 /**
  * Created by Administrator on 2016/10/10.
  */
-public class MainFragment extends BaseSkinFragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class MainFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+    private Toolbar mToolbar;
+
+
     private Appconfiguration config = Appconfiguration.getInstance();
     private TextView date;//更新时间
     private TextView mTmp;//温度
@@ -417,6 +419,26 @@ public class MainFragment extends BaseSkinFragment implements View.OnClickListen
     }
 
     private void initView(View view) {
+        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        mToolbar.setTitle("天气");
+        ((MainActivity) getActivity()).initDrawer(mToolbar);
+        mToolbar.inflateMenu(R.menu.menu_weather);
+        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.menu_share) {
+                    //分享天气
+                    return true;
+                } else if (id == R.id.menu_tts) {
+                    //语音播报天气
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
         mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeLayout);
         mSwipeLayout.setOnRefreshListener(this);
         // 设置下拉圆圈上的颜色，蓝色、绿色、橙色、红色

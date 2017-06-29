@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/g1">
+        <item
+            android:id="@+id/home"
+            android:icon="@drawable/ic_weather"
+            android:title="天气" />
+        <item
+            android:id="@+id/welfare_association"
+            android:icon="@drawable/ic_gank"
+            android:title="福利社" />
+        <item
+            android:id="@+id/today_top_new"
+            android:icon="@drawable/ic_reading"
+            android:title="今日头条" />
+    </group>
+    <item android:title="@string/app_name">
+        <menu>
+            <item
+                android:id="@+id/navigation_item_about"
+                android:icon="@drawable/ic_about"
+                android:title="关于" />
+            <item
+                android:id="@+id/setting"
+                android:icon="@drawable/ic_settings"
+                android:title="设置" />
+            />
+        </menu>
+    </item>
+
+</menu>

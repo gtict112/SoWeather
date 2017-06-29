@@ -9,15 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.CurrentCityActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.Managecity;
-import com.example.administrator.soweather.com.example.administrator.soweather.activity.SettingSkinActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.SettingActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.db.SoWeatherDB;
 import com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout;
@@ -35,13 +33,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.feng.skin.manager.base.BaseSkinFragment;
 
 /**
  * Created by Administrator on 2016/10/10.
  */
 
-public class LeftFragment extends BaseSkinFragment implements View.OnClickListener, ResponseListenter<NowWeather> {
+public class LeftFragment extends Fragment implements View.OnClickListener, ResponseListenter<NowWeather> {
     private TextView mHome;//首页
     private TextView service_assistant;//我的助手
     private TextView mSetting;//设置
@@ -172,8 +169,6 @@ public class LeftFragment extends BaseSkinFragment implements View.OnClickListen
                 title = "天气";
                 break;
             case R.id.setting:
-                newContent = new SettingFragment();
-                title = "系统设置";
                 break;
             case R.id.logout:
                 final com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout confirmDialog = new DialogLogout(getActivity(), "确定要退出吗?", "退出", "取消");
@@ -229,7 +224,7 @@ public class LeftFragment extends BaseSkinFragment implements View.OnClickListen
         }
         if (getActivity() instanceof com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity) {
             MainActivity fca = (MainActivity) getActivity();
-            fca.switchConent(fragment, title);
+//            fca.switchConent(fragment, title);
         }
     }
 

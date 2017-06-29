@@ -6,9 +6,11 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.BeautyDetailActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.BeautyListDate;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
@@ -30,13 +33,13 @@ import com.example.administrator.soweather.com.example.administrator.soweather.u
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.feng.skin.manager.base.BaseSkinFragment;
 
 /**
  * Created by Administrator on 2017/6/6.
  */
 
-public class BeautyFragment extends BaseSkinFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class BeautyFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+    private Toolbar mToolbar;
     private String id = "福利";
     private List<BeautyListDate> mDate = new ArrayList<>();
     private Handler mHandler;
@@ -59,6 +62,9 @@ public class BeautyFragment extends BaseSkinFragment implements SwipeRefreshLayo
     }
 
     private void initView(View view) {
+        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        mToolbar.setTitle("福利社");
+        ((MainActivity) getActivity()).initDrawer(mToolbar);
         WindowManager manager = getActivity().getWindowManager();
         DisplayMetrics outMetrics = new DisplayMetrics();
         manager.getDefaultDisplay().getMetrics(outMetrics);

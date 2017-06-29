@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SoWeather.iml" filepath="$PROJECT_DIR$/SoWeather.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android-skin-loader-lib/android-skin-loader-lib.iml" filepath="$PROJECT_DIR$/android-skin-loader-lib/android-skin-loader-lib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android-skin-loader-skin/android-skin-loader-skin.iml" filepath="$PROJECT_DIR$/android-skin-loader-skin/android-skin-loader-skin.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/shapeloading/shapeloading.iml" filepath="$PROJECT_DIR$/shapeloading/shapeloading.iml" />
     </modules>

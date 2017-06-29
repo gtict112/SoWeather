@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.NewsDetailActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
@@ -28,19 +31,19 @@ import com.example.administrator.soweather.com.example.administrator.soweather.u
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.feng.skin.manager.base.BaseSkinFragment;
 
 /**
  * Created by Administrator on 2017/5/27.
  */
 
-public class TodayTopNewFragment extends BaseSkinFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class TodayTopNewFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private Appconfiguration config = Appconfiguration.getInstance();
     private ListView recommended;
     private List<TopNew> mNewDate = new ArrayList<>();
     private Handler mHandler;
     private NewsAdapter mNewsAdapter;
     private SwipeRefreshLayout mSwipeLayout;
+    private Toolbar mToolbar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -151,6 +154,9 @@ public class TodayTopNewFragment extends BaseSkinFragment implements SwipeRefres
     }
 
     private void initView(View view) {
+        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        mToolbar.setTitle("今日头条");
+        ((MainActivity) getActivity()).initDrawer(mToolbar);
         mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeLayout);
         mSwipeLayout.setOnRefreshListener(this);
         // 设置下拉圆圈上的颜色，蓝色、绿色、橙色、红色

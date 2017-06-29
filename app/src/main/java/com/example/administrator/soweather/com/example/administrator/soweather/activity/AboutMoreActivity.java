@@ -23,12 +23,20 @@ public class AboutMoreActivity extends BaseActivity implements View.OnClickListe
     private ImageView tvButton;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about_more);
+    protected int getLayoutId() {
+        return R.layout.activity_about_more;
+    }
+
+    @Override
+    protected int getMenuId() {
+        return 0;
+    }
+
+    @Override
+    protected void initViews(Bundle savedInstanceState) {
         initView();
     }
+
 
     private void initView() {
         about = (TextView) findViewById(R.id.about);

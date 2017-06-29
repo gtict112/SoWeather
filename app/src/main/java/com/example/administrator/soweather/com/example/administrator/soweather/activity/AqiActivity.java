@@ -93,15 +93,23 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
     private LinearLayout ll_banner, ll_banner2, ll_banner3;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_aqi);
+    protected int getLayoutId() {
+        return R.layout.activity_aqi;
+    }
+
+    @Override
+    protected int getMenuId() {
+        return 0;
+    }
+
+    @Override
+    protected void initViews(Bundle savedInstanceState) {
         initView();
         getData();
         getHandleMessge();
         setupBannerAd();
     }
+
 
     private void initView() {
         aqi = (CircleChart) findViewById(R.id.aqi);

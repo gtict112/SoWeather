@@ -6,6 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,9 +44,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.feng.skin.manager.base.BaseSkinFragment;
 
-public class MoreInfoItemFragment extends BaseSkinFragment {
+public class MoreInfoItemFragment extends Fragment {
     private String time;
     private String today;
     private String tomorrow;

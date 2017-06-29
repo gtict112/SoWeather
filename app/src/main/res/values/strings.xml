@@ -11,6 +11,8 @@
     <string name="changsha">长沙</string>
     <string name="chongqi">重庆</string>
     <string name="wenzhou">温州</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
     <string-array name="welcome_tips">
         <item>主人，近来一切可好</item>
         <item>亲爱的，我想死你了</item>
