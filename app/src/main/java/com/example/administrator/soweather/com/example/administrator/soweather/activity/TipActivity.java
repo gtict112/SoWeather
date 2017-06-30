@@ -52,8 +52,6 @@ public class TipActivity extends BaseActivity implements View.OnClickListener {
     private List<Dailyforecast> mDailyforecast = new ArrayList<>();
     private String city;
     private String cityid;
-    private TextView topTv;
-    private ImageView topButton;
     private TimeAdapter mTimeAdapter;
     private RecyclerView time_weather;
     private SoWeatherDB cityDB;
@@ -152,6 +150,7 @@ public class TipActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
+        setDisplayHomeAsUpEnabled(true);
         cityDB = SoWeatherDB.getInstance(this);
         weathimgs = cityDB.getAllWeatherImg();
         init();
@@ -325,8 +324,6 @@ public class TipActivity extends BaseActivity implements View.OnClickListener {
         int flag = 0;
         Intent intent = getIntent();
         date_linear = (LinearLayout) findViewById(R.id.date_linear);
-        topTv = (TextView) findViewById(R.id.topTv);
-        topButton = (ImageView) findViewById(R.id.topButton);
         time_weather = (RecyclerView) findViewById(R.id.time_weather);
         bg = (ImageView) findViewById(R.id.bg);
         line_chart = (WeatherChartView) findViewById(R.id.line_char);
@@ -399,13 +396,11 @@ public class TipActivity extends BaseActivity implements View.OnClickListener {
         time_weather.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
         mTimeAdapter = new TimeAdapter();
         time_weather.setAdapter(mTimeAdapter);
-        topButton.setOnClickListener(this);
         if (intent != null) {
             city = intent.getStringExtra("city");
             cityid = intent.getStringExtra("cityid");
             a = intent.getStringExtra("txt");
             flag = intent.getIntExtra("flag", 0);
-            topTv.setText(city);
         }
         Constans.WeatherBgImg citys[] = Constans.WeatherBgImg.values();
         for (Constans.WeatherBgImg cu : citys) {
@@ -424,34 +419,9 @@ public class TipActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.topButton:
-                finish();
-                overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
-                break;
             case R.id.hour_rotate:
-//                Animation rotate = AnimationUtils.loadAnimation(this, R.anim.rotate);//创建动画
-//                rotate.setInterpolator(new LinearInterpolator());//设置为线性旋转
-//                rotate.setFillAfter(true);
-//                hour_rotate.startAnimation(rotate);
-//
-//                if (isUnfoldHour) {
-//                    time_weather.setVisibility(View.GONE);
-//                    isUnfoldHour = false;
-//                } else {
-//                    isUnfoldHour = true;
-//                    time_weather.setVisibility(View.VISIBLE);
-//                }
                 break;
             case R.id.date_rotate:
-//                Animation rotate1 = AnimationUtils.loadAnimation(this, R.anim.rotate);//创建动画
-//                date_rotate.startAnimation(rotate1);
-//                if (isUnfolddate) {
-//                    date_linear.setVisibility(View.GONE);
-//                    isUnfolddate = false;
-//                } else {
-//                    date_linear.setVisibility(View.VISIBLE);
-//                    isUnfolddate = true;
-//                }
                 break;
         }
     }

@@ -49,7 +49,6 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     private LinearLayout win;
     private LinearLayout clear;
     private LinearLayout feed_back;
-    private LinearLayout setting_about;
     public final static String ACTION_BTN = "com.example.notification.btn.login";
     public final static String INTENT_NAME = "btnid";
     public final static int INTENT_BTN_LOGIN = 1;
@@ -133,14 +132,12 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         win = (LinearLayout) findViewById(R.id.win);
         clear = (LinearLayout) findViewById(R.id.clear);
         feed_back = (LinearLayout) findViewById(R.id.feed_back);
-        setting_about = (LinearLayout) findViewById(R.id.setting_about);
         LinearLayout skin_setting = (LinearLayout) findViewById(R.id.skin_setting);
         initSwitch(noti);
         noti.setOnClickListener(this);
         noti_layout.setOnClickListener(this);
         clear.setOnClickListener(this);
         feed_back.setOnClickListener(this);
-        setting_about.setOnClickListener(this);
         win.setOnClickListener(this);
         skin_setting.setOnClickListener(this);
     }
@@ -268,10 +265,6 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 //帮助与反馈
                 Intent intent = new Intent(this, HelpFeedbackActivity.class);
                 startActivity(intent);
-                break;
-            case R.id.setting_about:
-                Intent intent1 = new Intent(this, AboutActivity.class);
-                startActivity(intent1);
                 break;
             case R.id.skin_setting:
                 break;

@@ -1,7 +1,6 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,21 +16,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.administrator.soweather.R;
-import com.example.administrator.soweather.com.example.administrator.soweather.activity.BeautyDetailActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.BeautyListDate;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
 import com.example.administrator.soweather.com.example.administrator.soweather.service.BeautyService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
+import com.example.administrator.soweather.com.example.administrator.soweather.utils.WebUtils;
+import com.example.administrator.soweather.com.example.administrator.soweather.view.RatioImageView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -149,9 +152,7 @@ public class BeautyFragment extends Fragment implements SwipeRefreshLayout.OnRef
             @Override
             public void onItemClick(View view, int position) {
                 String id = mDate.get(position).img;
-                Intent intent = new Intent(getActivity(), BeautyDetailActivity.class);
-                intent.putExtra("id", id);
-                startActivity(intent);
+                WebUtils.openInternal(getActivity(), id);
             }
         });
         mList.setOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -213,12 +214,10 @@ public class BeautyFragment extends Fragment implements SwipeRefreshLayout.OnRef
         public class ViewHolder extends RecyclerView.ViewHolder {
             public ViewHolder(View arg0) {
                 super(arg0);
-                title = (TextView) arg0.findViewById(R.id.content_title);
-                img = (ImageView) arg0.findViewById(R.id.img);
+                img = (RatioImageView) arg0.findViewById(R.id.img);
             }
 
-            private TextView title;
-            private ImageView img;
+            private RatioImageView img;
 
         }
 
@@ -241,10 +240,8 @@ public class BeautyFragment extends Fragment implements SwipeRefreshLayout.OnRef
         public void onBindViewHolder(final BeautyAdapter.ViewHolder viewHolder, final int i) {
             viewHolder.itemView.setTag(i);
             BeautyListDate mTimeWeatherData = mData.get(i);
-            Glide.with(context).load(mTimeWeatherData.img).animate(R.anim.img_loading).diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.drawable.bg_loading_eholder).override(width, 260)
-                    .into(viewHolder.img);
-//            viewHolder.title.setText(mTimeWeatherData.title);
+            Glide.with(context).load(mTimeWeatherData.img).animate(R.anim.img_loading).
+                    diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.bg_loading_eholder).crossFade(500).into(viewHolder.img);
         }
     }
 

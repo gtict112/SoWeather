@@ -47,7 +47,7 @@ import cn.waps.AppConnect;
  * Created by Administrator on 2016/11/22.
  */
 
-public class AqiActivity extends BaseActivity implements View.OnClickListener {
+public class AqiActivity extends BaseActivity  {
     private Suggestion mSuggestion = new Suggestion();
     private CircleChart aqi;
 
@@ -66,8 +66,6 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
     private ProgressBar circle_o3;
 
     private TextView date;
-    private TextView topTv;
-    private ImageView topButton;
     private TextView wind;
     private String cityid;
     private Handler mHandler;
@@ -104,6 +102,7 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
+        setDisplayHomeAsUpEnabled(true);
         initView();
         getData();
         getHandleMessge();
@@ -126,7 +125,6 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
         circle_co = (ProgressBar) findViewById(R.id.circle_co);
         circle_o3 = (ProgressBar) findViewById(R.id.circle_o3);
         date = (TextView) findViewById(R.id.date);
-        topTv = (TextView) findViewById(R.id.topTv);
         wind = (TextView) findViewById(R.id.wind);
         flubrf = (TextView) findViewById(R.id.flubrf);
         flu_txt = (TextView) findViewById(R.id.flubrf_txt);
@@ -136,9 +134,7 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
         trav_txt = (TextView) findViewById(R.id.travbrf_txt);
         sportbrf = (TextView) findViewById(R.id.sportbrf);
         sport_txt = (TextView) findViewById(R.id.sportbrf_txt);
-        topButton = (ImageView) findViewById(R.id.topButton);
         map = (TextureMapView) findViewById(R.id.map);
-        topButton.setOnClickListener(this);
     }
 
     private void getData() {
@@ -169,7 +165,6 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
             circle_so2.setProgress(Integer.valueOf(intent.getStringExtra("so2")));
 
 
-            topTv.setText(intent.getStringExtra("city"));
             cityid = intent.getStringExtra("cityid");
             dir = intent.getStringExtra("dir");
             sc = intent.getStringExtra("sc");
@@ -238,16 +233,6 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.topButton:
-                finish();
-                this.overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
-                break;
-        }
-    }
-
     /**
      * 设置地图
      */
@@ -271,7 +256,7 @@ public class AqiActivity extends BaseActivity implements View.OnClickListener {
                 InfoWindow mInfoWindow;
                 TextView location = new TextView(getApplicationContext());
                 location.setPadding(10, 10, 5, 20);
-                location.setTextColor(AqiActivity.this.getResources().getColor(R.color.background_progress));
+                location.setTextColor(AqiActivity.this.getResources().getColor(R.color.colorTextDark));
                 location.setTextSize(12);
                 location.setText("小背熊提醒您:待真机测试,模拟器无法定位到精确位置!");
                 final LatLng ll = marker.getPosition();

@@ -125,7 +125,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setNavigationBarTintEnabled(true);
         // 自定义颜色
-        tintManager.setTintColor(Color.parseColor("#75ADA2"));
+        tintManager.setTintColor(Color.parseColor("#376154"));
     }
 
 }

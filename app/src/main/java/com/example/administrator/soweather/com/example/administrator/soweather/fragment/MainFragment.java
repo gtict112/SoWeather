@@ -1,4 +1,5 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.fragment;
+
 import android.animation.Keyframe;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
@@ -8,9 +9,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -95,7 +98,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
     private String pcpn;
     private String pres;
     private String vis;
-    private HorizontalRecyclerView day_weather;
+    private RecyclerView day_weather;
     private GalleryAdapter mDailyAdapter;
     private Aqi mAqi = new Aqi();
     private LinearLayout aqi;
@@ -116,6 +119,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
     private ImageView tip;
     private int flag = 0;
     private String current;
+    private TextView city_name;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -159,6 +163,9 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                         }
                     }
                 }
+                city_name.setText(city);
+            } else {
+                city_name.setText("杭州");
             }
         }
     }
@@ -429,9 +436,13 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                 int id = item.getItemId();
                 if (id == R.id.menu_share) {
                     //分享天气
+                    Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content),
+                            "暂不支持分享天气功能! (*^__^*)", Snackbar.LENGTH_SHORT).show();
                     return true;
                 } else if (id == R.id.menu_tts) {
                     //语音播报天气
+                    Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content),
+                            "暂不支持语音播报天气功能! (*^__^*)", Snackbar.LENGTH_SHORT).show();
                     return true;
                 }
                 return false;
@@ -462,7 +473,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
 //                nopeAnimator.start();
             }
         }, 2000);
-
+        city_name = (TextView) view.findViewById(R.id.city_name);
         today_detail = (LinearLayout) view.findViewById(R.id.today_detail);
         today_detail.setOnClickListener(this);
         wind_img = (ImageView) view.findViewById(R.id.wind_img);
@@ -474,14 +485,14 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         qlty = (TextView) view.findViewById(R.id.qlty);
         life = (LinearLayout) view.findViewById(R.id.life);
         linearLayout2 = (LinearLayout) view.findViewById(R.id.linearLayout2);
-        day_weather = (HorizontalRecyclerView) view.findViewById(R.id.day_weather);
+        day_weather = (RecyclerView) view.findViewById(R.id.day_weather);
         aqi_img = (ImageView) view.findViewById(R.id.aqi_img);
         aqi = (LinearLayout) view.findViewById(R.id.aqi);
         bg = (ImageView) view.findViewById(R.id.bg);
         yi = (TextView) view.findViewById(R.id.yi);
         ji = (TextView) view.findViewById(R.id.ji);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         day_weather.setLayoutManager(linearLayoutManager);
         life.setOnClickListener(this);
         aqi.setOnClickListener(this);

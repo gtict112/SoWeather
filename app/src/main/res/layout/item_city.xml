@@ -3,7 +3,6 @@
     xmlns:skin="http://schemas.android.com/android/skin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/left_fragment"
     android:orientation="vertical"
     skin:enable="true">
 
@@ -13,7 +12,7 @@
         android:layout_height="match_parent"
         android:padding="5dp"
         android:text="北京"
-        android:textColor="@color/background_progress"
+        android:textColor="@color/colorTextDark"
         android:textSize="14sp"
         skin:enable="true" />
 </LinearLayout>

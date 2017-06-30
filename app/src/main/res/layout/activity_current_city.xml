@@ -3,7 +3,6 @@
     xmlns:skin="http://schemas.android.com/android/skin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/left_fragment"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
     android:focusable="true"
@@ -37,7 +36,7 @@
                     android:paddingBottom="2dp"
                     android:paddingTop="3dp"
                     android:text="热门城市"
-                    android:textColor="@color/font_progress"
+                    android:textColor="@color/colorTextDark"
                     android:textSize="12sp"
                     skin:enable="true" />
             </LinearLayout>
@@ -54,7 +53,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray"
+        android:background="@color/line"
         skin:enable="true" />
 
     <ListView

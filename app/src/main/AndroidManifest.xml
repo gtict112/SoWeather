@@ -69,34 +69,44 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout"
             android:screenOrientation="portrait" />
         <activity android:name=".com.example.administrator.soweather.activity.CurrentCityActivity" />
-        <activity android:name=".com.example.administrator.soweather.activity.HelpFeedbackActivity" />
         <activity
-            android:name=".com.example.administrator.soweather.activity.AboutActivity"
-            android:label="关于"
+            android:name=".com.example.administrator.soweather.activity.HelpFeedbackActivity"
+            android:label="留言与反馈"
             android:screenOrientation="portrait" />
-        <activity android:name=".com.example.administrator.soweather.activity.CustomerServiceActivity" />
         <activity android:name=".com.example.administrator.soweather.activity.CurrenCityTwoActivity" />
         <activity android:name=".com.example.administrator.soweather.activity.CurrenCityThreeActiivty" />
-        <activity android:name=".com.example.administrator.soweather.activity.AboutMoreActivity" />
+        <activity
+            android:name=".com.example.administrator.soweather.activity.AboutMoreActivity"
+            android:label="产品介绍"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".com.example.administrator.soweather.activity.AqiActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout" />
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout"
+            android:label="空气质量指数"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".com.example.administrator.soweather.activity.Managecity" />
-        <activity android:name=".com.example.administrator.soweather.activity.MoodLineContentActivity" />
-        <activity android:name=".com.example.administrator.soweather.activity.TipActivity" />
-        <activity android:name=".com.example.administrator.soweather.activity.NewsDetailActivity" />
-        <activity android:name=".com.example.administrator.soweather.activity.DiaryActivity" />
-        <activity android:name=".com.example.administrator.soweather.activity.BeautyDetailActivity" />
+        <activity
+            android:name=".com.example.administrator.soweather.activity.Managecity"
+            android:label="城市管理"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".com.example.administrator.soweather.activity.TipActivity"
+            android:label="预报"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".com.example.administrator.soweather.activity.MoreInfoActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout"
-            android:theme="@style/StyledIndicators" />
+            android:label="详情"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".com.example.administrator.soweather.activity.SettingActivity"
             android:label="设置"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name="com.thefinestartist.finestwebview.FinestWebViewActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
 
         <!-- 有米渠道号(可选配置) 渠道号不能带空格，类型为整数 -->
         <meta-data

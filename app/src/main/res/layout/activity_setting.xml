@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/left_fragment"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
@@ -15,13 +14,6 @@
         android:background="?attr/colorPrimary"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@color/line" />
 
     <LinearLayout
         android:id="@+id/noti_layout"
@@ -44,13 +36,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="通知"
-                android:textColor="@color/background_progress"
+                android:textColor="@color/colorTextDark"
                 android:textSize="14sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="在状态栏中显示温度,抽屉选单中显示天气图标"
+                android:textColor="@color/colorTextDark2nd"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -95,13 +88,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="桌面小部件"
-                android:textColor="@color/background_progress"
+                android:textColor="@color/colorTextDark"
                 android:textSize="14sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="将应用添加至桌面,随时查看天气"
+                android:textColor="@color/colorTextDark2nd"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -141,7 +135,7 @@
             android:drawableRight="@mipmap/to_right"
             android:gravity="left"
             android:text="主题设置"
-            android:textColor="@color/background_progress"
+            android:textColor="@color/colorTextDark"
             android:textSize="15sp" />
     </LinearLayout>
 
@@ -177,7 +171,7 @@
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
             android:text="清除应用缓存"
-            android:textColor="@color/background_progress"
+            android:textColor="@color/colorTextDark"
             android:textSize="14sp" />
 
         <TextView
@@ -185,7 +179,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0.0KB"
-            android:textSize="13sp" />
+            android:textColor="@color/colorTextDark2nd"
+            android:textSize="12sp" />
 
     </LinearLayout>
 
@@ -216,45 +211,17 @@
 
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:text="帮助与反馈"
-            android:textColor="@color/background_progress"
+            android:text="留言与反馈"
+            android:textColor="@color/colorTextDark"
             android:textSize="14sp" />
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@color/line" />
-
-    <LinearLayout
-        android:visibility="gone"
-        android:id="@+id/setting_about"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/selector_left_fragment_item_layout"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
-            android:text="关于"
-            android:textColor="@color/background_progress"
-            android:textSize="14sp" />
-
-    </LinearLayout>
 
     <View
         android:layout_width="match_parent"

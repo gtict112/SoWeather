@@ -22,9 +22,7 @@ import com.example.administrator.soweather.com.example.administrator.soweather.B
  * Created by Administrator on 2016/10/26.
  */
 
-public class HelpFeedbackActivity extends BaseActivity implements View.OnClickListener {
-    private TextView topTv;
-    private ImageView topButton;
+public class HelpFeedbackActivity extends BaseActivity{
     private WebView mWebView;
 
     @Override
@@ -51,21 +49,8 @@ public class HelpFeedbackActivity extends BaseActivity implements View.OnClickLi
 
 
     private void initView() {
-        topTv = (TextView) findViewById(R.id.topTv);
-        topButton = (ImageView) findViewById(R.id.topButton);
+        setDisplayHomeAsUpEnabled(true);
         mWebView = (WebView) findViewById(R.id.webview);
-        topTv.setText("留言与反馈");
-        topButton.setOnClickListener(this);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.topButton:
-                finish();
-                break;
-            default:
-                break;
-        }
-    }
 }

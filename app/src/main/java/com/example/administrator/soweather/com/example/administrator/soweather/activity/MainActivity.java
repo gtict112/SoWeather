@@ -1,10 +1,8 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.activity;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -16,8 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.location.LocationClient;
@@ -34,7 +31,6 @@ import com.example.administrator.soweather.com.example.administrator.soweather.g
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
 import com.example.administrator.soweather.com.example.administrator.soweather.service.CityAndWeatherImgService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import cn.waps.AppConnect;
 
@@ -99,7 +95,7 @@ public class MainActivity extends BaseActivity implements ResponseListenter<Inte
                     mLocationClient.stop();
                 } else {
                     mLocationClient.stop();
-                    Toast.makeText(MainActivity.this, "定位失败,已默认城市为杭州,请手动修改城市!", Toast.LENGTH_LONG).show();
+                    Snackbar.make(MainActivity.this.getWindow().getDecorView().findViewById(android.R.id.content), "定位失败,已默认城市为杭州,请手动修改城市! (*^__^*)", Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
@@ -178,8 +174,29 @@ public class MainActivity extends BaseActivity implements ResponseListenter<Inte
     private void initNavigationViewHeader() {
         navigationView = (NavigationView) findViewById(R.id.content_frame);
         navigationView.inflateHeaderView(R.layout.header_layout);
+//        TextView manage_city = (TextView) findViewById(R.id.manage_city);
+//        TextView add_city = (TextView) findViewById(R.id.add_city);
+//        manage_city.setOnClickListener(this);
+//        add_city.setOnClickListener(this);
         navigationView.setNavigationItemSelectedListener(new NavigationItemSelected());
     }
+
+//    @Override
+//    public void onClick(View v) {
+//        switch (v.getId()) {
+//            case R.id.add_city:
+//                //添加城市 //传递一个参数过去  判断是首页的选择城市还是这里,在将选择的城市增加到数据库
+//                Intent intent1 = new Intent(MainActivity.this, CurrentCityActivity.class);
+//                intent1.putExtra("type", CurrentCityActivity.TYPE);
+//                startActivity(intent1);
+//                break;
+//            case R.id.manage_city:
+//                //管理城市   添加的城市,包括当前位置城市,卡片显示天气
+//                Intent intent = new Intent(MainActivity.this, Managecity.class);
+//                startActivity(intent);
+//                break;
+//        }
+//    }
 
 
     class NavigationItemSelected implements NavigationView.OnNavigationItemSelectedListener {
@@ -203,7 +220,7 @@ public class MainActivity extends BaseActivity implements ResponseListenter<Inte
                     startActivity(new Intent(MainActivity.this, SettingActivity.class));//设置界面
                     break;
                 case R.id.navigation_item_about:
-                    startActivity(new Intent(MainActivity.this, AboutActivity.class));//关于界面
+                    startActivity(new Intent(MainActivity.this, AboutMoreActivity.class));//关于界面
                     break;
             }
             return false;

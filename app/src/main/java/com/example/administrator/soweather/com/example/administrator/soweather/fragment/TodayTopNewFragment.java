@@ -21,12 +21,12 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
-import com.example.administrator.soweather.com.example.administrator.soweather.activity.NewsDetailActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.TopNew;
 import com.example.administrator.soweather.com.example.administrator.soweather.service.News;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
+import com.example.administrator.soweather.com.example.administrator.soweather.utils.WebUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -171,10 +171,7 @@ public class TodayTopNewFragment extends Fragment implements SwipeRefreshLayout.
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //资讯详情
                 if (mNewDate != null && mNewDate.size() > 0) {
-                    String url = mNewDate.get(position).url;
-                    Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
-                    intent.putExtra("url", url);
-                    startActivity(intent);
+                    WebUtils.openInternal(getActivity(), mNewDate.get(position).url);
                 }
             }
         });
