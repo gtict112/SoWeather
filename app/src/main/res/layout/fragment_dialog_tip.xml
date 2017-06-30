@@ -53,7 +53,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
                             android:layout_weight="1"
-                            android:drawableLeft="@mipmap/hour_tip"
                             android:drawablePadding="8dp"
                             android:gravity="center_vertical|left"
                             android:text="24小时天气"
@@ -62,8 +61,7 @@
                         <ImageView
                             android:id="@+id/hour_rotate"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/up" />
+                            android:layout_height="wrap_content" />
                     </LinearLayout>
 
                     <android.support.v7.widget.RecyclerView
@@ -101,8 +99,7 @@
                         <ImageView
                             android:id="@+id/date_rotate"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/up" />
+                            android:layout_height="wrap_content" />
                     </LinearLayout>
 
 
