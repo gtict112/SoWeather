@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
@@ -32,6 +33,9 @@ public class MoreInfoActivity extends BaseActivity {
     private String[] TIMES = new String[7];
 
     private String qlty;
+    private Toolbar toolbar;
+
+    private String city;
 
     @Override
     protected int getLayoutId() {
@@ -52,6 +56,10 @@ public class MoreInfoActivity extends BaseActivity {
 
 
     private void initView() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (city != null) {
+            toolbar.setTitle(city);
+        }
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         setupViewPager(viewPager, mDailyforecast);
@@ -100,6 +108,7 @@ public class MoreInfoActivity extends BaseActivity {
                 TIMES[i] = mDailyforecast.get(i).date;
             }
             time = intent.getStringExtra("time");
+            city = intent.getStringExtra("city");
         }
     }
 

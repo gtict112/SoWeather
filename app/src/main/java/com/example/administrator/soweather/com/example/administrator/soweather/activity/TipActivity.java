@@ -48,12 +48,9 @@ import java.util.List;
  */
 
 public class TipActivity extends BaseActivity implements View.OnClickListener {
-    private List<Hourlyforecast> mHourlyforecast = new ArrayList<>();
     private List<Dailyforecast> mDailyforecast = new ArrayList<>();
     private String city;
     private String cityid;
-    private TimeAdapter mTimeAdapter;
-    private RecyclerView time_weather;
     private SoWeatherDB cityDB;
     private List<WeathImg> weathimgs = new ArrayList<>();
     private Handler mHandler;
@@ -132,7 +129,6 @@ public class TipActivity extends BaseActivity implements View.OnClickListener {
     private List<Bitmap> mDayBitmap = new ArrayList<>();
     private List<Bitmap> mNightBitmap = new ArrayList<>();
 
-    private ImageView hour_rotate;
     private ImageView date_rotate;
     private Boolean isUnfoldHour = false;
     private Boolean isUnfolddate = true;
@@ -160,25 +156,9 @@ public class TipActivity extends BaseActivity implements View.OnClickListener {
 
 
     private void getDate() {
-
-        getHourDate();
         getDailyDate();
     }
 
-    private void getHourDate() {
-        WeatherService mWeatherService = new WeatherService();
-        mWeatherService.getHourlyforecastData(new ResponseListenter<List<Hourlyforecast>>() {
-            @Override
-            public void onReceive(Result<List<Hourlyforecast>> result) {
-                if (result.isSuccess()) {
-                    mHourlyforecast = result.getData();
-                    mHandler.sendMessage(mHandler.obtainMessage(2, mHourlyforecast));
-                } else {
-                    Toast.makeText(TipActivity.this, "获取未来未来时段天气预报失败..", Toast.LENGTH_LONG).show();
-                }
-            }
-        }, cityid);
-    }
 
     private void getDailyDate() {
         WeatherService mWeatherService = new WeatherService();
@@ -203,9 +183,6 @@ public class TipActivity extends BaseActivity implements View.OnClickListener {
                     case 1:
                         setDailyDate(mDailyforecast);
                         break;
-                    case 2:
-                        setHourDate(mHourlyforecast);
-
                 }
             }
         };
@@ -314,17 +291,11 @@ public class TipActivity extends BaseActivity implements View.OnClickListener {
     }
 
 
-    private void setHourDate(List<Hourlyforecast> mHourlyforecast) {
-        time_weather.setAdapter(mTimeAdapter);
-        mTimeAdapter.notifyDataSetChanged(mHourlyforecast);
-    }
-
     private void init() {
         String a = null;
         int flag = 0;
         Intent intent = getIntent();
         date_linear = (LinearLayout) findViewById(R.id.date_linear);
-        time_weather = (RecyclerView) findViewById(R.id.time_weather);
         bg = (ImageView) findViewById(R.id.bg);
         line_chart = (WeatherChartView) findViewById(R.id.line_char);
         line_chart.setVisibility(View.INVISIBLE);
@@ -384,18 +355,7 @@ public class TipActivity extends BaseActivity implements View.OnClickListener {
         night_cond_img5 = (ImageView) findViewById(R.id.night_cond_img5);
         night_cond_img6 = (ImageView) findViewById(R.id.night_cond_img6);
         night_cond_img7 = (ImageView) findViewById(R.id.night_cond_img7);
-
-        hour_rotate = (ImageView) findViewById(R.id.hour_rotate);
         date_rotate = (ImageView) findViewById(R.id.date_rotate);
-        hour_rotate.setOnClickListener(this);
-        date_rotate.setOnClickListener(this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.space);
-        time_weather.setLayoutManager(linearLayoutManager);
-        time_weather.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
-        mTimeAdapter = new TimeAdapter();
-        time_weather.setAdapter(mTimeAdapter);
         if (intent != null) {
             city = intent.getStringExtra("city");
             cityid = intent.getStringExtra("cityid");
@@ -419,92 +379,8 @@ public class TipActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.hour_rotate:
-                break;
             case R.id.date_rotate:
                 break;
-        }
-    }
-
-    public class TimeAdapter extends
-            RecyclerView.Adapter<TimeAdapter.ViewHolder> {
-        private List<Hourlyforecast> mData = new ArrayList<Hourlyforecast>();
-
-        public void notifyDataSetChanged(List<Hourlyforecast> date) {
-            this.mData.clear();
-            this.mData.addAll(date);
-            notifyDataSetChanged();
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            public ViewHolder(View arg0) {
-                super(arg0);
-            }
-
-            ImageView txt_img;
-            TextView date;
-            TextView tmp;
-            TextView decs;
-        }
-
-        @Override
-        public int getItemCount() {
-            return mData.size();
-        }
-
-
-        public TimeAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-            LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-            View view = inflater.inflate(R.layout.item_time_weather, viewGroup, false);
-            TimeAdapter.ViewHolder viewHolder = new TimeAdapter.ViewHolder(view);
-            viewHolder.date = (TextView) view.findViewById(R.id.date);
-            viewHolder.txt_img = (ImageView) view.findViewById(R.id.txt_img);
-            viewHolder.tmp = (TextView) view.findViewById(R.id.tmp);
-            viewHolder.decs = (TextView) view.findViewById(R.id.desc);
-            return viewHolder;
-        }
-
-
-        @Override
-        public void onBindViewHolder(final TimeAdapter.ViewHolder viewHolder, final int i) {
-            Hourlyforecast mTimeWeatherData = mData.get(i);
-            viewHolder.date.setText(mTimeWeatherData.date.substring(10, mTimeWeatherData.date.length()));
-            String code = null;
-            try {
-                String min = mTimeWeatherData.tmp;
-                viewHolder.tmp.setText(min + "℃");
-                code = new JSONObject(mTimeWeatherData.cond).optString("code");
-                String txt = new JSONObject(mTimeWeatherData.cond).optString("txt");
-                viewHolder.tmp.setText(txt);
-                viewHolder.decs.setText("温度" + min + "℃ " + "降水率为" + mTimeWeatherData.pop + " 相对湿度" + mTimeWeatherData.hum + "%");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            weathimgs = cityDB.getAllWeatherImg();
-            for (int j = 0; j < weathimgs.size(); j++) {
-                if (code.equals(weathimgs.get(j).getCode())) {
-                    viewHolder.txt_img.setImageBitmap(weathimgs.get(j).getIcon());
-                }
-            }
-        }
-    }
-
-    /**
-     * RecyclerView的间隔问题
-     */
-    public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
-
-        private int space;
-
-        public SpaceItemDecoration(int space) {
-            this.space = space;
-        }
-
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-
-            if (parent.getChildPosition(view) != 0)
-                outRect.top = space;
         }
     }
 }

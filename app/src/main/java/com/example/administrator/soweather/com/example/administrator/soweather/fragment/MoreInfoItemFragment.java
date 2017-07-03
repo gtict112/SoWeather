@@ -313,11 +313,11 @@ public class MoreInfoItemFragment extends Fragment {
         } else {
             week_layout.setVisibility(View.VISIBLE);
             day_layout.setVisibility(View.GONE);
-            week_love.setText("恋爱指数:  " + mConstellation.love);
-            week_work.setText("工作指数:  " + mConstellation.work);
-            week_money.setText("财运指数:  " + mConstellation.money);
-            week_health.setText("健康指数:  " + mConstellation.health);
-            week_job.setText("求职指数:  " + mConstellation.job);
+            week_love.setText(mConstellation.love);
+            week_work.setText(mConstellation.work);
+            week_money.setText(mConstellation.money);
+            week_health.setText(mConstellation.health);
+            week_job.setText(mConstellation.job);
         }
     }
 

@@ -1,72 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp">
+    android:layout_height="50dp"
+    android:orientation="vertical">
 
-    <android.support.v7.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp">
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/week"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|left"
+            android:text="2016-10-29"
+            android:textColor="@color/colorTextDark2nd"
+            android:textSize="14sp" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:orientation="vertical">
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/txt_img"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+
+            <TextView
+                android:id="@+id/cond_txt"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/date"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center|left"
-                    android:text="2016-10-29"
-                    android:textColor="#e01D4951" />
-
-                <TextView
-                    android:id="@+id/tmp"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="12"
-                    android:textColor="#e01D4951" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/cond_txt"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center|left"
-                    android:text="晴"
-                    android:textColor="#e01D4951" />
-
-                <ImageView
-                    android:id="@+id/txt_img"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center" />
-            </LinearLayout>
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="2dp"
+                android:text="晴"
+                android:textColor="@color/colorTextDark2nd"
+                android:textSize="14sp" />
 
         </LinearLayout>
-    </android.support.v7.widget.CardView>
-</RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/tmp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawablePadding="15dp"
+            android:drawableRight="@drawable/ic_last_page_black_24dp"
+            android:gravity="center_vertical|right"
+            android:text="22"
+            android:textColor="@color/colorTextDark2nd"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

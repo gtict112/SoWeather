@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -83,8 +84,9 @@ public class BeautyFragment extends Fragment implements SwipeRefreshLayout.OnRef
         mList = (RecyclerView) view.findViewById(R.id.beauty_list);
         linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        final StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.space);
-        mList.setLayoutManager(linearLayoutManager);
+        mList.setLayoutManager(layoutManager);
         mList.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
     }
 

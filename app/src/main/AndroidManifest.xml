@@ -79,11 +79,6 @@
             android:name=".com.example.administrator.soweather.activity.AboutMoreActivity"
             android:label="产品介绍"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".com.example.administrator.soweather.activity.AqiActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout"
-            android:label="空气质量指数"
-            android:screenOrientation="portrait" />
 
         <activity
             android:name=".com.example.administrator.soweather.activity.Managecity"
@@ -91,12 +86,12 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".com.example.administrator.soweather.activity.TipActivity"
-            android:label="预报"
+            android:label="趋势图"
             android:screenOrientation="portrait" />
         <activity
             android:name=".com.example.administrator.soweather.activity.MoreInfoActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout"
-            android:label="详情"
+            android:label="杭州"
             android:screenOrientation="portrait" />
         <activity
             android:name=".com.example.administrator.soweather.activity.SettingActivity"

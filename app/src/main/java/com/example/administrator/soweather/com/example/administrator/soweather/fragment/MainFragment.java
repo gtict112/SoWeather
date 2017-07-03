@@ -1,11 +1,8 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.fragment;
 
-import android.animation.Keyframe;
-import android.animation.ObjectAnimator;
-import android.animation.PropertyValuesHolder;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -26,12 +23,12 @@ import android.view.animation.BounceInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.soweather.R;
-import com.example.administrator.soweather.com.example.administrator.soweather.activity.AqiActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.MoreInfoActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.TipActivity;
@@ -45,6 +42,7 @@ import com.example.administrator.soweather.com.example.administrator.soweather.m
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.NowWeather;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Province;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
+import com.example.administrator.soweather.com.example.administrator.soweather.mode.Suggestion;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.WeathImg;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Zodiac;
 import com.example.administrator.soweather.com.example.administrator.soweather.service.WeatherService;
@@ -116,10 +114,33 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
     private ImageView aqi_img;
     private LinearLayout today_detail;
     private SwipeRefreshLayout mSwipeLayout;
-    private ImageView tip;
     private int flag = 0;
     private String current;
     private TextView city_name;
+    private TimeAdapter mTimeAdapter;
+    private RecyclerView time_weather;
+    private TextView day_weather_chart;
+    private Suggestion mSuggestion = new Suggestion();
+
+    private TextView flubrf;
+    private TextView drsgbrf;
+    private TextView travbrf;
+    private TextView sportbrf;
+
+    private TextView pm10;
+    private TextView pm25;
+    private TextView no2;
+    private TextView so2;
+    private TextView co;
+    private TextView o3;
+    private ProgressBar circle_pm10;
+    private ProgressBar circle_pm25;
+    private ProgressBar circle_no2;
+    private ProgressBar circle_so2;
+    private ProgressBar circle_co;
+    private ProgressBar circle_o3;
+    private TextView time_weather_tip;
+    private int succe = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -189,7 +210,26 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         getHourlyforecastData(cityid);
         getNowWeatherData(cityid);
         getWeather(cityid);
+        getSuggestionData(cityid);
     }
+
+    private void getSuggestionData(String cityid) {
+        WeatherService mWeatherService = new WeatherService();
+        mWeatherService.getSuggestionData(new ResponseListenter<Suggestion>() {
+            @Override
+            public void onReceive(Result<Suggestion> result) {
+                if (result.isSuccess()) {
+                    mSuggestion = result.getData();
+                    mHandler.sendMessage(mHandler.obtainMessage(6, mSuggestion));
+                    succe = succe + 1;
+                } else {
+                    Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content),
+                            result.getErrorMessage(), Snackbar.LENGTH_SHORT).show();
+                }
+            }
+        }, cityid);
+    }
+
 
     private void getZodiac(String date) {
         ZodiacService mZodiacService = new ZodiacService();
@@ -197,12 +237,12 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
             @Override
             public void onReceive(Result<Zodiac> result) {
                 if (result.isSuccess()) {
-                    config.dismissProgressDialog();
                     mZodiac = result.getData();
                     mHandler.sendMessage(mHandler.obtainMessage(4, mZodiac));
+                    succe = succe + 1;
                 } else {
-                    config.dismissProgressDialog();
-                    Toast.makeText(getActivity(), result.getErrorMessage(), Toast.LENGTH_LONG).show();
+                    Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content),
+                            result.getErrorMessage(), Snackbar.LENGTH_SHORT).show();
                 }
             }
         }, date);
@@ -220,12 +260,12 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
             @Override
             public void onReceive(Result<Aqi> result) {
                 if (result.isSuccess()) {
-                    config.dismissProgressDialog();
                     mAqi = result.getData();
                     mHandler.sendMessage(mHandler.obtainMessage(1, mNowWeather));
+                    succe = succe + 1;
                 } else {
-                    config.dismissProgressDialog();
-                    Toast.makeText(getActivity(), result.getErrorMessage(), Toast.LENGTH_LONG).show();
+                    Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content),
+                            result.getErrorMessage(), Snackbar.LENGTH_SHORT).show();
                 }
             }
         }, cityid);
@@ -242,12 +282,12 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
             @Override
             public void onReceive(Result<NowWeather> result) {
                 if (result.isSuccess()) {
-                    config.dismissProgressDialog();
                     mNowWeather = result.getData();
                     mHandler.sendMessage(mHandler.obtainMessage(2, mNowWeather));
+                    succe = succe + 1;
                 } else {
-                    config.dismissProgressDialog();
-                    Toast.makeText(getActivity(), result.getErrorMessage(), Toast.LENGTH_LONG).show();
+                    Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content),
+                            result.getErrorMessage(), Snackbar.LENGTH_SHORT).show();
                 }
             }
         }, cityid);
@@ -264,11 +304,12 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
             @Override
             public void onReceive(Result<List<Hourlyforecast>> result) {
                 if (result.isSuccess()) {
-                    config.dismissProgressDialog();
                     mHourlyforecast = result.getData();
+                    mHandler.sendMessage(mHandler.obtainMessage(5, mHourlyforecast));
+                    succe = succe + 1;
                 } else {
-                    config.dismissProgressDialog();
-                    Toast.makeText(getActivity(), result.getErrorMessage(), Toast.LENGTH_LONG).show();
+                    Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content),
+                            result.getErrorMessage(), Snackbar.LENGTH_SHORT).show();
                 }
             }
         }, cityid);
@@ -285,11 +326,12 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
             @Override
             public void onReceive(Result<List<Dailyforecast>> result) {
                 if (result.isSuccess()) {
-                    config.dismissProgressDialog();
                     mDailyforecast = result.getData();
                     mHandler.sendMessage(mHandler.obtainMessage(3, mDailyforecast));
+                    succe = succe + 1;
                 } else {
-                    config.dismissProgressDialog();
+                    Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content),
+                            result.getErrorMessage(), Snackbar.LENGTH_SHORT).show();
                 }
             }
         }, cityid);
@@ -303,19 +345,51 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                 switch (msg.what) {
                     case 1:
                         setAqi(mAqi);
+                        checkSucce();
                         break;
                     case 2:
                         setNowWeatherView(mNowWeather);
+                        checkSucce();
                         break;
                     case 3:
                         setOntherView(mDailyforecast);
+                        checkSucce();
                         break;
                     case 4:
                         setZodiac(mZodiac);
+                        checkSucce();
+                        break;
+                    case 5:
+                        setHourWeather(mHourlyforecast);
+                        checkSucce();
+                        break;
+                    case 6:
+                        setSuggestion(mSuggestion);
+                        checkSucce();
+                        break;
                 }
             }
         };
     }
+
+    private void checkSucce() {
+        if (succe == 6) {
+            config.dismissProgressDialog();
+        }
+    }
+
+    private void setSuggestion(Suggestion mSuggestion) {
+        flubrf.setText(mSuggestion.flubrf);
+//        flu_txt.setText(mSuggestion.flutex);
+        drsgbrf.setText(mSuggestion.drsgbrf);
+//        drsg_txt.setText(mSuggestion.drsgtex);
+        travbrf.setText(mSuggestion.travbrf);
+//        trav_txt.setText(mSuggestion.travtex);
+        sportbrf.setText(mSuggestion.sportbrf);
+//        sport_txt.setText(mSuggestion.sporttex);
+//        wind.setText(wind.getText().toString() + ",  " + "紫外线强度" + mSuggestion.uvbrf + ",  " + mSuggestion.cwbrf + "洗车 !");
+    }
+
 
     private void setZodiac(Zodiac mZodiac) {
         yi.setText(mZodiac.yi);
@@ -346,6 +420,20 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
             code_txt.setTextColor(getResources().getColor(R.color.red));
         }
         qlty.setText(mAqi.qlty);
+
+        pm10.setText(mAqi.pm10);
+        pm25.setText(mAqi.pm25);
+        co.setText(mAqi.co);
+        no2.setText(mAqi.no2);
+        o3.setText(mAqi.o3);
+        so2.setText(mAqi.so2);
+
+        circle_pm10.setProgress(Integer.valueOf(mAqi.pm10));
+        circle_pm25.setProgress(Integer.valueOf(mAqi.pm25));
+        circle_co.setProgress(Integer.valueOf(mAqi.co));
+        circle_no2.setProgress(Integer.valueOf(mAqi.no2));
+        circle_o3.setProgress(Integer.valueOf(mAqi.o3));
+        circle_so2.setProgress(Integer.valueOf(mAqi.so2));
         visitityAqi();
     }
 
@@ -397,6 +485,20 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         getZodiac(mDate);
     }
 
+
+    private void setHourWeather(List<Hourlyforecast> mHourlyforecast) {
+        if (mHourlyforecast != null && mHourlyforecast.size() > 0) {
+            time_weather.setVisibility(View.VISIBLE);
+            time_weather_tip.setVisibility(View.GONE);
+            time_weather.setAdapter(mTimeAdapter);
+            mTimeAdapter.notifyDataSetChanged(mHourlyforecast);
+        } else {
+            time_weather.setVisibility(View.GONE);
+            time_weather_tip.setVisibility(View.VISIBLE);
+        }
+    }
+
+
     private void setOntherView(final List<Dailyforecast> mDailyforecast) {
         try {
             String max = new JSONObject(mDailyforecast.get(0).tmp).optString("max");
@@ -415,9 +517,6 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                     intent.putExtra("qlty", qlty.getText().toString());
                     intent.putExtra("time", data.date);
                     startActivity(intent);
-                    Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.dialog_in);
-                    animation.setFillAfter(true);
-                    view.startAnimation(animation);
                 }
             });
         } catch (JSONException e) {
@@ -458,22 +557,13 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         mSwipeLayout.setDistanceToTriggerSync(300);// 设置手指在屏幕下拉多少距离会触发下拉刷新
         mSwipeLayout.setProgressBackgroundColor(R.color.white); // 设定下拉圆圈的背景
         mSwipeLayout.setSize(SwipeRefreshLayout.DEFAULT); // 设置圆圈的大小
-
-        tip = (ImageView) view.findViewById(R.id.tip);
-        tip.setOnClickListener(this);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ObjectAnimator animator = tada(tip);
-                animator.setRepeatCount(ValueAnimator.INFINITE);
-                animator.start();
-
-//                ObjectAnimator nopeAnimator = nope(tip);
-//                nopeAnimator.setRepeatCount(ValueAnimator.INFINITE);
-//                nopeAnimator.start();
-            }
-        }, 2000);
+        day_weather_chart = (TextView) view.findViewById(R.id.day_weather_chart);
+        time_weather = (RecyclerView) view.findViewById(R.id.time_weather);
         city_name = (TextView) view.findViewById(R.id.city_name);
+        flubrf = (TextView) view.findViewById(R.id.flubrf);
+        drsgbrf = (TextView) view.findViewById(R.id.drsgbrf);
+        travbrf = (TextView) view.findViewById(R.id.travbrf);
+        sportbrf = (TextView) view.findViewById(R.id.sportbrf);
         today_detail = (LinearLayout) view.findViewById(R.id.today_detail);
         today_detail.setOnClickListener(this);
         wind_img = (ImageView) view.findViewById(R.id.wind_img);
@@ -491,9 +581,38 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         bg = (ImageView) view.findViewById(R.id.bg);
         yi = (TextView) view.findViewById(R.id.yi);
         ji = (TextView) view.findViewById(R.id.ji);
+
+        time_weather_tip = (TextView) view.findViewById(R.id.time_weather_tip);
+        pm10 = (TextView) view.findViewById(R.id.pm10);
+        pm25 = (TextView) view.findViewById(R.id.pm25);
+        no2 = (TextView) view.findViewById(R.id.no2);
+        so2 = (TextView) view.findViewById(R.id.so2);
+        co = (TextView) view.findViewById(R.id.co);
+        o3 = (TextView) view.findViewById(R.id.o3);
+        circle_pm10 = (ProgressBar) view.findViewById(R.id.circle_pm10);
+        circle_pm25 = (ProgressBar) view.findViewById(R.id.circle_pm25);
+        circle_no2 = (ProgressBar) view.findViewById(R.id.circle_no2);
+        circle_so2 = (ProgressBar) view.findViewById(R.id.circle_so2);
+        circle_co = (ProgressBar) view.findViewById(R.id.circle_co);
+        circle_o3 = (ProgressBar) view.findViewById(R.id.circle_o3);
+        circle_pm10.setMax(400);
+        circle_pm25.setMax(400);
+        circle_so2.setMax(400);
+        circle_no2.setMax(400);
+        circle_co.setMax(1000);
+        circle_o3.setMax(1000);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         day_weather.setLayoutManager(linearLayoutManager);
+
+        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity());
+        linearLayoutManager1.setOrientation(LinearLayoutManager.VERTICAL);
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.space);
+        time_weather.setLayoutManager(linearLayoutManager1);
+        time_weather.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+        mTimeAdapter = new TimeAdapter();
+        time_weather.setAdapter(mTimeAdapter);
+        day_weather_chart.setOnClickListener(this);
         life.setOnClickListener(this);
         aqi.setOnClickListener(this);
         linearLayout2.setOnClickListener(this);
@@ -503,11 +622,8 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.life:
-                toActivty();
                 break;
             case R.id.aqi:
-                //弹出所在地当天的生活指数和相关信息
-                toActivty();
                 break;
             case R.id.linearLayout2:
                 //展示界面
@@ -523,9 +639,9 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                 getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
                 break;
             case R.id.today_detail:
-                toActivty();
                 break;
-            case R.id.tip:
+            case R.id.day_weather_chart:
+                //七天预报趋势图
                 Intent intent2 = new Intent(getActivity(), TipActivity.class);
                 if (mHourlyforecast != null && mHourlyforecast.size() > 0) {
                     intent2.putExtra("city", city != null ? city : "杭州");
@@ -537,43 +653,6 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                 getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
                 break;
         }
-    }
-
-    private void toActivty() {
-        Intent intent1 = new Intent();
-        intent1.setClass(getActivity(), AqiActivity.class);
-        Bundle bundle1 = new Bundle();
-        bundle1.putString("city", city != null ? city : "杭州");
-        bundle1.putString("date", date.getText().toString());
-        bundle1.putString("cityid", cityid != null ? city : "CN101210101");
-        if (mAqi != null) {
-            bundle1.putString("aqi", mAqi.aqi);
-            bundle1.putString("co", mAqi.co);
-            bundle1.putString("no2", mAqi.no2);
-            bundle1.putString("o3", mAqi.o3);
-            bundle1.putString("pm10", mAqi.pm10);
-            bundle1.putString("pm25", mAqi.pm25);
-            bundle1.putString("qlty", mAqi.qlty);
-            bundle1.putString("so2", mAqi.so2);
-        }
-        bundle1.putString("dir", dir);
-        bundle1.putString("sc", sc);
-        bundle1.putString("fl", fl);
-        bundle1.putString("hum", hum);
-        bundle1.putString("pcpn", pcpn);
-        bundle1.putString("pres", pres);
-        bundle1.putString("vis", vis);
-        bundle1.putString("tem_max_min", tem_min_max);
-        if (mDailyforecast != null && mDailyforecast.size() > 0) {
-            bundle1.putString("cond", mDailyforecast.get(0).cond);
-        }
-        if (mNowWeather != null) {
-            bundle1.putString("lat", mNowWeather.lat);
-            bundle1.putString("lon", mNowWeather.lon);
-        }
-        intent1.putExtras(bundle1);
-        getActivity().startActivity(intent1);
-        getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
     }
 
     @Override
@@ -614,7 +693,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
             }
 
             ImageView txt_img;
-            TextView date;
+            TextView week;
             TextView tmp;
             TextView cond_txt;
         }
@@ -629,13 +708,10 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
             View view = inflater.inflate(R.layout.item_daily_forecst,
                     viewGroup, false);
             GalleryAdapter.ViewHolder viewHolder = new GalleryAdapter.ViewHolder(view);
-            viewHolder.date = (TextView) view.findViewById(R.id.date);
+            viewHolder.week = (TextView) view.findViewById(R.id.week);
             viewHolder.txt_img = (ImageView) view.findViewById(R.id.txt_img);
             viewHolder.tmp = (TextView) view.findViewById(R.id.tmp);
             viewHolder.cond_txt = (TextView) view.findViewById(R.id.cond_txt);
-            Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.dialog_in);
-            animation.setFillAfter(true);
-            view.startAnimation(animation);
             view.setOnClickListener(this);
             return viewHolder;
         }
@@ -645,8 +721,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         public void onBindViewHolder(final GalleryAdapter.ViewHolder viewHolder, final int i) {
             viewHolder.itemView.setTag(mData.get(i));
             Dailyforecast mDailyForecastData = mData.get(i);
-            viewHolder.date.setText(DateToWeek.getWeek(mDailyForecastData.date) + " (" +
-                    mDailyForecastData.date.substring(5, mDailyForecastData.date.length()) + ")");
+            viewHolder.week.setText(DateToWeek.getWeek(mDailyForecastData.date));
             String code = null;
             try {
                 String min = new JSONObject(mDailyForecastData.tmp).optString("min");
@@ -664,9 +739,6 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                 }
             }
             viewHolder.itemView.setTag(mDailyForecastData);
-            Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.dialog_in);
-            animation.setFillAfter(true);
-            viewHolder.itemView.startAnimation(animation);
             viewHolder.itemView.setOnClickListener(this);
         }
     }
@@ -698,60 +770,6 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         down.setDuration(2000);//持续时间
         linearLayout2.startAnimation(down);
     }
-
-
-    public static ObjectAnimator tada(View view) {
-        return tada(view, 1f);
-    }
-
-    public static ObjectAnimator tada(View view, float shakeFactor) {
-
-        PropertyValuesHolder pvhScaleX = PropertyValuesHolder.ofKeyframe(View.SCALE_X,
-                Keyframe.ofFloat(0f, 1f),
-                Keyframe.ofFloat(.1f, .9f),
-                Keyframe.ofFloat(.2f, .9f),
-                Keyframe.ofFloat(.3f, 1.1f),
-                Keyframe.ofFloat(.4f, 1.1f),
-                Keyframe.ofFloat(.5f, 1.1f),
-                Keyframe.ofFloat(.6f, 1.1f),
-                Keyframe.ofFloat(.7f, 1.1f),
-                Keyframe.ofFloat(.8f, 1.1f),
-                Keyframe.ofFloat(.9f, 1.1f),
-                Keyframe.ofFloat(1f, 1f)
-        );
-
-        PropertyValuesHolder pvhScaleY = PropertyValuesHolder.ofKeyframe(View.SCALE_Y,
-                Keyframe.ofFloat(0f, 1f),
-                Keyframe.ofFloat(.1f, .9f),
-                Keyframe.ofFloat(.2f, .9f),
-                Keyframe.ofFloat(.3f, 1.1f),
-                Keyframe.ofFloat(.4f, 1.1f),
-                Keyframe.ofFloat(.5f, 1.1f),
-                Keyframe.ofFloat(.6f, 1.1f),
-                Keyframe.ofFloat(.7f, 1.1f),
-                Keyframe.ofFloat(.8f, 1.1f),
-                Keyframe.ofFloat(.9f, 1.1f),
-                Keyframe.ofFloat(1f, 1f)
-        );
-
-        PropertyValuesHolder pvhRotate = PropertyValuesHolder.ofKeyframe(View.ROTATION,
-                Keyframe.ofFloat(0f, 0f),
-                Keyframe.ofFloat(.1f, -3f * shakeFactor),
-                Keyframe.ofFloat(.2f, -3f * shakeFactor),
-                Keyframe.ofFloat(.3f, 3f * shakeFactor),
-                Keyframe.ofFloat(.4f, -3f * shakeFactor),
-                Keyframe.ofFloat(.5f, 3f * shakeFactor),
-                Keyframe.ofFloat(.6f, -3f * shakeFactor),
-                Keyframe.ofFloat(.7f, 3f * shakeFactor),
-                Keyframe.ofFloat(.8f, -3f * shakeFactor),
-                Keyframe.ofFloat(.9f, 3f * shakeFactor),
-                Keyframe.ofFloat(1f, 0)
-        );
-
-        return ObjectAnimator.ofPropertyValuesHolder(view, pvhScaleX, pvhScaleY, pvhRotate).
-                setDuration(1000);
-    }
-
 
     /**
      * 显示单屏插屏广告
@@ -795,5 +813,89 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
 //                logInfo("是否是网页广告？%s", isWebPage ? "是" : "不是");
             }
         });
+    }
+
+
+    public class TimeAdapter extends
+            RecyclerView.Adapter<TimeAdapter.ViewHolder> {
+        private List<Hourlyforecast> mData = new ArrayList<Hourlyforecast>();
+
+        public void notifyDataSetChanged(List<Hourlyforecast> date) {
+            this.mData.clear();
+            this.mData.addAll(date);
+            notifyDataSetChanged();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            public ViewHolder(View arg0) {
+                super(arg0);
+            }
+
+            ImageView txt_img;
+            TextView date;
+            TextView tmp;
+            TextView decs;
+        }
+
+        @Override
+        public int getItemCount() {
+            return mData.size();
+        }
+
+
+        public TimeAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+            LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+            View view = inflater.inflate(R.layout.item_time_weather, viewGroup, false);
+            TimeAdapter.ViewHolder viewHolder = new TimeAdapter.ViewHolder(view);
+            viewHolder.date = (TextView) view.findViewById(R.id.date);
+            viewHolder.txt_img = (ImageView) view.findViewById(R.id.txt_img);
+            viewHolder.tmp = (TextView) view.findViewById(R.id.tmp);
+            viewHolder.decs = (TextView) view.findViewById(R.id.desc);
+            return viewHolder;
+        }
+
+
+        @Override
+        public void onBindViewHolder(final TimeAdapter.ViewHolder viewHolder, final int i) {
+            Hourlyforecast mTimeWeatherData = mData.get(i);
+            viewHolder.date.setText(mTimeWeatherData.date.substring(10, mTimeWeatherData.date.length()));
+            String code = null;
+            try {
+                String min = mTimeWeatherData.tmp;
+                viewHolder.tmp.setText(min + "℃");
+                code = new JSONObject(mTimeWeatherData.cond).optString("code");
+                String txt = new JSONObject(mTimeWeatherData.cond).optString("txt");
+                viewHolder.tmp.setText(txt);
+                viewHolder.decs.setText("温度" + min + "℃ " + "降水率为" + mTimeWeatherData.pop);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            weathimgs = cityDB.getAllWeatherImg();
+            for (int j = 0; j < weathimgs.size(); j++) {
+                if (code.equals(weathimgs.get(j).getCode())) {
+                    viewHolder.txt_img.setImageBitmap(weathimgs.get(j).getIcon());
+                }
+            }
+        }
+    }
+
+
+    /**
+     * RecyclerView的间隔问题
+     */
+    public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
+
+        private int space;
+
+        public SpaceItemDecoration(int space) {
+            this.space = space;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+
+            if (parent.getChildPosition(view) != 0)
+                outRect.top = space;
+        }
     }
 }
