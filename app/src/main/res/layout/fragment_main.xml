@@ -1026,6 +1026,8 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="15dp"
         android:src="@drawable/ic_edit_location_black_24dp"
-        app:backgroundTint="#56abe4"
-        app:rippleColor="#56abe4" />
+        app:backgroundTint="#424242"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        app:rippleColor="#424242" />
 </android.support.design.widget.CoordinatorLayout>
