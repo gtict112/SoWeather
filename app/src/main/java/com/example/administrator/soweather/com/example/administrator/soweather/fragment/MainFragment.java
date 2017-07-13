@@ -6,6 +6,8 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -17,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.BounceInterpolator;
@@ -29,7 +32,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.CurrentCityActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.Managecity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.MoreInfoActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.TipActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
@@ -81,6 +86,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
     private LinearLayout life;
     private String cityid;
     private String city;
+    private String county;
     private Handler mHandler;
     private List<Hourlyforecast> mHourlyforecast = new ArrayList<>();
     private List<Dailyforecast> mDailyforecast = new ArrayList<>();
@@ -127,6 +133,8 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
     private TextView travbrf;
     private TextView sportbrf;
 
+    private TextView cunty_name;
+
     private TextView pm10;
     private TextView pm25;
     private TextView no2;
@@ -141,6 +149,10 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
     private ProgressBar circle_o3;
     private TextView time_weather_tip;
     private int succe = 0;
+
+    private FloatingActionButton fabutton;
+
+    private LinearLayout hour_layout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -172,6 +184,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         if (getArguments() != null) {
             cityid = getArguments().getString("cityId");
             city = getArguments().getString("city");
+            county = getArguments().getString("county");
             //根据城市名找到城市Id
             provinces = cityDB.getAllProvince();
             if (city != null) {
@@ -185,6 +198,11 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                     }
                 }
                 city_name.setText(city);
+                if (!county.equals(city)) {
+                    cunty_name.setText(county);
+                } else {
+                    cunty_name.setText("");
+                }
             } else {
                 city_name.setText("杭州");
             }
@@ -223,7 +241,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                     mHandler.sendMessage(mHandler.obtainMessage(6, mSuggestion));
                     succe = succe + 1;
                 } else {
-                    Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content),
+                    Snackbar.make(fabutton,
                             result.getErrorMessage(), Snackbar.LENGTH_SHORT).show();
                 }
             }
@@ -241,7 +259,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                     mHandler.sendMessage(mHandler.obtainMessage(4, mZodiac));
                     succe = succe + 1;
                 } else {
-                    Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content),
+                    Snackbar.make(fabutton,
                             result.getErrorMessage(), Snackbar.LENGTH_SHORT).show();
                 }
             }
@@ -264,7 +282,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                     mHandler.sendMessage(mHandler.obtainMessage(1, mNowWeather));
                     succe = succe + 1;
                 } else {
-                    Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content),
+                    Snackbar.make(fabutton,
                             result.getErrorMessage(), Snackbar.LENGTH_SHORT).show();
                 }
             }
@@ -286,7 +304,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                     mHandler.sendMessage(mHandler.obtainMessage(2, mNowWeather));
                     succe = succe + 1;
                 } else {
-                    Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content),
+                    Snackbar.make(fabutton,
                             result.getErrorMessage(), Snackbar.LENGTH_SHORT).show();
                 }
             }
@@ -308,7 +326,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                     mHandler.sendMessage(mHandler.obtainMessage(5, mHourlyforecast));
                     succe = succe + 1;
                 } else {
-                    Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content),
+                    Snackbar.make(fabutton,
                             result.getErrorMessage(), Snackbar.LENGTH_SHORT).show();
                 }
             }
@@ -330,7 +348,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                     mHandler.sendMessage(mHandler.obtainMessage(3, mDailyforecast));
                     succe = succe + 1;
                 } else {
-                    Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content),
+                    Snackbar.make(fabutton,
                             result.getErrorMessage(), Snackbar.LENGTH_SHORT).show();
                 }
             }
@@ -373,9 +391,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
     }
 
     private void checkSucce() {
-        if (succe == 6) {
-            config.dismissProgressDialog();
-        }
+        config.dismissProgressDialog();
     }
 
     private void setSuggestion(Suggestion mSuggestion) {
@@ -394,7 +410,6 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
     private void setZodiac(Zodiac mZodiac) {
         yi.setText(mZodiac.yi);
         ji.setText(mZodiac.ji);
-        visitityzZodiac();
     }
 
     private void setAqi(Aqi mAqi) {
@@ -482,7 +497,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         } catch (JSONException e) {
             e.printStackTrace();//异常
         }
-        getZodiac(mDate);
+//        getZodiac(mDate);
     }
 
 
@@ -512,6 +527,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                     //展示界面
                     Intent intent = new Intent(getActivity(), MoreInfoActivity.class);
                     intent.putExtra("city", city != null ? city : "杭州");
+                    intent.putExtra("county", county != null ? county : "");
                     intent.putExtra("cityid", cityid != null ? city : "CN101210101");
                     intent.putExtra("date", (Serializable) mDailyforecast);
                     intent.putExtra("qlty", qlty.getText().toString());
@@ -526,6 +542,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
 
     private void initView(View view) {
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        fabutton = (FloatingActionButton) view.findViewById(R.id.fab);
         mToolbar.setTitle("天气");
         ((MainActivity) getActivity()).initDrawer(mToolbar);
         mToolbar.inflateMenu(R.menu.menu_weather);
@@ -535,20 +552,17 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                 int id = item.getItemId();
                 if (id == R.id.menu_share) {
                     //分享天气
-                    Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content),
+                    Snackbar.make(fabutton,
                             "暂不支持分享天气功能! (*^__^*)", Snackbar.LENGTH_SHORT).show();
                     return true;
                 } else if (id == R.id.menu_tts) {
-                    //语音播报天气
-                    Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content),
-                            "暂不支持语音播报天气功能! (*^__^*)", Snackbar.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), CurrentCityActivity.class);
+                    startActivity(intent);
                     return true;
                 }
                 return false;
             }
         });
-
-
         mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeLayout);
         mSwipeLayout.setOnRefreshListener(this);
         // 设置下拉圆圈上的颜色，蓝色、绿色、橙色、红色
@@ -581,7 +595,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         bg = (ImageView) view.findViewById(R.id.bg);
         yi = (TextView) view.findViewById(R.id.yi);
         ji = (TextView) view.findViewById(R.id.ji);
-
+        cunty_name = (TextView) view.findViewById(R.id.cunty_name);
         time_weather_tip = (TextView) view.findViewById(R.id.time_weather_tip);
         pm10 = (TextView) view.findViewById(R.id.pm10);
         pm25 = (TextView) view.findViewById(R.id.pm25);
@@ -595,6 +609,8 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         circle_so2 = (ProgressBar) view.findViewById(R.id.circle_so2);
         circle_co = (ProgressBar) view.findViewById(R.id.circle_co);
         circle_o3 = (ProgressBar) view.findViewById(R.id.circle_o3);
+
+        hour_layout = (LinearLayout) view.findViewById(R.id.hour_layout);
         circle_pm10.setMax(400);
         circle_pm25.setMax(400);
         circle_so2.setMax(400);
@@ -616,6 +632,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         life.setOnClickListener(this);
         aqi.setOnClickListener(this);
         linearLayout2.setOnClickListener(this);
+        fabutton.setOnClickListener(this);
     }
 
     @Override
@@ -651,6 +668,11 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                 intent2.putExtra("txt", current);
                 startActivity(intent2);
                 getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
+                break;
+            case R.id.fab:
+                //管理城市   添加的城市,包括当前位置城市,卡片显示天气
+                Intent intent7 = new Intent(getActivity(), Managecity.class);
+                startActivity(intent7);
                 break;
         }
     }
@@ -744,32 +766,20 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
     }
 
     private void visitityToday() {
-        TranslateAnimation down = new TranslateAnimation(0, 0, -300, 0);//位移动画，从button的上方300像素位置开始
-        down.setFillAfter(true);
-        down.setInterpolator(new BounceInterpolator());//弹跳动画,要其它效果的当然也可以设置为其它的值
-        down.setDuration(2000);//持续时间
-        date.startAnimation(down);
-        today_detail.startAnimation(down);
-        aqi.startAnimation(down);
-        life.startAnimation(down);
+        Animation anim1 = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_view_visible);
+        anim1.setDuration(1000);
+        date.startAnimation(anim1);
+        today_detail.startAnimation(anim1);
+        life.startAnimation(anim1);
     }
 
 
     private void visitityAqi() {
-        TranslateAnimation down = new TranslateAnimation(0, 0, -300, 0);//位移动画，从button的上方300像素位置开始
-        down.setFillAfter(true);
-        down.setInterpolator(new BounceInterpolator());//弹跳动画,要其它效果的当然也可以设置为其它的值
-        down.setDuration(2000);//持续时间
-        aqi.startAnimation(down);
+        Animation anim1 = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_view_visible);
+        anim1.setDuration(1000);
+        aqi.startAnimation(anim1);
     }
 
-    private void visitityzZodiac() {
-        TranslateAnimation down = new TranslateAnimation(0, 0, -300, 0);//位移动画，从button的上方300像素位置开始
-        down.setFillAfter(true);
-        down.setInterpolator(new BounceInterpolator());//弹跳动画,要其它效果的当然也可以设置为其它的值
-        down.setDuration(2000);//持续时间
-        linearLayout2.startAnimation(down);
-    }
 
     /**
      * 显示单屏插屏广告
@@ -898,4 +908,5 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                 outRect.top = space;
         }
     }
+
 }

@@ -11,6 +11,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -31,8 +32,6 @@ import static android.view.ViewGroup.LayoutParams.*;
  * Created by Administrator on 2016/10/13.
  */
 public class CurrentCityActivity extends BaseActivity implements View.OnClickListener {
-    private ImageView mBack;
-    private TextView mTitle;
     private Xcflowlayout mFlowLayout;
     private ListView mCityList;
     private CityAdapter mCityAdapter;
@@ -63,6 +62,7 @@ public class CurrentCityActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
+        setDisplayHomeAsUpEnabled(true);
         instance = this;
         Intent intent = getIntent();
         if (intent != null) {
@@ -74,10 +74,6 @@ public class CurrentCityActivity extends BaseActivity implements View.OnClickLis
 
 
     private void initView() {
-        mBack = (ImageView) findViewById(R.id.topButton);
-        mTitle = (TextView) findViewById(R.id.topTv);
-        mTitle.setText("选择城市");
-        mBack.setOnClickListener(this);
         mCityList = (ListView) findViewById(R.id.city_list);
         cityDB = SoWeatherDB.getInstance(this);
         provinces = cityDB.getAllProvince();
@@ -86,16 +82,16 @@ public class CurrentCityActivity extends BaseActivity implements View.OnClickLis
         }
         mCityList.setAdapter(mCityAdapter);
         mCityAdapter.notifyDataSetChanged();
-        mCityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(CurrentCityActivity.this, CurrenCityTwoActivity.class);
-                intent.putExtra("provinceName", provinces.get(position).getProvinceName());
-                intent.putExtra("type", type);
-                startActivity(intent);
-                overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
-            }
-        });
+//        mCityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Intent intent = new Intent(CurrentCityActivity.this, CurrenCityTwoActivity.class);
+//                intent.putExtra("provinceName", provinces.get(position).getProvinceName());
+//                intent.putExtra("type", type);
+//                startActivity(intent);
+//                overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
+//            }
+//        });
     }
 
 
@@ -145,14 +141,6 @@ public class CurrentCityActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.topButton:
-                finish();
-                overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
-                break;
-            default:
-                break;
-        }
 
     }
 
@@ -192,17 +180,29 @@ public class CurrentCityActivity extends BaseActivity implements View.OnClickLis
                         false);
                 vh = new ViewHolder();
                 vh.mCityName = (TextView) convertView.findViewById(R.id.city_name);
+                vh.item_city_layout = (LinearLayout) convertView.findViewById(R.id.item_city_layout);
                 convertView.setTag(vh);
             } else {
                 vh = (ViewHolder) convertView.getTag();
             }
             Province mProvinceData = mData.get(position);
             vh.mCityName.setText(mProvinceData.getProvinceName());
+            vh.item_city_layout.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(CurrentCityActivity.this, CurrenCityTwoActivity.class);
+                    intent.putExtra("provinceName", provinces.get(position).getProvinceName());
+                    intent.putExtra("type", type);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
+                }
+            });
             return convertView;
         }
 
         class ViewHolder {
             private TextView mCityName;
+            private LinearLayout item_city_layout;
         }
     }
 

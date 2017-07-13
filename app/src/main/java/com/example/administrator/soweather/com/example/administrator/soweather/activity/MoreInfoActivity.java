@@ -36,6 +36,7 @@ public class MoreInfoActivity extends BaseActivity {
     private Toolbar toolbar;
 
     private String city;
+    private String county;
 
     @Override
     protected int getLayoutId() {
@@ -57,9 +58,12 @@ public class MoreInfoActivity extends BaseActivity {
 
     private void initView() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (city != null) {
+        if (!county.equals("")) {
+            toolbar.setTitle(county);
+        } else {
             toolbar.setTitle(city);
         }
+        setSupportActionBar(toolbar);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         setupViewPager(viewPager, mDailyforecast);
@@ -109,6 +113,7 @@ public class MoreInfoActivity extends BaseActivity {
             }
             time = intent.getStringExtra("time");
             city = intent.getStringExtra("city");
+            county = intent.getStringExtra("county");
         }
     }
 

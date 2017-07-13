@@ -49,9 +49,6 @@ public class Managecity extends BaseActivity implements ResponseListenter<NowWea
     private NowWeather mNowWeather = new NowWeather();
     private GalleryAdapter mDailyAdapter;
     private List<WeathImg> weathimgs = new ArrayList<>();
-    private TextView topTv;
-    private ImageView topButton;
-    private TextView topRight;
     //    private Boolean isDelete = false;
     private LinearLayout bg;
 
@@ -67,6 +64,7 @@ public class Managecity extends BaseActivity implements ResponseListenter<NowWea
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
+        setDisplayHomeAsUpEnabled(true);
         cityDB = SoWeatherDB.getInstance(this);
         initView();
         getData(citylist);
@@ -76,14 +74,7 @@ public class Managecity extends BaseActivity implements ResponseListenter<NowWea
 
     private void initView() {
         list = (GridView) findViewById(R.id.list);
-        topTv = (TextView) findViewById(R.id.topTv);
-        topRight = (TextView) findViewById(R.id.topRight);
-        topRight.setVisibility(View.GONE);
-        topTv.setText("多城市管理");
-        topButton = (ImageView) findViewById(R.id.topButton);
         bg = (LinearLayout) findViewById(R.id.bg);
-        topButton.setOnClickListener(this);
-        topRight.setOnClickListener(this);
         citylist = cityDB.getAllManagecity();
         weathimgs = cityDB.getAllWeatherImg();
         mDailyAdapter = new GalleryAdapter(this, date);
@@ -137,14 +128,7 @@ public class Managecity extends BaseActivity implements ResponseListenter<NowWea
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.topButton:
-                finish();
-                overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
-                break;
-            case R.id.topRight:
-                break;
-        }
+
     }
 
 

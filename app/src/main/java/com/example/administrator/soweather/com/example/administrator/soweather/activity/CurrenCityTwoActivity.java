@@ -11,6 +11,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,8 +33,6 @@ public class CurrenCityTwoActivity extends BaseActivity implements View.OnClickL
     private CityAdapter mCityAdapter;
     private SoWeatherDB cityDB;
     private List<City> cities = new ArrayList<>();
-    private TextView topTv;
-    private ImageView topButton;
     public static CurrenCityTwoActivity instance;
     private String type = null;
 
@@ -49,6 +48,7 @@ public class CurrenCityTwoActivity extends BaseActivity implements View.OnClickL
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
+        setDisplayHomeAsUpEnabled(true);
         instance = this;
         initView();
     }
@@ -62,38 +62,28 @@ public class CurrenCityTwoActivity extends BaseActivity implements View.OnClickL
             type = intent.getStringExtra("type");
         }
         mListView = (ListView) findViewById(R.id.city_list);
-        topTv = (TextView) findViewById(R.id.topTv);
-        topTv.setText("选择城市");
-        topButton = (ImageView) findViewById(R.id.topButton);
-        topButton.setOnClickListener(this);
         cityDB = SoWeatherDB.getInstance(this);
         cities = cityDB.getAllCity(provinceName);
         if (cities.size() > 0) {
             mCityAdapter = new CityAdapter(getApplicationContext(), this.cities);
             mListView.setAdapter(mCityAdapter);
             mCityAdapter.notifyDataSetChanged();
-            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(CurrenCityTwoActivity.this, CurrenCityThreeActiivty.class);
-                    intent.putExtra("cityName", cities.get(position).getCityName());
-                    intent.putExtra("cityId", cities.get(position).getCityId());
-                    intent.putExtra("type", type);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
-                }
-            });
+//            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                    Intent intent = new Intent(CurrenCityTwoActivity.this, CurrenCityThreeActiivty.class);
+//                    intent.putExtra("cityName", cities.get(position).getCityName());
+//                    intent.putExtra("cityId", cities.get(position).getCityId());
+//                    intent.putExtra("type", type);
+//                    startActivity(intent);
+//                    overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
+//                }
+//            });
         }
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.topButton:
-                finish();
-                overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
-                break;
-        }
     }
 
     private class CityAdapter extends BaseAdapter {
@@ -132,16 +122,29 @@ public class CurrenCityTwoActivity extends BaseActivity implements View.OnClickL
                         false);
                 vh = new CurrenCityTwoActivity.CityAdapter.ViewHolder();
                 vh.mCityName = (TextView) convertView.findViewById(R.id.city_name);
+                vh.item_city_layout = (LinearLayout) convertView.findViewById(R.id.item_city_layout);
                 convertView.setTag(vh);
             } else {
                 vh = (CurrenCityTwoActivity.CityAdapter.ViewHolder) convertView.getTag();
             }
             City mCityData = mData.get(position);
             vh.mCityName.setText(mCityData.getCityName());
+            vh.item_city_layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(CurrenCityTwoActivity.this, CurrenCityThreeActiivty.class);
+                    intent.putExtra("cityName", cities.get(position).getCityName());
+                    intent.putExtra("cityId", cities.get(position).getCityId());
+                    intent.putExtra("type", type);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
+                }
+            });
             return convertView;
         }
 
         class ViewHolder {
+            private LinearLayout item_city_layout;
             private TextView mCityName;
         }
     }

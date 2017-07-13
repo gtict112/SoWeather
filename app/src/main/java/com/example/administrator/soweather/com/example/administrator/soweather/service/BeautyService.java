@@ -1,11 +1,16 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.service;
 
+import android.graphics.Bitmap;
+
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.BeautyListDate;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.TopNew;
+import com.example.administrator.soweather.com.example.administrator.soweather.utils.FileUtil;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseProcessUtil;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
 
@@ -68,6 +73,43 @@ public class BeautyService {
                 } catch (Exception e1) {
                     res.setSuccess(false);
                     res.setErrorMessage("获取福利社图片异常");
+                    e1.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public void loadImage(final String image_url, final ResponseListenter<byte[]> a, final Boolean isWallpaper) {
+        final Request request = new Request.Builder().get()
+                .url(image_url)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.setErrorMessage(e.toString());
+                result.setSuccess(false);
+                try {
+                    a.onReceive(result);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final Result<byte[]> res = new Result<>();
+                res.setSuccess(false);
+                try {
+                    if (response.isSuccessful()) {
+                        res.setSuccess(true);
+                        res.setData(response.body().bytes());
+                        a.onReceive(res);//将图片保存到Sd卡  再将图片设置成壁纸
+                    } else {
+                        res.setSuccess(false);
+                        a.onReceive(res);
+                    }
+                } catch (Exception e1) {
+                    res.setSuccess(false);
                     e1.printStackTrace();
                 }
             }

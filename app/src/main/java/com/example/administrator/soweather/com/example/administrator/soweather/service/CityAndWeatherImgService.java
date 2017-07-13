@@ -84,13 +84,13 @@ public class CityAndWeatherImgService {
                         Province province = new Province();
                         City city = new City();
                         County county = new County();
-                        province.setProvinceId(String.valueOf(i));
+                        province.setProvinceId(String.valueOf(i)); //省
                         province.setProvinceName(strarray[7]);
                         city.setProvinceeName(strarray[7]);
-                        city.setCityId(strarray[0]);
+                        city.setCityId(strarray[0]); //市
                         city.setCityName(strarray[9]);
                         county.setCityName(strarray[9]);
-                        county.setCountyName(strarray[2]);
+                        county.setCountyName(strarray[2]); //区
                         county.setCountyId(String.valueOf(i));
                         provinceList.add(province);
                         citylist.add(city);

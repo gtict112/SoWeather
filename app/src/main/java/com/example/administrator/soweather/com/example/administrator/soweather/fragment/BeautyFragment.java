@@ -1,6 +1,7 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,6 +26,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.PictureActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.BeautyListDate;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
@@ -154,7 +156,10 @@ public class BeautyFragment extends Fragment implements SwipeRefreshLayout.OnRef
             @Override
             public void onItemClick(View view, int position) {
                 String id = mDate.get(position).img;
-                WebUtils.openInternal(getActivity(), id);
+                Intent intent = new Intent(getActivity(), PictureActivity.class);
+                intent.putExtra(PictureActivity.EXTRA_IMAGE_URL, id);
+                intent.putExtra(PictureActivity.EXTRA_IMAGE_TITLE, System.currentTimeMillis() + "");
+                startActivity(intent);
             }
         });
         mList.setOnScrollListener(new RecyclerView.OnScrollListener() {

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -131,6 +132,7 @@ public class TodayTopNewFragment extends Fragment implements SwipeRefreshLayout.
                 vh.date = (TextView) convertView.findViewById(R.id.date);
                 vh.author_name = (TextView) convertView.findViewById(R.id.author_name);
                 vh.img = (ImageView) convertView.findViewById(R.id.img);
+                vh.item_news_layout = (LinearLayout) convertView.findViewById(R.id.item_news_layout);
                 convertView.setTag(vh);
             } else {
                 vh = (TodayTopNewFragment.NewsAdapter.ViewHolder) convertView.getTag();
@@ -142,6 +144,15 @@ public class TodayTopNewFragment extends Fragment implements SwipeRefreshLayout.
             vh.title.setText(mNew.title);
             vh.date.setText(mNew.date);
             vh.author_name.setText(mNew.author_name);
+            vh.item_news_layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //资讯详情
+                    if (mNewDate != null && mNewDate.size() > 0) {
+                        WebUtils.openInternal(getActivity(), mNewDate.get(position).url);
+                    }
+                }
+            });
             return convertView;
         }
 
@@ -150,6 +161,7 @@ public class TodayTopNewFragment extends Fragment implements SwipeRefreshLayout.
             private ImageView img;
             private TextView date;
             private TextView author_name;
+            private LinearLayout item_news_layout;
         }
     }
 
@@ -166,15 +178,15 @@ public class TodayTopNewFragment extends Fragment implements SwipeRefreshLayout.
         mSwipeLayout.setProgressBackgroundColor(R.color.white); // 设定下拉圆圈的背景
         mSwipeLayout.setSize(SwipeRefreshLayout.DEFAULT); // 设置圆圈的大小
         recommended = (ListView) view.findViewById(R.id.recommended);
-        recommended.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //资讯详情
-                if (mNewDate != null && mNewDate.size() > 0) {
-                    WebUtils.openInternal(getActivity(), mNewDate.get(position).url);
-                }
-            }
-        });
+//        recommended.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                //资讯详情
+//                if (mNewDate != null && mNewDate.size() > 0) {
+//                    WebUtils.openInternal(getActivity(), mNewDate.get(position).url);
+//                }
+//            }
+//        });
     }
 
     private void initDate() {

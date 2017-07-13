@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#e1e1e1"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
@@ -19,9 +20,7 @@
         android:id="@+id/noti_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/selector_left_fragment_item_layout"
+        android:background="@drawable/item_selector"
         android:orientation="horizontal"
         android:padding="8dp">
 
@@ -55,15 +54,11 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:background="@color/line" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:layout_marginTop="15dp"
         android:background="@color/line" />
 
@@ -71,17 +66,15 @@
         android:id="@+id/win"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/selector_left_fragment_item_layout"
+        android:background="@drawable/item_selector"
         android:orientation="horizontal"
         android:padding="8dp">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
             android:layout_weight="1"
+            android:layout_marginLeft="5dp"
             android:orientation="vertical">
 
             <TextView
@@ -142,15 +135,11 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:background="@color/line" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:layout_marginTop="15dp"
         android:background="@color/line" />
 
@@ -158,11 +147,9 @@
         android:id="@+id/clear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/selector_left_fragment_item_layout"
+        android:background="@drawable/item_selector"
         android:orientation="horizontal"
-        android:padding="8dp">
+        android:padding="12dp">
 
 
         <TextView
@@ -187,15 +174,11 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:background="@color/line" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:layout_marginTop="15dp"
         android:background="@color/line" />
 
@@ -203,11 +186,9 @@
         android:id="@+id/feed_back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/selector_left_fragment_item_layout"
+        android:background="@drawable/item_selector"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="12dp">
 
 
         <TextView
@@ -226,7 +207,5 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:background="@color/line" />
 </LinearLayout>

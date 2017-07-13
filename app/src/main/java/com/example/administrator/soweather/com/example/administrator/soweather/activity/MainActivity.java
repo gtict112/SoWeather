@@ -41,6 +41,7 @@ import cn.waps.AppConnect;
 public class MainActivity extends BaseActivity implements ResponseListenter<Integer> {
     private String city = null;
     private String cityid = null;
+    private String county = null;
     private LocationClient mLocationClient;//定位SDK的核心类
     private static final String FRAGMENT_TAG_WEATHER = "weeather";
     private static final String FRAGMENT_TAG_GANK = "img";
@@ -130,6 +131,7 @@ public class MainActivity extends BaseActivity implements ResponseListenter<Inte
         if (intent != null) {
             city = intent.getStringExtra("city");
             cityid = intent.getStringExtra("cityid");
+            county = intent.getStringExtra("County");
         }
         if (cityid == null) {
             getLocationAdress();
@@ -267,6 +269,7 @@ public class MainActivity extends BaseActivity implements ResponseListenter<Inte
                     Bundle bundle = new Bundle();
                     bundle.putString("city", city);
                     bundle.putString("cityId", cityid);
+                    bundle.putString("county", county);
                     foundFragment.setArguments(bundle);
                     break;
                 case FRAGMENT_TAG_GANK:
@@ -308,4 +311,5 @@ public class MainActivity extends BaseActivity implements ResponseListenter<Inte
             mDrawerLayout.addDrawerListener(mDrawerToggle);
         }
     }
+
 }

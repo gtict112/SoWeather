@@ -10,6 +10,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,8 +28,6 @@ import java.util.List;
 
 public class CurrenCityThreeActiivty extends BaseActivity implements View.OnClickListener {
     private ListView mCountyList;
-    private TextView topTv;
-    private ImageView topButton;
     private String cityName;
     private CityAdapter mCityAdapter;
     private SoWeatherDB cityDB;
@@ -52,6 +51,7 @@ public class CurrenCityThreeActiivty extends BaseActivity implements View.OnClic
     }
 
     private void initView() {
+        setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         if (intent != null) {
             cityName = intent.getStringExtra("cityName");
@@ -59,34 +59,30 @@ public class CurrenCityThreeActiivty extends BaseActivity implements View.OnClic
             type = intent.getStringExtra("type");
         }
         mCountyList = (ListView) findViewById(R.id.county_list);
-        topTv = (TextView) findViewById(R.id.topTv);
-        topTv.setText("选择城市");
-        topButton = (ImageView) findViewById(R.id.topButton);
-        topButton.setOnClickListener(this);
         cityDB = SoWeatherDB.getInstance(this);
         cities = cityDB.getAllCountry(cityName);
         if (cities.size() > 0) {
             mCityAdapter = new CityAdapter(getApplicationContext(), this.cities);
             mCountyList.setAdapter(mCityAdapter);
             mCityAdapter.notifyDataSetChanged();
-            mCountyList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                    if (type != null && type.equals(CurrentCityActivity.TYPE)) {
-                        saveDB(cityId, cityName);
-                    } else if (type == null) {
-                        Intent intent = new Intent(CurrenCityThreeActiivty.this, MainActivity.class);
-                        intent.putExtra("cityid", cityId);
-                        intent.putExtra("city", cityName);
-                        startActivity(intent);
-                    }
-                    CurrentCityActivity.instance.finish();
-                    CurrenCityTwoActivity.instance.finish();
-                    finish();
-                    overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
-                }
-            });
+//            mCountyList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                    if (type != null && type.equals(CurrentCityActivity.TYPE)) {
+//                        saveDB(cityId, cityName);
+//                    } else if (type == null) {
+//                        Intent intent = new Intent(CurrenCityThreeActiivty.this, MainActivity.class);
+//                        intent.putExtra("cityid", cityId);
+//                        intent.putExtra("city", cityName);
+//                        startActivity(intent);
+//                    }
+//                    CurrentCityActivity.instance.finish();
+//                    CurrenCityTwoActivity.instance.finish();
+//                    finish();
+//                    overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
+//                }
+//            });
         }
     }
 
@@ -126,28 +122,42 @@ public class CurrenCityThreeActiivty extends BaseActivity implements View.OnClic
                         false);
                 vh = new CurrenCityThreeActiivty.CityAdapter.ViewHolder();
                 vh.mCityName = (TextView) convertView.findViewById(R.id.city_name);
+                vh.item_city_layout = (LinearLayout) convertView.findViewById(R.id.item_city_layout);
                 convertView.setTag(vh);
             } else {
                 vh = (CurrenCityThreeActiivty.CityAdapter.ViewHolder) convertView.getTag();
             }
             County mCountyData = mData.get(position);
             vh.mCityName.setText(mCountyData.getCountyName());
+            vh.item_city_layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (type != null && type.equals(CurrentCityActivity.TYPE)) {
+                        saveDB(cityId, cityName);
+                    } else if (type == null) {
+                        Intent intent = new Intent(CurrenCityThreeActiivty.this, MainActivity.class);
+                        intent.putExtra("cityid", cityId);
+                        intent.putExtra("city", cityName);
+                        intent.putExtra("County", mCountyData.getCountyName());
+                        startActivity(intent);
+                    }
+                    CurrentCityActivity.instance.finish();
+                    CurrenCityTwoActivity.instance.finish();
+                    finish();
+                    overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
+                }
+            });
             return convertView;
         }
 
         class ViewHolder {
             private TextView mCityName;
+            private LinearLayout item_city_layout;
         }
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.topButton:
-                finish();
-                overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
-                break;
-        }
     }
 
     private void saveDB(String cityId, String cityName) {
