@@ -176,29 +176,8 @@ public class MainActivity extends BaseActivity implements ResponseListenter<Inte
     private void initNavigationViewHeader() {
         navigationView = (NavigationView) findViewById(R.id.content_frame);
         navigationView.inflateHeaderView(R.layout.header_layout);
-//        TextView manage_city = (TextView) findViewById(R.id.manage_city);
-//        TextView add_city = (TextView) findViewById(R.id.add_city);
-//        manage_city.setOnClickListener(this);
-//        add_city.setOnClickListener(this);
         navigationView.setNavigationItemSelectedListener(new NavigationItemSelected());
     }
-
-//    @Override
-//    public void onClick(View v) {
-//        switch (v.getId()) {
-//            case R.id.add_city:
-//                //添加城市 //传递一个参数过去  判断是首页的选择城市还是这里,在将选择的城市增加到数据库
-//                Intent intent1 = new Intent(MainActivity.this, CurrentCityActivity.class);
-//                intent1.putExtra("type", CurrentCityActivity.TYPE);
-//                startActivity(intent1);
-//                break;
-//            case R.id.manage_city:
-//                //管理城市   添加的城市,包括当前位置城市,卡片显示天气
-//                Intent intent = new Intent(MainActivity.this, Managecity.class);
-//                startActivity(intent);
-//                break;
-//        }
-//    }
 
 
     class NavigationItemSelected implements NavigationView.OnNavigationItemSelectedListener {
@@ -236,11 +215,15 @@ public class MainActivity extends BaseActivity implements ResponseListenter<Inte
      * @param savedInstanceState
      */
     private void initFragment(Bundle savedInstanceState) {
-        if (savedInstanceState == null) {
+        if (county != null) {
             switchContent(FRAGMENT_TAG_WEATHER);
         } else {
-            currentFragmentTag = savedInstanceState.getString(AppGlobal.CURRENT_INDEX);
-            switchContent(currentFragmentTag);
+            if (savedInstanceState == null) {
+                switchContent(FRAGMENT_TAG_WEATHER);
+            } else {
+                currentFragmentTag = savedInstanceState.getString(AppGlobal.CURRENT_INDEX);
+                switchContent(currentFragmentTag);
+            }
         }
     }
 

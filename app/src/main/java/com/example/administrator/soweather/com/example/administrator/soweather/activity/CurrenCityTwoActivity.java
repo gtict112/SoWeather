@@ -68,17 +68,6 @@ public class CurrenCityTwoActivity extends BaseActivity implements View.OnClickL
             mCityAdapter = new CityAdapter(getApplicationContext(), this.cities);
             mListView.setAdapter(mCityAdapter);
             mCityAdapter.notifyDataSetChanged();
-//            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                    Intent intent = new Intent(CurrenCityTwoActivity.this, CurrenCityThreeActiivty.class);
-//                    intent.putExtra("cityName", cities.get(position).getCityName());
-//                    intent.putExtra("cityId", cities.get(position).getCityId());
-//                    intent.putExtra("type", type);
-//                    startActivity(intent);
-//                    overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
-//                }
-//            });
         }
     }
 

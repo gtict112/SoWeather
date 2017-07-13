@@ -24,8 +24,13 @@
         android:layout_marginTop="10dp"
         android:text="请邮我,我们将尽快联系您!"
         android:textColor="@color/colorTextDark"
-        android:textSize="17sp" />
+        android:textSize="16sp" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginBottom="10dp"
+        android:background="@color/line" />
 
     <WebView
         android:id="@+id/webview"

@@ -84,14 +84,14 @@ public class ResponseProcessUtil {
             JSONObject aqi = templateJson.getJSONObject("aqi");
             JSONObject city = aqi.getJSONObject("city");
             Aqi mAqi = Aqi.Builder.creatAqi();
-            mAqi.aqi = city.optString("aqi");
-            mAqi.co = city.optString("co");
-            mAqi.no2 = city.optString("no2");
-            mAqi.o3 = city.optString("o3");
-            mAqi.pm10 = city.optString("pm10");
-            mAqi.pm25 = city.optString("pm25");
-            mAqi.qlty = city.optString("qlty");
-            mAqi.so2 = city.optString("so2");
+            mAqi.aqi = city.optString("aqi", "0");
+            mAqi.co = city.optString("co", "0");
+            mAqi.no2 = city.optString("no2", "0");
+            mAqi.o3 = city.optString("o3", "0");
+            mAqi.pm10 = city.optString("pm10", "0");
+            mAqi.pm25 = city.optString("pm25", "0");
+            mAqi.qlty = city.optString("qlty", "0");
+            mAqi.so2 = city.optString("so2", "0");
             result.setData(mAqi);
         } catch (JSONException e) {
             e.printStackTrace();

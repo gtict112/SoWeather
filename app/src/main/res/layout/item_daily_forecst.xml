@@ -2,16 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:background="@drawable/item_selector"
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="49dp"
         android:layout_marginLeft="14dp"
         android:layout_marginRight="14dp"
+        android:background="?attr/selectableItemBackground"
         android:orientation="horizontal">
 
         <TextView
@@ -55,7 +55,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:drawablePadding="15dp"
-            android:drawableRight="@drawable/ic_last_page_black_24dp"
             android:gravity="center_vertical|right"
             android:text="22"
             android:textColor="@color/colorTextDark2nd"
@@ -63,4 +62,9 @@
 
     </LinearLayout>
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line" />
 </LinearLayout>

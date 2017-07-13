@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Constans;
 import com.example.administrator.soweather.com.example.administrator.soweather.db.SoWeatherDB;
+import com.example.administrator.soweather.com.example.administrator.soweather.mode.ManageCity;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Province;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.Xcflowlayout;
 
@@ -45,6 +47,7 @@ public class CurrentCityActivity extends BaseActivity implements View.OnClickLis
     };
     private int mColor[] = {R.color.a1, R.color.a2, R.color.a3, R.color.a4, R.color.a5, R.color.a6, R.color.a7};
     private SoWeatherDB cityDB;
+    private List<ManageCity> citylist = new ArrayList<>();//数据库添加的城市
     private List<Province> provinces = new ArrayList<>();
     public static CurrentCityActivity instance;
     private String type = null;
@@ -76,22 +79,13 @@ public class CurrentCityActivity extends BaseActivity implements View.OnClickLis
     private void initView() {
         mCityList = (ListView) findViewById(R.id.city_list);
         cityDB = SoWeatherDB.getInstance(this);
+        citylist = cityDB.getAllManagecity();
         provinces = cityDB.getAllProvince();
         if (provinces.size() > 0) {
             mCityAdapter = new CityAdapter(getApplicationContext(), this.provinces);
         }
         mCityList.setAdapter(mCityAdapter);
         mCityAdapter.notifyDataSetChanged();
-//        mCityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Intent intent = new Intent(CurrentCityActivity.this, CurrenCityTwoActivity.class);
-//                intent.putExtra("provinceName", provinces.get(position).getProvinceName());
-//                intent.putExtra("type", type);
-//                startActivity(intent);
-//                overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
-//            }
-//        });
     }
 
 
@@ -125,11 +119,23 @@ public class CurrentCityActivity extends BaseActivity implements View.OnClickLis
                         }
                     }
                     if (type != null && type.equals(TYPE)) {
-                        saveDB(cityid, cityname);
+                        if (citylist != null && citylist.size() > 0) {
+                            for (int i = 0; i < citylist.size(); i++) {
+                                if (!citylist.get(i).getCityName().equals(cityname)) {
+                                    saveDB(cityid, cityname);
+                                } else {
+                                    Snackbar.make(CurrentCityActivity.this.getWindow().getDecorView().findViewById(android.R.id.content),
+                                            "该城市已添加! (*^__^*)", Snackbar.LENGTH_SHORT).show();
+                                }
+                            }
+                        }else{
+                            saveDB(cityid, cityname);
+                        }
                     } else if (type == null) {
                         Intent intent = new Intent(CurrentCityActivity.this, MainActivity.class);
                         intent.putExtra("cityid", cityid);
                         intent.putExtra("city", cityname);
+                        intent.putExtra("County", "");
                         startActivity(intent);
                     }
                     finish();

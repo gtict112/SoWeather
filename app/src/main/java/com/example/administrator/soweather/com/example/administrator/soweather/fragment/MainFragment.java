@@ -51,7 +51,6 @@ import com.example.administrator.soweather.com.example.administrator.soweather.m
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.WeathImg;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Zodiac;
 import com.example.administrator.soweather.com.example.administrator.soweather.service.WeatherService;
-import com.example.administrator.soweather.com.example.administrator.soweather.service.ZodiacService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.DateToWeek;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.HorizontalRecyclerView;
@@ -125,7 +124,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
     private TextView city_name;
     private TimeAdapter mTimeAdapter;
     private RecyclerView time_weather;
-    private TextView day_weather_chart;
+    private LinearLayout day_weather_chart;
     private Suggestion mSuggestion = new Suggestion();
 
     private TextView flubrf;
@@ -153,6 +152,9 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
     private FloatingActionButton fabutton;
 
     private LinearLayout hour_layout;
+
+
+    private ArrayList<String> errors = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -220,6 +222,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         getHourlyforecastData(cityid);
         getNowWeatherData(cityid);
         getWeather(cityid);
+        getSuggestionData(cityid);
     }
 
     private void getDate() {
@@ -241,29 +244,10 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                     mHandler.sendMessage(mHandler.obtainMessage(6, mSuggestion));
                     succe = succe + 1;
                 } else {
-                    Snackbar.make(fabutton,
-                            result.getErrorMessage(), Snackbar.LENGTH_SHORT).show();
+                    checkError(result.getErrorMessage());
                 }
             }
         }, cityid);
-    }
-
-
-    private void getZodiac(String date) {
-        ZodiacService mZodiacService = new ZodiacService();
-        mZodiacService.getZodiacService(new ResponseListenter<Zodiac>() {
-            @Override
-            public void onReceive(Result<Zodiac> result) {
-                if (result.isSuccess()) {
-                    mZodiac = result.getData();
-                    mHandler.sendMessage(mHandler.obtainMessage(4, mZodiac));
-                    succe = succe + 1;
-                } else {
-                    Snackbar.make(fabutton,
-                            result.getErrorMessage(), Snackbar.LENGTH_SHORT).show();
-                }
-            }
-        }, date);
     }
 
 
@@ -282,8 +266,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                     mHandler.sendMessage(mHandler.obtainMessage(1, mNowWeather));
                     succe = succe + 1;
                 } else {
-                    Snackbar.make(fabutton,
-                            result.getErrorMessage(), Snackbar.LENGTH_SHORT).show();
+                    checkError(result.getErrorMessage());
                 }
             }
         }, cityid);
@@ -304,8 +287,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                     mHandler.sendMessage(mHandler.obtainMessage(2, mNowWeather));
                     succe = succe + 1;
                 } else {
-                    Snackbar.make(fabutton,
-                            result.getErrorMessage(), Snackbar.LENGTH_SHORT).show();
+                    checkError(result.getErrorMessage());
                 }
             }
         }, cityid);
@@ -326,8 +308,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                     mHandler.sendMessage(mHandler.obtainMessage(5, mHourlyforecast));
                     succe = succe + 1;
                 } else {
-                    Snackbar.make(fabutton,
-                            result.getErrorMessage(), Snackbar.LENGTH_SHORT).show();
+                    checkError(result.getErrorMessage());
                 }
             }
         }, cityid);
@@ -348,8 +329,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                     mHandler.sendMessage(mHandler.obtainMessage(3, mDailyforecast));
                     succe = succe + 1;
                 } else {
-                    Snackbar.make(fabutton,
-                            result.getErrorMessage(), Snackbar.LENGTH_SHORT).show();
+                    checkError(result.getErrorMessage());
                 }
             }
         }, cityid);
@@ -360,30 +340,22 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
+                checkSucce();
                 switch (msg.what) {
                     case 1:
                         setAqi(mAqi);
-                        checkSucce();
                         break;
                     case 2:
                         setNowWeatherView(mNowWeather);
-                        checkSucce();
                         break;
                     case 3:
                         setOntherView(mDailyforecast);
-                        checkSucce();
-                        break;
-                    case 4:
-                        setZodiac(mZodiac);
-                        checkSucce();
                         break;
                     case 5:
                         setHourWeather(mHourlyforecast);
-                        checkSucce();
                         break;
                     case 6:
                         setSuggestion(mSuggestion);
-                        checkSucce();
                         break;
                 }
             }
@@ -391,7 +363,21 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
     }
 
     private void checkSucce() {
-        config.dismissProgressDialog();
+        if (succe == 5) {
+            config.dismissProgressDialog();
+        }
+    }
+
+    private void checkError(String error) {
+        errors.add(error);
+        if (errors != null && errors.size() > 0) {
+            config.dismissProgressDialog();
+            for (int i = 0; i < errors.size(); i++) {
+                Snackbar.make(fabutton,
+                        errors.get(i), Snackbar.LENGTH_SHORT).show();
+            }
+        }
+
     }
 
     private void setSuggestion(Suggestion mSuggestion) {
@@ -442,6 +428,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         no2.setText(mAqi.no2);
         o3.setText(mAqi.o3);
         so2.setText(mAqi.so2);
+
 
         circle_pm10.setProgress(Integer.valueOf(mAqi.pm10));
         circle_pm25.setProgress(Integer.valueOf(mAqi.pm25));
@@ -497,7 +484,6 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         } catch (JSONException e) {
             e.printStackTrace();//异常
         }
-//        getZodiac(mDate);
     }
 
 
@@ -571,7 +557,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         mSwipeLayout.setDistanceToTriggerSync(300);// 设置手指在屏幕下拉多少距离会触发下拉刷新
         mSwipeLayout.setProgressBackgroundColor(R.color.white); // 设定下拉圆圈的背景
         mSwipeLayout.setSize(SwipeRefreshLayout.DEFAULT); // 设置圆圈的大小
-        day_weather_chart = (TextView) view.findViewById(R.id.day_weather_chart);
+        day_weather_chart = (LinearLayout) view.findViewById(R.id.day_weather_chart);
         time_weather = (RecyclerView) view.findViewById(R.id.time_weather);
         city_name = (TextView) view.findViewById(R.id.city_name);
         flubrf = (TextView) view.findViewById(R.id.flubrf);
@@ -718,6 +704,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
             TextView week;
             TextView tmp;
             TextView cond_txt;
+            View view;
         }
 
         @Override
@@ -734,6 +721,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
             viewHolder.txt_img = (ImageView) view.findViewById(R.id.txt_img);
             viewHolder.tmp = (TextView) view.findViewById(R.id.tmp);
             viewHolder.cond_txt = (TextView) view.findViewById(R.id.cond_txt);
+            viewHolder.view = (View) view.findViewById(R.id.view);
             view.setOnClickListener(this);
             return viewHolder;
         }
@@ -759,6 +747,9 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                 if (code.equals(weathimgs.get(j).getCode())) {
                     viewHolder.txt_img.setImageBitmap(weathimgs.get(j).getIcon());
                 }
+            }
+            if (i == mData.size() - 1) {
+                viewHolder.view.setVisibility(View.GONE);
             }
             viewHolder.itemView.setTag(mDailyForecastData);
             viewHolder.itemView.setOnClickListener(this);
@@ -845,6 +836,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
             TextView date;
             TextView tmp;
             TextView decs;
+            View view;
         }
 
         @Override
@@ -861,6 +853,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
             viewHolder.txt_img = (ImageView) view.findViewById(R.id.txt_img);
             viewHolder.tmp = (TextView) view.findViewById(R.id.tmp);
             viewHolder.decs = (TextView) view.findViewById(R.id.desc);
+            viewHolder.view = (View) view.findViewById(R.id.view);
             return viewHolder;
         }
 
@@ -885,6 +878,9 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                 if (code.equals(weathimgs.get(j).getCode())) {
                     viewHolder.txt_img.setImageBitmap(weathimgs.get(j).getIcon());
                 }
+            }
+            if (i == mData.size() - 1) {
+                viewHolder.view.setVisibility(View.GONE);
             }
         }
     }

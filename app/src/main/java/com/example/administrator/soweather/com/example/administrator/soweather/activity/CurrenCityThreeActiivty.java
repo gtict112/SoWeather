@@ -3,6 +3,7 @@ package com.example.administrator.soweather.com.example.administrator.soweather.
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.db.SoWeatherDB;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.County;
+import com.example.administrator.soweather.com.example.administrator.soweather.mode.ManageCity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,7 @@ public class CurrenCityThreeActiivty extends BaseActivity implements View.OnClic
     private ListView mCountyList;
     private String cityName;
     private CityAdapter mCityAdapter;
+    private List<ManageCity> citylist = new ArrayList<>();//数据库添加的城市
     private SoWeatherDB cityDB;
     private List<County> cities = new ArrayList<>();
     private String cityId;
@@ -60,29 +63,12 @@ public class CurrenCityThreeActiivty extends BaseActivity implements View.OnClic
         }
         mCountyList = (ListView) findViewById(R.id.county_list);
         cityDB = SoWeatherDB.getInstance(this);
+        citylist = cityDB.getAllManagecity();
         cities = cityDB.getAllCountry(cityName);
         if (cities.size() > 0) {
             mCityAdapter = new CityAdapter(getApplicationContext(), this.cities);
             mCountyList.setAdapter(mCityAdapter);
             mCityAdapter.notifyDataSetChanged();
-//            mCountyList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//                    if (type != null && type.equals(CurrentCityActivity.TYPE)) {
-//                        saveDB(cityId, cityName);
-//                    } else if (type == null) {
-//                        Intent intent = new Intent(CurrenCityThreeActiivty.this, MainActivity.class);
-//                        intent.putExtra("cityid", cityId);
-//                        intent.putExtra("city", cityName);
-//                        startActivity(intent);
-//                    }
-//                    CurrentCityActivity.instance.finish();
-//                    CurrenCityTwoActivity.instance.finish();
-//                    finish();
-//                    overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
-//                }
-//            });
         }
     }
 
@@ -133,7 +119,18 @@ public class CurrenCityThreeActiivty extends BaseActivity implements View.OnClic
                 @Override
                 public void onClick(View v) {
                     if (type != null && type.equals(CurrentCityActivity.TYPE)) {
-                        saveDB(cityId, cityName);
+                        if (citylist != null && citylist.size() > 0) {
+                            for (int i = 0; i < citylist.size(); i++) {
+                                if (!citylist.get(i).getCityName().equals(cityName + mCountyData.getCountyName())) {
+                                    saveDB(cityId, cityName + mCountyData.getCountyName());
+                                } else {
+                                    Snackbar.make(CurrenCityThreeActiivty.this.getWindow().getDecorView().findViewById(android.R.id.content),
+                                            "该城市已添加! (*^__^*)", Snackbar.LENGTH_SHORT).show();
+                                }
+                            }
+                        } else {
+                            saveDB(cityId, cityName + mCountyData.getCountyName());
+                        }
                     } else if (type == null) {
                         Intent intent = new Intent(CurrenCityThreeActiivty.this, MainActivity.class);
                         intent.putExtra("cityid", cityId);

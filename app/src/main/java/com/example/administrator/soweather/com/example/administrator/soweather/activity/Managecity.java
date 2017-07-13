@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -59,34 +63,39 @@ public class Managecity extends BaseActivity implements ResponseListenter<NowWea
 
     @Override
     protected int getMenuId() {
-        return 0;
+        return R.menu.menu_managecity;
     }
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
         setDisplayHomeAsUpEnabled(true);
-        cityDB = SoWeatherDB.getInstance(this);
         initView();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cityDB = SoWeatherDB.getInstance(this);
+        citylist = cityDB.getAllManagecity();
+        weathimgs = cityDB.getAllWeatherImg();
         getData(citylist);
         getHandleMessge();
     }
 
-
     private void initView() {
         list = (GridView) findViewById(R.id.list);
         bg = (LinearLayout) findViewById(R.id.bg);
-        citylist = cityDB.getAllManagecity();
-        weathimgs = cityDB.getAllWeatherImg();
         mDailyAdapter = new GalleryAdapter(this, date);
         list.setAdapter(mDailyAdapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(Managecity.this, MainActivity.class);
-                intent.putExtra("cityid", citylist.get(position).getCityId());
-                intent.putExtra("city", citylist.get(position).getCityName());
-                startActivity(intent);
-                finish();
+//                Intent intent = new Intent(Managecity.this, MainActivity.class);
+//                intent.putExtra("cityid", citylist.get(position).getCityId());
+//                intent.putExtra("city", citylist.get(position).getCityName());
+//                startActivity(intent);
+//                finish();
             }
         });
     }
@@ -105,14 +114,15 @@ public class Managecity extends BaseActivity implements ResponseListenter<NowWea
             @Override
             public void handleMessage(Message msg) {
                 if (msg.what == 1) {
-                    setDate();
+                    setDate(date);
                 }
             }
         };
     }
 
-    private void setDate() {
-        mDailyAdapter.notifyDataSetChanged();
+    private void setDate(List<NowWeather> date) {
+        mDailyAdapter = new GalleryAdapter(this, date);
+        list.setAdapter(mDailyAdapter);
     }
 
     @Override
@@ -140,6 +150,7 @@ public class Managecity extends BaseActivity implements ResponseListenter<NowWea
             inflater = LayoutInflater.from(context);
             mData = datats;
         }
+
 
         @Override
         public int getCount() {
@@ -263,4 +274,17 @@ public class Managecity extends BaseActivity implements ResponseListenter<NowWea
         }
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        int id = item.getItemId();
+        if (id == R.id.managecity_add) {
+            //添加城市 //传递一个参数过去  判断是首页的选择城市还是这里,在将选择的城市增加到数据库
+            Intent intent1 = new Intent(Managecity.this, CurrentCityActivity.class);
+            intent1.putExtra("type", CurrentCityActivity.TYPE);
+            startActivity(intent1);
+        }
+        return true;
+    }
 }

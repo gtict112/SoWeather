@@ -50,6 +50,9 @@ public class TodayTopNewFragment extends Fragment implements SwipeRefreshLayout.
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_today_topnew, null);
+        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        mToolbar.setTitle("今日头条");
+        ((MainActivity) getActivity()).initDrawer(mToolbar);
         initView(view);
         initDate();
         getHandleMessge();
@@ -166,9 +169,6 @@ public class TodayTopNewFragment extends Fragment implements SwipeRefreshLayout.
     }
 
     private void initView(View view) {
-        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        mToolbar.setTitle("今日头条");
-        ((MainActivity) getActivity()).initDrawer(mToolbar);
         mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeLayout);
         mSwipeLayout.setOnRefreshListener(this);
         // 设置下拉圆圈上的颜色，蓝色、绿色、橙色、红色
