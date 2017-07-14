@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.CurrenCityThreeActiivty;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
@@ -178,15 +180,6 @@ public class TodayTopNewFragment extends Fragment implements SwipeRefreshLayout.
         mSwipeLayout.setProgressBackgroundColor(R.color.white); // 设定下拉圆圈的背景
         mSwipeLayout.setSize(SwipeRefreshLayout.DEFAULT); // 设置圆圈的大小
         recommended = (ListView) view.findViewById(R.id.recommended);
-//        recommended.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                //资讯详情
-//                if (mNewDate != null && mNewDate.size() > 0) {
-//                    WebUtils.openInternal(getActivity(), mNewDate.get(position).url);
-//                }
-//            }
-//        });
     }
 
     private void initDate() {
@@ -203,11 +196,21 @@ public class TodayTopNewFragment extends Fragment implements SwipeRefreshLayout.
                     mNewDate = result.getData();
                     mHandler.sendMessage(mHandler.obtainMessage(1, mNewDate));
                 } else {
-                    config.dismissProgressDialog();
-                    recommended.setVisibility(View.GONE);
-                    Toast.makeText(getActivity(), result.getErrorMessage(), Toast.LENGTH_LONG).show();
+                    checkError(result.getErrorMessage());
                 }
             }
         });
+    }
+
+    private void checkError(String errorMessage) {
+        config.dismissProgressDialog();
+        Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), errorMessage, Snackbar.LENGTH_LONG)
+                .setAction("重试", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        initDate();
+                    }
+                })
+                .show();
     }
 }

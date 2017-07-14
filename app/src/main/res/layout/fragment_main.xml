@@ -301,7 +301,7 @@
                             android:layout_marginTop="10dp"
                             android:drawableLeft="@drawable/ic_beach_access_black_24dp"
                             android:drawablePadding="3dp"
-                            android:text="今天暂无最新时段预报, 去迎接明天把!"
+                            android:text="今天暂无最新时段预报, 去迎接新的一天吧!"
                             android:textColor="@color/colorTextDark2nd"
                             android:textSize="12sp"
                             android:visibility="gone" />
@@ -423,6 +423,8 @@
                             android:orientation="horizontal">
 
                             <LinearLayout
+                                android:id="@+id/sport_layout"
+                                android:background="?attr/selectableItemBackground"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -466,6 +468,8 @@
                                 android:background="@color/line" />
 
                             <LinearLayout
+                                android:id="@+id/flu_layout"
+                                android:background="?attr/selectableItemBackground"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -521,6 +525,8 @@
                             android:orientation="horizontal">
 
                             <LinearLayout
+                                android:id="@+id/drsg_layout"
+                                android:background="?attr/selectableItemBackground"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -564,6 +570,8 @@
                                 android:background="@color/line" />
 
                             <LinearLayout
+                                android:id="@+id/trav_layout"
+                                android:background="?attr/selectableItemBackground"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -1055,7 +1063,7 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right|bottom"
+        android:layout_gravity="center_vertical|left"
         android:layout_marginBottom="40dp"
         android:layout_marginRight="20dp"
         android:clickable="true"
@@ -1064,6 +1072,8 @@
         app:borderWidth="0dp"
         app:elevation="80dp"
         app:fabSize="normal"
+        app:layout_anchor="@+id/swipeLayout"
+        app:layout_anchorGravity="center_vertical|right"
         app:pressedTranslationZ="10dp"
         app:rippleColor="#117858" />
 </android.support.design.widget.CoordinatorLayout>

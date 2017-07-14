@@ -23,6 +23,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.utils.ShareUtils;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.WebUtils;
 
 import java.util.Random;
@@ -93,7 +94,7 @@ public class AboutMoreActivity extends BaseActivity implements View.OnClickListe
                 WebUtils.openInternal(this, "https://github.com/lihailin3519/SoWeather");
                 break;
             case R.id.btn_share_app:
-                Snackbar.make(this.getWindow().getDecorView().findViewById(android.R.id.content), "暂不支持分享! (*^__^*)", Snackbar.LENGTH_SHORT).show();
+                ShareUtils.shareText(this, "YOYO天气！https://github.com/lihailin3519/SoWeather");
                 break;
         }
     }

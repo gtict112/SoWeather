@@ -2,18 +2,23 @@ package com.example.administrator.soweather.com.example.administrator.soweather.
 
 import android.annotation.TargetApi;
 import android.app.WallpaperManager;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewCompat;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -30,10 +35,17 @@ import com.example.administrator.soweather.com.example.administrator.soweather.m
 import com.example.administrator.soweather.com.example.administrator.soweather.service.BeautyService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.FileUtil;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
+import com.example.administrator.soweather.com.example.administrator.soweather.utils.ShareUtils;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+
+import static android.R.attr.bitmap;
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 /**
  * Created by liyu on 2016/11/3.
@@ -59,6 +71,9 @@ public class PictureActivity extends BaseActivity {
                     break;
                 case 1:
                     FileUtil.saveImage(false, (byte[]) msg.obj, PictureActivity.this);
+                    break;
+                case 2:
+                    shareIamge((byte[]) msg.obj);
                     break;
             }
         }
@@ -132,8 +147,18 @@ public class PictureActivity extends BaseActivity {
         int id = item.getItemId();
         if (id == R.id.menu_share) {
             //分享
-            Snackbar.make(PictureActivity.this.getWindow().getDecorView().findViewById(R.id.picture),
-                    "暂不支持分享功能! (*^__^*)", Snackbar.LENGTH_SHORT).show();
+            BeautyService mBeautyService = new BeautyService();
+            mBeautyService.loadImage(mImageUrl, new ResponseListenter<byte[]>() {
+                @Override
+                public void onReceive(Result<byte[]> result) {
+                    if (result.isSuccess()) {
+                        handler.sendMessage(handler.obtainMessage(2, result.getData()));
+                    } else {
+                        Snackbar.make(PictureActivity.this.getWindow().getDecorView().findViewById(R.id.picture),
+                                "分享失败", Snackbar.LENGTH_SHORT).show();
+                    }
+                }
+            });
         } else if (id == R.id.menu_save) {
             //保存
             BeautyService mBeautyService = new BeautyService();
@@ -149,7 +174,7 @@ public class PictureActivity extends BaseActivity {
                                 "图片保存失败", Snackbar.LENGTH_SHORT).show();
                     }
                 }
-            }, false);
+            });
         } else if (id == R.id.menu_wallpaper) {
             //设置壁纸
             BeautyService mBeautyService = new BeautyService();
@@ -163,7 +188,7 @@ public class PictureActivity extends BaseActivity {
                                 "壁纸设置失败", Snackbar.LENGTH_SHORT).show();
                     }
                 }
-            }, true);
+            });
         }
 
         return true;
@@ -197,5 +222,54 @@ public class PictureActivity extends BaseActivity {
         }
     }
 
+    public static Uri getImageContentUri(Context context, String absPath) {
 
+        Cursor cursor = context.getContentResolver().query(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                , new String[]{MediaStore.Images.Media._ID}
+                , MediaStore.Images.Media.DATA + "=? "
+                , new String[]{absPath}, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int id = cursor.getInt(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
+            return Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, Integer.toString(id));
+
+        } else if (!absPath.isEmpty()) {
+            ContentValues values = new ContentValues();
+            values.put(MediaStore.Images.Media.DATA, absPath);
+            return context.getContentResolver().insert(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        } else {
+            return null;
+        }
+    }
+
+    private void shareIamge(byte[] bytes) {
+        File file = Environment.getExternalStorageDirectory();
+        File file1 = new File(file, "YoYo天气福利社");
+        if (!file1.exists()) {
+            file1.mkdirs();
+        }
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        File imgFile = new File(file1, System.currentTimeMillis() + ".jpg");
+        try {
+            FileOutputStream out = new FileOutputStream(imgFile);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.flush();
+            out.close();
+            Uri uri = Uri.fromFile(imgFile);
+            Intent scannerIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri);
+            PictureActivity.this.sendBroadcast(scannerIntent);
+            Uri contentURI = getImageContentUri(PictureActivity.this, imgFile.getAbsolutePath());
+            ShareUtils.shareImage(PictureActivity.this, contentURI, "YOYO天气");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            Snackbar.make(PictureActivity.this.getWindow().getDecorView().findViewById(R.id.picture),
+                    "分享失败", Snackbar.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Snackbar.make(PictureActivity.this.getWindow().getDecorView().findViewById(R.id.picture),
+                    "分享失败", Snackbar.LENGTH_SHORT).show();
+        }
+    }
 }

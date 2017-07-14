@@ -14,8 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
@@ -27,7 +25,6 @@ import com.example.administrator.soweather.com.example.administrator.soweather.c
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.BeautyFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.MainFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.TodayTopNewFragment;
-import com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
 import com.example.administrator.soweather.com.example.administrator.soweather.service.CityAndWeatherImgService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
@@ -96,7 +93,6 @@ public class MainActivity extends BaseActivity implements ResponseListenter<Inte
                     mLocationClient.stop();
                 } else {
                     mLocationClient.stop();
-                    Snackbar.make(MainActivity.this.getWindow().getDecorView().findViewById(android.R.id.content), "定位失败,已默认城市为杭州,请手动修改城市! (*^__^*)", Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
@@ -144,22 +140,16 @@ public class MainActivity extends BaseActivity implements ResponseListenter<Inte
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            final com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout confirmDialog = new DialogLogout(this, "确定要退出吗?", "退出", "取消");
-            confirmDialog.show();
-            confirmDialog.setClicklistener(new com.example.administrator.soweather.com.example.administrator.soweather.general.DialogLogout.ClickListenerInterface() {
-                @Override
-                public void doConfirm() {
-                    confirmDialog.dismiss();
-                    Appconfiguration.getInstance().closeAllActivities();
-                    AppConnect.getInstance(MainActivity.this).close();
-                    finish();
-                }
-
-                @Override
-                public void doCancel() {
-                    confirmDialog.dismiss();
-                }
-            });
+            Snackbar.make(MainActivity.this.getWindow().getDecorView().findViewById(android.R.id.content), "确认退出应用吗 ?", Snackbar.LENGTH_LONG)
+                    .setAction("退出", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Appconfiguration.getInstance().closeAllActivities();
+                            AppConnect.getInstance(MainActivity.this).close();
+                            finish();
+                        }
+                    })
+                    .show();
         }
         return false;
 

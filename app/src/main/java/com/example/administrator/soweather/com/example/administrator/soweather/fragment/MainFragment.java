@@ -6,7 +6,6 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -19,16 +18,12 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.BounceInterpolator;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.soweather.R;
@@ -53,6 +48,7 @@ import com.example.administrator.soweather.com.example.administrator.soweather.m
 import com.example.administrator.soweather.com.example.administrator.soweather.service.WeatherService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.DateToWeek;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
+import com.example.administrator.soweather.com.example.administrator.soweather.utils.ShareUtils;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.HorizontalRecyclerView;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.MarqueeView;
 
@@ -156,6 +152,15 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
 
     private ArrayList<String> errors = new ArrayList<>();
 
+
+    private String currentWeather = null;
+
+
+    private LinearLayout trav_layout;
+    private LinearLayout drsg_layout;
+    private LinearLayout flu_layout;
+    private LinearLayout sport_layout;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -206,6 +211,13 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                     cunty_name.setText("");
                 }
             } else {
+                Snackbar.make(fabutton, "定位失败,已默认城市为杭州,请手动修改城市!", Snackbar.LENGTH_LONG)
+                        .setAction("了解", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                            }
+                        })
+                        .show();
                 city_name.setText("杭州");
             }
         }
@@ -373,8 +385,14 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         if (errors != null && errors.size() > 0) {
             config.dismissProgressDialog();
             for (int i = 0; i < errors.size(); i++) {
-                Snackbar.make(fabutton,
-                        errors.get(i), Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(fabutton, errors.get(i), Snackbar.LENGTH_LONG)
+                        .setAction("重试", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                getDate();
+                            }
+                        })
+                        .show();
             }
         }
 
@@ -481,6 +499,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                 }
             }
             visitityToday();
+            setShareWeather(mNowWeather);
         } catch (JSONException e) {
             e.printStackTrace();//异常
         }
@@ -538,8 +557,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                 int id = item.getItemId();
                 if (id == R.id.menu_share) {
                     //分享天气
-                    Snackbar.make(fabutton,
-                            "暂不支持分享天气功能! (*^__^*)", Snackbar.LENGTH_SHORT).show();
+                    shareWeather();
                     return true;
                 } else if (id == R.id.menu_tts) {
                     Intent intent = new Intent(getActivity(), CurrentCityActivity.class);
@@ -596,6 +614,15 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         circle_co = (ProgressBar) view.findViewById(R.id.circle_co);
         circle_o3 = (ProgressBar) view.findViewById(R.id.circle_o3);
 
+        sport_layout = (LinearLayout) view.findViewById(R.id.sport_layout);
+        trav_layout = (LinearLayout) view.findViewById(R.id.trav_layout);
+        drsg_layout = (LinearLayout) view.findViewById(R.id.drsg_layout);
+        flu_layout = (LinearLayout) view.findViewById(R.id.flu_layout);
+        sport_layout.setOnClickListener(this);
+        trav_layout.setOnClickListener(this);
+        drsg_layout.setOnClickListener(this);
+        flu_layout.setOnClickListener(this);
+
         hour_layout = (LinearLayout) view.findViewById(R.id.hour_layout);
         circle_pm10.setMax(400);
         circle_pm25.setMax(400);
@@ -625,8 +652,32 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.life:
+                //展示界面
+                Intent intent8 = new Intent(getActivity(), MoreInfoActivity.class);
+                intent8.putExtra("city", city != null ? city : "杭州");
+                intent8.putExtra("cityid", cityid != null ? city : "CN101210101");
+                intent8.putExtra("qlty", qlty.getText().toString());
+                intent8.putExtra("county", county != null ? county : "");
+                if (mDailyforecast != null && mDailyforecast.size() > 0) {
+                    intent8.putExtra("date", (Serializable) mDailyforecast);
+                    intent8.putExtra("time", mDailyforecast.get(0).date);
+                }
+                startActivity(intent8);
+                getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
                 break;
             case R.id.aqi:
+                //展示界面
+                Intent intent9 = new Intent(getActivity(), MoreInfoActivity.class);
+                intent9.putExtra("city", city != null ? city : "杭州");
+                intent9.putExtra("cityid", cityid != null ? city : "CN101210101");
+                intent9.putExtra("qlty", qlty.getText().toString());
+                intent9.putExtra("county", county != null ? county : "");
+                if (mDailyforecast != null && mDailyforecast.size() > 0) {
+                    intent9.putExtra("date", (Serializable) mDailyforecast);
+                    intent9.putExtra("time", mDailyforecast.get(0).date);
+                }
+                startActivity(intent9);
+                getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
                 break;
             case R.id.linearLayout2:
                 //展示界面
@@ -642,6 +693,17 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                 getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
                 break;
             case R.id.today_detail:
+                Intent intent10 = new Intent(getActivity(), MoreInfoActivity.class);
+                intent10.putExtra("city", city != null ? city : "杭州");
+                intent10.putExtra("cityid", cityid != null ? city : "CN101210101");
+                intent10.putExtra("qlty", qlty.getText().toString());
+                intent10.putExtra("county", county != null ? county : "");
+                if (mDailyforecast != null && mDailyforecast.size() > 0) {
+                    intent10.putExtra("date", (Serializable) mDailyforecast);
+                    intent10.putExtra("time", mDailyforecast.get(0).date);
+                }
+                startActivity(intent10);
+                getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
                 break;
             case R.id.day_weather_chart:
                 //七天预报趋势图
@@ -659,6 +721,18 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                 //管理城市   添加的城市,包括当前位置城市,卡片显示天气
                 Intent intent7 = new Intent(getActivity(), Managecity.class);
                 startActivity(intent7);
+                break;
+            case R.id.sport_layout:
+                showLifeIndexFragment(v);
+                break;
+            case R.id.trav_layout:
+                showLifeIndexFragment(v);
+                break;
+            case R.id.drsg_layout:
+                showLifeIndexFragment(v);
+                break;
+            case R.id.flu_layout:
+                showLifeIndexFragment(v);
                 break;
         }
     }
@@ -905,4 +979,72 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         }
     }
 
+    private void setShareWeather(NowWeather mNowWeather) {
+        StringBuffer message = new StringBuffer();
+        message.append(city_name.getText().toString());
+        message.append("天气：");
+        message.append("\r\n");
+        try {
+            message.append(new JSONObject(mNowWeather.update).optString("loc"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        message.append(" 发布：");
+        message.append("\r\n");
+        try {
+            message.append(new JSONObject(mNowWeather.cond).optString("txt"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        message.append("，");
+        message.append(mNowWeather.tmp + "℃");
+        message.append("。");
+        message.append("\r\n");
+        message.append("来自：").append("YOYO天气");
+        currentWeather = message.toString();
+    }
+
+    private void shareWeather() {
+        if (currentWeather == null)
+            return;
+        ShareUtils.shareText(getActivity(), currentWeather);
+    }
+
+
+    private void showLifeIndexFragment(View view) {
+        String title = "";
+        String brf = "";
+        String tex = "";
+////        wind.setText(wind.getText().toString() + ",  " + "紫外线强度" + mSuggestion.uvbrf + ",  " + mSuggestion.cwbrf + "洗车 !");
+        if (mSuggestion != null) {
+            if (view.getId() == R.id.sport_layout) {
+                title = "运动指数";
+                brf = mSuggestion.sportbrf;
+                tex = mSuggestion.sporttex;
+            }
+            if (view.getId() == R.id.trav_layout) {
+                title = "旅游指数";
+                brf = mSuggestion.travbrf;
+                tex = mSuggestion.travtex;
+            }
+            if (view.getId() == R.id.flu_layout) {
+                title = "感冒指数";
+                brf = mSuggestion.flubrf;
+                tex = mSuggestion.flutex;
+            }
+            if (view.getId() == R.id.drsg_layout) {
+                title = "穿衣指数";
+                brf = mSuggestion.drsgbrf;
+                tex = mSuggestion.drsgtex;
+            }
+        }
+        LifeIndexDialogFragment lifeIndexDialogFragment = new LifeIndexDialogFragment();
+        Bundle args = new Bundle();
+        args.putString("title", title);
+        args.putString("brf", brf);
+        args.putString("tex", tex);
+        lifeIndexDialogFragment.setArguments(args);
+        lifeIndexDialogFragment.show(this.getActivity()
+                .getSupportFragmentManager(), null);
+    }
 }

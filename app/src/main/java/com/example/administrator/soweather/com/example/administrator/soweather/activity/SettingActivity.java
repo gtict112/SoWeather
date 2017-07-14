@@ -12,6 +12,8 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -66,6 +68,9 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     private TextView cash_size;
     private LinearLayout noti_layout;
     private Boolean isConfirm = false;
+    private Boolean isNightConfirm = false;
+    private LinearLayout night_layout;
+    private Switch night;
 
     @Override
     protected int getLayoutId() {
@@ -86,7 +91,6 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         getHandlerMessage();
         getCashSize();
     }
-
 
 
     private void getData() {
@@ -129,13 +133,18 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         noti_layout = (LinearLayout) findViewById(R.id.noti_layout);
         cash_size = (TextView) findViewById(R.id.cash_size);
         noti = (Switch) findViewById(R.id.noti);
+        night_layout = (LinearLayout) findViewById(R.id.night_layout);
+        night = (Switch) findViewById(R.id.night);
         win = (LinearLayout) findViewById(R.id.win);
         clear = (LinearLayout) findViewById(R.id.clear);
         feed_back = (LinearLayout) findViewById(R.id.feed_back);
         LinearLayout skin_setting = (LinearLayout) findViewById(R.id.skin_setting);
         initSwitch(noti);
+        initNightSwitch(night);
         noti.setOnClickListener(this);
+        night.setOnClickListener(this);
         noti_layout.setOnClickListener(this);
+        night_layout.setOnClickListener(this);
         clear.setOnClickListener(this);
         feed_back.setOnClickListener(this);
         win.setOnClickListener(this);
@@ -168,6 +177,34 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             mSwitch.setTextOff("关闭");
         }
     }
+
+    @SuppressLint("NewApi")
+    private void initNightSwitch(final Switch mSwitch) {
+        try {
+            mSwitch.setThumbResource(R.mipmap.ic_kline_switch);
+            mSwitch.setTrackResource(R.mipmap.background_switch_off);
+            mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+                @Override
+                public void onCheckedChanged(CompoundButton arg0,
+                                             boolean checked) {
+                    if (checked) {
+                        mSwitch.setTrackResource(R.mipmap.background_switch_on);
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    } else {
+                        mSwitch.setTrackResource(R.mipmap.background_switch_off);
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    }
+                }
+            });
+            mSwitch.setTextOn("");
+            mSwitch.setTextOff("");
+        } catch (Throwable e) {
+            mSwitch.setTextOn("开启");
+            mSwitch.setTextOff("关闭");
+        }
+    }
+
 
     private void notification() {
         unregeisterReceiver();
@@ -248,6 +285,12 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             case R.id.noti:
                 //设置通知
                 break;
+            case R.id.night:
+                break;
+            case R.id.night_layout:
+                isNightConfirm = !isNightConfirm;
+                night.setChecked(isNightConfirm);
+                break;
             case R.id.noti_layout:
                 isConfirm = !isConfirm;
                 noti.setChecked(isConfirm);
@@ -257,8 +300,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.clear:
                 //清除缓存
-                CashDataManager.clearAllCache(Appconfiguration.getInstance().getContext());
-                Toast.makeText(this, "清除应用缓存成功", Toast.LENGTH_LONG).show();
+                Snackbar.make(SettingActivity.this.getWindow().getDecorView().findViewById(android.R.id.content),
+                        "清除应用缓存成功! (*^__^*)", Snackbar.LENGTH_SHORT).show();
                 getCashSize();
                 break;
             case R.id.feed_back:

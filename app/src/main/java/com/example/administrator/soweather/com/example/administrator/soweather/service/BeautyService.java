@@ -79,7 +79,7 @@ public class BeautyService {
         });
     }
 
-    public void loadImage(final String image_url, final ResponseListenter<byte[]> a, final Boolean isWallpaper) {
+    public void loadImage(final String image_url, final ResponseListenter<byte[]> a) {
         final Request request = new Request.Builder().get()
                 .url(image_url)
                 .build();

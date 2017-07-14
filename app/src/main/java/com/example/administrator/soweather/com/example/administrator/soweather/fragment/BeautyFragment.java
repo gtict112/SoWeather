@@ -6,6 +6,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +26,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.activity.CurrenCityThreeActiivty;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.PictureActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
@@ -103,6 +105,14 @@ public class BeautyFragment extends Fragment implements SwipeRefreshLayout.OnRef
                     mHandler.sendMessage(mHandler.obtainMessage(1, mDate));
                 } else {
                     config.dismissProgressDialog();
+                    Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), result.getErrorMessage(), Snackbar.LENGTH_LONG)
+                            .setAction("重试", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    getDate(id);
+                                }
+                            })
+                            .show();
                 }
             }
         }, Id, page);
@@ -137,6 +147,14 @@ public class BeautyFragment extends Fragment implements SwipeRefreshLayout.OnRef
                     mHandler.sendMessage(mHandler.obtainMessage(1, mDate));
                 } else {
                     config.dismissProgressDialog();
+                    Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), result.getErrorMessage(), Snackbar.LENGTH_LONG)
+                            .setAction("重试", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    getDate(id);
+                                }
+                            })
+                            .show();
                 }
             }
         }, id, 1);
@@ -180,6 +198,14 @@ public class BeautyFragment extends Fragment implements SwipeRefreshLayout.OnRef
                             } else {
                                 mSwipeLayout.setRefreshing(false);
                                 config.dismissProgressDialog();
+                                Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), result.getErrorMessage(), Snackbar.LENGTH_LONG)
+                                        .setAction("重试", new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                getDate(id);
+                                            }
+                                        })
+                                        .show();
                             }
                         }
                     }, id, page);

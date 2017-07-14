@@ -125,7 +125,7 @@ public class CurrentCityActivity extends BaseActivity implements View.OnClickLis
                                     saveDB(cityid, cityname);
                                 } else {
                                     Snackbar.make(CurrentCityActivity.this.getWindow().getDecorView().findViewById(android.R.id.content),
-                                            "该城市已添加! (*^__^*)", Snackbar.LENGTH_SHORT).show();
+                                            "该城市已添加! (*^__^*)", Snackbar.LENGTH_LONG).show();
                                 }
                             }
                         }else{

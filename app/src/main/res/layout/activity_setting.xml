@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipToPadding="true"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
@@ -51,21 +50,81 @@
     </LinearLayout>
 
     <View
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/line" />
 
     <View
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="15dp"
         android:background="#e1e1e1" />
 
     <View
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line" />
+
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/night_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="夜间模式"
+                android:textColor="@color/colorTextDark"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="享受失眠的同时顺便保护一下眼睛"
+                android:textColor="@color/colorTextDark2nd"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <Switch
+            android:id="@+id/night"
+            style="@style/fragment_system_setting_switch" />
+    </LinearLayout>
+
+
+    <View
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line" />
+
+    <View
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="#e1e1e1" />
+
+    <View
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/line" />
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/win"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

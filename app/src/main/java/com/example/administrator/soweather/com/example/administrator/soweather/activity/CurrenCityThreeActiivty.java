@@ -125,7 +125,7 @@ public class CurrenCityThreeActiivty extends BaseActivity implements View.OnClic
                                     saveDB(cityId, cityName + mCountyData.getCountyName());
                                 } else {
                                     Snackbar.make(CurrenCityThreeActiivty.this.getWindow().getDecorView().findViewById(android.R.id.content),
-                                            "该城市已添加! (*^__^*)", Snackbar.LENGTH_SHORT).show();
+                                            "该城市已添加! (*^__^*)", Snackbar.LENGTH_LONG).show();
                                 }
                             }
                         } else {
