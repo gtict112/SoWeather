@@ -300,6 +300,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.clear:
                 //清除缓存
+                CashDataManager.clearAllCache(Appconfiguration.getInstance().getContext());
                 Snackbar.make(SettingActivity.this.getWindow().getDecorView().findViewById(android.R.id.content),
                         "清除应用缓存成功! (*^__^*)", Snackbar.LENGTH_SHORT).show();
                 getCashSize();

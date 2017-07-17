@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:orientation="vertical">
@@ -9,43 +9,5 @@
         android:scaleType="centerCrop"
         android:src="@mipmap/left_fragment_backgroud" />
 
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:layout_gravity="bottom|center_horizontal"-->
-        <!--android:background="@color/theme_main_title"-->
-        <!--android:orientation="vertical">-->
 
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:orientation="horizontal"-->
-            <!--android:padding="12dp">-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/manage_city"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:drawableLeft="@mipmap/managecity"-->
-                <!--android:drawablePadding="10dp"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:text="多城市管理"-->
-                <!--android:textColor="@color/white"-->
-                <!--android:textSize="15sp" />-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/add_city"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:drawablePadding="10dp"-->
-                <!--android:drawableRight="@drawable/add_city"-->
-                <!--android:gravity="center_vertical|right"-->
-                <!--android:text="添加城市"-->
-                <!--android:textColor="@color/white"-->
-                <!--android:textSize="15sp" />-->
-        <!--</LinearLayout>-->
-    <!--</LinearLayout>-->
-</LinearLayout>
+</FrameLayout>

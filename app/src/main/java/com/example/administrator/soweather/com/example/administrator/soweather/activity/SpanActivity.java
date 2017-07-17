@@ -8,8 +8,11 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.administrator.soweather.R;
-import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
+
+import net.youmi.android.nm.sp.SplashViewSettings;
+import net.youmi.android.nm.sp.SpotListener;
+import net.youmi.android.nm.sp.SpotManager;
 
 /**
  * Created by Administrator on 2017/6/27.

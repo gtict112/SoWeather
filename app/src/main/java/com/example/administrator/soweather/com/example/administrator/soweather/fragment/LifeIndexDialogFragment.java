@@ -1,14 +1,19 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.fragment;
 
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.administrator.soweather.R;
+
 
 /**
  * Created by Administrator on 2017/7/14.
@@ -18,6 +23,8 @@ public class LifeIndexDialogFragment extends DialogFragment {
     private String title;
     private String brf;
     private String tex;
+    private ImageView bg;
+    private LinearLayout content_layout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +50,15 @@ public class LifeIndexDialogFragment extends DialogFragment {
         TextView life_index_brf = (TextView) view.findViewById(R.id.life_index_brf);
         TextView life_index_tex = (TextView) view.findViewById(R.id.life_index_tex);
         TextView close = (TextView) view.findViewById(R.id.close);
+        TextView cancle = (TextView) view.findViewById(R.id.cancel);
+        content_layout = (LinearLayout) view.findViewById(R.id.content_layout);
+        bg = (ImageView) view.findViewById(R.id.index_bg);
+        cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +68,21 @@ public class LifeIndexDialogFragment extends DialogFragment {
         life_index_title.setText(title);
         life_index_brf.setText(brf);
         life_index_tex.setText(tex);
+
+
+        if (title.equals("穿衣指数")) {
+            bg.setImageResource(R.mipmap.drsgbrf_img);
+            content_layout.setBackgroundColor(Color.parseColor("#e0C5E0FB"));
+        } else if (title.equals("旅游指数")) {
+            bg.setImageResource(R.mipmap.travbrf_img);
+            content_layout.setBackgroundColor(Color.parseColor("#e0D5F5E6"));
+        } else if (title.equals("感冒指数")) {
+            bg.setImageResource(R.mipmap.flubrf_img);
+            content_layout.setBackgroundColor(Color.parseColor("#e0D3D3D3"));
+        } else {
+            bg.setImageResource(R.mipmap.sportbrf_img);
+            content_layout.setBackgroundColor(Color.parseColor("#e0EEBE85"));
+        }
     }
 
 
@@ -62,5 +93,10 @@ public class LifeIndexDialogFragment extends DialogFragment {
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
         getDialog().getWindow().setLayout((int) (dm.widthPixels * 0.96),
                 (int) (dm.heightPixels * 0.6));
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
     }
 }

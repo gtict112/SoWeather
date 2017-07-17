@@ -1,13 +1,13 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.core;
 
 import android.app.Application;
-import android.util.Log;
-import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.mapapi.SDKInitializer;
+
+import net.youmi.android.AdManager;
 
 
 /**
@@ -22,15 +22,13 @@ public class SoWeatherApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        SDKInitializer.initialize(this.getApplicationContext());
+        SDKInitializer.initialize(this.getApplicationContext()); //百度地图初始化
         mLocationClient = new LocationClient(this.getApplicationContext());
         mMyLocationListener = new MyLocationListener();
         mLocationClient.registerLocationListener(mMyLocationListener);
         Appconfiguration config = Appconfiguration.getInstance();
         config.initGeneralPreferences(getApplicationContext());
     }
-
-
 
     /**
      * 实现实位回调监听

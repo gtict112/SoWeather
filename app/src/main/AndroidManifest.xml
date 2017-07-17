@@ -22,13 +22,9 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
-
-    <!-- 万普世纪传媒广告权限-->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
+
 
     <application
         android:name=".com.example.administrator.soweather.core.SoWeatherApplication"
@@ -70,6 +66,7 @@
         </activity>
         <activity
             android:name=".com.example.administrator.soweather.activity.MainActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".com.example.administrator.soweather.activity.CurrentCityActivity"
@@ -119,9 +116,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/PictureTheme" />
 
-        <!-- 有米渠道号(可选配置) 渠道号不能带空格，类型为整数 -->
-        <meta-data
-            android:name="YOUMI_CHANNEL"
-            android:value="0"></meta-data>
+
     </application>
 </manifest>

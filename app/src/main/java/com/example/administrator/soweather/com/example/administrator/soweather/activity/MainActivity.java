@@ -29,7 +29,7 @@ import com.example.administrator.soweather.com.example.administrator.soweather.m
 import com.example.administrator.soweather.com.example.administrator.soweather.service.CityAndWeatherImgService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
 
-import cn.waps.AppConnect;
+
 
 /**
  * Created by Administrator on 2016/10/10.
@@ -145,7 +145,6 @@ public class MainActivity extends BaseActivity implements ResponseListenter<Inte
                         @Override
                         public void onClick(View v) {
                             Appconfiguration.getInstance().closeAllActivities();
-                            AppConnect.getInstance(MainActivity.this).close();
                             finish();
                         }
                     })

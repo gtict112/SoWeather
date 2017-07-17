@@ -339,22 +339,11 @@
                                 android:layout_marginLeft="8dp"
                                 android:layout_weight="1"
                                 android:drawablePadding="8dp"
+                                android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
                                 android:gravity="center_vertical|left"
                                 android:text="未来7天预报"
                                 android:textColor="@color/colorTextDark"
                                 android:textSize="16sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:clickable="true"
-                                android:drawablePadding="2dp"
-                                android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
-                                android:focusable="true"
-                                android:gravity="center"
-                                android:padding="5dp"
-                                android:textColor="@color/colorTextDark2nd"
-                                android:textSize="13sp" />
 
                         </LinearLayout>
 
@@ -424,10 +413,10 @@
 
                             <LinearLayout
                                 android:id="@+id/sport_layout"
-                                android:background="?attr/selectableItemBackground"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:background="?attr/selectableItemBackground"
                                 android:clickable="true"
                                 android:focusable="true"
                                 android:orientation="horizontal"
@@ -469,10 +458,10 @@
 
                             <LinearLayout
                                 android:id="@+id/flu_layout"
-                                android:background="?attr/selectableItemBackground"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:background="?attr/selectableItemBackground"
                                 android:clickable="true"
                                 android:focusable="true"
                                 android:gravity="right"
@@ -526,10 +515,10 @@
 
                             <LinearLayout
                                 android:id="@+id/drsg_layout"
-                                android:background="?attr/selectableItemBackground"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:background="?attr/selectableItemBackground"
                                 android:clickable="true"
                                 android:focusable="true"
                                 android:orientation="horizontal"
@@ -571,10 +560,10 @@
 
                             <LinearLayout
                                 android:id="@+id/trav_layout"
-                                android:background="?attr/selectableItemBackground"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:background="?attr/selectableItemBackground"
                                 android:clickable="true"
                                 android:focusable="true"
                                 android:gravity="right"
@@ -1075,5 +1064,6 @@
         app:layout_anchor="@+id/swipeLayout"
         app:layout_anchorGravity="center_vertical|right"
         app:pressedTranslationZ="10dp"
-        app:rippleColor="#117858" />
+        app:rippleColor="#117858"
+        android:visibility="gone"/>
 </android.support.design.widget.CoordinatorLayout>

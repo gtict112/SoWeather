@@ -52,9 +52,6 @@ import com.example.administrator.soweather.com.example.administrator.soweather.u
 import com.example.administrator.soweather.com.example.administrator.soweather.view.HorizontalRecyclerView;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.MarqueeView;
 
-import net.youmi.android.nm.cm.ErrorCode;
-import net.youmi.android.nm.sp.SpotListener;
-import net.youmi.android.nm.sp.SpotManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -180,7 +177,6 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
         getDate();
         getHandleMessge();
-        showAdvertising();
         return view;
     }
 
@@ -846,49 +842,6 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
     }
 
 
-    /**
-     * 显示单屏插屏广告
-     */
-    private void showAdvertising() {
-        SpotManager.getInstance(getActivity()).setImageType(SpotManager.IMAGE_TYPE_VERTICAL);
-        SpotManager.getInstance(getActivity())
-                .setAnimationType(SpotManager.ANIMATION_TYPE_ADVANCED);
-        SpotManager.getInstance(getActivity()).showSpot(getActivity(), new SpotListener() {
-
-            @Override
-            public void onShowSuccess() {
-            }
-
-            @Override
-            public void onShowFailed(int errorCode) {
-                switch (errorCode) {
-                    case ErrorCode.NON_NETWORK:
-                        break;
-                    case ErrorCode.NON_AD:
-                        break;
-                    case ErrorCode.RESOURCE_NOT_READY:
-                        break;
-                    case ErrorCode.SHOW_INTERVAL_LIMITED:
-                        break;
-                    case ErrorCode.WIDGET_NOT_IN_VISIBILITY_STATE:
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            @Override
-            public void onSpotClosed() {
-//                logDebug("插屏被关闭");
-            }
-
-            @Override
-            public void onSpotClicked(boolean isWebPage) {
-//                logDebug("插屏被点击");
-//                logInfo("是否是网页广告？%s", isWebPage ? "是" : "不是");
-            }
-        });
-    }
 
 
     public class TimeAdapter extends

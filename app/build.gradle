@@ -17,7 +17,7 @@ android {
             enabled true
         }
         ndk {
-            abiFilters 'armeabi'//, 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
         }
     }
     buildTypes {
@@ -47,7 +47,6 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile files('libs/jsoup-1.10.2.jar')
     compile files('libs/systembartint-1.0.4.jar')
-    compile name: 'YoumiSdk_v7.3.0_2017-06-02', ext: 'aar'
     compile files('libs/AppOffer_3.0.2.jar')
     compile 'com.android.support:design:25.3.1'
     compile 'com.thefinestartist:finestwebview:1.2.7'
