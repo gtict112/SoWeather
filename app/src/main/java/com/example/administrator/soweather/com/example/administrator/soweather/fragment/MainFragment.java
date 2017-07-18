@@ -801,7 +801,11 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         public void onBindViewHolder(final GalleryAdapter.ViewHolder viewHolder, final int i) {
             viewHolder.itemView.setTag(mData.get(i));
             Dailyforecast mDailyForecastData = mData.get(i);
-            viewHolder.week.setText(DateToWeek.getWeek(mDailyForecastData.date));
+            if (i == 0) {
+                viewHolder.week.setText(DateToWeek.getWeek(mDailyForecastData.date) + "(今)");
+            } else {
+                viewHolder.week.setText(DateToWeek.getWeek(mDailyForecastData.date));
+            }
             String code = null;
             try {
                 String min = new JSONObject(mDailyForecastData.tmp).optString("min");
@@ -840,8 +844,6 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         anim1.setDuration(1000);
         aqi.startAnimation(anim1);
     }
-
-
 
 
     public class TimeAdapter extends

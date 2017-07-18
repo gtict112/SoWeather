@@ -30,6 +30,7 @@ android {
         main() {
             jniLibs.srcDirs = ['libs']
         }
+
     }
 }
 dependencies {

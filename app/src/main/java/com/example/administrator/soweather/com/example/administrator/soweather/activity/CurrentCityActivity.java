@@ -83,9 +83,9 @@ public class CurrentCityActivity extends BaseActivity implements View.OnClickLis
         provinces = cityDB.getAllProvince();
         if (provinces.size() > 0) {
             mCityAdapter = new CityAdapter(getApplicationContext(), this.provinces);
+            mCityList.setAdapter(mCityAdapter);
+            mCityAdapter.notifyDataSetChanged();
         }
-        mCityList.setAdapter(mCityAdapter);
-        mCityAdapter.notifyDataSetChanged();
     }
 
 

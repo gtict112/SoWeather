@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.ArraySet;
 
-import com.baidu.mapapi.SDKInitializer;
 import com.example.administrator.soweather.com.example.administrator.soweather.general.ProgressDialogFragment;
 
 import java.util.ArrayList;
@@ -114,19 +113,19 @@ public class Appconfiguration {
                 "generalPreferences",
                 Context.MODE_PRIVATE);
         this.generalPreferenceEditor = generalPreferences.edit();
-        config.setIsFirstStartApp(generalPreferences.getBoolean(
-                "isFirstStartApp", true));
+        config.setStartNoti(generalPreferences.getBoolean(
+                "isStartNoti", false));
     }
 
 
-    public void setIsFirstStartApp(boolean isFirstStartApp) {
+    public void setStartNoti(boolean isStartNoti) {
         generalPreferenceEditor.putBoolean(
-                "generalPreferences", isFirstStartApp).commit();
+                "isStartNoti", isStartNoti).commit();
     }
 
-    public Boolean getIsFirstStartApp() {
+    public Boolean getIsStartNoti() {
         return generalPreferences.getBoolean(
-                "isFirstStartApp", true);
+                "isStartNoti", false);
 
     }
 }

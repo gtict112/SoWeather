@@ -71,6 +71,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     private Boolean isNightConfirm = false;
     private LinearLayout night_layout;
     private Switch night;
+    private Appconfiguration config = Appconfiguration.getInstance();
 
     @Override
     protected int getLayoutId() {
@@ -140,6 +141,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         feed_back = (LinearLayout) findViewById(R.id.feed_back);
         LinearLayout skin_setting = (LinearLayout) findViewById(R.id.skin_setting);
         initSwitch(noti);
+        noti.setChecked(config.getIsStartNoti());
         initNightSwitch(night);
         noti.setOnClickListener(this);
         night.setOnClickListener(this);
@@ -164,10 +166,12 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                     if (checked) {
                         mSwitch.setTrackResource(R.mipmap.background_switch_on);
                         notification();
+
                     } else {
                         mSwitch.setTrackResource(R.mipmap.background_switch_off);
                         notificationManager.cancel(0);
                     }
+                    config.setStartNoti(checked);
                 }
             });
             mSwitch.setTextOn("");

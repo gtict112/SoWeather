@@ -294,7 +294,7 @@ public class ResponseProcessUtil {
         } catch (JSONException e) {
             e.printStackTrace();
             result.setSuccess(false);
-            result.setErrorMessage("头条新闻获取失败,请升级客户端或与客服联系...");
+            result.setErrorMessage("获取失败,请升级客户端或与客服联系...");
         }
         return result;
     }

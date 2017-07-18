@@ -146,7 +146,7 @@ public class MoreInfoActivity extends BaseActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
+        return mFragmentTitleList.get(position);
     }
+}
 }

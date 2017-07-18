@@ -1,7 +1,6 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,18 +11,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.soweather.R;
-import com.example.administrator.soweather.com.example.administrator.soweather.activity.CurrenCityThreeActiivty;
-import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.TopNew;
@@ -34,27 +29,23 @@ import com.example.administrator.soweather.com.example.administrator.soweather.u
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- * Created by Administrator on 2017/5/27.
+ * Created by Administrator on 2017/7/18.
  */
 
-public class TodayTopNewFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class WeixinSelectCategory extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+    private SwipeRefreshLayout mSwipeLayout;
+    private List<TopNew> mNewDate = new ArrayList<>();
     private Appconfiguration config = Appconfiguration.getInstance();
     private ListView recommended;
-    private List<TopNew> mNewDate = new ArrayList<>();
     private Handler mHandler;
     private NewsAdapter mNewsAdapter;
-    private SwipeRefreshLayout mSwipeLayout;
-    private Toolbar mToolbar;
+    private String title;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_today_topnew, null);
-        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        mToolbar.setTitle("今日头条");
-        ((MainActivity) getActivity()).initDrawer(mToolbar);
+        View view = inflater.inflate(R.layout.fragment_weixinselect_category, null);
         initView(view);
         initDate();
         getHandleMessge();
@@ -80,6 +71,55 @@ public class TodayTopNewFragment extends Fragment implements SwipeRefreshLayout.
         config.dismissProgressDialog();
     }
 
+
+    private void initView(View view) {
+        mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeLayout);
+        mSwipeLayout.setOnRefreshListener(this);
+        // 设置下拉圆圈上的颜色，蓝色、绿色、橙色、红色
+        mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
+                android.R.color.holo_orange_light, android.R.color.holo_red_light);
+        mSwipeLayout.setDistanceToTriggerSync(300);// 设置手指在屏幕下拉多少距离会触发下拉刷新
+        mSwipeLayout.setProgressBackgroundColor(R.color.white); // 设定下拉圆圈的背景
+        mSwipeLayout.setSize(SwipeRefreshLayout.DEFAULT); // 设置圆圈的大小
+        recommended = (ListView) view.findViewById(R.id.recommended);
+        Bundle mBundle = getArguments();
+        if (mBundle != null) {
+            title = mBundle.getString("title");
+        }
+    }
+
+    private void getDate() {
+        News mNews = new News();
+        mNews.getWeiXinSelect(new ResponseListenter<List<TopNew>>() {
+            @Override
+            public void onReceive(Result<List<TopNew>> result) {
+                if (result.isSuccess()) {
+                    mNewDate = result.getData();
+                    mHandler.sendMessage(mHandler.obtainMessage(1, mNewDate));
+                } else {
+                    checkError(result.getErrorMessage());
+                }
+            }
+        }, title);
+    }
+
+    private void checkError(String errorMessage) {
+        config.dismissProgressDialog();
+        Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), errorMessage, Snackbar.LENGTH_LONG)
+                .setAction("重试", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        initDate();
+                    }
+                })
+                .show();
+    }
+
+    private void initDate() {
+        config.showProgressDialog("拼命加载中....", getActivity());
+        getDate();
+    }
+
     private void refresh() {
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -94,6 +134,7 @@ public class TodayTopNewFragment extends Fragment implements SwipeRefreshLayout.
     public void onRefresh() {
         refresh();
     }
+
 
     public class NewsAdapter extends BaseAdapter {
         private List<TopNew> mData = new ArrayList<TopNew>();
@@ -128,11 +169,11 @@ public class TodayTopNewFragment extends Fragment implements SwipeRefreshLayout.
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            final TodayTopNewFragment.NewsAdapter.ViewHolder vh;
+            final NewsAdapter.ViewHolder vh;
             if (convertView == null) {
                 convertView = inflater.inflate(R.layout.item_news, parent,
                         false);
-                vh = new TodayTopNewFragment.NewsAdapter.ViewHolder();
+                vh = new NewsAdapter.ViewHolder();
                 vh.title = (TextView) convertView.findViewById(R.id.content);
                 vh.date = (TextView) convertView.findViewById(R.id.date);
                 vh.author_name = (TextView) convertView.findViewById(R.id.author_name);
@@ -140,7 +181,7 @@ public class TodayTopNewFragment extends Fragment implements SwipeRefreshLayout.
                 vh.item_news_layout = (LinearLayout) convertView.findViewById(R.id.item_news_layout);
                 convertView.setTag(vh);
             } else {
-                vh = (TodayTopNewFragment.NewsAdapter.ViewHolder) convertView.getTag();
+                vh = (NewsAdapter.ViewHolder) convertView.getTag();
             }
             TopNew mNew = mData.get(position);
 
@@ -168,50 +209,5 @@ public class TodayTopNewFragment extends Fragment implements SwipeRefreshLayout.
             private TextView author_name;
             private LinearLayout item_news_layout;
         }
-    }
-
-    private void initView(View view) {
-        mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeLayout);
-        mSwipeLayout.setOnRefreshListener(this);
-        // 设置下拉圆圈上的颜色，蓝色、绿色、橙色、红色
-        mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
-                android.R.color.holo_orange_light, android.R.color.holo_red_light);
-        mSwipeLayout.setDistanceToTriggerSync(300);// 设置手指在屏幕下拉多少距离会触发下拉刷新
-        mSwipeLayout.setProgressBackgroundColor(R.color.white); // 设定下拉圆圈的背景
-        mSwipeLayout.setSize(SwipeRefreshLayout.DEFAULT); // 设置圆圈的大小
-        recommended = (ListView) view.findViewById(R.id.recommended);
-
-    }
-
-    private void initDate() {
-        config.showProgressDialog("拼命加载中....", getActivity());
-        getDate();
-    }
-
-    private void getDate() {
-        News mNews = new News();
-        mNews.getTopNews(new ResponseListenter<List<TopNew>>() {
-            @Override
-            public void onReceive(Result<List<TopNew>> result) {
-                if (result.isSuccess()) {
-                    mNewDate = result.getData();
-                    mHandler.sendMessage(mHandler.obtainMessage(1, mNewDate));
-                } else {
-                    checkError(result.getErrorMessage());
-                }
-            }
-        });
-    }
-
-    private void checkError(String errorMessage) {
-        config.dismissProgressDialog();
-        Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), errorMessage, Snackbar.LENGTH_LONG)
-                .setAction("重试", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        initDate();
-                    }
-                })
-                .show();
     }
 }

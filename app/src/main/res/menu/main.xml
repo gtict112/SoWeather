@@ -9,13 +9,17 @@
             android:icon="@drawable/ic_weather"
             android:title="天气" />
         <item
-            android:id="@+id/welfare_association"
-            android:icon="@drawable/ic_gank"
-            android:title="福利社" />
-        <item
             android:id="@+id/today_top_new"
             android:icon="@drawable/ic_reading"
             android:title="今日头条" />
+        <item
+            android:id="@+id/weixin"
+            android:icon="@drawable/ic_camera_black_24dp"
+            android:title="微信精选" />
+        <item
+            android:id="@+id/welfare_association"
+            android:icon="@drawable/ic_gank"
+            android:title="福利社" />
     </group>
     <item android:title="@string/app_name">
         <menu>
