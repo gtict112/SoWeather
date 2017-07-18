@@ -33,7 +33,7 @@ import java.util.List;
  * Created by Administrator on 2017/7/18.
  */
 
-public class WeixinSelectCategory extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class WeixinSelectCategoryFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private SwipeRefreshLayout mSwipeLayout;
     private List<TopNew> mNewDate = new ArrayList<>();
     private Appconfiguration config = Appconfiguration.getInstance();

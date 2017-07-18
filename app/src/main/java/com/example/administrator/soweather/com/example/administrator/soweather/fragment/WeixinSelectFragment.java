@@ -1,17 +1,11 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.fragment;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,8 +13,6 @@ import android.view.ViewGroup;
 
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
-import com.example.administrator.soweather.com.example.administrator.soweather.mode.Dailyforecast;
-import com.example.administrator.soweather.com.example.administrator.soweather.utils.DateToWeek;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +51,7 @@ public class WeixinSelectFragment extends Fragment {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         for (int i = 0; i < TITLE.length; i++) {
-            Fragment fragment = new WeixinSelectCategory();
+            Fragment fragment = new WeixinSelectCategoryFragment();
             Bundle args = new Bundle();
             args.putString("title", IDS[i]);
             fragment.setArguments(args);
