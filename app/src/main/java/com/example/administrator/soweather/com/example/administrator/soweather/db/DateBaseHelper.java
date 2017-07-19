@@ -22,7 +22,7 @@ public class DateBaseHelper extends SQLiteOpenHelper {
             + "countyName text," + "countyId text," + "cityName text)";
 
     private final String CREATE_WEATHERIMG = "create table Weatherimg("
-            + "code text," + "txt_zh text," + "txt_en text," + "icon BLOB)";
+            + "code text," + "txt_zh text," + "txt_en text," + "icon BLOB," + "icon_url text)";
 
 
     public DateBaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {

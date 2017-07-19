@@ -151,6 +151,7 @@ public class CityAndWeatherImgService {
                         weathImg.setTxt_zh(strarray[1]);
                         weathImg.setTxt_en(strarray[2]);
                         weathImg.setIcon(getImg(strarray[3]));//请求图片
+                        weathImg.setIcon_url(strarray[3]);
                         weathImgs.add(weathImg);
                     }
                     cityDB.saveWeathImgs(weathImgs);

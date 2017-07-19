@@ -20,18 +20,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.CurrentCityActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.MainActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.Managecity;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.MoreInfoActivity;
-import com.example.administrator.soweather.com.example.administrator.soweather.activity.TipActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Constans;
 import com.example.administrator.soweather.com.example.administrator.soweather.db.SoWeatherDB;
@@ -51,6 +52,7 @@ import com.example.administrator.soweather.com.example.administrator.soweather.u
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ShareUtils;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.HorizontalRecyclerView;
 import com.example.administrator.soweather.com.example.administrator.soweather.view.MarqueeView;
+import com.example.administrator.soweather.com.example.administrator.soweather.view.WeatherChartView;
 
 
 import org.json.JSONException;
@@ -59,7 +61,6 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * Created by Administrator on 2016/10/10.
@@ -101,7 +102,8 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
     private LinearLayout linearLayout2;
     private DisplayMetrics dm = new DisplayMetrics();
     private ImageView bg;
-
+    private ImageView gif;
+    private Boolean isShowWeatherChart = false;
     private ImageView wind_img;
     private MarqueeView wind_txt;
     private List<String> items = new ArrayList<>();
@@ -118,6 +120,13 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
     private TimeAdapter mTimeAdapter;
     private RecyclerView time_weather;
     private LinearLayout day_weather_chart;
+    private LinearLayout time_weather_chart;
+    private LinearLayout day_weather_content;
+    private Boolean isShowTimeLayout = true;
+    private Boolean isShowDayLayout = true;
+    private ImageView is_show_day_layout;
+    private ImageView is_show_time_layout;
+    private LinearLayout dailyForecast;
     private Suggestion mSuggestion = new Suggestion();
 
     private TextView flubrf;
@@ -348,7 +357,6 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                checkSucce();
                 switch (msg.what) {
                     case 1:
                         setAqi(mAqi);
@@ -366,6 +374,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                         setSuggestion(mSuggestion);
                         break;
                 }
+                checkSucce();
             }
         };
     }
@@ -539,6 +548,15 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         } catch (JSONException e) {
             e.printStackTrace();//异常
         }
+
+        if (!isShowWeatherChart) {
+            dailyForecast.setVisibility(View.GONE);
+        } else {
+            dailyForecast.setVisibility(View.VISIBLE);
+            dailyForecast.setPadding(0, dp2px(getContext(), 16), 0, dp2px(getContext(), 16));
+            dailyForecast.removeAllViews();
+            dailyForecast.addView(getChartView(mDailyforecast));
+        }
     }
 
     private void initView(View view) {
@@ -571,7 +589,13 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         mSwipeLayout.setDistanceToTriggerSync(300);// 设置手指在屏幕下拉多少距离会触发下拉刷新
         mSwipeLayout.setProgressBackgroundColor(R.color.white); // 设定下拉圆圈的背景
         mSwipeLayout.setSize(SwipeRefreshLayout.DEFAULT); // 设置圆圈的大小
+        gif = (ImageView) view.findViewById(R.id.gif);
+        dailyForecast = (LinearLayout) view.findViewById(R.id.contentLayout);
         day_weather_chart = (LinearLayout) view.findViewById(R.id.day_weather_chart);
+        day_weather_content = (LinearLayout) view.findViewById(R.id.day_weather_content);
+        time_weather_chart = (LinearLayout) view.findViewById(R.id.time_weather_chart);
+        is_show_day_layout = (ImageView) view.findViewById(R.id.is_show_day_layout);
+        is_show_time_layout = (ImageView) view.findViewById(R.id.is_show_time_layout);
         time_weather = (RecyclerView) view.findViewById(R.id.time_weather);
         city_name = (TextView) view.findViewById(R.id.city_name);
         flubrf = (TextView) view.findViewById(R.id.flubrf);
@@ -638,10 +662,17 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         mTimeAdapter = new TimeAdapter();
         time_weather.setAdapter(mTimeAdapter);
         day_weather_chart.setOnClickListener(this);
+        time_weather_chart.setOnClickListener(this);
         life.setOnClickListener(this);
         aqi.setOnClickListener(this);
         linearLayout2.setOnClickListener(this);
         fabutton.setOnClickListener(this);
+        gif.setOnClickListener(this);
+        if (!isShowWeatherChart) {
+            Glide.with(this).load(R.mipmap.gif2).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(gif);
+        } else {
+            Glide.with(this).load(R.mipmap.gif3).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(gif);
+        }
     }
 
     @Override
@@ -702,16 +733,36 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                 getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
                 break;
             case R.id.day_weather_chart:
-                //七天预报趋势图
-                Intent intent2 = new Intent(getActivity(), TipActivity.class);
-                if (mHourlyforecast != null && mHourlyforecast.size() > 0) {
-                    intent2.putExtra("city", city != null ? city : "杭州");
-                    intent2.putExtra("cityid", cityid != null ? city : "CN101210101");
+                isShowDayLayout = !isShowDayLayout;
+                Animation rotate1 = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate);//创建动画
+                rotate1.setInterpolator(new LinearInterpolator());//设置为线性旋转
+                rotate1.setFillAfter(!isShowDayLayout);
+                is_show_day_layout.startAnimation(rotate1);
+                if (!isShowDayLayout) {
+                    day_weather_content.setVisibility(View.GONE);
+                } else {
+                    day_weather_content.setVisibility(View.VISIBLE);
                 }
-                intent2.putExtra("flag", flag);
-                intent2.putExtra("txt", current);
-                startActivity(intent2);
-                getActivity().overridePendingTransition(R.anim.dialog_in, R.anim.dialog_out);
+                break;
+            case R.id.time_weather_chart:
+                isShowTimeLayout = !isShowTimeLayout;
+                Animation rotate = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate);//创建动画
+                rotate.setInterpolator(new LinearInterpolator());//设置为线性旋转
+                rotate.setFillAfter(!isShowTimeLayout);
+                is_show_time_layout.startAnimation(rotate);
+                if (!isShowTimeLayout) {
+                    if (mHourlyforecast != null && mHourlyforecast.size() > 0) {
+                        time_weather.setVisibility(View.GONE);
+                    } else {
+                        time_weather_tip.setVisibility(View.GONE);
+                    }
+                } else {
+                    if (mHourlyforecast != null && mHourlyforecast.size() > 0) {
+                        time_weather.setVisibility(View.VISIBLE);
+                    } else {
+                        time_weather_tip.setVisibility(View.VISIBLE);
+                    }
+                }
                 break;
             case R.id.fab:
                 //管理城市   添加的城市,包括当前位置城市,卡片显示天气
@@ -729,6 +780,20 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                 break;
             case R.id.flu_layout:
                 showLifeIndexFragment(v);
+                break;
+            case R.id.gif:
+                isShowWeatherChart = !isShowWeatherChart;
+                if (!isShowWeatherChart) {
+                    dailyForecast.setVisibility(View.GONE);
+                    Glide.with(this).load(R.mipmap.gif2).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(gif);
+                } else {
+                    Glide.with(this).load(R.mipmap.gif3).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(gif);
+                    dailyForecast.setVisibility(View.VISIBLE);
+                    dailyForecast.setPadding(0, dp2px(getContext(), 16), 0, dp2px(getContext(), 16));
+                    dailyForecast.removeAllViews();
+                    dailyForecast.addView(getChartView(mDailyforecast));
+                }
+
                 break;
         }
     }
@@ -802,7 +867,9 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
             viewHolder.itemView.setTag(mData.get(i));
             Dailyforecast mDailyForecastData = mData.get(i);
             if (i == 0) {
-                viewHolder.week.setText(DateToWeek.getWeek(mDailyForecastData.date) + "(今)");
+                viewHolder.week.setText("今天");
+            } else if (i == 1) {
+                viewHolder.week.setText("明天");
             } else {
                 viewHolder.week.setText(DateToWeek.getWeek(mDailyForecastData.date));
             }
@@ -965,7 +1032,6 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         ShareUtils.shareText(getActivity(), currentWeather);
     }
 
-
     private void showLifeIndexFragment(View view) {
         String title = "";
         String brf = "";
@@ -1002,4 +1068,34 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         lifeIndexDialogFragment.show(this.getActivity()
                 .getSupportFragmentManager(), null);
     }
+
+    /**
+     * dp转px
+     *
+     * @param context 上下文
+     * @param dpValue dp值
+     * @return px值
+     */
+    public static int dp2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
+    private WeatherChartView getChartView(List<Dailyforecast> mDailyforecast) {
+        WeatherChartView chartView = new WeatherChartView(getContext());
+        if (mDailyforecast != null && mDailyforecast.size() > 0) {
+            weathimgs = cityDB.getAllWeatherImg();
+            chartView.setWeather5(mDailyforecast, weathimgs);
+        } else {
+            Snackbar.make(fabutton, "当前暂无数据请重试 !", Snackbar.LENGTH_LONG)
+                    .setAction("了解", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                        }
+                    })
+                    .show();
+        }
+        return chartView;
+    }
+
 }

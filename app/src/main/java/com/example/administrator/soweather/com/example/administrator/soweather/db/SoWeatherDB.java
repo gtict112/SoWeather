@@ -162,6 +162,7 @@ public class SoWeatherDB {
                     values.put("txt_zh", weathImgList.get(i).getTxt_zh());
                     values.put("txt_en", weathImgList.get(i).getTxt_en());
                     values.put("icon", getPicture(weathImgList.get(i).getIcon()));
+                    values.put("icon_url", weathImgList.get(i).getIcon_url());
                     database.insert("Weatherimg", null, values);
                     values.clear();
                 }
@@ -298,6 +299,7 @@ public class SoWeatherDB {
                 weathImg.setTxt_en(cursor.getString(cursor.getColumnIndex("txt_en")));
                 if (list.size() < 49) {  //49之后天气图标有误
                     byte[] in = cursor.getBlob(cursor.getColumnIndex("icon"));
+                    weathImg.setIcon_url(cursor.getString(cursor.getColumnIndex("icon_url")));
                     Bitmap bitmap = BitmapFactory.decodeByteArray(in, 0, in.length, null);
                     weathImg.setIcon(bitmap);
                 }

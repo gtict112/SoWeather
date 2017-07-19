@@ -1,350 +1,172 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.view;
 
+import android.animation.LayoutTransition;
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.DashPathEffect;
-import android.graphics.Paint;
-import android.graphics.Path;
 import android.util.AttributeSet;
-import android.view.View;
-import android.view.animation.AlphaAnimation;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.administrator.soweather.R;
+import com.example.administrator.soweather.com.example.administrator.soweather.mode.Dailyforecast;
+import com.example.administrator.soweather.com.example.administrator.soweather.mode.WeathImg;
+import com.example.administrator.soweather.com.example.administrator.soweather.utils.DateToWeek;
 
-/**
- * 天气曲线图
- * Created by Administrator on 2016/11/24.
- */
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class WeatherChartView extends View {
+import java.util.ArrayList;
+import java.util.List;
 
-    /**
-     * x轴集合
-     */
-    private float mXAxis[] = new float[7];
+public class WeatherChartView extends LinearLayout {
 
-    /**
-     * 白天y轴集合
-     */
-    private float mYAxisDay[] = new float[7];
+    private List<Dailyforecast> dailyForecastList = new ArrayList<>();
+    private List<WeathImg> weathimgs = new ArrayList<>();
+    LinearLayout.LayoutParams cellParams;
+    LinearLayout.LayoutParams rowParams;
+    LinearLayout.LayoutParams chartParams;
 
-    /**
-     * 夜间y轴集合
-     */
-    private float mYAxisNight[] = new float[7];
-
-    /**
-     * x,y轴集合数
-     */
-    private static final int LENGTH = 7;
-
-    /**
-     * 白天温度集合
-     */
-    private int mTempDay[] = new int[7];
-
-    /**
-     * 夜间温度集合
-     */
-    private int mTempNight[] = new int[7];
-
-    /**
-     * 控件高
-     */
-    private int mHeight;
-
-    /**
-     * 字体大小
-     */
-    private float mTextSize;
-
-    /**
-     * 圓半径
-     */
-    private float mRadius;
-
-    /**
-     * 圓半径今天
-     */
-    private float mRadiusToday;
-
-    /**
-     * 文字移动位置距离
-     */
-    private float mTextSpace;
-
-    /**
-     * 线的大小
-     */
-    private float mStokeWidth;
-
-    /**
-     * 白天折线颜色
-     */
-    private int mColorDay;
-
-    /**
-     * 夜间折线颜色
-     */
-    private int mColorNight;
-
-    /**
-     * 字体颜色
-     */
-    private int mTextColor;
-
-    /**
-     * 屏幕密度
-     */
-    private float mDensity;
-
-    /**
-     * 控件边的空白空间
-     */
-    private float mSpace;
-
-    @SuppressWarnings("deprecation")
-    public WeatherChartView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.WeatherChartView);
-        float densityText = getResources().getDisplayMetrics().scaledDensity;
-        mTextSize = a.getDimensionPixelSize(R.styleable.WeatherChartView_textSize,
-                (int) (14 * densityText));
-        mColorDay = a.getColor(R.styleable.WeatherChartView_dayColor,
-                getResources().getColor(R.color.colorAccent));
-        mColorNight = a.getColor(R.styleable.WeatherChartView_nightColor,
-                getResources().getColor(R.color.colorPrimary));
-        mTextColor = a.getColor(R.styleable.WeatherChartView_textColor, Color.WHITE);
-        a.recycle();
-
-        mDensity = getResources().getDisplayMetrics().density;
-        mRadius = 3 * mDensity;
-        mRadiusToday = 5 * mDensity;
-        mSpace = 3 * mDensity;
-        mTextSpace = 10 * mDensity;
-        mStokeWidth = 2 * mDensity;
-    }
+    LayoutTransition transition = new LayoutTransition();
 
     public WeatherChartView(Context context) {
-        super(context);
+        this(context, null);
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        if (mHeight == 0) {
-            // 设置控件高度，x轴集合
-            setHeightAndXAxis();
-        }
-        // 计算y轴集合数值
-        computeYAxisValues();
-        // 画白天折线图
-        drawChart(canvas, mColorDay, mTempDay, mYAxisDay, 0);
-        // 画夜间折线图
-        drawChart(canvas, mColorNight, mTempNight, mYAxisNight, 1);
+    public WeatherChartView(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
     }
 
-    /**
-     * 计算y轴集合数值
-     */
-    private void computeYAxisValues() {
-        // 存放白天最低温度
-        int minTempDay = mTempDay[0];
-        // 存放白天最高温度
-        int maxTempDay = mTempDay[0];
-        for (int item : mTempDay) {
-            if (item < minTempDay) {
-                minTempDay = item;
-            }
-            if (item > maxTempDay) {
-                maxTempDay = item;
-            }
-        }
-
-        // 存放夜间最低温度
-        int minTempNight = mTempNight[0];
-        // 存放夜间最高温度
-        int maxTempNight = mTempNight[0];
-        for (int item : mTempNight) {
-            if (item < minTempNight) {
-                minTempNight = item;
-            }
-            if (item > maxTempNight) {
-                maxTempNight = item;
-            }
-        }
-
-        // 白天，夜间中的最低温度
-        int minTemp = minTempNight < minTempDay ? minTempNight : minTempDay;
-        // 白天，夜间中的最高温度
-        int maxTemp = maxTempDay > maxTempNight ? maxTempDay : maxTempNight;
-
-        // 份数（白天，夜间综合温差）
-        float parts = maxTemp - minTemp;
-        // y轴一端到控件一端的距离
-        float length = mSpace + mTextSize + mTextSpace + mRadius;
-        // y轴高度
-        float yAxisHeight = mHeight - length * 2;
-
-        // 当温度都相同时（被除数不能为0）
-        if (parts == 0) {
-            for (int i = 0; i < LENGTH; i++) {
-                mYAxisDay[i] = yAxisHeight / 2 + length;
-                mYAxisNight[i] = yAxisHeight / 2 + length;
-            }
-        } else {
-            float partValue = yAxisHeight / parts;
-            for (int i = 0; i < LENGTH; i++) {
-                mYAxisDay[i] = mHeight - partValue * (mTempDay[i] - minTemp) - length;
-                mYAxisNight[i] = mHeight - partValue * (mTempNight[i] - minTemp) - length;
-            }
-        }
+    public WeatherChartView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        this.setOrientation(VERTICAL);
+        transition.enableTransitionType(LayoutTransition.APPEARING);
+        this.setLayoutTransition(transition);
+        rowParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        cellParams = new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT, 1);
+        chartParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, dp2px(getContext(), 200));
     }
 
-    /**
-     * 画折线图
-     *
-     * @param canvas 画布
-     * @param color  画图颜色
-     * @param temp   温度集合
-     * @param yAxis  y轴集合
-     * @param type   折线种类：0，白天；1，夜间
-     */
-    private void drawChart(Canvas canvas, int color, int temp[], float[] yAxis, int type) {
-        // 线画笔
-        Paint linePaint = new Paint();
-        // 抗锯齿
-        linePaint.setAntiAlias(true);
-        // 线宽
-        linePaint.setStrokeWidth(mStokeWidth);
-        linePaint.setColor(color);
-        // 空心
-        linePaint.setStyle(Paint.Style.STROKE);
+    private void letItGo() {
+        removeAllViews();
+        final LinearLayout dateTitleView = new LinearLayout(getContext());
+        dateTitleView.setLayoutParams(rowParams);
+        dateTitleView.setOrientation(HORIZONTAL);
+        dateTitleView.setLayoutTransition(transition);
+        dateTitleView.removeAllViews();
 
-        // 点画笔
-        Paint pointPaint = new Paint();
-        pointPaint.setAntiAlias(true);
-        pointPaint.setColor(color);
+        final LinearLayout iconView = new LinearLayout(getContext());
+        iconView.setLayoutParams(rowParams);
+        iconView.setOrientation(HORIZONTAL);
+        iconView.setLayoutTransition(transition);
+        iconView.removeAllViews();
 
-        // 字体画笔
-        Paint textPaint = new Paint();
-        textPaint.setAntiAlias(true);
-        textPaint.setColor(mTextColor);
-        textPaint.setTextSize(mTextSize);
-        // 文字居中
-        textPaint.setTextAlign(Paint.Align.CENTER);
+        final LinearLayout weatherStrView = new LinearLayout(getContext());
+        weatherStrView.setLayoutParams(rowParams);
+        weatherStrView.setOrientation(HORIZONTAL);
+        weatherStrView.setLayoutTransition(transition);
+        weatherStrView.removeAllViews();
 
-        int alpha1 = 102;
-        int alpha2 = 255;
-        for (int i = 0; i < LENGTH; i++) {
-            // 画线
-            if (i < LENGTH - 1) {
-                // 昨天
-                if (i == 0) {
-                    linePaint.setAlpha(alpha1);
-                    // 设置虚线效果
-                    linePaint.setPathEffect(new DashPathEffect(new float[]{2 * mDensity, 2 * mDensity}, 0));
-                    // 路径
-                    Path path = new Path();
-                    // 路径起点
-                    path.moveTo(mXAxis[i], yAxis[i]);
-                    // 路径连接到
-                    path.lineTo(mXAxis[i + 1], yAxis[i + 1]);
-                    canvas.drawPath(path, linePaint);
-                } else {
-                    linePaint.setAlpha(alpha2);
-                    linePaint.setPathEffect(null);
-                    canvas.drawLine(mXAxis[i], yAxis[i], mXAxis[i + 1], yAxis[i + 1], linePaint);
-                }
-            }
-
-            // 画点
-            if (i != 1) {
-                // 昨天
-                if (i == 0) {
-                    pointPaint.setAlpha(alpha1);
-                    canvas.drawCircle(mXAxis[i], yAxis[i], mRadius, pointPaint);
-                } else {
-                    pointPaint.setAlpha(alpha2);
-                    canvas.drawCircle(mXAxis[i], yAxis[i], mRadius, pointPaint);
-                }
-                // 今天
-            } else {
-                pointPaint.setAlpha(alpha2);
-                canvas.drawCircle(mXAxis[i], yAxis[i], mRadiusToday, pointPaint);
-            }
-
-            // 画字
-            // 昨天
+        List<Integer> minTemp = new ArrayList<>();
+        List<Integer> maxTemp = new ArrayList<>();
+        for (int i = 0; i < dailyForecastList.size(); i++) {
+            final TextView tvDate = new TextView(getContext());
+            tvDate.setGravity(Gravity.CENTER);
+            tvDate.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+            tvDate.setTextColor(getResources().getColor(R.color.colorTextDark2nd));
+            tvDate.setVisibility(INVISIBLE);
+            final TextView tvWeather = new TextView((getContext()));
+            tvWeather.setGravity(Gravity.CENTER);
+            tvWeather.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+            tvWeather.setTextColor(getResources().getColor(R.color.colorTextDark2nd));
+            tvWeather.setVisibility(INVISIBLE);
+            final ImageView ivIcon = new ImageView(getContext());
+            ivIcon.setAdjustViewBounds(true);
+            ivIcon.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            int padding = dp2px(getContext(), 10);
+            int width = getScreenWidth(getContext()) / dailyForecastList.size();
+            LayoutParams ivParam = new LayoutParams(width, width);
+            ivParam.weight = 1;
+            ivIcon.setLayoutParams(ivParam);
+            ivIcon.setPadding(padding, padding, padding, padding);
+            ivIcon.setVisibility(INVISIBLE);
             if (i == 0) {
-                textPaint.setAlpha(alpha1);
-                drawText(canvas, textPaint, i, temp, yAxis, type);
+                tvDate.setText("今天");
+            } else if (i == 1) {
+                tvDate.setText("明天");
             } else {
-                textPaint.setAlpha(alpha2);
-                drawText(canvas, textPaint, i, temp, yAxis, type);
+                tvDate.setText(DateToWeek.getWeek(dailyForecastList.get(i).date));
             }
+            try {
+                tvWeather.setText(new JSONObject(dailyForecastList.get(i).cond).optString("txt_d"));
+                String code = new JSONObject(dailyForecastList.get(i).cond).optString("code_d");
+                for (int j = 0; j < weathimgs.size(); j++) {
+                    if (code.equals(weathimgs.get(j).getCode())) {
+                        Glide.with(getContext()).load(weathimgs.get(j).getIcon_url()).diskCacheStrategy(DiskCacheStrategy.ALL).into(ivIcon);
+                    }
+                }
+                String min = new JSONObject(dailyForecastList.get(i).tmp).optString("min");
+                String max = new JSONObject(dailyForecastList.get(i).tmp).optString("max");
+                minTemp.add(Integer.valueOf(min));
+                maxTemp.add(Integer.valueOf(max));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            weatherStrView.addView(tvWeather, cellParams);
+            dateTitleView.addView(tvDate, cellParams);
+            iconView.addView(ivIcon);
+            this.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    tvDate.setVisibility(VISIBLE);
+                    tvWeather.setVisibility(VISIBLE);
+                    ivIcon.setVisibility(VISIBLE);
+                }
+            }, 200 * i);
         }
+        addView(dateTitleView);
+        addView(iconView);
+        addView(weatherStrView);
+        final ChartView chartView = new ChartView(getContext());
+        chartView.setData(minTemp, maxTemp);
+        chartView.setPadding(0, dp2px(getContext(), 16), 0, dp2px(getContext(), 16));
+        addView(chartView, chartParams);
+    }
+
+    public void setWeather5(List<Dailyforecast> mDailyforecast, List<WeathImg> mWeathImg) {
+        dailyForecastList.clear();
+        dailyForecastList.addAll(mDailyforecast);
+        weathimgs.clear();
+        weathimgs.addAll(mWeathImg);
+        letItGo();
     }
 
     /**
-     * 绘制文字
+     * dp转px
      *
-     * @param canvas    画布
-     * @param textPaint 画笔
-     * @param i         索引
-     * @param temp      温度集合
-     * @param yAxis     y轴集合
-     * @param type      折线种类：0，白天；1，夜间
+     * @param context 上下文
+     * @param dpValue dp值
+     * @return px值
      */
-    private void drawText(Canvas canvas, Paint textPaint, int i, int[] temp, float[] yAxis, int type) {
-        switch (type) {
-            case 0:
-                // 显示白天气温
-                canvas.drawText(temp[i] + "°", mXAxis[i], yAxis[i] - mRadius - mTextSpace, textPaint);
-                break;
-            case 1:
-                // 显示夜间气温
-                canvas.drawText(temp[i] + "°", mXAxis[i], yAxis[i] + mTextSpace + mTextSize, textPaint);
-                break;
-        }
+    public static int dp2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 
-    /**
-     * 设置高度，x轴集合
-     */
-    private void setHeightAndXAxis() {
-        mHeight = getHeight();
-        // 控件宽
-        int width = getWidth();
-        // 每一份宽
-        float w = width / 14;
-        mXAxis[0] = w;
-        mXAxis[1] = w * 3;
-        mXAxis[2] = w * 5;
-        mXAxis[3] = w * 7;
-        mXAxis[4] = w * 9;
-        mXAxis[5] = w * 11;
-        mXAxis[6] = w * 13;
-    }
 
-    /**
-     * 设置白天温度
-     *
-     * @param tempDay 温度数组集合
-     */
-    public void setTempDay(int[] tempDay) {
-        mTempDay = tempDay;
-    }
-
-    /**
-     * 设置夜间温度
-     *
-     * @param tempNight 温度数组集合
-     */
-    public void setTempNight(int[] tempNight) {
-        mTempNight = tempNight;
+    public static int getScreenWidth(Context context) {
+        int screenWidth = 0;
+        if (screenWidth != 0)
+            return screenWidth;
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics dm = new DisplayMetrics();// 创建了一张白纸
+        windowManager.getDefaultDisplay().getMetrics(dm);// 给白纸设置宽高
+        screenWidth = dm.widthPixels;
+        return screenWidth;
     }
 }

@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 
+
 /**
  * Created by Administrator on 2017/6/27.
  */

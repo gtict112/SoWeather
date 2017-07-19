@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.administrator.soweather.R;
 
 
@@ -69,19 +71,14 @@ public class LifeIndexDialogFragment extends DialogFragment {
         life_index_brf.setText(brf);
         life_index_tex.setText(tex);
 
-
         if (title.equals("穿衣指数")) {
             bg.setImageResource(R.mipmap.drsgbrf_img);
-            content_layout.setBackgroundColor(Color.parseColor("#e0C5E0FB"));
         } else if (title.equals("旅游指数")) {
             bg.setImageResource(R.mipmap.travbrf_img);
-            content_layout.setBackgroundColor(Color.parseColor("#e0D5F5E6"));
         } else if (title.equals("感冒指数")) {
             bg.setImageResource(R.mipmap.flubrf_img);
-            content_layout.setBackgroundColor(Color.parseColor("#e0D3D3D3"));
         } else {
             bg.setImageResource(R.mipmap.sportbrf_img);
-            content_layout.setBackgroundColor(Color.parseColor("#e0EEBE85"));
         }
     }
 

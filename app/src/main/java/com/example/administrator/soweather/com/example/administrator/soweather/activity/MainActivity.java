@@ -31,7 +31,6 @@ import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.AppGlobal;
 import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
-import com.example.administrator.soweather.com.example.administrator.soweather.core.SoWeatherApplication;
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.BeautyFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.MainFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.TodayTopNewFragment;
@@ -39,9 +38,6 @@ import com.example.administrator.soweather.com.example.administrator.soweather.f
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
 import com.example.administrator.soweather.com.example.administrator.soweather.service.CityAndWeatherImgService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
-
-import java.io.IOException;
-import java.util.List;
 
 
 /**
