@@ -29,6 +29,7 @@ import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.db.SoWeatherDB;
+import com.example.administrator.soweather.com.example.administrator.soweather.fragment.WinTimeSettingDialogFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.NowWeather;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.WeathImg;
@@ -50,7 +51,6 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     private Switch noti;
     private LinearLayout win;
     private LinearLayout clear;
-    private LinearLayout feed_back;
     public final static String ACTION_BTN = "com.example.notification.btn.login";
     public final static String INTENT_NAME = "btnid";
     public final static int INTENT_BTN_LOGIN = 1;
@@ -70,7 +70,6 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     private Boolean isConfirm = false;
     private Boolean isNightConfirm = false;
     private LinearLayout night_layout;
-    private Switch night;
     private Appconfiguration config = Appconfiguration.getInstance();
 
     @Override
@@ -128,6 +127,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 tmp_img = weathimgs.get(i).getIcon();
             }
         }
+        noti.setChecked(config.getIsStartNoti());
     }
 
     private void initView() {
@@ -135,22 +135,14 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         cash_size = (TextView) findViewById(R.id.cash_size);
         noti = (Switch) findViewById(R.id.noti);
         night_layout = (LinearLayout) findViewById(R.id.night_layout);
-        night = (Switch) findViewById(R.id.night);
         win = (LinearLayout) findViewById(R.id.win);
         clear = (LinearLayout) findViewById(R.id.clear);
-        feed_back = (LinearLayout) findViewById(R.id.feed_back);
-        LinearLayout skin_setting = (LinearLayout) findViewById(R.id.skin_setting);
         initSwitch(noti);
-        noti.setChecked(config.getIsStartNoti());
-        initNightSwitch(night);
         noti.setOnClickListener(this);
-        night.setOnClickListener(this);
         noti_layout.setOnClickListener(this);
         night_layout.setOnClickListener(this);
         clear.setOnClickListener(this);
-        feed_back.setOnClickListener(this);
         win.setOnClickListener(this);
-        skin_setting.setOnClickListener(this);
     }
 
     @SuppressLint("NewApi")
@@ -182,33 +174,6 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
-    @SuppressLint("NewApi")
-    private void initNightSwitch(final Switch mSwitch) {
-        try {
-            mSwitch.setThumbResource(R.mipmap.ic_kline_switch);
-            mSwitch.setTrackResource(R.mipmap.background_switch_off);
-            mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-                @Override
-                public void onCheckedChanged(CompoundButton arg0,
-                                             boolean checked) {
-                    if (checked) {
-                        mSwitch.setTrackResource(R.mipmap.background_switch_on);
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    } else {
-                        mSwitch.setTrackResource(R.mipmap.background_switch_off);
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    }
-                }
-            });
-            mSwitch.setTextOn("");
-            mSwitch.setTextOff("");
-        } catch (Throwable e) {
-            mSwitch.setTextOn("开启");
-            mSwitch.setTextOff("关闭");
-        }
-    }
-
 
     private void notification() {
         unregeisterReceiver();
@@ -223,7 +188,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         intent.putExtra(INTENT_NAME, INTENT_BTN_LOGIN);
         PendingIntent intentpi = PendingIntent.getBroadcast(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         Intent intent2 = new Intent();
-        intent2.setClass(this, SpanActivity.class);
+        intent2.setClass(this, MainActivity.class);
+
         intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent intentContent = PendingIntent.getActivity(this, 0, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
@@ -289,18 +255,16 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             case R.id.noti:
                 //设置通知
                 break;
-            case R.id.night:
-                break;
             case R.id.night_layout:
-                isNightConfirm = !isNightConfirm;
-                night.setChecked(isNightConfirm);
                 break;
             case R.id.noti_layout:
                 isConfirm = !isConfirm;
                 noti.setChecked(isConfirm);
                 break;
             case R.id.win:
-                Toast.makeText(this, "桌面小控件可在手机系统小部件进行添加,相关定制功能待开发", Toast.LENGTH_LONG).show();
+                WinTimeSettingDialogFragment winnTimeSettingDialogFragment = new WinTimeSettingDialogFragment();
+                winnTimeSettingDialogFragment.show(this
+                        .getSupportFragmentManager(), null);
                 break;
             case R.id.clear:
                 //清除缓存
@@ -308,13 +272,6 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 Snackbar.make(SettingActivity.this.getWindow().getDecorView().findViewById(android.R.id.content),
                         "清除应用缓存成功! (*^__^*)", Snackbar.LENGTH_SHORT).show();
                 getCashSize();
-                break;
-            case R.id.feed_back:
-                //帮助与反馈
-                Intent intent = new Intent(this, HelpFeedbackActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.skin_setting:
                 break;
         }
     }

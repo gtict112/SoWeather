@@ -26,6 +26,7 @@ import android.widget.RemoteViews;
 
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.activity.SpanActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Constans;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.ParentsAppWidgetProvider;
 import com.example.administrator.soweather.com.example.administrator.soweather.db.SoWeatherDB;
@@ -38,9 +39,6 @@ import com.example.administrator.soweather.com.example.administrator.soweather.u
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * @author way
- */
 public class AppWidgetUpdateService extends Service {
     private static final int UPDATE = 0x123;
     private RemoteViews remoteViews;
@@ -48,7 +46,6 @@ public class AppWidgetUpdateService extends Service {
     private List<WeathImg> weathImgs = new ArrayList<>();//图片数据
     private NowWeather mNowWeather = new NowWeather();
     private List<Dailyforecast> mDailyforecast = new ArrayList<>();
-    private int rand = 1;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -69,6 +66,7 @@ public class AppWidgetUpdateService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        Appconfiguration config = Appconfiguration.getInstance();
         remoteViews = new RemoteViews(getApplication().getPackageName(),
                 R.layout.appwidget_provider);
         if (isNetworkAvailable()) {
@@ -83,7 +81,7 @@ public class AppWidgetUpdateService extends Service {
                 0, intent, 0);
         remoteViews.setOnClickPendingIntent(R.id.right, pi);
 
-        // 定义一个定时器去更新天气。实际开发中更新时间间隔可以由用户设置，
+        // 定义一个定时器去更新天气
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -91,7 +89,7 @@ public class AppWidgetUpdateService extends Service {
                 msg.what = UPDATE;
                 handler.sendMessage(msg);
             }
-        }, 1, 3600 * 1000);// 每小时更新一次天气
+        }, 1, config.getWinUpdateTime());//更新一次天气
     }
 
 
@@ -110,22 +108,6 @@ public class AppWidgetUpdateService extends Service {
         if (mNowWeather != null) {
             try {
                 String code = new JSONObject(mNowWeather.cond).optString("code");
-                Constans.WeatherBgImg citys[] = Constans.WeatherBgImg.values();
-                String txt = new JSONObject(mNowWeather.cond).optString("txt");
-                if (txt != null) {
-                    for (Constans.WeatherBgImg cu : citys) {
-                        if (txt.equals(cu.getName())) {
-                            if (cu.getimgId().length > 0) {
-                                rand = (int) Math.round(Math.random() * (cu.getimgId().length - 1));
-                                remoteViews.setImageViewResource(R.id.widget_bg, cu.getimgId()[rand]);
-                            } else {
-                                remoteViews.setImageViewResource(R.id.widget_bg, cu.getimgId()[0]);
-                            }
-
-                            break;
-                        }
-                    }
-                }
                 remoteViews.setTextViewText(R.id.city, mNowWeather.cnty + mNowWeather.city);
                 remoteViews.setTextViewText(R.id.fl, "体感温度" + mNowWeather.fl + "℃");
                 remoteViews.setTextViewText(R.id.tmp, (mNowWeather.tmp) + "℃");

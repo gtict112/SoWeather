@@ -85,6 +85,10 @@ public class AboutMoreActivity extends BaseActivity implements View.OnClickListe
         btn_web_home.setOnClickListener(this);
         Button btn_share_app = (Button) findViewById(R.id.btn_share_app);
         btn_share_app.setOnClickListener(this);
+        Button btn_check_update = (Button) findViewById(R.id.btn_check_update);
+        btn_check_update.setOnClickListener(this);
+        Button btn_feedback = (Button) findViewById(R.id.btn_feedback);
+        btn_feedback.setOnClickListener(this);
     }
 
     @Override
@@ -95,6 +99,14 @@ public class AboutMoreActivity extends BaseActivity implements View.OnClickListe
                 break;
             case R.id.btn_share_app:
                 ShareUtils.shareText(this, "YOYO天气！https://github.com/lihailin3519/SoWeather");
+                break;
+            case R.id.btn_check_update:
+                Snackbar.make(AboutMoreActivity.this.getWindow().getDecorView().findViewById(android.R.id.content),
+                        "当前已是最新版本! (*^__^*)", Snackbar.LENGTH_SHORT).show();
+                break;
+            case R.id.btn_feedback:
+                Intent intent = new Intent(this, HelpFeedbackActivity.class);
+                startActivity(intent);
                 break;
         }
     }

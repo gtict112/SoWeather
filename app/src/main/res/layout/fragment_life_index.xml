@@ -98,7 +98,8 @@
             android:padding="10dp"
             android:text="取消"
             android:textColor="#D81E06"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/close"

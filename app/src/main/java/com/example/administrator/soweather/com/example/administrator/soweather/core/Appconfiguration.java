@@ -77,7 +77,7 @@ public class Appconfiguration {
 
 
     public void closeAllActivities() {
-        for (FragmentActivity activity : activitySet) {
+        for (AppCompatActivity activity : activitySet) {
             activity.finish();
         }
         activitySet.clear();
@@ -99,9 +99,6 @@ public class Appconfiguration {
         return progressDialog;
     }
 
-    public void setProgressMessage(String message) {
-        progressDialog.setMessage(message);
-    }
 
     public void dismissProgressDialog() {
         progressDialog.dismiss();
@@ -115,9 +112,34 @@ public class Appconfiguration {
         this.generalPreferenceEditor = generalPreferences.edit();
         config.setStartNoti(generalPreferences.getBoolean(
                 "isStartNoti", false));
+
+        config.setWinUpdateTime(generalPreferences.getLong(
+                "updatime", 3600 * 1000));
+
     }
 
 
+    /**
+     * 桌面插件服务更新时间
+     *
+     * @param time
+     */
+    public void setWinUpdateTime(long time) {
+        generalPreferenceEditor.putLong(
+                "updatime", time).commit();
+    }
+
+    public long getWinUpdateTime() {
+        return generalPreferences.getLong(
+                "updatime", 3600 * 1000);
+
+    }
+
+    /**
+     * 通知开关
+     *
+     * @param isStartNoti
+     */
     public void setStartNoti(boolean isStartNoti) {
         generalPreferenceEditor.putBoolean(
                 "isStartNoti", isStartNoti).commit();

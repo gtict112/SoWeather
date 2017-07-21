@@ -14,6 +14,16 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="15dp"
+        android:text="基本设置"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp" />
+
     <LinearLayout
         android:id="@+id/noti_layout"
         android:layout_width="match_parent"
@@ -23,54 +33,49 @@
         android:padding="8dp">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="通知"
-                android:textColor="@color/colorTextDark"
-                android:textSize="14sp" />
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="在状态栏中显示温度,抽屉选单中显示天气图标"
-                android:textColor="@color/colorTextDark2nd"
-                android:textSize="12sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="通知"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="在状态栏中显示温度,抽屉选单中显示天气图标"
+                    android:textColor="@color/colorTextDark2nd"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <Switch
+                android:id="@+id/noti"
+                style="@style/fragment_system_setting_switch" />
         </LinearLayout>
-
-        <Switch
-            android:id="@+id/noti"
-            style="@style/fragment_system_setting_switch" />
     </LinearLayout>
 
     <View
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/line" />
-
-    <View
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="15dp"
-        android:background="#e1e1e1" />
-
-    <View
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_marginLeft="12dp"
         android:background="@color/line" />
 
 
     <LinearLayout
-        android:visibility="gone"
-        android:id="@+id/night_layout"
+        android:id="@+id/clear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
@@ -78,53 +83,124 @@
         android:padding="8dp">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="夜间模式"
-                android:textColor="@color/colorTextDark"
-                android:textSize="14sp" />
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="享受失眠的同时顺便保护一下眼睛"
-                android:textColor="@color/colorTextDark2nd"
-                android:textSize="12sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="清除应用缓存"
+                        android:textColor="@color/colorTextDark"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/cash_size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0.0KB"
+                        android:textColor="@color/colorTextDark2nd"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="删除已缓存的文章内容及图片"
+                    android:textColor="@color/colorTextDark2nd"
+                    android:textSize="11sp" />
+            </LinearLayout>
         </LinearLayout>
 
-        <Switch
-            android:id="@+id/night"
-            style="@style/fragment_system_setting_switch" />
     </LinearLayout>
 
-
     <View
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/line" />
+        android:background="@color/line"
+        android:visibility="gone" />
 
-    <View
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="15dp"
-        android:background="#e1e1e1" />
-
-    <View
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/line" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="15dp"
+        android:text="主题设置"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        android:visibility="gone" />
 
     <LinearLayout
-        android:visibility="gone"
+        android:id="@+id/night_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="夜间模式"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="享受失眠的同时顺便保护一下眼睛"
+                    android:textColor="@color/colorTextDark2nd"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="15dp"
+        android:text="插件设置"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp" />
+
+    <LinearLayout
         android:id="@+id/win"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -133,149 +209,35 @@
         android:padding="8dp">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="桌面小部件"
-                android:textColor="@color/colorTextDark"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="将应用添加至桌面,随时查看天气"
-                android:textColor="@color/colorTextDark2nd"
-                android:textSize="12sp" />
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:drawableRight="@mipmap/to_right"
-            android:visibility="gone" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/line"
-        android:visibility="gone" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginTop="15dp"
-        android:background="@color/line"
-        android:visibility="gone" />
-
-    <LinearLayout
-        android:id="@+id/skin_setting"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:visibility="gone">
-
-        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableRight="@mipmap/to_right"
-            android:gravity="left"
-            android:text="主题设置"
-            android:textColor="@color/colorTextDark"
-            android:textSize="15sp" />
-    </LinearLayout>
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/line" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="15dp"
-        android:background="#e1e1e1" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="更新时间"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="14sp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/line" />
-
-    <LinearLayout
-        android:id="@+id/clear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:padding="12dp">
-
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
-            android:text="清除应用缓存"
-            android:textColor="@color/colorTextDark"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/cash_size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0.0KB"
-            android:textColor="@color/colorTextDark2nd"
-            android:textSize="12sp" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/line" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="15dp"
-        android:background="#e1e1e1" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/line" />
-
-    <LinearLayout
-        android:id="@+id/feed_back"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:padding="12dp">
-
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
-            android:text="留言与反馈"
-            android:textColor="@color/colorTextDark"
-            android:textSize="14sp" />
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="桌面YOYO插件自动刷新一次天气"
+                    android:textColor="@color/colorTextDark2nd"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/line" />
 </LinearLayout>

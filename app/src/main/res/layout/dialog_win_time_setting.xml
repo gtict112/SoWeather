@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/type_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/type_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:padding="15dp"
+            android:text="默认(1小时)" />
+
+        <RadioButton
+            android:id="@+id/type_30_minute"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:padding="15dp"
+            android:text="30分钟" />
+
+        <RadioButton
+            android:id="@+id/type_2_hour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:padding="15dp"
+            android:text="2小时" />
+
+        <RadioButton
+            android:id="@+id/type_4_hour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:padding="15dp"
+            android:text="4小时" />
+
+        <RadioButton
+            android:id="@+id/type_6_hour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:padding="15dp"
+            android:text="6小时" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="20dp"
+        android:background="?attr/selectableItemBackground"
+        android:padding="8dp"
+        android:text="取消"
+        android:textColor="@color/colorAccent"
+        android:textSize="14sp" />
+</LinearLayout>
