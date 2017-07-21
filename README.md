@@ -36,6 +36,11 @@
 ![index](https://github.com/lihailin3519/SoWeather/raw/master/img/img_看图王.png)
 
 
+## 安智市场下载
+![index](https://github.com/lihailin3519/SoWeather/raw/master/img/K9$U6$7O5IM3PGJAFVSB23Y.png)
+
+
+
 ##  博客地址
 http://blog.csdn.net/sinat_28891771/article/details/71212390
 
