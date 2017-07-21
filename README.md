@@ -33,4 +33,4 @@ shapeloading
 
 
 ## 应用截图
-http://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-094757.png
+![image](http://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-094757.png)
