@@ -1,12 +1,12 @@
 # SoWeather
 一  介绍 
- 天气页 
- 天气详情 
- 今日头条 
- 微信精选 
- 福利社  
- 设置 
- 关于
+   - 天气页 
+   - 天气详情 
+   - 今日头条 
+   - 微信精选 
+   - 福利社  
+   - 设置 
+   - 关于
 
 ## 二  使用说明 ##
 1. 天气页: 顶部天气状况大图 , 文本点击都可进入详情页 24小时天气精准预报(可展开收缩)  未来7天气预报, 每个条目点击可进入详情页 趋势预报, 点击人物        可查看趋势图(可展开收缩) 今日生活指数, 点击可查看详情 
@@ -21,15 +21,15 @@
 
  
 ## 三  开源库 
-BaiduLBS_Android.jar 
-httpmine-4.1.2.jar 
-IndoorscapeAlbumPlugin.jar 
-okhttp-3.4.1.jar 
-okio-1.6.0.jar 
-picasso-2.5.2.jar 
-jsoup-1.10.2.jar 
-systembartint 
-shapeloading
+- BaiduLBS_Android.jar 
+- httpmine-4.1.2.jar 
+- IndoorscapeAlbumPlugin.jar 
+- okhttp-3.4.1.jar 
+- okio-1.6.0.jar 
+- picasso-2.5.2.jar 
+- jsoup-1.10.2.jar 
+- systembartint 
+- shapeloading
 
 
 ## 应用截图
