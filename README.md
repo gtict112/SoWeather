@@ -33,4 +33,29 @@ shapeloading
 
 
 ## 应用截图
-![image](http://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-094757.png)
+![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-094757.png)
+![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-094901.png)
+![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095002.png)
+![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095032.png)
+![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095124.png)
+![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095152.png)
+![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095223.png)
+![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095324.png)
+![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095348.png)
+![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095410.png)
+![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095431.png)
+![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095501.png)
+![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095525.png)
+![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095734.png)
+![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095301.png)
+
+
+
+##  博客地址
+http://blog.csdn.net/sinat_28891771/article/details/71212390
+
+
+
+
+
+
