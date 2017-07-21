@@ -1,4 +1,4 @@
-# SoWeather
+# YOYO天气
 一  介绍 
    - 天气页 
    - 天气详情 
@@ -33,22 +33,7 @@
 
 
 ## 应用截图
-![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-094757.png)
-![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-094901.png)
-![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095002.png)
-![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095032.png)
-![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095124.png)
-![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095152.png)
-![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095223.png)
-![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095324.png)
-![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095348.png)
-![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095410.png)
-![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095431.png)
-![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095501.png)
-![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095525.png)
-![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095734.png)
-![index](https://github.com/lihailin3519/SoWeather/raw/master/img/device-2017-07-21-095301.png)
-
+![index](https://github.com/lihailin3519/SoWeather/raw/master/img/img_看图王.png)
 
 
 ##  博客地址
