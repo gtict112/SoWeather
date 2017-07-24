@@ -272,7 +272,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 Snackbar.make(SettingActivity.this.getWindow().getDecorView().findViewById(android.R.id.content),
                         "清除应用缓存成功! (*^__^*)", Snackbar.LENGTH_SHORT).show();
                 getCashSize();
-                break;
+                break;   
         }
     }
 
