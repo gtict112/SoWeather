@@ -266,6 +266,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                         })
                         .show();
                 city_name.setText("杭州");
+                getDate();
             }
             mLocationClient.stop();
         }
