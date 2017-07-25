@@ -1,4 +1,4 @@
-package com.example.administrator.soweather.com.example.administrator.soweather;
+package com.example.administrator.soweather.com.example.administrator.soweather.ui.base;
 
 import android.annotation.TargetApi;
 import android.graphics.Color;

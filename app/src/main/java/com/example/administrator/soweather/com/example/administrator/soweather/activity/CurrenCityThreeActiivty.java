@@ -7,16 +7,13 @@ import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.administrator.soweather.R;
-import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.ui.base.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.db.SoWeatherDB;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.County;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.ManageCity;

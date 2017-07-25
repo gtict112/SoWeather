@@ -18,7 +18,6 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewCompat;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -30,7 +29,7 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.Target;
 import com.example.administrator.soweather.R;
-import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.ui.base.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
 import com.example.administrator.soweather.com.example.administrator.soweather.service.BeautyService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.FileUtil;
@@ -42,10 +41,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-
-import static android.R.attr.bitmap;
-import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 /**
  * Created by liyu on 2016/11/3.

@@ -1,15 +1,8 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.activity;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationManager;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -18,20 +11,13 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
-import com.baidu.location.Poi;
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.AppGlobal;
-import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.ui.base.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.BeautyFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.MainFragment;
@@ -40,8 +26,6 @@ import com.example.administrator.soweather.com.example.administrator.soweather.f
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
 import com.example.administrator.soweather.com.example.administrator.soweather.service.CityAndWeatherImgService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
-
-import java.util.List;
 
 
 /**
@@ -83,7 +67,6 @@ public class MainActivity extends BaseActivity implements ResponseListenter<Inte
         getWeather();
         initFragment(savedInstanceState);
     }
-
 
 
     @Override

@@ -1,32 +1,19 @@
 package com.example.administrator.soweather.com.example.administrator.soweather.activity;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
-import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
-import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.administrator.soweather.R;
-import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.ui.base.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ShareUtils;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.WebUtils;
-
-import java.util.Random;
 
 /**
  * Created by Administrator on 2016/11/18.

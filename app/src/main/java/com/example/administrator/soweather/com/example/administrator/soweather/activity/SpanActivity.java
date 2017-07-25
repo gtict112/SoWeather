@@ -33,24 +33,6 @@ public class SpanActivity extends RxActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_span);
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                if (appConfig.getActivitySet().size() > 0) {
-//                    Intent intent2 = new Intent(SpanActivity.this, appConfig.getFrontActivityList().get(appConfig.getFrontActivityList().size() - 1).getClass());
-//                    startActivity(intent2);
-//                    overridePendingTransition(R.anim.span_in,
-//                            R.anim.span_out);
-//                    finish();
-//                } else {
-//                    Intent intent = new Intent(SpanActivity.this, MainActivity.class);
-//                    startActivity(intent);
-//                    overridePendingTransition(R.anim.span_in,
-//                            R.anim.span_out);
-//                    finish();
-//                }
-//            }
-//        }, 1200);
         Observable.timer(1200, TimeUnit.MILLISECONDS).compose(this.bindToLifecycle()).subscribeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<Long>() {
             @Override
             public void accept(@NonNull Long aLong) throws Exception {

@@ -10,7 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 
 import com.example.administrator.soweather.R;
-import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
+import com.example.administrator.soweather.com.example.administrator.soweather.ui.base.BaseActivity;
 import com.example.administrator.soweather.com.example.administrator.soweather.fragment.MoreInfoItemFragment;
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Dailyforecast;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.DateToWeek;
