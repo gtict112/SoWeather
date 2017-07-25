@@ -1,5 +1,10 @@
 package com.lhlSo.soweather.service;
 
+import com.lhlSo.soweather.mode.Result;
+import com.lhlSo.soweather.mode.Zodiac;
+import com.lhlSo.soweather.utils.ResponseListenter;
+import com.lhlSo.soweather.utils.ResponseProcessUtil;
+
 import java.io.IOException;
 
 import okhttp3.Call;

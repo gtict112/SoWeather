@@ -1,6 +1,13 @@
 package com.lhlSo.soweather.service;
 
+import com.lhlSo.soweather.mode.Aqi;
+import com.lhlSo.soweather.mode.Dailyforecast;
+import com.lhlSo.soweather.mode.Hourlyforecast;
+import com.lhlSo.soweather.mode.NowWeather;
 import com.lhlSo.soweather.mode.Result;
+import com.lhlSo.soweather.mode.Suggestion;
+import com.lhlSo.soweather.utils.ResponseListenter;
+import com.lhlSo.soweather.utils.ResponseProcessUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;

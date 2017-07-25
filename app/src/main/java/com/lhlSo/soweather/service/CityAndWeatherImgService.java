@@ -6,6 +6,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 
+import com.lhlSo.soweather.mode.Result;
+import com.lhlSo.soweather.utils.ResponseListenter;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
