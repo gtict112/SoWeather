@@ -21,6 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.soweather.R;
+import com.lhlSo.soweather.db.SoWeatherDB;
+import com.lhlSo.soweather.mode.Dailyforecast;
+import com.lhlSo.soweather.view.CustomGallery;
 
 /**
  * Created by Administrator on 2016/12/9.

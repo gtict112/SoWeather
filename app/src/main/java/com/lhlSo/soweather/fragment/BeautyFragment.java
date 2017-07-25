@@ -26,6 +26,14 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.administrator.soweather.R;
+import com.lhlSo.soweather.activity.MainActivity;
+import com.lhlSo.soweather.activity.PictureActivity;
+import com.lhlSo.soweather.core.Appconfiguration;
+import com.lhlSo.soweather.mode.BeautyListDate;
+import com.lhlSo.soweather.mode.Result;
+import com.lhlSo.soweather.service.BeautyService;
+import com.lhlSo.soweather.utils.ResponseListenter;
+import com.lhlSo.soweather.view.RatioImageView;
 
 import java.util.ArrayList;
 import java.util.List;

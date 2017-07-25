@@ -1,5 +1,7 @@
 package com.lhlSo.soweather.service;
 
+import com.lhlSo.soweather.mode.Result;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

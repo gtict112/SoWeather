@@ -1,9 +1,9 @@
-package com.example.administrator.soweather.com.example.administrator.soweather.service;
+package com.lhlSo.soweather.service;
 
-import com.example.administrator.soweather.com.example.administrator.soweather.mode.Constellation;
-import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
-import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
-import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseProcessUtil;
+import com.lhlSo.soweather.mode.Constellation;
+import com.lhlSo.soweather.mode.Result;
+import com.lhlSo.soweather.utils.ResponseListenter;
+import com.lhlSo.soweather.utils.ResponseProcessUtil;
 
 import java.io.IOException;
 
