@@ -51,7 +51,7 @@ public class SpanActivity extends RxActivity {
 //                }
 //            }
 //        }, 1200);
-        Observable.timer(1200, TimeUnit.MILLISECONDS).compose(this.bindToLifecycle()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<Long>() {
+        Observable.timer(1200, TimeUnit.MILLISECONDS).compose(this.bindToLifecycle()).subscribeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<Long>() {
             @Override
             public void accept(@NonNull Long aLong) throws Exception {
                 if (appConfig.getActivitySet().size() > 0) {
