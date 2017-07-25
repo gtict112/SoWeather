@@ -189,7 +189,6 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
         cityDB = SoWeatherDB.getInstance(getActivity());
         initView(view);
         getAdress();
-        getDate();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
         getHandleMessge();
         return view;
@@ -221,12 +220,16 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
                 } else {
                     cunty_name.setText("");
                 }
+                getDate();
             } else {
                 city = config.getLocationCity();
                 county = config.getLocationCounty();
                 if (city == null) {
-                    Snackbar.make(fabutton, "正在定位 !", Snackbar.LENGTH_LONG);
                     getLocationAdress();
+                } else {
+                    city_name.setText(city);
+                    cunty_name.setText(county);
+                    getDate();
                 }
             }
         }
@@ -250,7 +253,20 @@ public class MainFragment extends Fragment implements View.OnClickListener, Swip
             Appconfiguration.getInstance().setLocationCounty(location.getDistrict());
             city = location.getCity();
             county = location.getDistrict();
-            getDate();
+            if (city != null) {
+                city_name.setText(city);
+                cunty_name.setText(county);
+                getDate();
+            } else {
+                Snackbar.make(fabutton, "定位失败,已默认城市为杭州,请手动修改城市!", Snackbar.LENGTH_LONG)
+                        .setAction("了解", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                            }
+                        })
+                        .show();
+                city_name.setText("杭州");
+            }
             mLocationClient.stop();
         }
 
