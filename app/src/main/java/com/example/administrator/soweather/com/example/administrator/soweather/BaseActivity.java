@@ -18,14 +18,18 @@ import android.view.WindowManager;
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by Administrator on 2017/5/18.
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends RxAppCompatActivity {
     protected Toolbar toolbar;
-
+    private Unbinder binder;
     protected abstract
     @LayoutRes
     int getLayoutId();
@@ -44,6 +48,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setToobarColor();
         setContentView(getLayoutId());
+        binder= ButterKnife.bind(this);
         initToolBar();
         initViews(savedInstanceState);
         Appconfiguration.getInstance().addActivity(this);
@@ -76,10 +81,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void onDestroy() {
-        try {
             super.onDestroy();
-        } catch (Exception e) {
-        }
+        binder.unbind();
         Appconfiguration.getInstance().removeActivity(this);
     }
 
