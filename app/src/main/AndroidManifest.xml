@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.administrator.soweather"
+    package="com.lhlSo.soweather"
     android:versionCode="1"
     android:versionName="1.0">
 
@@ -24,7 +24,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".com.example.administrator.soweather.core.SoWeatherApplication"
+        android:name=".core.SoWeatherApplication"
         android:allowBackup="true"
         android:icon="@mipmap/app"
         android:label="@string/app_name"
@@ -38,7 +38,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="dzb78OZ403ijf5DrDuV9H7v2UZjAOWQ7" />
 
-        <receiver android:name="com.example.administrator.soweather.com.example.administrator.soweather.core.ParentsAppWidgetProvider">
+        <receiver android:name=".core.ParentsAppWidgetProvider">
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/appwidgetprovider" />
@@ -47,10 +47,10 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".com.example.administrator.soweather.service.AppWidgetUpdateService"></service>
+        <service android:name=".service.AppWidgetUpdateService"/>
 
         <activity
-            android:name=".com.example.administrator.soweather.activity.SpanActivity"
+            android:name=".activity.SpanActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -59,38 +59,38 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".com.example.administrator.soweather.activity.MainActivity"
+            android:name=".activity.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".com.example.administrator.soweather.activity.CurrentCityActivity"
+            android:name=".activity.CurrentCityActivity"
             android:label="选择城市"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".com.example.administrator.soweather.activity.HelpFeedbackActivity"
+            android:name=".activity.HelpFeedbackActivity"
             android:label="留言与反馈"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".com.example.administrator.soweather.activity.CurrenCityTwoActivity"
+            android:name=".activity.CurrenCityTwoActivity"
             android:label="选择城市"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".com.example.administrator.soweather.activity.CurrenCityThreeActiivty"
+            android:name=".activity.CurrenCityThreeActiivty"
             android:label="选择城市"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".com.example.administrator.soweather.activity.AboutMoreActivity"
+            android:name=".activity.AboutMoreActivity"
             android:label="产品介绍"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".com.example.administrator.soweather.activity.Managecity"
+            android:name=".activity.Managecity"
             android:label="城市管理"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".com.example.administrator.soweather.activity.MoreInfoActivity"
+            android:name=".activity.MoreInfoActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout" />
         <activity
-            android:name=".com.example.administrator.soweather.activity.SettingActivity"
+            android:name=".activity.SettingActivity"
             android:label="设置"
             android:screenOrientation="portrait" />
 
@@ -100,7 +100,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".com.example.administrator.soweather.activity.PictureActivity"
+            android:name=".activity.PictureActivity"
             android:label=""
             android:screenOrientation="portrait"
             android:theme="@style/PictureTheme" />
