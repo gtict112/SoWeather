@@ -18,6 +18,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +28,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.baidu.location.Poi;
 import com.example.administrator.soweather.R;
 import com.example.administrator.soweather.com.example.administrator.soweather.AppGlobal;
 import com.example.administrator.soweather.com.example.administrator.soweather.BaseActivity;
@@ -38,6 +40,8 @@ import com.example.administrator.soweather.com.example.administrator.soweather.f
 import com.example.administrator.soweather.com.example.administrator.soweather.mode.Result;
 import com.example.administrator.soweather.com.example.administrator.soweather.service.CityAndWeatherImgService;
 import com.example.administrator.soweather.com.example.administrator.soweather.utils.ResponseListenter;
+
+import java.util.List;
 
 
 /**
@@ -58,8 +62,7 @@ public class MainActivity extends BaseActivity implements ResponseListenter<Inte
     private NavigationView navigationView;
     private FragmentManager fragmentManager;
     private String currentFragmentTag;
-    public LocationClient mLocationClient = null;
-    public MyLocationListenner myListener = new MyLocationListenner();
+
 
     @Override
     protected int getLayoutId() {
@@ -71,34 +74,23 @@ public class MainActivity extends BaseActivity implements ResponseListenter<Inte
         return 0;
     }
 
+
     @Override
     protected void initViews(Bundle savedInstanceState) {
         initView();
         initNavigationViewHeader();
-        initFragment(savedInstanceState);
         getCityDate();
         getWeather();
+        initFragment(savedInstanceState);
     }
 
 
-    /**
-     * 定位城市
-     */
-    private void getLocationAdress() {
-        setLocationOption();
-    }
 
     @Override
     public void onReceive(Result<Integer> result) {
 
     }
 
-    public class MyLocationListenner implements BDLocationListener {
-        @Override
-        public void onReceiveLocation(BDLocation location) {
-            city = location.getCity();
-        }
-    }
 
     /**
      * 获取服务器城市列表数据
@@ -118,7 +110,6 @@ public class MainActivity extends BaseActivity implements ResponseListenter<Inte
 
     @Override
     public void onDestroy() {
-        mLocationClient.stop();
         super.onDestroy();
 
     }
@@ -131,9 +122,6 @@ public class MainActivity extends BaseActivity implements ResponseListenter<Inte
             city = intent.getStringExtra("city");
             cityid = intent.getStringExtra("cityid");
             county = intent.getStringExtra("County");
-        }
-        if (cityid == null) {
-            getLocationAdress();
         }
     }
 
@@ -291,16 +279,4 @@ public class MainActivity extends BaseActivity implements ResponseListenter<Inte
     }
 
 
-    //设置相关参数
-    private void setLocationOption() {
-        mLocationClient = new LocationClient(this);
-        LocationClientOption option = new LocationClientOption();
-        option.setOpenGps(true); // 打开gps
-        option.setCoorType("bd09ll"); // 设置坐标类型为bd09ll
-        option.setPriority(LocationClientOption.NetWorkFirst); // 设置网络优先
-        option.setProdName("demo"); // 设置产品线名称
-        mLocationClient.setLocOption(option);
-        mLocationClient.registerLocationListener(myListener);
-        mLocationClient.start();//将开启与获取位置分开，就可以尽量的在后面的使用中获取到位置
-    }
 }

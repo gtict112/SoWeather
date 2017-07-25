@@ -116,6 +116,35 @@ public class Appconfiguration {
         config.setWinUpdateTime(generalPreferences.getLong(
                 "updatime", 3600 * 1000));
 
+        config.setLocationCity(generalPreferences.getString(
+                "locationCity", null));
+
+        config.setLocationCounty(generalPreferences.getString(
+                "locationCounty", null));
+
+    }
+
+    public void setLocationCity(String locationCity) {
+        generalPreferenceEditor.putString(
+                "locationCity", locationCity).commit();
+    }
+
+    public String getLocationCity() {
+        return generalPreferences.getString(
+                "locationCity", null);
+
+    }
+
+
+    public void setLocationCounty(String locationCounty) {
+        generalPreferenceEditor.putString(
+                "locationCounty", locationCounty).commit();
+    }
+
+    public String getLocationCounty() {
+        return generalPreferences.getString(
+                "locationCounty", null);
+
     }
 
 
