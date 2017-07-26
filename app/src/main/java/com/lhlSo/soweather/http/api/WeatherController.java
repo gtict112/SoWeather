@@ -1,7 +1,7 @@
 package com.lhlSo.soweather.http.api;
 
 import com.lhlSo.soweather.http.BaseWeatherResponse;
-import com.lhlSo.soweather.mode.NowWeather;
+import com.lhlSo.soweather.bean.NowWeather;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;

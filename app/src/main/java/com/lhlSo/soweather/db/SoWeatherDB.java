@@ -7,17 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.lhlSo.soweather.mode.City;
-import com.lhlSo.soweather.mode.County;
-import com.lhlSo.soweather.mode.ManageCity;
-import com.lhlSo.soweather.mode.Province;
-import com.lhlSo.soweather.mode.WeathImg;
+import com.lhlSo.soweather.bean.City;
+import com.lhlSo.soweather.bean.County;
+import com.lhlSo.soweather.bean.ManageCity;
+import com.lhlSo.soweather.bean.Province;
+import com.lhlSo.soweather.bean.WeathImg;
 
 import java.io.ByteArrayOutputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 

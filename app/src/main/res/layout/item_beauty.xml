@@ -15,7 +15,7 @@
         app:cardUseCompatPadding="true">
 
 
-        <com.lhlSo.soweather.view.RatioImageView
+        <com.lhlSo.soweather.widget.RatioImageView
             android:id="@+id/img"
             android:layout_width="match_parent"
             android:layout_height="200dp"

@@ -50,7 +50,7 @@
         <service android:name=".module.AppWidgetUpdateService"/>
 
         <activity
-            android:name=".activity.SpanActivity"
+            android:name=".module.activity.SpanActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -59,38 +59,38 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".module.activity.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.CurrentCityActivity"
+            android:name=".module.activity.CurrentCityActivity"
             android:label="选择城市"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.HelpFeedbackActivity"
+            android:name=".module.activity.HelpFeedbackActivity"
             android:label="留言与反馈"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.CurrenCityTwoActivity"
+            android:name=".module.activity.CurrenCityTwoActivity"
             android:label="选择城市"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.CurrenCityThreeActiivty"
+            android:name=".module.activity.CurrenCityThreeActiivty"
             android:label="选择城市"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.AboutMoreActivity"
+            android:name=".module.activity.AboutMoreActivity"
             android:label="产品介绍"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.Managecity"
+            android:name=".module.activity.Managecity"
             android:label="城市管理"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.MoreInfoActivity"
+            android:name=".module.activity.MoreInfoActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout" />
         <activity
-            android:name=".activity.SettingActivity"
+            android:name=".module.activity.SettingActivity"
             android:label="设置"
             android:screenOrientation="portrait" />
 
@@ -100,7 +100,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.PictureActivity"
+            android:name=".module.activity.PictureActivity"
             android:label=""
             android:screenOrientation="portrait"
             android:theme="@style/PictureTheme" />

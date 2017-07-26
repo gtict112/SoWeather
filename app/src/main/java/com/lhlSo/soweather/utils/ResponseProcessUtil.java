@@ -1,15 +1,15 @@
 package com.lhlSo.soweather.utils;
 
-import com.lhlSo.soweather.mode.Aqi;
-import com.lhlSo.soweather.mode.BeautyListDate;
-import com.lhlSo.soweather.mode.Constellation;
-import com.lhlSo.soweather.mode.Dailyforecast;
-import com.lhlSo.soweather.mode.Hourlyforecast;
-import com.lhlSo.soweather.mode.NowWeather;
-import com.lhlSo.soweather.mode.Result;
-import com.lhlSo.soweather.mode.Suggestion;
-import com.lhlSo.soweather.mode.TopNew;
-import com.lhlSo.soweather.mode.Zodiac;
+import com.lhlSo.soweather.bean.Aqi;
+import com.lhlSo.soweather.bean.BeautyListDate;
+import com.lhlSo.soweather.bean.Constellation;
+import com.lhlSo.soweather.bean.Dailyforecast;
+import com.lhlSo.soweather.bean.Hourlyforecast;
+import com.lhlSo.soweather.bean.NowWeather;
+import com.lhlSo.soweather.bean.Result;
+import com.lhlSo.soweather.bean.Suggestion;
+import com.lhlSo.soweather.bean.TopNew;
+import com.lhlSo.soweather.bean.Zodiac;
 
 import org.json.JSONArray;
 import org.json.JSONException;

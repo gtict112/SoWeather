@@ -45,7 +45,7 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
-            <com.lhlSo.soweather.view.Xcflowlayout
+            <com.lhlSo.soweather.widget.Xcflowlayout
                 android:id="@+id/flowlayout"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"

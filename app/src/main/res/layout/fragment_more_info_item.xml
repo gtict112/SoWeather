@@ -464,7 +464,7 @@
                         android:layout_marginTop="3dp"
                         android:background="@color/line" />
 
-                    <com.lhlSo.soweather.view.CustomGallery
+                    <com.lhlSo.soweather.widget.CustomGallery
                         android:id="@+id/loop_rotary_switch"
                         android:layout_width="match_parent"
                         android:layout_height="200dp" />
