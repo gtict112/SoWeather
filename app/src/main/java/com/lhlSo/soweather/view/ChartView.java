@@ -10,7 +10,8 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.example.administrator.soweather.R;
+
+import com.lhlSo.soweather.R;
 
 import java.util.List;
 

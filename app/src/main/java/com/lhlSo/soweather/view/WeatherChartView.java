@@ -1,3 +1,4 @@
+package com.lhlSo.soweather.view;
 
 import android.animation.LayoutTransition;
 import android.content.Context;
@@ -12,8 +13,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.administrator.soweather.R;
+import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.mode.Dailyforecast;
+import com.lhlSo.soweather.mode.WeathImg;
+import com.lhlSo.soweather.utils.DateToWeek;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -11,7 +11,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.example.administrator.soweather.R;
+import com.lhlSo.soweather.R;
+
 
 /**
  * Created by Administrator on 2016/10/10.

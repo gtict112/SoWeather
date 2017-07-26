@@ -20,9 +20,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.administrator.soweather.R;
+import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.db.SoWeatherDB;
+import com.lhlSo.soweather.mode.Constellation;
 import com.lhlSo.soweather.mode.Dailyforecast;
+import com.lhlSo.soweather.mode.Result;
+import com.lhlSo.soweather.mode.WeathImg;
+import com.lhlSo.soweather.mode.Zodiac;
+import com.lhlSo.soweather.service.ConstellationService;
+import com.lhlSo.soweather.service.ZodiacService;
+import com.lhlSo.soweather.utils.ImageUtil;
+import com.lhlSo.soweather.utils.ResponseListenter;
 import com.lhlSo.soweather.view.CustomGallery;
 
 /**

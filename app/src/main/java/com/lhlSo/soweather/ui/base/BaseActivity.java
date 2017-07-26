@@ -15,8 +15,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.example.administrator.soweather.R;
-import com.example.administrator.soweather.com.example.administrator.soweather.core.Appconfiguration;
+import com.lhlSo.soweather.R;
+import com.lhlSo.soweather.core.Appconfiguration;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 

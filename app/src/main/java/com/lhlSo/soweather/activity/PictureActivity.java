@@ -28,7 +28,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.Target;
-import com.example.administrator.soweather.R;
+import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.mode.Result;
 import com.lhlSo.soweather.service.BeautyService;
 import com.lhlSo.soweather.ui.base.BaseActivity;

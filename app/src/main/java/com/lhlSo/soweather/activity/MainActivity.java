@@ -15,13 +15,14 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.administrator.soweather.R;
 import com.lhlSo.soweather.AppGlobal;
+import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.core.Appconfiguration;
 import com.lhlSo.soweather.fragment.BeautyFragment;
 import com.lhlSo.soweather.fragment.MainFragment;
 import com.lhlSo.soweather.fragment.TodayTopNewFragment;
 import com.lhlSo.soweather.fragment.WeixinSelectFragment;
+import com.lhlSo.soweather.mode.Result;
 import com.lhlSo.soweather.service.CityAndWeatherImgService;
 import com.lhlSo.soweather.ui.base.BaseActivity;
 import com.lhlSo.soweather.utils.ResponseListenter;

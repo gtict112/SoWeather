@@ -3,7 +3,7 @@ package com.lhlSo.soweather.activity;
 import android.os.Bundle;
 import android.webkit.WebView;
 
-import com.example.administrator.soweather.R;
+import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.ui.base.BaseActivity;
 
 /**

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -16,7 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.administrator.soweather.R;
+import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.activity.MainActivity;
 import com.lhlSo.soweather.core.Appconfiguration;
 import com.lhlSo.soweather.mode.Result;

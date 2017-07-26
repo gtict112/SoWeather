@@ -1,6 +1,7 @@
 package com.lhlSo.soweather.core;
 
-import com.example.administrator.soweather.R;
+
+import com.lhlSo.soweather.R;
 
 /**
  * Created by Administrator on 2016/11/2.

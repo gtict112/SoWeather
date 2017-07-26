@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.administrator.soweather.R;
+import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.db.SoWeatherDB;
 import com.lhlSo.soweather.mode.City;
 import com.lhlSo.soweather.ui.base.BaseActivity;

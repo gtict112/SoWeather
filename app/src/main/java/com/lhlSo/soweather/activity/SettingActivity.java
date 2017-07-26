@@ -22,7 +22,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.administrator.soweather.R;
+import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.core.Appconfiguration;
 import com.lhlSo.soweather.db.SoWeatherDB;
 import com.lhlSo.soweather.fragment.WinTimeSettingDialogFragment;
@@ -32,6 +32,7 @@ import com.lhlSo.soweather.mode.WeathImg;
 import com.lhlSo.soweather.service.WeatherService;
 import com.lhlSo.soweather.ui.base.BaseActivity;
 import com.lhlSo.soweather.utils.CashDataManager;
+import com.lhlSo.soweather.utils.ResponseListenter;
 
 import org.json.JSONException;
 import org.json.JSONObject;

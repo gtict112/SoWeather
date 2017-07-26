@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
-import com.example.administrator.soweather.R;
+import com.lhlSo.soweather.R;
 import com.thefinestartist.finestwebview.FinestWebView;
 import com.thefinestartist.utils.content.ThemeUtil;
 

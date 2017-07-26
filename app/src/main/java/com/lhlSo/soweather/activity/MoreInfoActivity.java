@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 
-import com.example.administrator.soweather.R;
+import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.fragment.MoreInfoItemFragment;
 import com.lhlSo.soweather.mode.Dailyforecast;
 import com.lhlSo.soweather.ui.base.BaseActivity;

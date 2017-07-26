@@ -32,12 +32,13 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.administrator.soweather.R;
+import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.activity.CurrentCityActivity;
 import com.lhlSo.soweather.activity.MainActivity;
 import com.lhlSo.soweather.activity.Managecity;
 import com.lhlSo.soweather.activity.MoreInfoActivity;
 import com.lhlSo.soweather.core.Appconfiguration;
+import com.lhlSo.soweather.core.Constans;
 import com.lhlSo.soweather.db.SoWeatherDB;
 import com.lhlSo.soweather.mode.Aqi;
 import com.lhlSo.soweather.mode.City;
@@ -55,6 +56,7 @@ import com.lhlSo.soweather.utils.ResponseListenter;
 import com.lhlSo.soweather.utils.ShareUtils;
 import com.lhlSo.soweather.view.HorizontalRecyclerView;
 import com.lhlSo.soweather.view.MarqueeView;
+import com.lhlSo.soweather.view.WeatherChartView;
 
 
 import org.json.JSONException;
@@ -64,7 +66,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.administrator.soweather.R.styleable.WeatherChartView;
 
 /**
  * Created by Administrator on 2016/10/10.

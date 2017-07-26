@@ -18,7 +18,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.administrator.soweather.R;
+import com.lhlSo.soweather.R;
+import com.lhlSo.soweather.db.SoWeatherDB;
+import com.lhlSo.soweather.mode.ManageCity;
+import com.lhlSo.soweather.mode.NowWeather;
+import com.lhlSo.soweather.mode.Result;
+import com.lhlSo.soweather.mode.WeathImg;
+import com.lhlSo.soweather.service.WeatherService;
+import com.lhlSo.soweather.ui.base.BaseActivity;
+import com.lhlSo.soweather.utils.ResponseListenter;
 
 import org.json.JSONException;
 import org.json.JSONObject;

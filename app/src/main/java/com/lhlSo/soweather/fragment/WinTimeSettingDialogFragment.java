@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.example.administrator.soweather.R;
+import com.lhlSo.soweather.R;
+import com.lhlSo.soweather.core.Appconfiguration;
+
 
 /**
  * Created by Administrator on 2017/7/20.

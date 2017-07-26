@@ -1,3 +1,4 @@
+package com.lhlSo.soweather.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -17,7 +18,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.administrator.soweather.R;
+import com.lhlSo.soweather.R;
+import com.lhlSo.soweather.core.Appconfiguration;
+import com.lhlSo.soweather.mode.Result;
+import com.lhlSo.soweather.mode.TopNew;
+import com.lhlSo.soweather.service.News;
+import com.lhlSo.soweather.utils.ResponseListenter;
+import com.lhlSo.soweather.utils.WebUtils;
 
 import java.util.ArrayList;
 import java.util.List;

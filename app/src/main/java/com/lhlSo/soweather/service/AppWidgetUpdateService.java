@@ -24,7 +24,17 @@ import android.os.IBinder;
 import android.os.Message;
 import android.widget.RemoteViews;
 
-import com.example.administrator.soweather.R;
+
+import com.lhlSo.soweather.R;
+import com.lhlSo.soweather.activity.SpanActivity;
+import com.lhlSo.soweather.core.Appconfiguration;
+import com.lhlSo.soweather.core.ParentsAppWidgetProvider;
+import com.lhlSo.soweather.db.SoWeatherDB;
+import com.lhlSo.soweather.mode.Dailyforecast;
+import com.lhlSo.soweather.mode.NowWeather;
+import com.lhlSo.soweather.mode.Result;
+import com.lhlSo.soweather.mode.WeathImg;
+import com.lhlSo.soweather.utils.ResponseListenter;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -3,6 +3,11 @@ package com.lhlSo.soweather.service;
 import android.graphics.Bitmap;
 
 
+import com.lhlSo.soweather.mode.BeautyListDate;
+import com.lhlSo.soweather.mode.Result;
+import com.lhlSo.soweather.utils.ResponseListenter;
+import com.lhlSo.soweather.utils.ResponseProcessUtil;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;

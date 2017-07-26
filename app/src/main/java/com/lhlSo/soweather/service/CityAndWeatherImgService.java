@@ -6,6 +6,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 
+import com.lhlSo.soweather.db.SoWeatherDB;
+import com.lhlSo.soweather.mode.City;
+import com.lhlSo.soweather.mode.County;
+import com.lhlSo.soweather.mode.Province;
+import com.lhlSo.soweather.mode.Result;
+import com.lhlSo.soweather.mode.WeathImg;
+import com.lhlSo.soweather.utils.ResponseListenter;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

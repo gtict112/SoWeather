@@ -2,14 +2,11 @@ package com.lhlSo.soweather.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.app.FragmentActivity;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.example.administrator.soweather.R;
+import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.core.Appconfiguration;
-import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.components.RxActivity;
 
 import java.util.concurrent.TimeUnit;

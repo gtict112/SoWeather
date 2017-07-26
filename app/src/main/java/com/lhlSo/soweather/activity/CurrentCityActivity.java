@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.administrator.soweather.R;
+import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.core.Constans;
 import com.lhlSo.soweather.db.SoWeatherDB;
 import com.lhlSo.soweather.mode.ManageCity;

@@ -12,7 +12,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import com.example.administrator.soweather.R;
+
+import com.lhlSo.soweather.R;
 
 import java.util.ArrayList;
 import java.util.List;

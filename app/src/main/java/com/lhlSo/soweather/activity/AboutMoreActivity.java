@@ -10,7 +10,7 @@ import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.ViewSwitcher;
 
-import com.example.administrator.soweather.R;
+import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.ui.base.BaseActivity;
 import com.lhlSo.soweather.utils.ShareUtils;
 import com.lhlSo.soweather.utils.WebUtils;
