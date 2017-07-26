@@ -4,9 +4,6 @@ import android.annotation.TargetApi;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.MenuRes;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -30,13 +27,10 @@ import butterknife.Unbinder;
 public abstract class BaseActivity extends RxAppCompatActivity {
     protected Toolbar toolbar;
     private Unbinder binder;
-    protected abstract
-    @LayoutRes
-    int getLayoutId();
 
-    protected abstract
-    @MenuRes
-    int getMenuId();
+    protected abstract int getLayoutId();
+
+    protected abstract int getMenuId();
 
     protected abstract void initViews(Bundle savedInstanceState);
 
@@ -48,7 +42,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         super.onCreate(savedInstanceState);
         setToobarColor();
         setContentView(getLayoutId());
-        binder= ButterKnife.bind(this);
+        binder = ButterKnife.bind(this);
         initToolBar();
         initViews(savedInstanceState);
         Appconfiguration.getInstance().addActivity(this);
@@ -81,7 +75,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     }
 
     protected void onDestroy() {
-            super.onDestroy();
+        super.onDestroy();
         binder.unbind();
         Appconfiguration.getInstance().removeActivity(this);
     }

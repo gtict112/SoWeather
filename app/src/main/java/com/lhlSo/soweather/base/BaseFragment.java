@@ -1,8 +1,6 @@
 package com.lhlSo.soweather.base;
 
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +22,6 @@ public abstract class BaseFragment extends RxFragment {
     private Unbinder binder;
 
     protected abstract
-    @LayoutRes
     int getLayoutId();
 
     protected abstract void initViews();
@@ -35,6 +32,7 @@ public abstract class BaseFragment extends RxFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mRootView = inflater.inflate(getLayoutId(), container, false);
+        binder = ButterKnife.bind(this, mRootView);
         return mRootView;
     }
 
@@ -56,7 +54,6 @@ public abstract class BaseFragment extends RxFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binder = ButterKnife.bind(this, view);
         isViewPrepared = true;
         lazyFetchDataIfPrepared();
         initViews();

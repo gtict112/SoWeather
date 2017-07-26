@@ -38,7 +38,6 @@ import butterknife.BindView;
 
 public class TodayTopNewFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
     private Appconfiguration config = Appconfiguration.getInstance();
-    private ListView recommended;
     private List<TopNew> mNewDate = new ArrayList<>();
     private Handler mHandler;
     private NewsAdapter mNewsAdapter;
@@ -46,6 +45,10 @@ public class TodayTopNewFragment extends BaseFragment implements SwipeRefreshLay
     SwipeRefreshLayout mSwipeLayout;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+
+
+    @BindView(R.id.recommended)
+    ListView recommended;
 
     @Override
     protected int getLayoutId() {

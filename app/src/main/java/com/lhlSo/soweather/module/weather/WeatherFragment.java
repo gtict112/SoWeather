@@ -74,13 +74,7 @@ import butterknife.BindView;
  */
 public class WeatherFragment extends BaseFragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     private Appconfiguration config = Appconfiguration.getInstance();
-    private TextView date;//更新时间
-    private TextView mTmp;//温度
-    private TextView code_txt;//天气描述
     private String tem_min_max;//最高温度和最低温度
-    private TextView pm;//pm2.5
-    private TextView qlty;//空气质量描述
-    private LinearLayout life;
     private String cityid;
     private String city;
     private String county;
@@ -99,74 +93,26 @@ public class WeatherFragment extends BaseFragment implements View.OnClickListene
     private String pcpn;
     private String pres;
     private String vis;
-    private RecyclerView day_weather;
     private GalleryAdapter mDailyAdapter;
     private Aqi mAqi = new Aqi();
-    private LinearLayout aqi;
-    private LinearLayout linearLayout2;
     private DisplayMetrics dm = new DisplayMetrics();
-    private ImageView bg;
-    private ImageView gif;
     private Boolean isShowWeatherChart = false;
-    private ImageView wind_img;
-    private MarqueeView wind_txt;
     private List<String> items = new ArrayList<>();
     private String mDate;
     private Zodiac mZodiac = new Zodiac();
-    private TextView ji;
-    private TextView yi;
-    private ImageView aqi_img;
-    private LinearLayout today_detail;
     private int flag = 0;
     private String current;
-    private TextView city_name;
     private TimeAdapter mTimeAdapter;
-    private RecyclerView time_weather;
-    private LinearLayout day_weather_chart;
-    private LinearLayout time_weather_chart;
-    private LinearLayout day_weather_content;
     private Boolean isShowTimeLayout = true;
     private Boolean isShowDayLayout = true;
-    private ImageView is_show_day_layout;
-    private ImageView is_show_time_layout;
-    private LinearLayout dailyForecast;
     private Suggestion mSuggestion = new Suggestion();
 
-    private TextView flubrf;
-    private TextView drsgbrf;
-    private TextView travbrf;
-    private TextView sportbrf;
-
-    private TextView cunty_name;
-
-    private TextView pm10;
-    private TextView pm25;
-    private TextView no2;
-    private TextView so2;
-    private TextView co;
-    private TextView o3;
-    private ProgressBar circle_pm10;
-    private ProgressBar circle_pm25;
-    private ProgressBar circle_no2;
-    private ProgressBar circle_so2;
-    private ProgressBar circle_co;
-    private ProgressBar circle_o3;
-    private TextView time_weather_tip;
-
     private int succe = 0;
-    private LinearLayout hour_layout;
-
 
     private ArrayList<String> errors = new ArrayList<>();
 
 
     private String currentWeather = null;
-
-
-    private LinearLayout trav_layout;
-    private LinearLayout drsg_layout;
-    private LinearLayout flu_layout;
-    private LinearLayout sport_layout;
     public LocationClient mLocationClient = null;
     public MyLocationListenner myListener = new MyLocationListenner();
 
@@ -183,58 +129,150 @@ public class WeatherFragment extends BaseFragment implements View.OnClickListene
     @BindView(R.id.swipeLayout)
     SwipeRefreshLayout mSwipeLayout;
 
+    @BindView(R.id.gif)
+    ImageView gif;
+
+    @BindView(R.id.contentLayout)
+    LinearLayout dailyForecast;
+
+    @BindView(R.id.day_weather_chart)
+    LinearLayout day_weather_chart;
 
 
-    gif = WeatherFragment(R.id.gif);
-    dailyForecast = WeatherFragment(R.id.contentLayout);
-    day_weather_chart = WeatherFragment(R.id.day_weather_chart);
-    day_weather_content = WeatherFragment(R.id.day_weather_content);
-    time_weather_chart = WeatherFragment(R.id.time_weather_chart);
-    is_show_day_layout = WeatherFragment(R.id.is_show_day_layout);
-    is_show_time_layout = WeatherFragment(R.id.is_show_time_layout);
-    time_weather = WeatherFragment(R.id.time_weather);
-    city_name = WeatherFragment(R.id.city_name);
-    flubrf = WeatherFragment(R.id.flubrf);
-    drsgbrf = WeatherFragment(R.id.drsgbrf);
-    travbrf = WeatherFragment(R.id.travbrf);
-    sportbrf = WeatherFragment(R.id.sportbrf);
-    today_detail = WeatherFragment(R.id.today_detail);
-        today_detail.setOnClickListener(this);
-    wind_img = WeatherFragment(R.id.wind_img);
-    wind_txt = WeatherFragment(R.id.wind_txt);
-    date = WeatherFragment(R.id.date);
-    mTmp = WeatherFragment(R.id.tmp);
-    code_txt = WeatherFragment(R.id.code_txt);
-    pm = WeatherFragment(R.id.pm);
-    qlty = WeatherFragment(R.id.qlty);
-    life = WeatherFragment(R.id.life);
-    linearLayout2 = WeatherFragment(R.id.linearLayout2);
-    day_weather = WeatherFragment(R.id.day_weather);
-    aqi_img = WeatherFragment(R.id.aqi_img);
-    aqi = WeatherFragment(R.id.aqi);
-    bg = WeatherFragment(R.id.bg);
-    yi = WeatherFragment(R.id.yi);
-    ji = WeatherFragment(R.id.ji);
-    cunty_name = WeatherFragment(R.id.cunty_name);
-    time_weather_tip = WeatherFragment(R.id.time_weather_tip);
-    pm10 = WeatherFragment(R.id.pm10);
-    pm25 = WeatherFragment(R.id.pm25);
-    no2 = WeatherFragment(R.id.no2);
-    so2 = WeatherFragment(R.id.so2);
-    co = WeatherFragment(R.id.co);
-    o3 = WeatherFragment(R.id.o3);
-    circle_pm10 = WeatherFragment(R.id.circle_pm10);
-    circle_pm25 = WeatherFragment(R.id.circle_pm25);
-    circle_no2 = WeatherFragment(R.id.circle_no2);
-    circle_so2 = WeatherFragment(R.id.circle_so2);
-    circle_co = WeatherFragment(R.id.circle_co);
-    circle_o3 = WeatherFragment(R.id.circle_o3);
+    @BindView(R.id.day_weather_content)
+    LinearLayout day_weather_content;
 
-    sport_layout = WeatherFragment(R.id.sport_layout);
-    trav_layout = WeatherFragment(R.id.trav_layout);
-    drsg_layout = WeatherFragment(R.id.drsg_layout);
-    flu_layout = WeatherFragment(R.id.flu_layout);
-    hour_layout = WeatherFragment(R.id.hour_layout);
+
+    @BindView(R.id.time_weather_chart)
+    LinearLayout time_weather_chart;
+
+    @BindView(R.id.is_show_day_layout)
+    ImageView is_show_day_layout;
+
+    @BindView(R.id.is_show_time_layout)
+    ImageView is_show_time_layout;
+
+    @BindView(R.id.time_weather)
+    RecyclerView time_weather;
+
+    @BindView(R.id.city_name)
+    TextView city_name;
+
+    @BindView(R.id.flubrf)
+    TextView flubrf;
+
+    @BindView(R.id.drsgbrf)
+    TextView drsgbrf;
+
+    @BindView(R.id.travbrf)
+    TextView travbrf;
+
+    @BindView(R.id.sportbrf)
+    TextView sportbrf;
+
+    @BindView(R.id.today_detail)
+    LinearLayout today_detail;
+
+    @BindView(R.id.wind_img)
+    ImageView wind_img;
+
+    @BindView(R.id.wind_txt)
+    MarqueeView wind_txt;
+
+    @BindView(R.id.date)
+    TextView date;
+
+    @BindView(R.id.tmp)
+    TextView mTmp;
+
+    @BindView(R.id.code_txt)
+    TextView code_txt;
+
+    @BindView(R.id.pm)
+    TextView pm;
+
+    @BindView(R.id.qlty)
+    TextView qlty;
+
+    @BindView(R.id.life)
+    LinearLayout life;
+
+    @BindView(R.id.linearLayout2)
+    LinearLayout linearLayout2;
+
+    @BindView(R.id.day_weather)
+    RecyclerView day_weather;
+
+    @BindView(R.id.aqi_img)
+    ImageView aqi_img;
+
+    @BindView(R.id.aqi)
+    LinearLayout aqi;
+
+    @BindView(R.id.bg)
+    ImageView bg;
+
+
+    @BindView(R.id.yi)
+    TextView yi;
+
+    @BindView(R.id.ji)
+    TextView ji;
+
+    @BindView(R.id.cunty_name)
+    TextView cunty_name;
+
+    @BindView(R.id.time_weather_tip)
+    TextView time_weather_tip;
+
+    @BindView(R.id.pm10)
+    TextView pm10;
+
+    @BindView(R.id.pm25)
+    TextView pm25;
+
+
+    @BindView(R.id.no2)
+    TextView no2;
+
+    @BindView(R.id.so2)
+    TextView so2;
+    @BindView(R.id.co)
+    TextView co;
+    @BindView(R.id.o3)
+    TextView o3;
+
+    @BindView(R.id.circle_pm10)
+    ProgressBar circle_pm10;
+
+    @BindView(R.id.circle_pm25)
+    ProgressBar circle_pm25;
+
+    @BindView(R.id.circle_no2)
+    ProgressBar circle_no2;
+
+    @BindView(R.id.circle_so2)
+    ProgressBar circle_so2;
+
+    @BindView(R.id.circle_co)
+    ProgressBar circle_co;
+
+    @BindView(R.id.circle_o3)
+    ProgressBar circle_o3;
+
+    @BindView(R.id.sport_layout)
+    LinearLayout sport_layout;
+
+    @BindView(R.id.trav_layout)
+    LinearLayout trav_layout;
+
+    @BindView(R.id.drsg_layout)
+    LinearLayout drsg_layout;
+    @BindView(R.id.flu_layout)
+    LinearLayout flu_layout;
+    @BindView(R.id.hour_layout)
+    LinearLayout hour_layout;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -750,6 +788,7 @@ public class WeatherFragment extends BaseFragment implements View.OnClickListene
         trav_layout.setOnClickListener(this);
         drsg_layout.setOnClickListener(this);
         flu_layout.setOnClickListener(this);
+        today_detail.setOnClickListener(this);
         circle_pm10.setMax(400);
         circle_pm25.setMax(400);
         circle_so2.setMax(400);
