@@ -1,4 +1,4 @@
-package com.lhlSo.soweather.utils;
+package com.lhlSo.soweather.http;
 
 import java.util.concurrent.TimeUnit;
 
