@@ -21,8 +21,6 @@ import butterknife.Unbinder;
 public abstract class BaseFragment extends RxFragment {
     private boolean isViewPrepared; // 标识fragment视图已经初始化完毕
     private boolean hasFetchData; // 标识已经触发过懒加载数据
-
-    protected View mRootView;
     private Unbinder binder;
 
     protected abstract
@@ -36,7 +34,7 @@ public abstract class BaseFragment extends RxFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mRootView = inflater.inflate(getLayoutId(), container, false);
+        View mRootView = inflater.inflate(getLayoutId(), container, false);
         return mRootView;
     }
 
@@ -70,10 +68,6 @@ public abstract class BaseFragment extends RxFragment {
         hasFetchData = false;
         isViewPrepared = false;
         binder.unbind();
-    }
-
-    protected <T extends View> T findView(@IdRes int id) {
-        return (T) mRootView.findViewById(id);
     }
 
 }

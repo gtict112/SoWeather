@@ -42,8 +42,10 @@ public class TodayTopNewFragment extends BaseFragment implements SwipeRefreshLay
     private List<TopNew> mNewDate = new ArrayList<>();
     private Handler mHandler;
     private NewsAdapter mNewsAdapter;
-    private SwipeRefreshLayout mSwipeLayout;
-    private Toolbar mToolbar;
+    @BindView(R.id.swipeLayout)
+    SwipeRefreshLayout mSwipeLayout;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
 
     @Override
     protected int getLayoutId() {
@@ -52,7 +54,6 @@ public class TodayTopNewFragment extends BaseFragment implements SwipeRefreshLay
 
     @Override
     protected void initViews() {
-        mToolbar = findView(R.id.toolbar);
         mToolbar.setTitle("今日头条");
         ((MainActivity) getActivity()).initDrawer(mToolbar);
         initView();
@@ -175,7 +176,6 @@ public class TodayTopNewFragment extends BaseFragment implements SwipeRefreshLay
     }
 
     private void initView() {
-        mSwipeLayout = findView(R.id.swipeLayout);
         mSwipeLayout.setOnRefreshListener(this);
         // 设置下拉圆圈上的颜色，蓝色、绿色、橙色、红色
         mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,

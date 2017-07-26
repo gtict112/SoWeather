@@ -1,4 +1,4 @@
-package com.lhlSo.soweather.module.fragment;
+package com.lhlSo.soweather.module.beauty;
 
 import android.content.Context;
 import android.content.Intent;
@@ -33,23 +33,28 @@ import com.lhlSo.soweather.widget.RatioImageView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 
 /**
  * Created by Administrator on 2017/6/6.
  */
 
 public class BeautyFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
-    private Toolbar mToolbar;
     private String id = "福利";
     private List<BeautyListDate> mDate = new ArrayList<>();
     private Handler mHandler;
-    private RecyclerView mList;
     private BeautyAdapter mBeautyAdapter;
     private Appconfiguration config = Appconfiguration.getInstance();
-    private SwipeRefreshLayout mSwipeLayout;
     private LinearLayoutManager linearLayoutManager;
     private int page = 1;
     private int width;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+    @BindView(R.id.swipeLayout)
+    SwipeRefreshLayout mSwipeLayout;
+    @BindView(R.id.beauty_list)
+    RecyclerView mList;
 
     @Override
     protected int getLayoutId() {
@@ -70,14 +75,12 @@ public class BeautyFragment extends BaseFragment implements SwipeRefreshLayout.O
 
 
     private void initView() {
-        mToolbar = findView(R.id.toolbar);
         mToolbar.setTitle("福利社");
         ((MainActivity) getActivity()).initDrawer(mToolbar);
         WindowManager manager = getActivity().getWindowManager();
         DisplayMetrics outMetrics = new DisplayMetrics();
         manager.getDefaultDisplay().getMetrics(outMetrics);
         width = outMetrics.widthPixels;
-        mSwipeLayout = findView(R.id.swipeLayout);
         mSwipeLayout.setOnRefreshListener(this);
         // 设置下拉圆圈上的颜色，蓝色、绿色、橙色、红色
         mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
@@ -85,13 +88,14 @@ public class BeautyFragment extends BaseFragment implements SwipeRefreshLayout.O
         mSwipeLayout.setDistanceToTriggerSync(300);// 设置手指在屏幕下拉多少距离会触发下拉刷新
         mSwipeLayout.setProgressBackgroundColor(R.color.white); // 设定下拉圆圈的背景
         mSwipeLayout.setSize(SwipeRefreshLayout.DEFAULT); // 设置圆圈的大小
-        mList = findView(R.id.beauty_list);
         linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         final StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.space);
         mList.setLayoutManager(layoutManager);
-        mList.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+        mList.addItemDecoration(new
+
+                SpaceItemDecoration(spacingInPixels));
     }
 
     private void getDate(String Id) {

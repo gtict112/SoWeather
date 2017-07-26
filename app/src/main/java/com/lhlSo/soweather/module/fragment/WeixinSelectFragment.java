@@ -15,15 +15,22 @@ import com.lhlSo.soweather.base.BaseFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * Created by Administrator on 2017/7/18.
  */
 
 public class WeixinSelectFragment extends BaseFragment {
-    private Toolbar mToolbar;
-    private ViewPager viewPager;
     private String[] TITLE = {"社会", "国内", "国际", "娱乐", "体育", "军事", "科技", "财经", "时尚"};
     private String[] IDS = {"shehui", "guonei", "guoji", "yule", "tiyu", "junshi", "keji", "caijing", "shishang"};
+
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+    @BindView(R.id.weixin_viewPager)
+    ViewPager viewPager;
+    @BindView(R.id.tabs)
+    TabLayout tabLayout;
 
     @Override
     protected int getLayoutId() {
@@ -32,7 +39,6 @@ public class WeixinSelectFragment extends BaseFragment {
 
     @Override
     protected void initViews() {
-        mToolbar = findView(R.id.toolbar);
         mToolbar.setTitle("微信精选");
         ((MainActivity) getActivity()).initDrawer(mToolbar);
         initView();
@@ -45,8 +51,6 @@ public class WeixinSelectFragment extends BaseFragment {
 
 
     private void initView() {
-        viewPager = findView(R.id.weixin_viewPager);
-        TabLayout tabLayout = findView(R.id.tabs);
         setupViewPager(viewPager);
         viewPager.setOffscreenPageLimit(viewPager.getAdapter().getCount());
         tabLayout.setupWithViewPager(viewPager);

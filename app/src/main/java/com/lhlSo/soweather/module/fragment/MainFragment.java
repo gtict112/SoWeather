@@ -67,14 +67,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 
 /**
  * Created by Administrator on 2016/10/10.
  */
 public class MainFragment extends BaseFragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
-    private Toolbar mToolbar;
-
-
     private Appconfiguration config = Appconfiguration.getInstance();
     private TextView date;//更新时间
     private TextView mTmp;//温度
@@ -119,7 +118,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     private TextView yi;
     private ImageView aqi_img;
     private LinearLayout today_detail;
-    private SwipeRefreshLayout mSwipeLayout;
     private int flag = 0;
     private String current;
     private TextView city_name;
@@ -155,10 +153,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     private ProgressBar circle_co;
     private ProgressBar circle_o3;
     private TextView time_weather_tip;
+
     private int succe = 0;
-
-    private FloatingActionButton fabutton;
-
     private LinearLayout hour_layout;
 
 
@@ -175,6 +171,71 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     public LocationClient mLocationClient = null;
     public MyLocationListenner myListener = new MyLocationListenner();
 
+
+    /**
+     * 添加注解
+     */
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+
+    @BindView(R.id.fab)
+    FloatingActionButton fabutton;
+
+    @BindView(R.id.swipeLayout)
+    SwipeRefreshLayout mSwipeLayout;
+
+
+
+    gif = findView(R.id.gif);
+    dailyForecast = findView(R.id.contentLayout);
+    day_weather_chart = findView(R.id.day_weather_chart);
+    day_weather_content = findView(R.id.day_weather_content);
+    time_weather_chart = findView(R.id.time_weather_chart);
+    is_show_day_layout = findView(R.id.is_show_day_layout);
+    is_show_time_layout = findView(R.id.is_show_time_layout);
+    time_weather = findView(R.id.time_weather);
+    city_name = findView(R.id.city_name);
+    flubrf = findView(R.id.flubrf);
+    drsgbrf = findView(R.id.drsgbrf);
+    travbrf = findView(R.id.travbrf);
+    sportbrf = findView(R.id.sportbrf);
+    today_detail = findView(R.id.today_detail);
+        today_detail.setOnClickListener(this);
+    wind_img = findView(R.id.wind_img);
+    wind_txt = findView(R.id.wind_txt);
+    date = findView(R.id.date);
+    mTmp = findView(R.id.tmp);
+    code_txt = findView(R.id.code_txt);
+    pm = findView(R.id.pm);
+    qlty = findView(R.id.qlty);
+    life = findView(R.id.life);
+    linearLayout2 = findView(R.id.linearLayout2);
+    day_weather = findView(R.id.day_weather);
+    aqi_img = findView(R.id.aqi_img);
+    aqi = findView(R.id.aqi);
+    bg = findView(R.id.bg);
+    yi = findView(R.id.yi);
+    ji = findView(R.id.ji);
+    cunty_name = findView(R.id.cunty_name);
+    time_weather_tip = findView(R.id.time_weather_tip);
+    pm10 = findView(R.id.pm10);
+    pm25 = findView(R.id.pm25);
+    no2 = findView(R.id.no2);
+    so2 = findView(R.id.so2);
+    co = findView(R.id.co);
+    o3 = findView(R.id.o3);
+    circle_pm10 = findView(R.id.circle_pm10);
+    circle_pm25 = findView(R.id.circle_pm25);
+    circle_no2 = findView(R.id.circle_no2);
+    circle_so2 = findView(R.id.circle_so2);
+    circle_co = findView(R.id.circle_co);
+    circle_o3 = findView(R.id.circle_o3);
+
+    sport_layout = findView(R.id.sport_layout);
+    trav_layout = findView(R.id.trav_layout);
+    drsg_layout = findView(R.id.drsg_layout);
+    flu_layout = findView(R.id.flu_layout);
+    hour_layout = findView(R.id.hour_layout);
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -660,8 +721,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     }
 
     private void initView() {
-        mToolbar = findView(R.id.toolbar);
-        fabutton = findView(R.id.fab);
         mToolbar.setTitle("天气");
         ((MainActivity) getActivity()).initDrawer(mToolbar);
         mToolbar.inflateMenu(R.menu.menu_weather);
@@ -681,7 +740,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 return false;
             }
         });
-        mSwipeLayout = findView(R.id.swipeLayout);
         mSwipeLayout.setOnRefreshListener(this);
         // 设置下拉圆圈上的颜色，蓝色、绿色、橙色、红色
         mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
@@ -689,61 +747,10 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         mSwipeLayout.setDistanceToTriggerSync(300);// 设置手指在屏幕下拉多少距离会触发下拉刷新
         mSwipeLayout.setProgressBackgroundColor(R.color.white); // 设定下拉圆圈的背景
         mSwipeLayout.setSize(SwipeRefreshLayout.DEFAULT); // 设置圆圈的大小
-        gif = findView(R.id.gif);
-        dailyForecast = findView(R.id.contentLayout);
-        day_weather_chart = findView(R.id.day_weather_chart);
-        day_weather_content = findView(R.id.day_weather_content);
-        time_weather_chart = findView(R.id.time_weather_chart);
-        is_show_day_layout = findView(R.id.is_show_day_layout);
-        is_show_time_layout = findView(R.id.is_show_time_layout);
-        time_weather = findView(R.id.time_weather);
-        city_name = findView(R.id.city_name);
-        flubrf = findView(R.id.flubrf);
-        drsgbrf = findView(R.id.drsgbrf);
-        travbrf = findView(R.id.travbrf);
-        sportbrf = findView(R.id.sportbrf);
-        today_detail = findView(R.id.today_detail);
-        today_detail.setOnClickListener(this);
-        wind_img = findView(R.id.wind_img);
-        wind_txt = findView(R.id.wind_txt);
-        date = findView(R.id.date);
-        mTmp = findView(R.id.tmp);
-        code_txt = findView(R.id.code_txt);
-        pm = findView(R.id.pm);
-        qlty = findView(R.id.qlty);
-        life = findView(R.id.life);
-        linearLayout2 = findView(R.id.linearLayout2);
-        day_weather = findView(R.id.day_weather);
-        aqi_img = findView(R.id.aqi_img);
-        aqi = findView(R.id.aqi);
-        bg = findView(R.id.bg);
-        yi = findView(R.id.yi);
-        ji = findView(R.id.ji);
-        cunty_name = findView(R.id.cunty_name);
-        time_weather_tip = findView(R.id.time_weather_tip);
-        pm10 = findView(R.id.pm10);
-        pm25 = findView(R.id.pm25);
-        no2 = findView(R.id.no2);
-        so2 = findView(R.id.so2);
-        co = findView(R.id.co);
-        o3 = findView(R.id.o3);
-        circle_pm10 = findView(R.id.circle_pm10);
-        circle_pm25 = findView(R.id.circle_pm25);
-        circle_no2 = findView(R.id.circle_no2);
-        circle_so2 = findView(R.id.circle_so2);
-        circle_co = findView(R.id.circle_co);
-        circle_o3 = findView(R.id.circle_o3);
-
-        sport_layout = findView(R.id.sport_layout);
-        trav_layout = findView(R.id.trav_layout);
-        drsg_layout = findView(R.id.drsg_layout);
-        flu_layout =findView (R.id.flu_layout);
         sport_layout.setOnClickListener(this);
         trav_layout.setOnClickListener(this);
         drsg_layout.setOnClickListener(this);
         flu_layout.setOnClickListener(this);
-
-        hour_layout = findView(R.id.hour_layout);
         circle_pm10.setMax(400);
         circle_pm25.setMax(400);
         circle_so2.setMax(400);

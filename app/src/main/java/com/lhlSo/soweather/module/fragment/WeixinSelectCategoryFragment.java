@@ -28,18 +28,24 @@ import com.lhlSo.soweather.utils.WebUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * Created by Administrator on 2017/7/18.
  */
 
 public class WeixinSelectCategoryFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
-    private SwipeRefreshLayout mSwipeLayout;
     private List<TopNew> mNewDate = new ArrayList<>();
     private Appconfiguration config = Appconfiguration.getInstance();
-    private ListView recommended;
     private Handler mHandler;
     private NewsAdapter mNewsAdapter;
     private String title;
+
+    @BindView(R.id.swipeLayout)
+    SwipeRefreshLayout mSwipeLayout;
+
+    @BindView(R.id.recommended)
+    ListView recommended;
 
     @Override
     protected int getLayoutId() {
@@ -80,7 +86,6 @@ public class WeixinSelectCategoryFragment extends BaseFragment implements SwipeR
 
 
     private void initView() {
-        mSwipeLayout = findView(R.id.swipeLayout);
         mSwipeLayout.setOnRefreshListener(this);
         // 设置下拉圆圈上的颜色，蓝色、绿色、橙色、红色
         mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
@@ -88,7 +93,6 @@ public class WeixinSelectCategoryFragment extends BaseFragment implements SwipeR
         mSwipeLayout.setDistanceToTriggerSync(300);// 设置手指在屏幕下拉多少距离会触发下拉刷新
         mSwipeLayout.setProgressBackgroundColor(R.color.white); // 设定下拉圆圈的背景
         mSwipeLayout.setSize(SwipeRefreshLayout.DEFAULT); // 设置圆圈的大小
-        recommended = findView(R.id.recommended);
         Bundle mBundle = getArguments();
         if (mBundle != null) {
             title = mBundle.getString("title");

@@ -18,7 +18,7 @@ import android.view.View;
 import com.lhlSo.soweather.base.AppGlobal;
 import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.core.Appconfiguration;
-import com.lhlSo.soweather.module.fragment.BeautyFragment;
+import com.lhlSo.soweather.module.beauty.BeautyFragment;
 import com.lhlSo.soweather.module.fragment.MainFragment;
 import com.lhlSo.soweather.module.fragment.TodayTopNewFragment;
 import com.lhlSo.soweather.module.fragment.WeixinSelectFragment;
