@@ -7,12 +7,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.activity.MainActivity;
+import com.lhlSo.soweather.base.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,27 +19,34 @@ import java.util.List;
  * Created by Administrator on 2017/7/18.
  */
 
-public class WeixinSelectFragment extends Fragment {
+public class WeixinSelectFragment extends BaseFragment {
     private Toolbar mToolbar;
     private ViewPager viewPager;
     private String[] TITLE = {"社会", "国内", "国际", "娱乐", "体育", "军事", "科技", "财经", "时尚"};
     private String[] IDS = {"shehui", "guonei", "guoji", "yule", "tiyu", "junshi", "keji", "caijing", "shishang"};
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_weixinselect, null);
-        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+    protected int getLayoutId() {
+        return R.layout.fragment_weixinselect;
+    }
+
+    @Override
+    protected void initViews() {
+        mToolbar = findView(R.id.toolbar);
         mToolbar.setTitle("微信精选");
         ((MainActivity) getActivity()).initDrawer(mToolbar);
-        initView(view);
-        return view;
+        initView();
+    }
+
+    @Override
+    protected void lazyFetchData() {
+
     }
 
 
-    private void initView(View view) {
-        viewPager = (ViewPager) view.findViewById(R.id.weixin_viewPager);
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
+    private void initView() {
+        viewPager = findView(R.id.weixin_viewPager);
+        TabLayout tabLayout = findView(R.id.tabs);
         setupViewPager(viewPager);
         viewPager.setOffscreenPageLimit(viewPager.getAdapter().getCount());
         tabLayout.setupWithViewPager(viewPager);

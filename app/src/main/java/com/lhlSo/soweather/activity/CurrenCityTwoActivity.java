@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.db.SoWeatherDB;
 import com.lhlSo.soweather.mode.City;
-import com.lhlSo.soweather.ui.base.BaseActivity;
+import com.lhlSo.soweather.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;

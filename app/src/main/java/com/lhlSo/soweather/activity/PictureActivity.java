@@ -31,7 +31,7 @@ import com.bumptech.glide.request.target.Target;
 import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.mode.Result;
 import com.lhlSo.soweather.service.BeautyService;
-import com.lhlSo.soweather.ui.base.BaseActivity;
+import com.lhlSo.soweather.base.BaseActivity;
 import com.lhlSo.soweather.utils.FileUtil;
 import com.lhlSo.soweather.utils.ResponseListenter;
 import com.lhlSo.soweather.utils.ShareUtils;

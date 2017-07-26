@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +21,7 @@ import com.lhlSo.soweather.core.Appconfiguration;
 import com.lhlSo.soweather.mode.Result;
 import com.lhlSo.soweather.mode.TopNew;
 import com.lhlSo.soweather.service.News;
+import com.lhlSo.soweather.base.BaseFragment;
 import com.lhlSo.soweather.utils.ResponseListenter;
 import com.lhlSo.soweather.utils.WebUtils;
 
@@ -33,7 +32,7 @@ import java.util.List;
  * Created by Administrator on 2017/7/18.
  */
 
-public class WeixinSelectCategoryFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class WeixinSelectCategoryFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
     private SwipeRefreshLayout mSwipeLayout;
     private List<TopNew> mNewDate = new ArrayList<>();
     private Appconfiguration config = Appconfiguration.getInstance();
@@ -43,14 +42,22 @@ public class WeixinSelectCategoryFragment extends Fragment implements SwipeRefre
     private String title;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_weixinselect_category, null);
-        initView(view);
+    protected int getLayoutId() {
+        return R.layout.fragment_weixinselect_category;
+    }
+
+    @Override
+    protected void initViews() {
+        initView();
         initDate();
         getHandleMessge();
-        return view;
     }
+
+    @Override
+    protected void lazyFetchData() {
+
+    }
+
 
     private void getHandleMessge() {
         mHandler = new Handler() {
@@ -72,8 +79,8 @@ public class WeixinSelectCategoryFragment extends Fragment implements SwipeRefre
     }
 
 
-    private void initView(View view) {
-        mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeLayout);
+    private void initView() {
+        mSwipeLayout = findView(R.id.swipeLayout);
         mSwipeLayout.setOnRefreshListener(this);
         // 设置下拉圆圈上的颜色，蓝色、绿色、橙色、红色
         mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
@@ -81,7 +88,7 @@ public class WeixinSelectCategoryFragment extends Fragment implements SwipeRefre
         mSwipeLayout.setDistanceToTriggerSync(300);// 设置手指在屏幕下拉多少距离会触发下拉刷新
         mSwipeLayout.setProgressBackgroundColor(R.color.white); // 设定下拉圆圈的背景
         mSwipeLayout.setSize(SwipeRefreshLayout.DEFAULT); // 设置圆圈的大小
-        recommended = (ListView) view.findViewById(R.id.recommended);
+        recommended = findView(R.id.recommended);
         Bundle mBundle = getArguments();
         if (mBundle != null) {
             title = mBundle.getString("title");

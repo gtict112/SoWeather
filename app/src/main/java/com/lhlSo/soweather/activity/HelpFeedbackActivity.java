@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.webkit.WebView;
 
 import com.lhlSo.soweather.R;
-import com.lhlSo.soweather.ui.base.BaseActivity;
+import com.lhlSo.soweather.base.BaseActivity;
 
 /**
  * Created by Administrator on 2016/10/26.

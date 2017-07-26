@@ -38,7 +38,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="dzb78OZ403ijf5DrDuV9H7v2UZjAOWQ7" />
 
-        <receiver android:name=".core.ParentsAppWidgetProvider">
+        <receiver android:name=".module.ParentsAppWidgetProvider">
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/appwidgetprovider" />
@@ -47,7 +47,7 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".service.AppWidgetUpdateService"/>
+        <service android:name=".module.AppWidgetUpdateService"/>
 
         <activity
             android:name=".activity.SpanActivity"

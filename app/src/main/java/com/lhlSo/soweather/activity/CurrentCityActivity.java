@@ -17,7 +17,7 @@ import com.lhlSo.soweather.core.Constans;
 import com.lhlSo.soweather.db.SoWeatherDB;
 import com.lhlSo.soweather.mode.ManageCity;
 import com.lhlSo.soweather.mode.Province;
-import com.lhlSo.soweather.ui.base.BaseActivity;
+import com.lhlSo.soweather.base.BaseActivity;
 import com.lhlSo.soweather.view.Xcflowlayout;
 
 import java.util.ArrayList;

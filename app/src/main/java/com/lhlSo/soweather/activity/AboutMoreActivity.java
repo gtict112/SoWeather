@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.ViewSwitcher;
 
 import com.lhlSo.soweather.R;
-import com.lhlSo.soweather.ui.base.BaseActivity;
+import com.lhlSo.soweather.base.BaseActivity;
 import com.lhlSo.soweather.utils.ShareUtils;
 import com.lhlSo.soweather.utils.WebUtils;
 

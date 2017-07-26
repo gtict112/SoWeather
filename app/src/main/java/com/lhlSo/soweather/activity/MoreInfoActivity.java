@@ -12,7 +12,7 @@ import android.support.v7.widget.Toolbar;
 import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.fragment.MoreInfoItemFragment;
 import com.lhlSo.soweather.mode.Dailyforecast;
-import com.lhlSo.soweather.ui.base.BaseActivity;
+import com.lhlSo.soweather.base.BaseActivity;
 import com.lhlSo.soweather.utils.DateToWeek;
 
 import java.util.ArrayList;

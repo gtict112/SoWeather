@@ -45,12 +45,12 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
-            <com.example.administrator.soweather.com.example.administrator.soweather.view.Xcflowlayout
+            <com.lhlSo.soweather.view.Xcflowlayout
                 android:id="@+id/flowlayout"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"></com.example.administrator.soweather.com.example.administrator.soweather.view.Xcflowlayout>
+                android:layout_marginTop="10dp" />
         </LinearLayout>
     </ScrollView>
 

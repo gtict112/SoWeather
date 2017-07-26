@@ -1,4 +1,4 @@
-package com.lhlSo.soweather;
+package com.lhlSo.soweather.base;
 
 /**
  * Created by liyu on 2016/10/31.

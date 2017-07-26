@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -15,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.activity.MainActivity;
@@ -23,13 +21,12 @@ import com.lhlSo.soweather.core.Appconfiguration;
 import com.lhlSo.soweather.mode.Result;
 import com.lhlSo.soweather.mode.TopNew;
 import com.lhlSo.soweather.service.News;
-import com.lhlSo.soweather.ui.base.BaseFragment;
+import com.lhlSo.soweather.base.BaseFragment;
 import com.lhlSo.soweather.utils.ResponseListenter;
 import com.lhlSo.soweather.utils.WebUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 
 

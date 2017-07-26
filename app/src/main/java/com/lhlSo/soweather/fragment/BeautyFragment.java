@@ -3,11 +3,9 @@ package com.lhlSo.soweather.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,13 +16,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.activity.MainActivity;
 import com.lhlSo.soweather.activity.PictureActivity;
@@ -32,19 +26,19 @@ import com.lhlSo.soweather.core.Appconfiguration;
 import com.lhlSo.soweather.mode.BeautyListDate;
 import com.lhlSo.soweather.mode.Result;
 import com.lhlSo.soweather.service.BeautyService;
+import com.lhlSo.soweather.base.BaseFragment;
 import com.lhlSo.soweather.utils.ResponseListenter;
 import com.lhlSo.soweather.view.RatioImageView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 
 /**
  * Created by Administrator on 2017/6/6.
  */
 
-public class BeautyFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class BeautyFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
     private Toolbar mToolbar;
     private String id = "福利";
     private List<BeautyListDate> mDate = new ArrayList<>();
@@ -58,24 +52,32 @@ public class BeautyFragment extends Fragment implements SwipeRefreshLayout.OnRef
     private int width;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View contextView = inflater.inflate(R.layout.fragment_item_beauty, container, false);
-        initView(contextView);
-        getDate(id);
-        getHandleMessge();
-        return contextView;
+    protected int getLayoutId() {
+        return R.layout.fragment_item_beauty;
     }
 
-    private void initView(View view) {
-        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+    @Override
+    protected void initViews() {
+        initView();
+        getDate(id);
+        getHandleMessge();
+    }
+
+    @Override
+    protected void lazyFetchData() {
+
+    }
+
+
+    private void initView() {
+        mToolbar = findView(R.id.toolbar);
         mToolbar.setTitle("福利社");
         ((MainActivity) getActivity()).initDrawer(mToolbar);
         WindowManager manager = getActivity().getWindowManager();
         DisplayMetrics outMetrics = new DisplayMetrics();
         manager.getDefaultDisplay().getMetrics(outMetrics);
         width = outMetrics.widthPixels;
-        mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeLayout);
+        mSwipeLayout = findView(R.id.swipeLayout);
         mSwipeLayout.setOnRefreshListener(this);
         // 设置下拉圆圈上的颜色，蓝色、绿色、橙色、红色
         mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
@@ -83,7 +85,7 @@ public class BeautyFragment extends Fragment implements SwipeRefreshLayout.OnRef
         mSwipeLayout.setDistanceToTriggerSync(300);// 设置手指在屏幕下拉多少距离会触发下拉刷新
         mSwipeLayout.setProgressBackgroundColor(R.color.white); // 设定下拉圆圈的背景
         mSwipeLayout.setSize(SwipeRefreshLayout.DEFAULT); // 设置圆圈的大小
-        mList = (RecyclerView) view.findViewById(R.id.beauty_list);
+        mList = findView(R.id.beauty_list);
         linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         final StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);

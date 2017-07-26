@@ -25,7 +25,7 @@ import com.lhlSo.soweather.mode.NowWeather;
 import com.lhlSo.soweather.mode.Result;
 import com.lhlSo.soweather.mode.WeathImg;
 import com.lhlSo.soweather.service.WeatherService;
-import com.lhlSo.soweather.ui.base.BaseActivity;
+import com.lhlSo.soweather.base.BaseActivity;
 import com.lhlSo.soweather.utils.ResponseListenter;
 
 import org.json.JSONException;

@@ -1,4 +1,4 @@
-package com.lhlSo.soweather.ui.base;
+package com.lhlSo.soweather.base;
 
 import android.annotation.TargetApi;
 import android.graphics.Color;

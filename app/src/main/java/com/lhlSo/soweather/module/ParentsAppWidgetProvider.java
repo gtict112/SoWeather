@@ -1,11 +1,9 @@
-package com.lhlSo.soweather.core;
+package com.lhlSo.soweather.module;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-
-import com.lhlSo.soweather.service.AppWidgetUpdateService;
 
 /**
  * Created by Administrator on 2016/11/1.
