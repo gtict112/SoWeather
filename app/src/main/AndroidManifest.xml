@@ -87,7 +87,7 @@
             android:label="城市管理"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".module.activity.MoreInfoActivity"
+            android:name=".module.weather.MoreInfoActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout" />
         <activity
             android:name=".module.activity.SettingActivity"

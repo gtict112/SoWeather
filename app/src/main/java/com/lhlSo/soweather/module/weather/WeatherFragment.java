@@ -1,4 +1,4 @@
-package com.lhlSo.soweather.module.fragment;
+package com.lhlSo.soweather.module.weather;
 
 import android.content.Context;
 import android.content.Intent;
@@ -35,7 +35,6 @@ import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.module.activity.CurrentCityActivity;
 import com.lhlSo.soweather.module.activity.MainActivity;
 import com.lhlSo.soweather.module.activity.Managecity;
-import com.lhlSo.soweather.module.activity.MoreInfoActivity;
 import com.lhlSo.soweather.core.Appconfiguration;
 import com.lhlSo.soweather.core.Constans;
 import com.lhlSo.soweather.db.SoWeatherDB;
@@ -73,7 +72,7 @@ import butterknife.BindView;
 /**
  * Created by Administrator on 2016/10/10.
  */
-public class MainFragment extends BaseFragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class WeatherFragment extends BaseFragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     private Appconfiguration config = Appconfiguration.getInstance();
     private TextView date;//更新时间
     private TextView mTmp;//温度
@@ -186,56 +185,56 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
 
 
-    gif = findView(R.id.gif);
-    dailyForecast = findView(R.id.contentLayout);
-    day_weather_chart = findView(R.id.day_weather_chart);
-    day_weather_content = findView(R.id.day_weather_content);
-    time_weather_chart = findView(R.id.time_weather_chart);
-    is_show_day_layout = findView(R.id.is_show_day_layout);
-    is_show_time_layout = findView(R.id.is_show_time_layout);
-    time_weather = findView(R.id.time_weather);
-    city_name = findView(R.id.city_name);
-    flubrf = findView(R.id.flubrf);
-    drsgbrf = findView(R.id.drsgbrf);
-    travbrf = findView(R.id.travbrf);
-    sportbrf = findView(R.id.sportbrf);
-    today_detail = findView(R.id.today_detail);
+    gif = WeatherFragment(R.id.gif);
+    dailyForecast = WeatherFragment(R.id.contentLayout);
+    day_weather_chart = WeatherFragment(R.id.day_weather_chart);
+    day_weather_content = WeatherFragment(R.id.day_weather_content);
+    time_weather_chart = WeatherFragment(R.id.time_weather_chart);
+    is_show_day_layout = WeatherFragment(R.id.is_show_day_layout);
+    is_show_time_layout = WeatherFragment(R.id.is_show_time_layout);
+    time_weather = WeatherFragment(R.id.time_weather);
+    city_name = WeatherFragment(R.id.city_name);
+    flubrf = WeatherFragment(R.id.flubrf);
+    drsgbrf = WeatherFragment(R.id.drsgbrf);
+    travbrf = WeatherFragment(R.id.travbrf);
+    sportbrf = WeatherFragment(R.id.sportbrf);
+    today_detail = WeatherFragment(R.id.today_detail);
         today_detail.setOnClickListener(this);
-    wind_img = findView(R.id.wind_img);
-    wind_txt = findView(R.id.wind_txt);
-    date = findView(R.id.date);
-    mTmp = findView(R.id.tmp);
-    code_txt = findView(R.id.code_txt);
-    pm = findView(R.id.pm);
-    qlty = findView(R.id.qlty);
-    life = findView(R.id.life);
-    linearLayout2 = findView(R.id.linearLayout2);
-    day_weather = findView(R.id.day_weather);
-    aqi_img = findView(R.id.aqi_img);
-    aqi = findView(R.id.aqi);
-    bg = findView(R.id.bg);
-    yi = findView(R.id.yi);
-    ji = findView(R.id.ji);
-    cunty_name = findView(R.id.cunty_name);
-    time_weather_tip = findView(R.id.time_weather_tip);
-    pm10 = findView(R.id.pm10);
-    pm25 = findView(R.id.pm25);
-    no2 = findView(R.id.no2);
-    so2 = findView(R.id.so2);
-    co = findView(R.id.co);
-    o3 = findView(R.id.o3);
-    circle_pm10 = findView(R.id.circle_pm10);
-    circle_pm25 = findView(R.id.circle_pm25);
-    circle_no2 = findView(R.id.circle_no2);
-    circle_so2 = findView(R.id.circle_so2);
-    circle_co = findView(R.id.circle_co);
-    circle_o3 = findView(R.id.circle_o3);
+    wind_img = WeatherFragment(R.id.wind_img);
+    wind_txt = WeatherFragment(R.id.wind_txt);
+    date = WeatherFragment(R.id.date);
+    mTmp = WeatherFragment(R.id.tmp);
+    code_txt = WeatherFragment(R.id.code_txt);
+    pm = WeatherFragment(R.id.pm);
+    qlty = WeatherFragment(R.id.qlty);
+    life = WeatherFragment(R.id.life);
+    linearLayout2 = WeatherFragment(R.id.linearLayout2);
+    day_weather = WeatherFragment(R.id.day_weather);
+    aqi_img = WeatherFragment(R.id.aqi_img);
+    aqi = WeatherFragment(R.id.aqi);
+    bg = WeatherFragment(R.id.bg);
+    yi = WeatherFragment(R.id.yi);
+    ji = WeatherFragment(R.id.ji);
+    cunty_name = WeatherFragment(R.id.cunty_name);
+    time_weather_tip = WeatherFragment(R.id.time_weather_tip);
+    pm10 = WeatherFragment(R.id.pm10);
+    pm25 = WeatherFragment(R.id.pm25);
+    no2 = WeatherFragment(R.id.no2);
+    so2 = WeatherFragment(R.id.so2);
+    co = WeatherFragment(R.id.co);
+    o3 = WeatherFragment(R.id.o3);
+    circle_pm10 = WeatherFragment(R.id.circle_pm10);
+    circle_pm25 = WeatherFragment(R.id.circle_pm25);
+    circle_no2 = WeatherFragment(R.id.circle_no2);
+    circle_so2 = WeatherFragment(R.id.circle_so2);
+    circle_co = WeatherFragment(R.id.circle_co);
+    circle_o3 = WeatherFragment(R.id.circle_o3);
 
-    sport_layout = findView(R.id.sport_layout);
-    trav_layout = findView(R.id.trav_layout);
-    drsg_layout = findView(R.id.drsg_layout);
-    flu_layout = findView(R.id.flu_layout);
-    hour_layout = findView(R.id.hour_layout);
+    sport_layout = WeatherFragment(R.id.sport_layout);
+    trav_layout = WeatherFragment(R.id.trav_layout);
+    drsg_layout = WeatherFragment(R.id.drsg_layout);
+    flu_layout = WeatherFragment(R.id.flu_layout);
+    hour_layout = WeatherFragment(R.id.hour_layout);
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

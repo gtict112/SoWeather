@@ -19,9 +19,9 @@ import com.lhlSo.soweather.base.AppGlobal;
 import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.core.Appconfiguration;
 import com.lhlSo.soweather.module.beauty.BeautyFragment;
-import com.lhlSo.soweather.module.fragment.MainFragment;
-import com.lhlSo.soweather.module.fragment.TodayTopNewFragment;
-import com.lhlSo.soweather.module.fragment.WeixinSelectFragment;
+import com.lhlSo.soweather.module.weather.WeatherFragment;
+import com.lhlSo.soweather.module.topnew.TodayTopNewFragment;
+import com.lhlSo.soweather.module.weixinselect.WeixinSelectFragment;
 import com.lhlSo.soweather.bean.Result;
 import com.lhlSo.soweather.http.CityAndWeatherImgService;
 import com.lhlSo.soweather.base.BaseActivity;
@@ -211,7 +211,7 @@ public class MainActivity extends BaseActivity implements ResponseListenter<Inte
         if (foundFragment == null) {
             switch (name) {
                 case FRAGMENT_TAG_WEATHER:
-                    foundFragment = new MainFragment();
+                    foundFragment = new WeatherFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("city", city);
                     bundle.putString("cityId", cityid);

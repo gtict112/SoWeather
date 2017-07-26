@@ -1,4 +1,4 @@
-package com.lhlSo.soweather.module.fragment;
+package com.lhlSo.soweather.module.weixinselect;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;

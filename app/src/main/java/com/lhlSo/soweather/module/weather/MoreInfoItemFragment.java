@@ -1,4 +1,4 @@
-package com.lhlSo.soweather.module.fragment;
+package com.lhlSo.soweather.module.weather;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;

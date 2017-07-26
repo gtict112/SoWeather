@@ -1,4 +1,4 @@
-package com.lhlSo.soweather.module.fragment;
+package com.lhlSo.soweather.module.topnew;
 
 import android.content.Context;
 import android.os.Handler;
