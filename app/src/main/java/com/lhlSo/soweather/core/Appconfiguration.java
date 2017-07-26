@@ -48,7 +48,7 @@ public class Appconfiguration {
         return mContext;
     }
 
-    public Appconfiguration() {
+    private Appconfiguration() {
         progressDialog = new ProgressDialogFragment();
         activitySet = new HashSet<>();
         frontActivityList = new ArrayList<>();

@@ -37,7 +37,6 @@ public abstract class BaseFragment extends RxFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mRootView = inflater.inflate(getLayoutId(), container, false);
-        initViews();
         return mRootView;
     }
 
@@ -62,6 +61,7 @@ public abstract class BaseFragment extends RxFragment {
         binder = ButterKnife.bind(this, view);
         isViewPrepared = true;
         lazyFetchDataIfPrepared();
+        initViews();
     }
 
     @Override

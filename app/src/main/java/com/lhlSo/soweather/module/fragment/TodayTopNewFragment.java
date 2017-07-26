@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.module.activity.MainActivity;
@@ -27,6 +28,7 @@ import com.lhlSo.soweather.utils.WebUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 
 
@@ -39,9 +41,9 @@ public class TodayTopNewFragment extends BaseFragment implements SwipeRefreshLay
     private ListView recommended;
     private List<TopNew> mNewDate = new ArrayList<>();
     private Handler mHandler;
-    @BindView(R.id.recommended) NewsAdapter mNewsAdapter;
-    @BindView(R.id.swipeLayout) SwipeRefreshLayout mSwipeLayout;
-    @BindView(R.id.toolbar) Toolbar mToolbar;
+    private NewsAdapter mNewsAdapter;
+    private SwipeRefreshLayout mSwipeLayout;
+    private Toolbar mToolbar;
 
     @Override
     protected int getLayoutId() {
@@ -50,6 +52,7 @@ public class TodayTopNewFragment extends BaseFragment implements SwipeRefreshLay
 
     @Override
     protected void initViews() {
+        mToolbar = findView(R.id.toolbar);
         mToolbar.setTitle("今日头条");
         ((MainActivity) getActivity()).initDrawer(mToolbar);
         initView();
@@ -172,6 +175,7 @@ public class TodayTopNewFragment extends BaseFragment implements SwipeRefreshLay
     }
 
     private void initView() {
+        mSwipeLayout = findView(R.id.swipeLayout);
         mSwipeLayout.setOnRefreshListener(this);
         // 设置下拉圆圈上的颜色，蓝色、绿色、橙色、红色
         mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
