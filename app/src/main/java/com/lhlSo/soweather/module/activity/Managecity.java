@@ -21,10 +21,8 @@ import android.widget.TextView;
 import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.db.SoWeatherDB;
 import com.lhlSo.soweather.bean.ManageCity;
-import com.lhlSo.soweather.bean.NowWeather;
 import com.lhlSo.soweather.bean.Result;
 import com.lhlSo.soweather.bean.WeathImg;
-import com.lhlSo.soweather.http.WeatherService;
 import com.lhlSo.soweather.base.BaseActivity;
 import com.lhlSo.soweather.utils.ResponseListenter;
 

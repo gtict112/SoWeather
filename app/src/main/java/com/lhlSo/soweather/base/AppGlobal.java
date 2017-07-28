@@ -7,5 +7,5 @@ package com.lhlSo.soweather.base;
 public class AppGlobal {
 
     public static final String CURRENT_INDEX = "currentIndex";
-
+    public static final String WEATHER_URL = "https://free-api.heweather.com/v5/";
 }

@@ -1,5 +1,8 @@
 package com.lhlSo.soweather.http;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -12,26 +15,51 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class RetrofitUtils {
-    private static final int READ_TIMEOUT = 60;//读取超时时间,单位  秒
-    private static final int CONN_TIMEOUT = 12;//连接超时时间,单位  秒
     private static Retrofit mRetrofit;
+    private static RetrofitUtils instance;
+    private static Gson mGson;
 
-    private RetrofitUtils() {
-    }
-
-    public static Retrofit newInstence(String url) {
-        mRetrofit = null;
-        OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(CONN_TIMEOUT, TimeUnit.SECONDS)
-                .readTimeout(READ_TIMEOUT, TimeUnit.MINUTES)
-                .build();
+    private RetrofitUtils(String baseurl) {
 
         mRetrofit = new Retrofit.Builder()
-                .client(client)//添加一个client,不然retrofit会自己默认添加一个
-                .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(baseurl)
+                .client(httpClient())
+                .addConverterFactory(GsonConverterFactory.create(gson()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
-        return mRetrofit;
+    }
+
+
+    public <T> T create(Class<T> service) {
+        return mRetrofit.create(service);
+    }
+
+    public static RetrofitUtils getInstance(String baseurl) {
+        if (instance == null) {
+            synchronized (Retrofit.class) {
+                instance = new RetrofitUtils(baseurl);
+            }
+        }
+        return instance;
+    }
+
+
+    private static OkHttpClient httpClient() {
+        return new OkHttpClient.Builder()
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .writeTimeout(20, TimeUnit.SECONDS)
+                .retryOnConnectionFailure(true)
+                .build();
+    }
+
+
+    public static Gson gson() {
+        if (mGson == null) {
+            synchronized (RetrofitUtils.class) {
+                mGson = new GsonBuilder().setLenient().create();
+            }
+        }
+        return mGson;
     }
 }

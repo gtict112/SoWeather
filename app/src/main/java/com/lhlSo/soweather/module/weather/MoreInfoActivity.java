@@ -10,8 +10,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 
 import com.lhlSo.soweather.R;
-import com.lhlSo.soweather.module.weather.MoreInfoItemFragment;
-import com.lhlSo.soweather.bean.Dailyforecast;
 import com.lhlSo.soweather.base.BaseActivity;
 import com.lhlSo.soweather.utils.DateToWeek;
 

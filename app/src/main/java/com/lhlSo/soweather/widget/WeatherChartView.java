@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.lhlSo.soweather.R;
-import com.lhlSo.soweather.bean.Dailyforecast;
 import com.lhlSo.soweather.bean.WeathImg;
 import com.lhlSo.soweather.utils.DateToWeek;
 

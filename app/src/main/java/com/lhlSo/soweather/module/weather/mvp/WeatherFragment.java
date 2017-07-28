@@ -1,4 +1,4 @@
-package com.lhlSo.soweather.module.weather;
+package com.lhlSo.soweather.module.weather.mvp;
 
 import android.content.Context;
 import android.content.Intent;
@@ -32,32 +32,27 @@ import com.baidu.location.LocationClientOption;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.lhlSo.soweather.R;
-import com.lhlSo.soweather.module.activity.CurrentCityActivity;
-import com.lhlSo.soweather.module.activity.MainActivity;
-import com.lhlSo.soweather.module.activity.Managecity;
+import com.lhlSo.soweather.base.BaseFragment;
+import com.lhlSo.soweather.bean.City;
+import com.lhlSo.soweather.bean.Province;
+import com.lhlSo.soweather.bean.Result;
+import com.lhlSo.soweather.bean.WeathImg;
+import com.lhlSo.soweather.bean.WeatherDate;
+import com.lhlSo.soweather.bean.Zodiac;
 import com.lhlSo.soweather.core.Appconfiguration;
 import com.lhlSo.soweather.core.Constans;
 import com.lhlSo.soweather.db.SoWeatherDB;
 import com.lhlSo.soweather.general.LifeIndexDialogFragment;
-import com.lhlSo.soweather.bean.Aqi;
-import com.lhlSo.soweather.bean.City;
-import com.lhlSo.soweather.bean.Dailyforecast;
-import com.lhlSo.soweather.bean.Hourlyforecast;
-import com.lhlSo.soweather.bean.NowWeather;
-import com.lhlSo.soweather.bean.Province;
-import com.lhlSo.soweather.bean.Result;
-import com.lhlSo.soweather.bean.Suggestion;
-import com.lhlSo.soweather.bean.WeathImg;
-import com.lhlSo.soweather.bean.Zodiac;
-import com.lhlSo.soweather.http.WeatherService;
-import com.lhlSo.soweather.base.BaseFragment;
+import com.lhlSo.soweather.module.activity.CurrentCityActivity;
+import com.lhlSo.soweather.module.activity.MainActivity;
+import com.lhlSo.soweather.module.activity.Managecity;
+import com.lhlSo.soweather.module.weather.MoreInfoActivity;
 import com.lhlSo.soweather.utils.DateToWeek;
 import com.lhlSo.soweather.utils.ResponseListenter;
 import com.lhlSo.soweather.utils.ShareUtils;
 import com.lhlSo.soweather.widget.HorizontalRecyclerView;
 import com.lhlSo.soweather.widget.MarqueeView;
 import com.lhlSo.soweather.widget.WeatherChartView;
-
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -72,7 +67,8 @@ import butterknife.BindView;
 /**
  * Created by Administrator on 2016/10/10.
  */
-public class WeatherFragment extends BaseFragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class WeatherFragment extends BaseFragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, WeatherContract.IWeatherView {
+    WeatherPresenter mWeatherPresenter;
     private Appconfiguration config = Appconfiguration.getInstance();
     private String tem_min_max;//最高温度和最低温度
     private String cityid;
@@ -99,7 +95,6 @@ public class WeatherFragment extends BaseFragment implements View.OnClickListene
     private Boolean isShowWeatherChart = false;
     private List<String> items = new ArrayList<>();
     private String mDate;
-    private Zodiac mZodiac = new Zodiac();
     private int flag = 0;
     private String current;
     private TimeAdapter mTimeAdapter;
@@ -295,6 +290,8 @@ public class WeatherFragment extends BaseFragment implements View.OnClickListene
         getAdress();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
         getHandleMessge();
+        mWeatherPresenter = new WeatherPresenter(this);
+        mWeatherPresenter.geWeather();//启动软件时默认加载
     }
 
     @Override
@@ -351,6 +348,31 @@ public class WeatherFragment extends BaseFragment implements View.OnClickListene
         mLocationClient.registerLocationListener(myListener);
         setLocationOption();
         mLocationClient.start();
+    }
+
+    @Override
+    public Context getCurContext() {
+        return getActivity();
+    }
+
+    @Override
+    public void showProgress() {
+        config.showProgressDialog("正在加载...", getActivity());
+    }
+
+    @Override
+    public void hideProgress() {
+        config.dismissProgressDialog();
+    }
+
+    @Override
+    public void showData(WeatherDate weatherDate) {
+        //将数据解析后加载到界面
+    }
+
+    @Override
+    public void showInfo(String info) {
+        Snackbar.make(fabutton, info, Snackbar.LENGTH_LONG);
     }
 
 
@@ -433,20 +455,20 @@ public class WeatherFragment extends BaseFragment implements View.OnClickListene
                 mSwipeLayout.setRefreshing(false);
             }
         }, 2000);
-        getDailyforecastData(cityid);
-        getHourlyforecastData(cityid);
-        getNowWeatherData(cityid);
-        getWeather(cityid);
-        getSuggestionData(cityid);
+//        getDailyforecastData(cityid);
+//        getHourlyforecastData(cityid);
+//        getNowWeatherData(cityid);
+//        getWeather(cityid);
+//        getSuggestionData(cityid);
     }
 
     private void getDate() {
-        config.showProgressDialog("正在加载...", getActivity());
-        getDailyforecastData(cityid);
-        getHourlyforecastData(cityid);
-        getNowWeatherData(cityid);
-        getWeather(cityid);
-        getSuggestionData(cityid);
+//        config.showProgressDialog("正在加载...", getActivity());
+//        getDailyforecastData(cityid);
+//        getHourlyforecastData(cityid);
+//        getNowWeatherData(cityid);
+//        getWeather(cityid);
+//        getSuggestionData(cityid);
     }
 
     private void getSuggestionData(String cityid) {

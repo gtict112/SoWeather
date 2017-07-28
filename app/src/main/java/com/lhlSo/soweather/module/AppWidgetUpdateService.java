@@ -29,11 +29,8 @@ import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.module.activity.SpanActivity;
 import com.lhlSo.soweather.core.Appconfiguration;
 import com.lhlSo.soweather.db.SoWeatherDB;
-import com.lhlSo.soweather.bean.Dailyforecast;
-import com.lhlSo.soweather.bean.NowWeather;
 import com.lhlSo.soweather.bean.Result;
 import com.lhlSo.soweather.bean.WeathImg;
-import com.lhlSo.soweather.http.WeatherService;
 import com.lhlSo.soweather.utils.ResponseListenter;
 
 import org.json.JSONException;

@@ -18,27 +18,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lhlSo.soweather.R;
-import com.lhlSo.soweather.db.SoWeatherDB;
 import com.lhlSo.soweather.bean.Constellation;
-import com.lhlSo.soweather.bean.Dailyforecast;
 import com.lhlSo.soweather.bean.Result;
 import com.lhlSo.soweather.bean.WeathImg;
 import com.lhlSo.soweather.bean.Zodiac;
+import com.lhlSo.soweather.db.SoWeatherDB;
 import com.lhlSo.soweather.http.ConstellationService;
 import com.lhlSo.soweather.http.ZodiacService;
 import com.lhlSo.soweather.utils.ImageUtil;
 import com.lhlSo.soweather.utils.ResponseListenter;
 import com.lhlSo.soweather.widget.CustomGallery;
 
-/**
- * Created by Administrator on 2016/12/9.
- *
- */
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * Created by Administrator on 2016/12/9.
+ */
 
 
 public class MoreInfoItemFragment extends Fragment {
