@@ -28,7 +28,7 @@ public class WeatherContract {
      * P视图与逻辑处理的连接层
      */
     interface IWeatherPresenter {
-        void geWeather();//获取数据
+        void geWeather(String city);//获取数据
     }
 
     /**

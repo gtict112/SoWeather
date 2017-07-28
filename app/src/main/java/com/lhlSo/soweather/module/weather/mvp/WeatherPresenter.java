@@ -1,5 +1,7 @@
 package com.lhlSo.soweather.module.weather.mvp;
 
+import android.text.TextUtils;
+
 import com.lhlSo.soweather.bean.WeatherDate;
 import com.lhlSo.soweather.http.OnHttpCallBack;
 
@@ -10,9 +12,7 @@ import com.lhlSo.soweather.http.OnHttpCallBack;
 public class WeatherPresenter implements WeatherContract.IWeatherPresenter {
     WeatherContract.IWeatherModel mIWeatherModel;//M层
     WeatherContract.IWeatherView IWeatherView;//V层
-    public String city = "CN101210101";
     public String key = "4e6193ff86d147a2a357dafb47b0f1bc";
-    public WeatherDate mWeatherDate = new WeatherDate();
 
     public WeatherPresenter(WeatherContract.IWeatherView IWeatherView) {
         this.IWeatherView = IWeatherView;
@@ -20,7 +20,7 @@ public class WeatherPresenter implements WeatherContract.IWeatherPresenter {
     }
 
     @Override
-    public void geWeather() {
+    public void geWeather(String city) {
         IWeatherView.showProgress();//通知V层显示对话框
         mIWeatherModel.getWeather(city, key, new OnHttpCallBack<WeatherDate>() {
             @Override

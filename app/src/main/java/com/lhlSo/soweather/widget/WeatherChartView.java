@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.bean.WeathImg;
+import com.lhlSo.soweather.bean.WeatherDate;
 import com.lhlSo.soweather.utils.DateToWeek;
 
 import org.json.JSONException;
@@ -24,8 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WeatherChartView extends LinearLayout {
-
-    private List<Dailyforecast> dailyForecastList = new ArrayList<>();
+    private List<WeatherDate.DailyForecastBean> dailyForecastList = new ArrayList<>();
     private List<WeathImg> weathimgs = new ArrayList<>();
     LinearLayout.LayoutParams cellParams;
     LinearLayout.LayoutParams rowParams;
@@ -99,23 +99,19 @@ public class WeatherChartView extends LinearLayout {
             } else if (i == 1) {
                 tvDate.setText("明天");
             } else {
-                tvDate.setText(DateToWeek.getWeek(dailyForecastList.get(i).date));
+                tvDate.setText(DateToWeek.getWeek(dailyForecastList.get(i).getDate()));
             }
-            try {
-                tvWeather.setText(new JSONObject(dailyForecastList.get(i).cond).optString("txt_d"));
-                String code = new JSONObject(dailyForecastList.get(i).cond).optString("code_d");
-                for (int j = 0; j < weathimgs.size(); j++) {
-                    if (code.equals(weathimgs.get(j).getCode())) {
-                        Glide.with(getContext()).load(weathimgs.get(j).getIcon_url()).diskCacheStrategy(DiskCacheStrategy.ALL).into(ivIcon);
-                    }
+            tvWeather.setText(dailyForecastList.get(i).getCond().getTxt_d());
+            String code = dailyForecastList.get(i).getCond().getCode_d();
+            for (int j = 0; j < weathimgs.size(); j++) {
+                if (code.equals(weathimgs.get(j).getCode())) {
+                    Glide.with(getContext()).load(weathimgs.get(j).getIcon_url()).diskCacheStrategy(DiskCacheStrategy.ALL).into(ivIcon);
                 }
-                String min = new JSONObject(dailyForecastList.get(i).tmp).optString("min");
-                String max = new JSONObject(dailyForecastList.get(i).tmp).optString("max");
-                minTemp.add(Integer.valueOf(min));
-                maxTemp.add(Integer.valueOf(max));
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
+            String min = dailyForecastList.get(i).getTmp().getMin();
+            String max = dailyForecastList.get(i).getTmp().getMax();
+            minTemp.add(Integer.valueOf(min));
+            maxTemp.add(Integer.valueOf(max));
             weatherStrView.addView(tvWeather, cellParams);
             dateTitleView.addView(tvDate, cellParams);
             iconView.addView(ivIcon);
@@ -137,7 +133,7 @@ public class WeatherChartView extends LinearLayout {
         addView(chartView, chartParams);
     }
 
-    public void setWeather5(List<Dailyforecast> mDailyforecast, List<WeathImg> mWeathImg) {
+    public void setWeather5(List<WeatherDate.DailyForecastBean> mDailyforecast, List<WeathImg> mWeathImg) {
         dailyForecastList.clear();
         dailyForecastList.addAll(mDailyforecast);
         weathimgs.clear();

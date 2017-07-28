@@ -11,8 +11,10 @@ import android.support.v7.widget.Toolbar;
 
 import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.base.BaseActivity;
+import com.lhlSo.soweather.bean.WeatherDate;
 import com.lhlSo.soweather.utils.DateToWeek;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +23,7 @@ import java.util.List;
  */
 
 public class MoreInfoActivity extends BaseActivity {
-    private List<Dailyforecast> mDailyforecast = new ArrayList<>();//未来几天预报数据
+    private List<WeatherDate.HourlyForecastBean> mDailyforecast = new ArrayList<>();//未来几天预报数据
     private ViewPager viewPager;
     private String time;//点击Item传进来的时间,没有就默认加载第一条
     /**
@@ -71,7 +73,7 @@ public class MoreInfoActivity extends BaseActivity {
         setIndicator();
     }
 
-    private void setupViewPager(ViewPager viewPager, List<Dailyforecast> mDailyforecast) {
+    private void setupViewPager(ViewPager viewPager, List<WeatherDate.HourlyForecastBean> mDailyforecast) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         for (int i = 0; i < TITLE.length; i++) {
             Fragment fragment = new MoreInfoItemFragment();
@@ -79,7 +81,7 @@ public class MoreInfoActivity extends BaseActivity {
             args.putString("today", TIMES[0]);
             args.putString("tomorrow", TIMES[1]);
             args.putString("type", TIMES[i]);
-            args.putSerializable("dailyforecast", mDailyforecast.get(i));
+            args.putSerializable("dailyforecast", (Serializable) mDailyforecast.get(i));
             args.putString("qlty", qlty);
             args.putString("week", TITLE[i]);
             fragment.setArguments(args);
@@ -104,10 +106,10 @@ public class MoreInfoActivity extends BaseActivity {
         Intent intent = getIntent();
         if (intent != null) {
             qlty = intent.getStringExtra("qlty");
-            mDailyforecast = (List<Dailyforecast>) intent.getSerializableExtra("date");
+            mDailyforecast = (List<WeatherDate.HourlyForecastBean> ) intent.getSerializableExtra("date");
             for (int i = 0; i < mDailyforecast.size(); i++) {
-                TITLE[i] = DateToWeek.getWeek(mDailyforecast.get(i).date);
-                TIMES[i] = mDailyforecast.get(i).date;
+                TITLE[i] = DateToWeek.getWeek(mDailyforecast.get(i).getDate());
+                TIMES[i] = mDailyforecast.get(i).getDate();
             }
             time = intent.getStringExtra("time");
             city = intent.getStringExtra("city");
@@ -144,7 +146,7 @@ public class MoreInfoActivity extends BaseActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-        return mFragmentTitleList.get(position);
+            return mFragmentTitleList.get(position);
+        }
     }
-}
 }

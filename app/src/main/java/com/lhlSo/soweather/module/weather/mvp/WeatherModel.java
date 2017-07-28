@@ -46,14 +46,14 @@ public class WeatherModel implements WeatherContract.IWeatherModel {
                             HttpException httpException = (HttpException) e;
                             int code = httpException.code();
                             if (code == 500 || code == 404) {
-                                callBack.onFaild("服务器出错");
+                                callBack.onFaild("服务器出错!");
                             }
                         } else if (e instanceof ConnectException) {
                             callBack.onFaild("网络断开,请打开网络!");
                         } else if (e instanceof SocketTimeoutException) {
-                            callBack.onFaild("网络连接超时!!");
+                            callBack.onFaild("网络连接超时!");
                         } else {
-                            callBack.onFaild("发生未知错误" + e.getMessage());
+                            callBack.onFaild("网络异常,请重试!");
                         }
                     }
 

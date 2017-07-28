@@ -14,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-
 import com.lhlSo.soweather.base.AppGlobal;
 import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.core.Appconfiguration;
@@ -26,11 +25,9 @@ import com.lhlSo.soweather.bean.Result;
 import com.lhlSo.soweather.http.CityAndWeatherImgService;
 import com.lhlSo.soweather.base.BaseActivity;
 import com.lhlSo.soweather.utils.ResponseListenter;
-
-
 /**
- * Created by Administrator on 2016/10/10.
- * MainActivity 界面切换,初识定位,获取城市数据,保存至数据库
+ * Created by LHLin on 2016/10/10.
+ * MainActivity 界面切换,获取城市数据,天气图标,保存至数据库
  */
 public class MainActivity extends BaseActivity implements ResponseListenter<Integer> {
     private String city = null;
@@ -64,7 +61,7 @@ public class MainActivity extends BaseActivity implements ResponseListenter<Inte
         initView();
         initNavigationViewHeader();
         getCityDate();
-        getWeather();
+        getWeatherImg();
         initFragment(savedInstanceState);
     }
 
@@ -86,7 +83,7 @@ public class MainActivity extends BaseActivity implements ResponseListenter<Inte
     /**
      * 获取天气状态图标
      */
-    private void getWeather() {
+    private void getWeatherImg() {
         CityAndWeatherImgService service = new CityAndWeatherImgService();
         service.getWeatherImgData(MainActivity.this, this);
     }

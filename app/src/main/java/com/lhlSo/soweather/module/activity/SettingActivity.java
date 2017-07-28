@@ -42,7 +42,7 @@ import java.util.List;
  * Created by Administrator on 2016/11/1.
  */
 
-public class SettingActivity extends BaseActivity implements View.OnClickListener, ResponseListenter<NowWeather> {
+public class SettingActivity extends BaseActivity implements View.OnClickListener{
     private Switch noti;
     private LinearLayout win;
     private LinearLayout clear;
@@ -52,7 +52,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     NotificationBroadcastReceiver mReceiver;
     private SoWeatherDB cityDB;
     private List<WeathImg> weathimgs = new ArrayList<>();
-    private NowWeather mData = new NowWeather();
+//    private NowWeather mData = new NowWeather();
     private Handler mHandler;
     private String adress;
     private String tmp_txt;
@@ -82,48 +82,48 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         setDisplayHomeAsUpEnabled(true);
         initView();
         cityDB = SoWeatherDB.getInstance(this);
-        getData();
-        getHandlerMessage();
+//        getData();
+//        getHandlerMessage();
         getCashSize();
     }
 
 
-    private void getData() {
-        WeatherService service = new WeatherService();
-        String city = null;
-        service.getNowWeatherData(this, city);
-    }
+//    private void getData() {
+//        WeatherService service = new WeatherService();
+//        String city = null;
+//        service.getNowWeatherData(this, city);
+//    }
 
-    private void getHandlerMessage() {
-        mHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                if (msg.what == 1) {
-                    setView(mData);
-                }
-            }
-        };
-    }
+//    private void getHandlerMessage() {
+//        mHandler = new Handler() {
+//            @Override
+//            public void handleMessage(Message msg) {
+//                if (msg.what == 1) {
+//                    setView(mData);
+//                }
+//            }
+//        };
+//    }
 
-    private void setView(NowWeather data) {
-        adress = data.cnty + data.city;
-        String code = null;
-        try {
-            tmp_txt = new JSONObject(data.cond).optString("txt");
-            code = new JSONObject(data.cond).optString("code");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        hum = data.tmp;
-        desc = data.dir + data.sc;
-        weathimgs = cityDB.getAllWeatherImg();
-        for (int i = 0; i < weathimgs.size(); i++) {
-            if (code.equals(weathimgs.get(i).getCode())) {
-                tmp_img = weathimgs.get(i).getIcon();
-            }
-        }
-        noti.setChecked(config.getIsStartNoti());
-    }
+//    private void setView(NowWeather data) {
+//        adress = data.cnty + data.city;
+//        String code = null;
+//        try {
+//            tmp_txt = new JSONObject(data.cond).optString("txt");
+//            code = new JSONObject(data.cond).optString("code");
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        hum = data.tmp;
+//        desc = data.dir + data.sc;
+//        weathimgs = cityDB.getAllWeatherImg();
+//        for (int i = 0; i < weathimgs.size(); i++) {
+//            if (code.equals(weathimgs.get(i).getCode())) {
+//                tmp_img = weathimgs.get(i).getIcon();
+//            }
+//        }
+//        noti.setChecked(config.getIsStartNoti());
+//    }
 
     private void initView() {
         noti_layout = (LinearLayout) findViewById(R.id.noti_layout);
@@ -215,15 +215,15 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
-    @Override
-    public void onReceive(Result<NowWeather> result) {
-        if (result.isSuccess()) {
-            mData = result.getData();
-            mHandler.sendMessage(mHandler.obtainMessage(1, mData));
-        } else {
-            result.getErrorMessage();
-        }
-    }
+//    @Override
+//    public void onReceive(Result<NowWeather> result) {
+//        if (result.isSuccess()) {
+//            mData = result.getData();
+//            mHandler.sendMessage(mHandler.obtainMessage(1, mData));
+//        } else {
+//            result.getErrorMessage();
+//        }
+//    }
 
     class NotificationBroadcastReceiver extends BroadcastReceiver {
 

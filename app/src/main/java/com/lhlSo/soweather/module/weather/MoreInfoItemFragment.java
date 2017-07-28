@@ -21,6 +21,7 @@ import com.lhlSo.soweather.R;
 import com.lhlSo.soweather.bean.Constellation;
 import com.lhlSo.soweather.bean.Result;
 import com.lhlSo.soweather.bean.WeathImg;
+import com.lhlSo.soweather.bean.WeatherDate;
 import com.lhlSo.soweather.bean.Zodiac;
 import com.lhlSo.soweather.db.SoWeatherDB;
 import com.lhlSo.soweather.http.ConstellationService;
@@ -44,7 +45,7 @@ public class MoreInfoItemFragment extends Fragment {
     private String time;
     private String today;
     private String tomorrow;
-    private Dailyforecast mDailyforecast;
+    private WeatherDate.DailyForecastBean mDailyforecast;
     private SoWeatherDB cityDB;
     private List<WeathImg> weathimgs = new ArrayList<>();
     private String qlty_txt;
@@ -114,7 +115,7 @@ public class MoreInfoItemFragment extends Fragment {
             time = mBundle.getString("type");
             tomorrow = mBundle.getString("tomorrow");
             today = mBundle.getString("today");
-            mDailyforecast = (Dailyforecast) mBundle.getSerializable("dailyforecast");
+            mDailyforecast = (WeatherDate.DailyForecastBean) mBundle.getSerializable("dailyforecast");
             qlty_txt = mBundle.getString("qlty");
             week_txt = mBundle.getString("week");
         }
@@ -203,19 +204,11 @@ public class MoreInfoItemFragment extends Fragment {
             String cond_txt = "";
             String dir_txt = "";
             String sc_txt = "";
-            String sunrise_txt = "";
-            String sunset_txt = "";
-            try {
-                code = new JSONObject(mDailyforecast.cond).optString("code_d");
-                cond_txt = new JSONObject(mDailyforecast.cond).optString("txt_d");
-                dir_txt = new JSONObject(mDailyforecast.wind).optString("dir");
-                sc_txt = new JSONObject(mDailyforecast.wind).optString("sc");
-                tmp_txt = new JSONObject(mDailyforecast.tmp).optString("min") + "℃" + "/" + new JSONObject(mDailyforecast.tmp).optString("max") + "℃";
-//                sunrise_txt = new JSONObject(mDailyforecast.astro).optString("sr");//日出日落时间字段暂时为空
-//                sunset_txt = new JSONObject(mDailyforecast.astro).optString("ss");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            code = mDailyforecast.getCond().getCode_d();
+            cond_txt = mDailyforecast.getCond().getTxt_d();
+            dir_txt = mDailyforecast.getWind().getDir();
+            sc_txt = mDailyforecast.getWind().getSc();
+            tmp_txt = mDailyforecast.getTmp().getMin() + "℃" + "/" + mDailyforecast.getTmp().getMax() + "℃";
             for (int j = 0; j < weathimgs.size(); j++) {
                 if (code.equals(weathimgs.get(j).getCode())) {
                     weather_img.setImageBitmap(weathimgs.get(j).getIcon());
@@ -225,16 +218,14 @@ public class MoreInfoItemFragment extends Fragment {
             cond.setText(cond_txt);
             dir.setText(dir_txt);
             sc.setText(sc_txt);
-            vis.setText(mDailyforecast.vis + " KM");
-            hum.setText(mDailyforecast.hum + "%");
-            pop.setText(mDailyforecast.pop + "%");
-            pcpn.setText(mDailyforecast.pcpn + "mm");
-            pres.setText(mDailyforecast.pres + "hPa");
-            yangli.setText(mDailyforecast.date.substring(mDailyforecast.date.length() - 2, mDailyforecast.date.length()));
-            getZodiac(mDailyforecast.date);
+            vis.setText(mDailyforecast.getVis() + " KM");
+            hum.setText(mDailyforecast.getHum() + "%");
+            pop.setText(mDailyforecast.getPop() + "%");
+            pcpn.setText(mDailyforecast.getPcpn() + "mm");
+            pres.setText(mDailyforecast.getPres() + "hPa");
+            yangli.setText(mDailyforecast.getDate().substring(mDailyforecast.getDate().length() - 2, mDailyforecast.getDate().length()));
+            getZodiac(mDailyforecast.getDate());
             getConstellationService();
-//            sunrise.setText(sunrise_txt);
-//            sunset.setText(sunset_txt);
         }
     }
 
